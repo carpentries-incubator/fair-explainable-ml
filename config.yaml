@@ -43,10 +43,6 @@ contact: 'apmeyer4@wisc.edu'
 #
 # Example -------------
 #
-episodes:
-- introduction.md
-- problem-definition.md
-#
 # learners:
 # - setup.md
 #
@@ -58,8 +54,9 @@ episodes:
 # - another-learner.md
 
 # Order of episodes in your lesson
-episodes: 
+episodes:
 - introduction.md
+- problem-definition.md
 
 # Information for Learners
 learners: 
