@@ -1,45 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://carpentries.github.io/workbench-template-md/404.html</loc>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/404.html</loc>
   </url>
   <url>
-    <loc>https://carpentries.github.io/workbench-template-md/CODE_OF_CONDUCT.html</loc>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/CODE_OF_CONDUCT.html</loc>
   </url>
   <url>
-    <loc>https://carpentries.github.io/workbench-template-md/LICENSE.html</loc>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://carpentries.github.io/workbench-template-md/index.html</loc>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/aio.html</loc>
   </url>
   <url>
-    <loc>https://carpentries.github.io/workbench-template-md/instructor/404.html</loc>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/images.html</loc>
   </url>
   <url>
-    <loc>https://carpentries.github.io/workbench-template-md/instructor/CODE_OF_CONDUCT.html</loc>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/index.html</loc>
   </url>
   <url>
-    <loc>https://carpentries.github.io/workbench-template-md/instructor/LICENSE.html</loc>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/instructor/404.html</loc>
   </url>
   <url>
-    <loc>https://carpentries.github.io/workbench-template-md/instructor/index.html</loc>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/instructor/CODE_OF_CONDUCT.html</loc>
   </url>
   <url>
-    <loc>https://carpentries.github.io/workbench-template-md/instructor/introduction.html</loc>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/instructor/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://carpentries.github.io/workbench-template-md/instructor/profiles.html</loc>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/instructor/aio.html</loc>
   </url>
   <url>
-    <loc>https://carpentries.github.io/workbench-template-md/instructor/reference.html</loc>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/instructor/images.html</loc>
   </url>
   <url>
-    <loc>https://carpentries.github.io/workbench-template-md/introduction.html</loc>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/instructor/index.html</loc>
   </url>
   <url>
-    <loc>https://carpentries.github.io/workbench-template-md/profiles.html</loc>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/instructor/instructor-notes.html</loc>
   </url>
   <url>
-    <loc>https://carpentries.github.io/workbench-template-md/reference.html</loc>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/instructor/introduction.html</loc>
+  </url>
+  <url>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/instructor/key-points.html</loc>
+  </url>
+  <url>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/instructor/problem-definition.html</loc>
+  </url>
+  <url>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/instructor/profiles.html</loc>
+  </url>
+  <url>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/instructor/reference.html</loc>
+  </url>
+  <url>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/instructor-notes.html</loc>
+  </url>
+  <url>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/introduction.html</loc>
+  </url>
+  <url>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/key-points.html</loc>
+  </url>
+  <url>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/problem-definition.html</loc>
+  </url>
+  <url>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/profiles.html</loc>
+  </url>
+  <url>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/reference.html</loc>
   </url>
 </urlset>
