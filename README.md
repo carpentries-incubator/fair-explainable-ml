@@ -1,17 +1,9 @@
-# The Carpentries Workbench Template Markdown Lesson
+# Fair and Explainable Machine Learning
 
-This lesson is a template lesson that uses [The Carpentries Workbench][workbench].
+This lesson plan aims to introduce machine learning practitioners about responsible machine learning, with a focus on fairness, explanability, and reproducibilities concerns. This lesson is developed through [The Carpentries Workbench][workbench] framework and is designed to be taught as a Carpentries workshop. 
 
-## Create a new repository from this template
 
-To use this template to start a new lesson repository, 
-make sure you're logged into Github.   
-Visit https://github.com/carpentries/workbench-template-md/generate
-and follow the instructions.
-Checking the 'Include all branches' option will save some time waiting for the first website build
-when your new repository is initialised.
-
-If you have any questions, contact [@zkamvar](https://github.com/zkamvar)
+The remainder of the README below is general guidelines for creating a Carpentries lesson plan and will be updated as this lesson plan is completed.
 
 ## Configure a new lesson
 
