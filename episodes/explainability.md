@@ -1,5 +1,5 @@
 ---
-title: "Preparing to train a model"
+title: "Explainability"
 teaching: 0
 exercises: 0
 ---

@@ -57,6 +57,10 @@ contact: 'apmeyer4@wisc.edu'
 episodes:
 - introduction.md
 - problem-definition.md
+- scientific-validity.md
+- fairness.md
+- explainability.md
+- releasing-a-model.md
 
 # Information for Learners
 learners: 
