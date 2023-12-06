@@ -1,5 +1,5 @@
 ---
-title: "Preparing to train a model"
+title: "Scientific Validity in the Modeling Process"
 teaching: 0
 exercises: 0
 ---

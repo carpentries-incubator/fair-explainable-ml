@@ -1,5 +1,5 @@
 ---
-title: "Preparing to train a model"
+title: "Releasing a model"
 teaching: 0
 exercises: 0
 ---
