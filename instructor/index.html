@@ -151,7 +151,7 @@
 <div class="accordion accordion-flush" id="accordionFlush2">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading2">
-        <a href="introduction.html">1. Using Markdown</a>
+        <a href="introduction.html">1. Introduction</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -160,7 +160,43 @@
 <div class="accordion accordion-flush" id="accordionFlush3">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading3">
-        <a href="problem-definition.html">2. Problem definition</a>
+        <a href="problem-definition.html">2. Preparing to train a model</a>
+    </div><!--/div.accordion-header-->
+        
+  </div><!--/div.accordion-item-->
+</div><!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush4">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading4">
+        <a href="scientific-validity.html">3. Scientific Validity in the Modeling Process</a>
+    </div><!--/div.accordion-header-->
+        
+  </div><!--/div.accordion-item-->
+</div><!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush5">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading5">
+        <a href="fairness.html">4. Fairness</a>
+    </div><!--/div.accordion-header-->
+        
+  </div><!--/div.accordion-item-->
+</div><!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush6">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading6">
+        <a href="explainability.html">5. Explainability</a>
+    </div><!--/div.accordion-header-->
+        
+  </div><!--/div.accordion-item-->
+</div><!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush7">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading7">
+        <a href="releasing-a-model.html">6. Releasing a model</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -212,21 +248,33 @@
       </div>
       <!-- content for large screens -->
       <div class="d-none d-sm-none d-md-block">
-        <a class="chapter-link float-end" href="../instructor/introduction.html" rel="next">Next: Using Markdown... <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
+        <a class="chapter-link float-end" href="../instructor/introduction.html" rel="next">Next: Introduction... <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
       <hr></nav><main id="main-content" class="main-content"><h1 class="schedule-heading">Summary and Schedule</h1>
       
 
 <p>This lesson aims to teach responsible machine learning practices with
 a focus on fairness, explainability, and reproducibility.</p>
-<p>Prerequisites - Participants should have experience using Python. -
-Participants should have a basic understanding of machine learning
+<div id="prereq1" class="callout prereq">
+<div class="callout-square">
+<i class="callout-icon" data-feather="check"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Prereq<a class="anchor" aria-label="anchor" href="#prereq1"></a>
+</h3>
+<div class="callout-content">
+<ul><li>Participants should have experience using Python.</li>
+<li>Participants should have a basic understanding of machine learning
 (e.g., familiar with the concepts like train/test split and
 cross-validation) and should have trained at least one model in the
-past. - Participants should care about the interpretability,
-reproducibility, and/or fairness of the models they build. -
-Participants should have domain knowledge of the field they work in and
-want to build models for.</p>
+past.</li>
+<li>Participants should care about the interpretability,
+reproducibility, and/or fairness of the models they build.</li>
+<li>Participants should have domain knowledge of the field they work in
+and want to build models for.</li>
+</ul></div>
+</div>
+</div>
 <!-- 
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use. 
@@ -238,7 +286,7 @@ any links that you are not going to use.
 <span class="visually-hidden">Duration: </span>00h 00m
 </td>
 <td>
- 1. <a href="introduction.html">Using Markdown</a>
+ 1. <a href="introduction.html">Introduction</a>
 </td>
 <td>
 How do you write a lesson using Markdown and <a href="https://carpentries.github.io/sandpaper/" class="external-link">sandpaper</a>?
@@ -247,7 +295,44 @@ How do you write a lesson using Markdown and <a href="https://carpentries.github
 <span class="visually-hidden">Duration: </span>00h 12m
 </td>
 <td>
- 2. <a href="problem-definition.html">Problem definition</a>
+ 2. <a href="problem-definition.html">Preparing to train a model</a>
+</td>
+<td>
+TODO
+</td>
+</tr><tr><td>
+<span class="visually-hidden">Duration: </span>00h 12m
+</td>
+<td>
+ 3. <a href="scientific-validity.html">Scientific Validity in the
+Modeling Process</a>
+</td>
+<td>
+TODO
+</td>
+</tr><tr><td>
+<span class="visually-hidden">Duration: </span>00h 12m
+</td>
+<td>
+ 4. <a href="fairness.html">Fairness</a>
+</td>
+<td>
+TODO
+</td>
+</tr><tr><td>
+<span class="visually-hidden">Duration: </span>00h 12m
+</td>
+<td>
+ 5. <a href="explainability.html">Explainability</a>
+</td>
+<td>
+TODO
+</td>
+</tr><tr><td>
+<span class="visually-hidden">Duration: </span>00h 12m
+</td>
+<td>
+ 6. <a href="releasing-a-model.html">Releasing a model</a>
 </td>
 <td>
 TODO
@@ -301,7 +386,7 @@ e.g. online setup) in the solutions blocks.</p>
   Windows
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>Use PuTTY</p>
 </div>
@@ -315,7 +400,7 @@ e.g. online setup) in the solutions blocks.</p>
   MacOS
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>Use Terminal.app</p>
 </div>
@@ -329,7 +414,7 @@ e.g. online setup) in the solutions blocks.</p>
   Linux
   </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <p>Use Terminal</p>
 </div>
@@ -345,7 +430,7 @@ any links that you are not going to use.
       </div>
       <!-- content for large screens -->
       <div class="d-none d-sm-none d-md-block">
-        <a class="chapter-link float-end" href="../instructor/introduction.html" rel="next">Next: Using Markdown... <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
+        <a class="chapter-link float-end" href="../instructor/introduction.html" rel="next">Next: Introduction... <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
     </nav></div>
 <!-- END  : inst/pkgdown/templates/content-syllabus.html -->
@@ -390,8 +475,8 @@ any links that you are not going to use.
   "url": "https://annapmeyer.github.io/fair-explainable-ml/instructor/index.html",
   "identifier": "https://annapmeyer.github.io/fair-explainable-ml/instructor/index.html",
   "dateCreated": "2023-12-05",
-  "dateModified": "2023-12-05",
-  "datePublished": "2023-12-05"
+  "dateModified": "2023-12-06",
+  "datePublished": "2023-12-06"
 }
 
   </script><script>

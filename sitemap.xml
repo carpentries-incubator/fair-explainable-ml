@@ -13,6 +13,12 @@
     <loc>https://annapmeyer.github.io/fair-explainable-ml/aio.html</loc>
   </url>
   <url>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/explainability.html</loc>
+  </url>
+  <url>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/fairness.html</loc>
+  </url>
+  <url>
     <loc>https://annapmeyer.github.io/fair-explainable-ml/images.html</loc>
   </url>
   <url>
@@ -29,6 +35,12 @@
   </url>
   <url>
     <loc>https://annapmeyer.github.io/fair-explainable-ml/instructor/aio.html</loc>
+  </url>
+  <url>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/instructor/explainability.html</loc>
+  </url>
+  <url>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/instructor/fairness.html</loc>
   </url>
   <url>
     <loc>https://annapmeyer.github.io/fair-explainable-ml/instructor/images.html</loc>
@@ -55,6 +67,12 @@
     <loc>https://annapmeyer.github.io/fair-explainable-ml/instructor/reference.html</loc>
   </url>
   <url>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/instructor/releasing-a-model.html</loc>
+  </url>
+  <url>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/instructor/scientific-validity.html</loc>
+  </url>
+  <url>
     <loc>https://annapmeyer.github.io/fair-explainable-ml/instructor-notes.html</loc>
   </url>
   <url>
@@ -71,5 +89,11 @@
   </url>
   <url>
     <loc>https://annapmeyer.github.io/fair-explainable-ml/reference.html</loc>
+  </url>
+  <url>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/releasing-a-model.html</loc>
+  </url>
+  <url>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/scientific-validity.html</loc>
   </url>
 </urlset>
