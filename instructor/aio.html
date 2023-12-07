@@ -373,7 +373,7 @@ reinforce the objectives.</li>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
 <div class="accordion-body">
 <p>Inline instructor notes can help inform instructors of timing
 challenges associated with the lessons. They appear in the “Instructor
@@ -407,7 +407,7 @@ View”</p>
   Output
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -438,7 +438,7 @@ challenge blocks?<a class="anchor" aria-label="anchor" href="#challenge-2-how-do
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>You can add a line with at least three colons and a
 <code>solution</code> tag.</p>
@@ -503,7 +503,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-problem-definition"><p>Content from <a href="problem-definition.html">Preparing to train a model</a></p>
 <hr>
-<p> Last updated on 2023-12-06 | 
+<p> Last updated on 2023-12-07 | 
         
         <a href="https://github.com/annapmeyer/fair-explainable-ml/edit/main/episodes/problem-definition.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time <i aria-hidden="true" data-feather="clock"></i> 0 minutes </p>
@@ -528,7 +528,10 @@ any links that you are not going to use.
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
 <ul>
-<li>TODO</li>
+<li>Judge what tasks are appropriate for machine learning</li>
+<li>Understand why the choice of prediction task / target variable is
+important.</li>
+<li>Describe how bias can appear in training data.</li>
 </ul>
 </div>
 </div>
@@ -569,7 +572,7 @@ any links that you are not going to use.
 </div>
 </div></section><section id="aio-fairness"><p>Content from <a href="fairness.html">Fairness</a></p>
 <hr>
-<p> Last updated on 2023-12-06 | 
+<p> Last updated on 2023-12-07 | 
         
         <a href="https://github.com/annapmeyer/fair-explainable-ml/edit/main/episodes/fairness.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time <i aria-hidden="true" data-feather="clock"></i> 0 minutes </p>
@@ -594,15 +597,50 @@ any links that you are not going to use.
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
 <ul>
-<li>Participants will be able to define and differntiate between various
-notions of fairness in the context of machine learning.</li>
-<li>Participants will be able to define (and implement?) two different
-ways of modifying the machine learning modeling process to improve the
-fairness of a model.</li>
-<li>Participants will understand the limitations of fairness as a metric
-for machine learning models.</li>
+<li>Explain what is meant by bias and fairness in the context of machine
+learning.</li>
+<li>Describe two different ways of modifying the machine learning
+modeling process to improve the fairness of a model.</li>
+<li>Articulate the limitations of fairness scores</li>
 </ul>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div id="matching-fairness-terminology-with-definitions" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div id="matching-fairness-terminology-with-definitions" class="callout-inner">
+<h3 class="callout-title">Matching fairness terminology with
+definitions<a class="anchor" aria-label="anchor" href="#matching-fairness-terminology-with-definitions"></a>
+</h3>
+<div class="callout-content">
+<p>Match the following types of formal fairness with their definitions.
+(A) Individual fairness, (B) Equalized odds, (C) Demographic parity, and
+(D) Group-level calibration</p>
+<ol style="list-style-type: decimal">
+<li>The model is equally accurate across all demographic groups.</li>
+<li>Different demographic groups have the same true positive rates and
+false positive rates.</li>
+<li>Similar people are treated similarly.</li>
+<li>People from different demographic groups receive each outcome at the
+same rate.</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
+  <h4 class="accordion-header" id="headingSolution1">
+  Show me the solution
+  </h4>
+</button>
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div class="accordion-body">
+<p>A - 3, B - 2, C - 4, D - 1</p>
 </div>
 </div>
 </div>
@@ -721,8 +759,8 @@ for machine learning models.</li>
   "url": "https://annapmeyer.github.io/fair-explainable-ml/instructor/aio.html",
   "identifier": "https://annapmeyer.github.io/fair-explainable-ml/instructor/aio.html",
   "dateCreated": "2023-12-05",
-  "dateModified": "2023-12-06",
-  "datePublished": "2023-12-06"
+  "dateModified": "2023-12-07",
+  "datePublished": "2023-12-07"
 }
 
   </script><script>
