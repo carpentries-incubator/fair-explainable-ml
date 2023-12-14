@@ -1,7 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/0-introduction.html</loc>
+  </url>
+  <url>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/1-preparing-to-train.html</loc>
+  </url>
+  <url>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/2-model-fitting.html</loc>
+  </url>
+  <url>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/3-model-eval.html</loc>
+  </url>
+  <url>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/4-explainability.html</loc>
+  </url>
+  <url>
     <loc>https://annapmeyer.github.io/fair-explainable-ml/404.html</loc>
+  </url>
+  <url>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/5-releasing-a-model.html</loc>
   </url>
   <url>
     <loc>https://annapmeyer.github.io/fair-explainable-ml/CODE_OF_CONDUCT.html</loc>
@@ -25,7 +43,25 @@
     <loc>https://annapmeyer.github.io/fair-explainable-ml/index.html</loc>
   </url>
   <url>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/instructor/0-introduction.html</loc>
+  </url>
+  <url>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/instructor/1-preparing-to-train.html</loc>
+  </url>
+  <url>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/instructor/2-model-fitting.html</loc>
+  </url>
+  <url>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/instructor/3-model-eval.html</loc>
+  </url>
+  <url>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/instructor/4-explainability.html</loc>
+  </url>
+  <url>
     <loc>https://annapmeyer.github.io/fair-explainable-ml/instructor/404.html</loc>
+  </url>
+  <url>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/instructor/5-releasing-a-model.html</loc>
   </url>
   <url>
     <loc>https://annapmeyer.github.io/fair-explainable-ml/instructor/CODE_OF_CONDUCT.html</loc>
