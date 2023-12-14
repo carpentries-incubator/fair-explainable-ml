@@ -55,12 +55,12 @@ contact: 'apmeyer4@wisc.edu'
 
 # Order of episodes in your lesson
 episodes:
-- introduction.md
-- problem-definition.md
-- scientific-validity.md
-- fairness.md
-- explainability.md
-- releasing-a-model.md
+- 0-introduction.md
+- 1-preparing-to-train.md
+- 2-model-fitting.md
+- 3-model-eval.md
+- 4-explainability.md
+- 5-releasing-a-model.md
 
 # Information for Learners
 learners: 
