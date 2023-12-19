@@ -167,14 +167,15 @@
               <div id="flush-collapseEleven" class="accordion-collapse show collapse" aria-labelledby="flush-headingEleven" data-bs-parent="#accordionFlush11">
 
                 <div class="accordion-body">
-                  <?xml version="1.0" encoding="UTF-8"?><div class="accordion accordion-flush" id="accordionFlush1">
+                  <div class="accordion accordion-flush" id="accordionFlush1">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading1">
-      <a href="index.html">Summary and Schedule</a>
+        <a href="index.html">Summary and Schedule</a>
     </div>
-    <!--/div.accordion-header-->
+<!--/div.accordion-header-->
+        
   </div>
-  <!--/div.accordion-item-->
+<!--/div.accordion-item-->
 </div>
 <!--/div.accordion-flush-->
 
@@ -217,7 +218,7 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="3-model-eval.html">4. Fairness</a>
+        <a href="3-model-eval.html">4. Model evaluation and fairness</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -370,7 +371,7 @@ reinforce the objectives.</li>
   <h3 class="accordion-header" id="headingInstructor1">
 <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div>Instructor Note</h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
 <div class="accordion-body">
 <p>Inline instructor notes can help inform instructors of timing
 challenges associated with the lessons. They appear in the “Instructor
@@ -402,7 +403,7 @@ View”</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Output</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -431,7 +432,7 @@ challenge blocks?<a class="anchor" aria-label="anchor" href="#challenge-2-how-do
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>You can add a line with at least three colons and a
 <code>solution</code> tag.</p>
@@ -618,9 +619,9 @@ performance.</li>
 </ul>
 </div>
 </div>
-</div></section><section id="aio-3-model-eval"><p>Content from <a href="3-model-eval.html">Fairness</a></p>
+</div></section><section id="aio-3-model-eval"><p>Content from <a href="3-model-eval.html">Model evaluation and fairness</a></p>
 <hr>
-<p>Last updated on 2023-12-14 |
+<p>Last updated on 2023-12-19 |
         
         <a href="https://github.com/annapmeyer/fair-explainable-ml/edit/main/episodes/3-model-eval.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 0 minutes</p>
@@ -637,6 +638,7 @@ performance.</li>
 <ul>
 <li>How do we define fairness and bias in machine learning
 outcomes?</li>
+<li>What types of bias and unfairness can occur in generative AI?</li>
 <li>How can we improve the fairness of machine learning models?</li>
 </ul>
 </div>
@@ -659,6 +661,98 @@ learning modeling process to improve the fairness of a model.</li>
 </div>
 </div>
 </div>
+<section id="accuracy-metrics"><h2 class="section-heading">Accuracy metrics<a class="anchor" aria-label="anchor" href="#accuracy-metrics"></a>
+</h2>
+<hr class="half-width">
+<p>Stakeholders often want to know the accuracy of a machine learning
+model – what percent of predictions are correct? Accuracy can be
+decomposed into further metrics: e.g., in a binary prediction setting,
+recall (the fraction of positive samples that are classified correctly)
+and precision (the fraction of samples classified as positive that
+actually are positive) are commonly-used metrics.</p>
+<p><strong>TO DO</strong> put table (confusion matrix) here with metrics
+and discuss what different entries mean</p>
+<div id="what-accuracy-metric-to-use" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div id="what-accuracy-metric-to-use" class="callout-inner">
+<h3 class="callout-title">What accuracy metric to use?<a class="anchor" aria-label="anchor" href="#what-accuracy-metric-to-use"></a>
+</h3>
+<div class="callout-content">
+<p>Different accuracy metrics may be more relevant in different
+situations. Discuss with a partner or small groups whether precision,
+recall, or some combination of the two is most relevant in the following
+prediction tasks:</p>
+<ol style="list-style-type: decimal">
+<li>Deciding what patients are high risk for a disease and who should
+get additional low-cost screening.</li>
+<li>Deciding what patients are high risk for a disease and should start
+taking medication to lower the disease risk. The medication is expensive
+and can have unpleasant side effects.</li>
+<li><strong>TODO</strong></li>
+</ol>
+</div>
+</div>
+</div>
+<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
+  <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
+</button>
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div class="accordion-body">
+<ol style="list-style-type: decimal">
+<li><p>It is best if all patients who need the screening get it, and
+there is little downside for doing screenings unnecessarily because the
+screening costs are low. Thus, a high recall score is optimal.</p></li>
+<li><p>Given the costs and side effects of the medicine, we do not want
+patients not at risk for the disease to take the medication. So, a high
+precision score is ideal.</p></li>
+<li><p><strong>TODO</strong></p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</section><section id="fairness-metrics"><h2 class="section-heading">Fairness metrics<a class="anchor" aria-label="anchor" href="#fairness-metrics"></a>
+</h2>
+<hr class="half-width">
+<p>What does it mean for a machine learning model to be fair? There is
+no single definition of fairness, adn it stems beyond data, model
+internals, and model output to how a model is deployed in practice. But
+the aggregate model outputs can be used to gain an overall understanding
+of how models behave with respect to different demographic groups – an
+approach called group fairness.</p>
+<p>In general, if there are no differences between groups, achieving
+fairness is easy. But, in practice, in many social settings wehre
+prediction tools are used, there are differences between groups, e.g.,
+due to historical and current discrimination.</p>
+<p>For instance, in a loan prediction setting in the United States, the
+average white applicant may be better positioned to repay a loan than
+the average Black applicant due to differences in generational wealth,
+education opportunities, and other factors stemming from anti-Black
+racism. If, say, 50% of white applicants are granted a loan, with a
+precision of 90% and a recall of 70% – in other words, 90% of white
+people granted loans end up repaying them, and 70% of all people who
+would have repayed the loan, if given the opportunity, get the loan.
+Consider the following scenarios:</p>
+<ul>
+<li>(Demographic parity) We give loans to 50% of Black applicants in a
+way that maximizes overall accurcy</li>
+<li>(Equalized odds) We give loans to X% of Black applicants, where X is
+chosen to maximize accuracy subject to keeping precision equal to
+90%.</li>
+<li>(Group level calibration) We give loans to X% of Black applicants,
+where X is chosen to maximize accuracy while keeping recall equal to
+70%.</li>
+</ul>
+<p>There are <em>many</em> notions of statistical group fainress, but
+most boil down to one of the three above options: demographic parity,
+equalized odds, and group-level calibration.</p>
+<p><strong>TODO</strong> need example here, case study</p>
+<p><strong>TODO</strong> need discussion of individual fainress
+(especially if we keep the challenge below)</p>
 <div id="matching-fairness-terminology-with-definitions" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
@@ -682,18 +776,23 @@ same rate.</li>
 </div>
 </div>
 </div>
-<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
-  <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
+  <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>A - 3, B - 2, C - 4, D - 1</p>
 </div>
 </div>
 </div>
 </div>
+</section><section id="fairness-in-generative-ai"><h2 class="section-heading">Fairness in generative AI<a class="anchor" aria-label="anchor" href="#fairness-in-generative-ai"></a>
+</h2>
+<hr class="half-width"></section><section id="improving-fairness-of-models"><h2 class="section-heading">Improving fairness of models<a class="anchor" aria-label="anchor" href="#improving-fairness-of-models"></a>
+</h2>
+<hr class="half-width">
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
@@ -707,14 +806,19 @@ same rate.</li>
 single accuracy score is not sufficient.</li>
 <li>There is no single definition of “fair machine learning”: different
 notions of fairness are appropriate in different contexts.</li>
-<li>It is usually not possible to satisfy all possible notions of
-fairness.</li>
+<li>Representational harms and stereotypes can be perpetuated by
+generative AI.</li>
 <li>The fairness of a model can be improved by using techniques like
 data reweighting and model postprocessing.</li>
 </ul>
 </div>
 </div>
-</div></section><section id="aio-4-explainability"><p>Content from <a href="4-explainability.html">Explainability</a></p>
+</div>
+<!-- 
+Place links that you need to refer to multiple times across pages here. Delete
+any links that you are not going to use. 
+ -->
+</section></section><section id="aio-4-explainability"><p>Content from <a href="4-explainability.html">Explainability</a></p>
 <hr>
 <p>Last updated on 2023-12-14 |
         
@@ -852,7 +956,7 @@ should not be used.</li>
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
         
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.1" class="external-link">sandpaper (0.16.1)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.3" class="external-link">pegboard (0.7.3)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.1" class="external-link">varnish (1.0.1)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.2" class="external-link">sandpaper (0.16.2)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.3" class="external-link">pegboard (0.7.3)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.1" class="external-link">varnish (1.0.1)</a></p>
 			</div>
 		</footer>
 </div> <!-- / div.container -->
@@ -866,6 +970,7 @@ should not be used.</li>
   "@context": "https://schema.org",
   "@type": "TrainingMaterial",
   "@id": "https://annapmeyer.github.io/fair-explainable-ml/instructor/aio.html",
+  "inLanguage": "en",
   "dct:conformsTo": "https://bioschemas.org/profiles/TrainingMaterial/1.0-RELEASE",
   "description": "A Carpentries Lesson teaching foundational data and coding skills to researchers worldwide",
   "keywords": "fairness, explainability, fair machine learning, interpretable machine learning, xai, lesson, The Carpentries",
