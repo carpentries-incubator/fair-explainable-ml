@@ -601,7 +601,7 @@ performance.</li>
 </div>
 </div></section><section id="aio-3-model-eval"><p>Content from <a href="3-model-eval.html">Model evaluation and fairness</a></p>
 <hr>
-<p>Last updated on 2023-12-19 |
+<p>Last updated on 2023-12-21 |
         
         <a href="https://github.com/annapmeyer/fair-explainable-ml/edit/main/episodes/3-model-eval.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -649,8 +649,38 @@ decomposed into further metrics: e.g., in a binary prediction setting,
 recall (the fraction of positive samples that are classified correctly)
 and precision (the fraction of samples classified as positive that
 actually are positive) are commonly-used metrics.</p>
-<p><strong>TO DO</strong> put table (confusion matrix) here with metrics
-and discuss what different entries mean</p>
+<p>Suppose we have a model that performs binary classification (+, -) on
+a test dataset of 1000 samples (let <span class="math inline">\(n\)</span>=1000). A <em>confusion matrix</em>
+defines how many predictions we make in each of four quadrants: true
+positive with positive prediction (++), true positive with negative
+prediction (+-), true negative with positive prediction (-+), and true
+negative with negative prediction (–).</p>
+<div class="line-block">            | True + | True -<br>
+Predicted + | 300 | 80<br>
+Predicted - | 25 | 595</div>
+<p>So, for instance, 80 samples have a true class of + but get predicted
+as members of -.</p>
+<p>We can compute the following metrics: * Accuracy: What fraction of
+predictions are correct? * (300 + 595) / 100 = 0.895 * Accuracy is 89.5%
+* Precision: What fraction of predicted positives are true positives? *
+300 / (300 + 80) = 0.789 * Precision is 78.9% * Recall: What fraction of
+true positives are classified as positive? * 300 / (300 + 25) = 0.923 *
+Recall is 92.3%</p>
+<div id="callout1" class="callout callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Callout<a class="anchor" aria-label="anchor" href="#callout1"></a>
+</h3>
+<div class="callout-content">
+<p>TODO we’ve discussed binary classification but for other types of
+tasks there are different metrics. E.g., top-k accuracy for multi-class
+problems, ROC for regression tasks</p>
+<p>TODO also discuss F1 score here?</p>
+</div>
+</div>
+</div>
 <div id="what-accuracy-metric-to-use" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
@@ -704,7 +734,7 @@ the aggregate model outputs can be used to gain an overall understanding
 of how models behave with respect to different demographic groups – an
 approach called group fairness.</p>
 <p>In general, if there are no differences between groups, achieving
-fairness is easy. But, in practice, in many social settings wehre
+fairness is easy. But, in practice, in many social settings where
 prediction tools are used, there are differences between groups, e.g.,
 due to historical and current discrimination.</p>
 <p>For instance, in a loan prediction setting in the United States, the
@@ -714,11 +744,11 @@ education opportunities, and other factors stemming from anti-Black
 racism. If, say, 50% of white applicants are granted a loan, with a
 precision of 90% and a recall of 70% – in other words, 90% of white
 people granted loans end up repaying them, and 70% of all people who
-would have repayed the loan, if given the opportunity, get the loan.
+would have repaid the loan, if given the opportunity, get the loan.
 Consider the following scenarios:</p>
 <ul>
 <li>(Demographic parity) We give loans to 50% of Black applicants in a
-way that maximizes overall accurcy</li>
+way that maximizes overall accuracy</li>
 <li>(Equalized odds) We give loans to X% of Black applicants, where X is
 chosen to maximize accuracy subject to keeping precision equal to
 90%.</li>
@@ -726,11 +756,11 @@ chosen to maximize accuracy subject to keeping precision equal to
 where X is chosen to maximize accuracy while keeping recall equal to
 70%.</li>
 </ul>
-<p>There are <em>many</em> notions of statistical group fainress, but
+<p>There are <em>many</em> notions of statistical group fairness, but
 most boil down to one of the three above options: demographic parity,
 equalized odds, and group-level calibration.</p>
 <p><strong>TODO</strong> need example here, case study</p>
-<p><strong>TODO</strong> need discussion of individual fainress
+<p><strong>TODO</strong> need discussion of individual fairness
 (especially if we keep the challenge below)</p>
 <div id="matching-fairness-terminology-with-definitions" class="callout discussion">
 <div class="callout-square">
@@ -769,9 +799,53 @@ same rate.</li>
 </div>
 </section><section id="fairness-in-generative-ai"><h2 class="section-heading">Fairness in generative AI<a class="anchor" aria-label="anchor" href="#fairness-in-generative-ai"></a>
 </h2>
-<hr class="half-width"></section><section id="improving-fairness-of-models"><h2 class="section-heading">Improving fairness of models<a class="anchor" aria-label="anchor" href="#improving-fairness-of-models"></a>
+<hr class="half-width">
+<p>Generative models learn from statistical patterns in real-world
+data.</p>
+<div class="section level3">
+<h3 id="natural-language">Natural language<a class="anchor" aria-label="anchor" href="#natural-language"></a>
+</h3>
+<p>TODO example machine translation</p>
+</div>
+<div class="section level3">
+<h3 id="image-generation">Image generation<a class="anchor" aria-label="anchor" href="#image-generation"></a>
+</h3>
+<p>TODO</p>
+</div>
+</section><section id="improving-fairness-of-models"><h2 class="section-heading">Improving fairness of models<a class="anchor" aria-label="anchor" href="#improving-fairness-of-models"></a>
 </h2>
 <hr class="half-width">
+<p>Reweighting TODO talk through with a simple example?</p>
+<p>Post-processing change cutoffs TODO</p>
+<div id="matching-fairness-terminology-with-definitions-1" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div id="matching-fairness-terminology-with-definitions-1" class="callout-inner">
+<h3 class="callout-title">Matching fairness terminology with
+definitions<a class="anchor" aria-label="anchor" href="#matching-fairness-terminology-with-definitions-1"></a>
+</h3>
+<div class="callout-content">
+<p>Computer scientists have proposed many interventions to improve the
+fairness of machine learning models. A partial list is available (TODO
+FIND RESOURCE). Visit the list and read about one of the methods. When
+would using that method be beneficial for fairness? How does it compare
+to the techniques we talked about above?</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution3" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
+  <h4 class="accordion-header" id="headingSolution3">Show me the solution</h4>
+</button>
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div class="accordion-body">
+<p>TODO (discuss one or two?)</p>
+</div>
+</div>
+</div>
+</div>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
@@ -956,8 +1030,8 @@ should not be used.</li>
   "url": "https://annapmeyer.github.io/fair-explainable-ml/aio.html",
   "identifier": "https://annapmeyer.github.io/fair-explainable-ml/aio.html",
   "dateCreated": "2023-12-05",
-  "dateModified": "2023-12-19",
-  "datePublished": "2023-12-19"
+  "dateModified": "2023-12-21",
+  "datePublished": "2023-12-21"
 }
 
   </script><script>
