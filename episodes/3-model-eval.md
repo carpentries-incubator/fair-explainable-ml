@@ -124,10 +124,38 @@ A - 3, B - 2, C - 4, D - 1
 
 ## Fairness in generative AI
 
-Generative models learn from statistical patterns in real-world data.
+Generative models learn from statistical patterns in real-world data. These statistical patterns reflect instances of bias in real-world data - what data is available on the internet, what stereotypes does it reinforce, and what forms of representation are missing?
 
 ### Natural language
-TODO example machine translation
+One set of social stereotypes that large AI models can learn is gender based. For instance, certain occupations are associated with men, and others with women. For instance, in the U.S., doctors are historically and stereotypically usually men. 
+
+In 2016, Caliskan et al. [showed that machine translation systems exhibit gender bias](https://www.fatml.org/schedule/2016/presentation/semantics-derived-automatically-language-corpora), for instance, by reverting to stereotypical gendered pronouns in ambiguous translations, like in Turkish -- a language without gendered pronouns -- to English.
+
+In response, Google [tweaked their translator algorithms](https://blog.research.google/2018/12/providing-gender-specific-translations.html) to identify and correct for gender stereotypes in Turkish and several other widely-spoken languages. So when we repeat a similar experiment today, we get the following output:
+
+![Screenshot of Google Translate output. The English sentence "The doctor is on her lunch break" is translated to Turkish, and then the Turkish output is translated back to English as either "The doctor is on his lunch break" or "The doctor is on his lunch break".](/images/e4-turkish-nlp-stereotypes.png "Turkish Google Translate example (screenshot from 1/9/2024)")
+
+But for other, less widely-spoken languages, the original problem persists:
+
+![Screenshot of Google Translate output. The English sentence "The doctor is on her lunch break" is translated to Norwegian, and then the Norwegian output is translated back to English as "The doctor is on his lunch break".](/images/e4-norwegian-nlp-stereotypes.png "Norwegian Google Translate example (screenshot from 1/9/2024)")
+
+We're not trying to 
+:::::::::::::::::::::::::::::::::::::: challenge
+
+### Red-teaming large language models
+
+TODO (define red-teaming)
+
+TODO propose ways to fix this if they were developing an application using LLMs
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::: solution
+
+### Solution
+
+TODO
+
+:::::::::::::::::::::::::
 
 ### Image generation
 TODO 
