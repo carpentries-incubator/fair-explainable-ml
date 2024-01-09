@@ -831,12 +831,56 @@ same rate.</li>
 </section><section id="fairness-in-generative-ai"><h2 class="section-heading">Fairness in generative AI<a class="anchor" aria-label="anchor" href="#fairness-in-generative-ai"></a>
 </h2>
 <hr class="half-width">
-<p>Generative models learn from statistical patterns in real-world
-data.</p>
+<p>Generative models learn from statistical patterns in real-world data.
+These statistical patterns reflect instances of bias in real-world data
+- what data is available on the internet, what stereotypes does it
+reinforce, and what forms of representation are missing?</p>
 <div class="section level3">
 <h3 id="natural-language">Natural language<a class="anchor" aria-label="anchor" href="#natural-language"></a>
 </h3>
-<p>TODO example machine translation</p>
+<p>One set of social stereotypes that large AI models can learn is
+gender based. For instance, certain occupations are associated with men,
+and others with women. For instance, in the U.S., doctors are
+historically and stereotypically usually men.</p>
+<p>In 2016, Caliskan et al. <a href="https://www.fatml.org/schedule/2016/presentation/semantics-derived-automatically-language-corpora" class="external-link">showed
+that machine translation systems exhibit gender bias</a>, for instance,
+by reverting to stereotypical gendered pronouns in ambiguous
+translations, like in Turkish – a language without gendered pronouns –
+to English.</p>
+<p>In response, Google <a href="https://blog.research.google/2018/12/providing-gender-specific-translations.html" class="external-link">tweaked
+their translator algorithms</a> to identify and correct for gender
+stereotypes in Turkish and several other widely-spoken languages. So
+when we repeat a similar experiment today, we get the following
+output:</p>
+<figure><img src="/images/e4-turkish-nlp-stereotypes.png" title="Turkish Google Translate example (screenshot from 1/9/2024)" alt="" class="figure mx-auto d-block"><figcaption>Screenshot of Google Translate output. The English
+sentence “The doctor is on her lunch break” is translated to Turkish,
+and then the Turkish output is translated back to English as either “The
+doctor is on his lunch break” or “The doctor is on his lunch break”.</figcaption></figure><p>But for other, less widely-spoken languages, the original problem
+persists:</p>
+<figure><img src="/images/e4-norwegian-nlp-stereotypes.png" title="Norwegian Google Translate example (screenshot from 1/9/2024)" alt="" class="figure mx-auto d-block"><figcaption>Screenshot of Google Translate output. The English
+sentence “The doctor is on her lunch break” is translated to Norwegian,
+and then the Norwegian output is translated back to English as “The
+doctor is on his lunch break”.</figcaption></figure><p>We’re not trying to ::::::::::::::::::::::::::::::::::::::
+challenge</p>
+</div>
+<div class="section level3">
+<h3 id="red-teaming-large-language-models">Red-teaming large language models<a class="anchor" aria-label="anchor" href="#red-teaming-large-language-models"></a>
+</h3>
+<p>TODO (define red-teaming)</p>
+<p>TODO propose ways to fix this if they were developing an application
+using LLMs ::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+<div id="accordionSolution3" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
+  <h4 class="accordion-header" id="headingSolution3">Show me the solution</h4>
+</button>
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div class="accordion-body">
+<p>TODO</p>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="section level3">
 <h3 id="image-generation">Image generation<a class="anchor" aria-label="anchor" href="#image-generation"></a>
@@ -865,12 +909,12 @@ to the techniques we talked about above?</p>
 </div>
 </div>
 </div>
-<div id="accordionSolution3" class="accordion challenge-accordion accordion-flush">
+<div id="accordionSolution4" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
-  <h4 class="accordion-header" id="headingSolution3">Show me the solution</h4>
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
+  <h4 class="accordion-header" id="headingSolution4">Show me the solution</h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
 <p>TODO (discuss one or two?)</p>
 </div>
