@@ -168,11 +168,11 @@ TODO talk about representational harms, research on why this matters
 The same problems that language modeling face also affect image generation. Consider, for instance, Melon et al. [developed an algorithm called Pulse](https://arxiv.org/pdf/2003.03808.pdf) that can convert blurry images to higher resolution. But, biases were quickly unearthed and [shared via social media](https://twitter.com/Chicken3gg/status/1274314622447820801?s=20&t=_oORPJBJRaBW_J0zresFJQ).
 
 :::::::::::::::::::::::::::::::::::::: challenge
-Who is shown in this blurred picture? ![Barack Obama by @Chicken3gg, Twitter](../images/e4-obama.png){alt="blurry image of Barack Obama"}
+Who is shown in this blurred picture? ![Barack Obama by @Chicken3gg, Twitter](https://raw.githubusercontent.com/annapmeyer/fair-explainable-ml/main/images/e4-obama.png){alt="blurry image of Barack Obama"}
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::: solution
-While the picture is of Barack Obama, the upsampled image shows a white face. ![Barack Obama by @Chicken3gg, Twitter](../images/e4-obama-upsampled.png){alt="Unblurred version of the pixelated picture of Obama. Instead of showing Obama, it shows a white man."}
+While the picture is of Barack Obama, the upsampled image shows a white face. ![Barack Obama by @Chicken3gg, Twitter](https://raw.githubusercontent.com/annapmeyer/fair-explainable-ml/main/images/e4-obama-upsampled.png){alt="Unblurred version of the pixelated picture of Obama. Instead of showing Obama, it shows a white man."}
 
 You can [try the model here](https://colab.research.google.com/github/tg-bomze/Face-Depixelizer/blob/master/Face_Depixelizer_Eng.ipynb#scrollTo=fU0aGtD4Nl4W).
 ::::::::::::::::::::::::::::::::::::::::::::::::::
