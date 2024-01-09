@@ -25,13 +25,15 @@ Stakeholders often want to know the accuracy of a machine learning model -- what
 
 Suppose we have a model that performs binary classification (+, -) on a test dataset of 1000 samples (let $n$=1000). A *confusion matrix* defines how many predictions we make in each of four quadrants: true positive with positive prediction (++), true positive with negative prediction (+-), true negative with positive prediction (-+), and true negative with negative prediction (--).
 
-|             | True + | True -
-| Predicted + |  300   |   80
-| Predicted - |   25   |  595
+|             | True + | True - |
+|-------------|--------|--------|
+| Predicted + |  300   |   80   |
+| Predicted - |   25   |  595   |
 
 So, for instance, 80 samples have a true class of + but get predicted as members of -. 
 
 We can compute the following metrics:
+
 * Accuracy: What fraction of predictions are correct?
   * (300 + 595) / 100 = 0.895
   * Accuracy is 89.5%
