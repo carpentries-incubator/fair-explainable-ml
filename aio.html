@@ -385,7 +385,7 @@ reinforce the objectives.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Output</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -414,7 +414,7 @@ challenge blocks?<a class="anchor" aria-label="anchor" href="#challenge-2-how-do
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>You can add a line with at least three colons and a
 <code>solution</code> tag.</p>
@@ -601,7 +601,7 @@ performance.</li>
 </div>
 </div></section><section id="aio-3-model-eval"><p>Content from <a href="3-model-eval.html">Model evaluation and fairness</a></p>
 <hr>
-<p>Last updated on 2023-12-21 |
+<p>Last updated on 2024-01-09 |
         
         <a href="https://github.com/annapmeyer/fair-explainable-ml/edit/main/episodes/3-model-eval.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -655,17 +655,48 @@ defines how many predictions we make in each of four quadrants: true
 positive with positive prediction (++), true positive with negative
 prediction (+-), true negative with positive prediction (-+), and true
 negative with negative prediction (–).</p>
-<div class="line-block">            | True + | True -<br>
-Predicted + | 300 | 80<br>
-Predicted - | 25 | 595</div>
+<table class="table">
+<thead><tr class="header">
+<th></th>
+<th>True +</th>
+<th>True -</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Predicted +</td>
+<td>300</td>
+<td>80</td>
+</tr>
+<tr class="even">
+<td>Predicted -</td>
+<td>25</td>
+<td>595</td>
+</tr>
+</tbody>
+</table>
 <p>So, for instance, 80 samples have a true class of + but get predicted
 as members of -.</p>
-<p>We can compute the following metrics: * Accuracy: What fraction of
-predictions are correct? * (300 + 595) / 100 = 0.895 * Accuracy is 89.5%
-* Precision: What fraction of predicted positives are true positives? *
-300 / (300 + 80) = 0.789 * Precision is 78.9% * Recall: What fraction of
-true positives are classified as positive? * 300 / (300 + 25) = 0.923 *
-Recall is 92.3%</p>
+<p>We can compute the following metrics:</p>
+<ul>
+<li>Accuracy: What fraction of predictions are correct?
+<ul>
+<li>(300 + 595) / 100 = 0.895</li>
+<li>Accuracy is 89.5%</li>
+</ul>
+</li>
+<li>Precision: What fraction of predicted positives are true positives?
+<ul>
+<li>300 / (300 + 80) = 0.789</li>
+<li>Precision is 78.9%</li>
+</ul>
+</li>
+<li>Recall: What fraction of true positives are classified as positive?
+<ul>
+<li>300 / (300 + 25) = 0.923</li>
+<li>Recall is 92.3%</li>
+</ul>
+</li>
+</ul>
 <div id="callout1" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>

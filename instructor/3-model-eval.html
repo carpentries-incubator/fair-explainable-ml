@@ -270,7 +270,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Model evaluation and fairness</h1>
-        <p>Last updated on 2023-12-21 |
+        <p>Last updated on 2024-01-09 |
         
         <a href="https://github.com/annapmeyer/fair-explainable-ml/edit/main/episodes/3-model-eval.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -327,18 +327,31 @@ defines how many predictions we make in each of four quadrants: true
 positive with positive prediction (++), true positive with negative
 prediction (+-), true negative with positive prediction (-+), and true
 negative with negative prediction (–).</p>
-<div class="line-block">            | True + | True -<br>
-Predicted + | 300 | 80<br>
-Predicted - | 25 | 595</div>
-<p>So, for instance, 80 samples have a true class of + but get predicted
+<table class="table"><thead><tr class="header"><th></th>
+<th>True +</th>
+<th>True -</th>
+</tr></thead><tbody><tr class="odd"><td>Predicted +</td>
+<td>300</td>
+<td>80</td>
+</tr><tr class="even"><td>Predicted -</td>
+<td>25</td>
+<td>595</td>
+</tr></tbody></table><p>So, for instance, 80 samples have a true class of + but get predicted
 as members of -.</p>
-<p>We can compute the following metrics: * Accuracy: What fraction of
-predictions are correct? * (300 + 595) / 100 = 0.895 * Accuracy is 89.5%
-* Precision: What fraction of predicted positives are true positives? *
-300 / (300 + 80) = 0.789 * Precision is 78.9% * Recall: What fraction of
-true positives are classified as positive? * 300 / (300 + 25) = 0.923 *
-Recall is 92.3%</p>
-<div id="callout1" class="callout callout">
+<p>We can compute the following metrics:</p>
+<ul><li>Accuracy: What fraction of predictions are correct?
+<ul><li>(300 + 595) / 100 = 0.895</li>
+<li>Accuracy is 89.5%</li>
+</ul></li>
+<li>Precision: What fraction of predicted positives are true positives?
+<ul><li>300 / (300 + 80) = 0.789</li>
+<li>Precision is 78.9%</li>
+</ul></li>
+<li>Recall: What fraction of true positives are classified as positive?
+<ul><li>300 / (300 + 25) = 0.923</li>
+<li>Recall is 92.3%</li>
+</ul></li>
+</ul><div id="callout1" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
@@ -586,7 +599,7 @@ any links that you are not going to use.
   "url": "https://annapmeyer.github.io/fair-explainable-ml/instructor/3-model-eval.html",
   "identifier": "https://annapmeyer.github.io/fair-explainable-ml/instructor/3-model-eval.html",
   "dateCreated": "2023-12-05",
-  "dateModified": "2023-12-21",
+  "dateModified": "2024-01-09",
   "datePublished": "2024-01-09"
 }
 
