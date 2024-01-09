@@ -133,11 +133,11 @@ In 2016, Caliskan et al. [showed that machine translation systems exhibit gender
 
 In response, Google [tweaked their translator algorithms](https://blog.research.google/2018/12/providing-gender-specific-translations.html) to identify and correct for gender stereotypes in Turkish and several other widely-spoken languages. So when we repeat a similar experiment today, we get the following output:
 
-![Screenshot of Google Translate output. The English sentence "The doctor is on her lunch break" is translated to Turkish, and then the Turkish output is translated back to English as either "The doctor is on his lunch break" or "The doctor is on his lunch break".](/images/e4-turkish-nlp-stereotypes.png "Turkish Google Translate example (screenshot from 1/9/2024)")
+![Screenshot of Google Translate output. The English sentence "The doctor is on her lunch break" is translated to Turkish, and then the Turkish output is translated back to English as either "The doctor is on his lunch break" or "The doctor is on his lunch break".](../images/e4-turkish-nlp-stereotypes.png "Turkish Google Translate example (screenshot from 1/9/2024)")
 
 But for other, less widely-spoken languages, the original problem persists:
 
-![Screenshot of Google Translate output. The English sentence "The doctor is on her lunch break" is translated to Norwegian, and then the Norwegian output is translated back to English as "The doctor is on his lunch break".](/images/e4-norwegian-nlp-stereotypes.png "Norwegian Google Translate example (screenshot from 1/9/2024)")
+![Screenshot of Google Translate output. The English sentence "The doctor is on her lunch break" is translated to Norwegian, and then the Norwegian output is translated back to English as "The doctor is on his lunch break".](../images/e4-norwegian-nlp-stereotypes.png "Norwegian Google Translate example (screenshot from 1/9/2024)")
 
 We're not trying to slander Google translate here -- the translation, without additional context, is ambiguous. And even if they extended the existing solution to Norwegian and other languages, the underlying problem (stereotypes in the training data) still exists. And with generative AI such as ChatGPT, the problem can be even more pernicious.
 
