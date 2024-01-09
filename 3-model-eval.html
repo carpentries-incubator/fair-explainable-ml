@@ -547,7 +547,65 @@ matters</p>
 </div>
 <div class="section level3">
 <h3 id="image-generation">Image generation<a class="anchor" aria-label="anchor" href="#image-generation"></a></h3>
-<p>TODO</p>
+<p>The same problems that language modeling face also affect image
+generation. Consider, for instance, Melon et al. <a href="https://arxiv.org/pdf/2003.03808.pdf" class="external-link">developed an algorithm
+called Pulse</a> that can convert blurry images to higher resolution.
+But, biases were quickly unearthed and <a href="https://twitter.com/Chicken3gg/status/1274314622447820801?s=20&amp;t=_oORPJBJRaBW_J0zresFJQ" class="external-link">shared
+via social media</a>.</p>
+<div id="discussion4" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#discussion4"></a>
+</h3>
+<div class="callout-content">
+<p>Who is shown in this blurred picture? <img src="images/e4-obama.png" alt="blurry image of Barack Obama" class="figure"></p>
+</div>
+</div>
+</div>
+<div id="accordionSolution4" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
+  <h4 class="accordion-header" id="headingSolution4">Show me the solution</h4>
+</button>
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div class="accordion-body">
+<p>While the picture is of Barack Obama, the upsampled image shows a
+white face. <img src="images/e4-obama-upsampled.png" alt="Unblurred version of the pixelated picture of Obama. Instead of showing Obama, it shows a white man." class="figure"></p>
+<p>You can <a href="https://colab.research.google.com/github/tg-bomze/Face-Depixelizer/blob/master/Face_Depixelizer_Eng.ipynb#scrollTo=fU0aGtD4Nl4W" class="external-link">try
+the model here</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<p>Menon and colleagues subsequently updated their paper to discuss this
+issue of bias. They assert that the problems inherent in the PULSE model
+are largely a result of the <a href="https://arxiv.org/abs/1812.04948" class="external-link">underlying StyleGAN model</a>,
+which they had used in their work.</p>
+<blockquote>
+<p>Overall, it seems that sampling from StyleGAN yields white faces much
+more frequently than faces of people of color … This bias extends to any
+downstream application of StyleGAN, including the implementation of
+PULSE using StyleGAN.</p>
+<p>…</p>
+<p>Results indicate a racial bias among the generated pictures, with
+close to three-fourths (72.6%) of the pictures representing White
+people. Asian (13.8%) and Black (10.1%) are considerably less frequent,
+while Indians represent only a minor fraction of the pictures
+(3.4%).</p>
+</blockquote>
+<p>These remarks get at a central issue: biases in any building block of
+a system (data, base models, etc.) get propagated forwards. In
+generative AI, such as text-to-image systems, this can result in
+representational harms, <a href="https://arxiv.org/pdf/2211.03759.pdf" class="external-link">as documented by Bianchi et
+al.</a>. Fixing these issues of bias is still an active area of
+research. One important step is to be careful in data collection, and
+try to get a balanced dataset that does not contain harmful stereotypes.
+But large language models use massive training datasets, so it is not
+possible to manually verify data quality. Instead, researchers use
+heuristic approaches to improve data quality, and then rely on various
+techniques to improve models’ fairness, which we discuss next.</p>
 </div>
 </section><section id="improving-fairness-of-models"><h2 class="section-heading">Improving fairness of models<a class="anchor" aria-label="anchor" href="#improving-fairness-of-models"></a>
 </h2>
@@ -570,12 +628,12 @@ to the techniques we talked about above?</p>
 </div>
 </div>
 </div>
-<div id="accordionSolution4" class="accordion challenge-accordion accordion-flush">
+<div id="accordionSolution5" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
-  <h4 class="accordion-header" id="headingSolution4">Show me the solution</h4>
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution5" aria-expanded="false" aria-controls="collapseSolution5">
+  <h4 class="accordion-header" id="headingSolution5">Show me the solution</h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution5" class="accordion-collapse collapse" data-bs-parent="#accordionSolution5" aria-labelledby="headingSolution5">
 <div class="accordion-body">
 <p>TODO (discuss one or two?)</p>
 </div>
