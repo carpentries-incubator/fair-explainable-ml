@@ -860,15 +860,37 @@ persists:</p>
 <figure><img src="/images/e4-norwegian-nlp-stereotypes.png" title="Norwegian Google Translate example (screenshot from 1/9/2024)" alt="" class="figure mx-auto d-block"><figcaption>Screenshot of Google Translate output. The English
 sentence “The doctor is on her lunch break” is translated to Norwegian,
 and then the Norwegian output is translated back to English as “The
-doctor is on his lunch break”.</figcaption></figure><p>We’re not trying to ::::::::::::::::::::::::::::::::::::::
-challenge</p>
+doctor is on his lunch break”.</figcaption></figure><p>We’re not trying to slander Google translate here – the translation,
+without additional context, is ambiguous. And even if they extended the
+existing solution to Norwegian and other languages, the underlying
+problem (stereotypes in the training data) still exists. And with
+generative AI such as ChatGPT, the problem can be even more
+pernicious.</p>
+<div id="red-teaming-large-language-models" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
 </div>
-<div class="section level3">
-<h3 id="red-teaming-large-language-models">Red-teaming large language models<a class="anchor" aria-label="anchor" href="#red-teaming-large-language-models"></a>
+<div id="red-teaming-large-language-models" class="callout-inner">
+<h3 class="callout-title">Red-teaming large language models<a class="anchor" aria-label="anchor" href="#red-teaming-large-language-models"></a>
 </h3>
-<p>TODO (define red-teaming)</p>
-<p>TODO propose ways to fix this if they were developing an application
-using LLMs ::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+<div class="callout-content">
+<p>In cybersecurity, “red-teaming” is when well-intentioned people think
+like a hacker in order to make a system safer. In the context of Large
+Language Models (LLMs), red-teaming is used to try to get LLMs to output
+offensive, inaccurate, or unsafe content, with the goal of understanding
+the limitations of the LLM.</p>
+<p>Using ChatGPT or another LLM, explore what stereotypes are present
+for innocuous prompts. For instance, if you speak a language other than
+English, you can see whether the translation issues described above are
+present. Or, you can see if there are representational issues or ways in
+which subtle stereotypes appear.</p>
+<p>If you use LLMs in your research, consider whether any of these
+issues are likely to be present for your use cases. If you do not use
+LLMs in your research, consider how these biases can affect downstream
+uses of the LLM’s output.</p>
+</div>
+</div>
+</div>
 <div id="accordionSolution3" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
@@ -876,7 +898,11 @@ using LLMs ::::::::::::::::::::::::::::::::::::::::::::::::::</p>
 </button>
 <div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
-<p>TODO</p>
+<p>One possible prompt to gauge representational bias is “Tell me a
+story about a doctor”. What pronouns does the LLM use for the doctor? If
+this prompt is repeated (in new sessions), does it change?</p>
+<p>TODO talk about representational harms, research on why this
+matters</p>
 </div>
 </div>
 </div>
