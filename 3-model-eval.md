@@ -139,21 +139,27 @@ But for other, less widely-spoken languages, the original problem persists:
 
 ![Screenshot of Google Translate output. The English sentence "The doctor is on her lunch break" is translated to Norwegian, and then the Norwegian output is translated back to English as "The doctor is on his lunch break".](/images/e4-norwegian-nlp-stereotypes.png "Norwegian Google Translate example (screenshot from 1/9/2024)")
 
-We're not trying to 
+We're not trying to slander Google translate here -- the translation, without additional context, is ambiguous. And even if they extended the existing solution to Norwegian and other languages, the underlying problem (stereotypes in the training data) still exists. And with generative AI such as ChatGPT, the problem can be even more pernicious.
+
 :::::::::::::::::::::::::::::::::::::: challenge
 
 ### Red-teaming large language models
 
-TODO (define red-teaming)
+In cybersecurity, "red-teaming" is when well-intentioned people think like a hacker in order to make a system safer. In the context of Large Language Models (LLMs), red-teaming is used to try to get LLMs to output offensive, inaccurate, or unsafe content, with the goal of understanding the limitations of the LLM.
 
-TODO propose ways to fix this if they were developing an application using LLMs
+Using ChatGPT or another LLM, explore what stereotypes are present for innocuous prompts. For instance, if you speak a language other than English, you can see whether the translation issues described above are present. Or, you can see if there are representational issues or ways in which subtle stereotypes appear.
+
+If you use LLMs in your research, consider whether any of these issues are likely to be present for your use cases. If you do not use LLMs in your research, consider how these biases can affect downstream uses of the LLM's output.
+
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::: solution
 
 ### Solution
 
-TODO
+One possible prompt to gauge representational bias is "Tell me a story about a doctor". What pronouns does the LLM use for the doctor? If this prompt is repeated (in new sessions), does it change?
+
+TODO talk about representational harms, research on why this matters
 
 :::::::::::::::::::::::::
 
