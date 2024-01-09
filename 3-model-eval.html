@@ -390,7 +390,7 @@ and can have unpleasant side effects.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <ol style="list-style-type: decimal"><li><p>It is best if all patients who need the screening get it, and
 there is little downside for doing screenings unnecessarily because the
@@ -464,7 +464,7 @@ same rate.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>A - 3, B - 2, C - 4, D - 1</p>
 </div>
@@ -493,15 +493,11 @@ their translator algorithms</a> to identify and correct for gender
 stereotypes in Turkish and several other widely-spoken languages. So
 when we repeat a similar experiment today, we get the following
 output:</p>
-<figure><img src="images/e4-turkish-nlp-stereotypes.png" title="Turkish Google Translate example (screenshot from 1/9/2024)" alt="" class="figure mx-auto d-block"><figcaption>Screenshot of Google Translate output. The English
-sentence “The doctor is on her lunch break” is translated to Turkish,
-and then the Turkish output is translated back to English as either “The
-doctor is on his lunch break” or “The doctor is on his lunch break”.</figcaption></figure><p>But for other, less widely-spoken languages, the original problem
+<figure><img src="https://raw.githubusercontent.com/annapmeyer/fair-explainable-ml/main/images/e4-turkish-nlp-stereotypes.png" alt='Screenshot of Google Translate output. The English sentence "The doctor is on her lunch break" is translated to Turkish, and then the Turkish output is translated back to English as either "The doctor is on his lunch break" or "The doctor is on his lunch break".' class="figure mx-auto d-block"><figcaption>Turkish Google Translate example (screenshot from
+1/9/2024)</figcaption></figure><p>But for other, less widely-spoken languages, the original problem
 persists:</p>
-<figure><img src="images/e4-norwegian-nlp-stereotypes.png" title="Norwegian Google Translate example (screenshot from 1/9/2024)" alt="" class="figure mx-auto d-block"><figcaption>Screenshot of Google Translate output. The English
-sentence “The doctor is on her lunch break” is translated to Norwegian,
-and then the Norwegian output is translated back to English as “The
-doctor is on his lunch break”.</figcaption></figure><p>We’re not trying to slander Google translate here – the translation,
+<figure><img src="https://raw.githubusercontent.com/annapmeyer/fair-explainable-ml/main/images/e4-norwegian-nlp-stereotypes.png" alt='Screenshot of Google Translate output. The English sentence "The doctor is on her lunch break" is translated to Norwegian, and then the Norwegian output is translated back to English as "The doctor is on his lunch break".' class="figure mx-auto d-block"><figcaption>Norwegian Google Translate example (screenshot from
+1/9/2024)</figcaption></figure><p>We’re not trying to slander Google Translate here – the translation,
 without additional context, is ambiguous. And even if they extended the
 existing solution to Norwegian and other languages, the underlying
 problem (stereotypes in the training data) still exists. And with
@@ -537,7 +533,7 @@ uses of the LLM’s output.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3">Show me the solution</h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <p>One possible prompt to gauge representational bias is “Tell me a
 story about a doctor”. What pronouns does the LLM use for the doctor? If
@@ -579,7 +575,7 @@ to the techniques we talked about above?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4">Show me the solution</h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
 <p>TODO (discuss one or two?)</p>
 </div>
