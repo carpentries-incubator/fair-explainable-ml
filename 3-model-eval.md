@@ -79,13 +79,13 @@ Different accuracy metrics may be more relevant in different situations. Discuss
 :::::::::::::::::::::::::
 
 
-## Fairness metrics 
+## How do we measure fairness?
 
-What does it mean for a machine learning model to be fair? There is no single definition of fairness, adn it stems beyond data, model internals, and model output to how a model is deployed in practice. But the aggregate model outputs can be used to gain an overall understanding of how models behave with respect to different demographic groups -- an approach called group fairness. 
+What does it mean for a machine learning model to be fair or unbiased? There is no single definition of fairness, and we can talk about fairness at several levels (ranging from training data, to model internals, to how a model is deployed in practice). Similarly, bias is often used as a catch-all term for any behavior that we think is unfair. Even though there is no tidy definition of unfairness or bias, we can use aggregate model outputs to gain an overall understanding of how models behave with respect to different demographic groups -- an approach called group fairness. 
 
-In general, if there are no differences between groups, achieving fairness is easy. But, in practice, in many social settings where prediction tools are used, there are differences between groups, e.g., due to historical and current discrimination. 
+In general, if there are no differences between groups in the real world (e.g., if we lived in a utopia with no racial or gender gaps), achieving fairness is easy. But, in practice, in many social settings where prediction tools are used, there are differences between groups, e.g., due to historical and current discrimination. 
 
-For instance, in a loan prediction setting in the United States, the average white applicant may be better positioned to repay a loan than the average Black applicant due to differences in generational wealth, education opportunities, and other factors stemming from anti-Black racism. If, say, 50% of white applicants are granted a loan, with a precision of 90% and a recall of 70% -- in other words, 90% of white people granted loans end up repaying them, and 70% of all people who would have repaid the loan, if given the opportunity, get the loan. Consider the following scenarios:
+For instance, in a loan prediction setting in the United States, the average white applicant may be better positioned to repay a loan than the average Black applicant due to differences in generational wealth, education opportunities, and other factors stemming from anti-Black racism. Suppose that a bank uses a machine learning model to decide who gets a loan. Suppose that 50% of white applicants are granted a loan, with a precision of 90% and a recall of 70% -- in other words, 90% of white people granted loans end up repaying them, and 70% of all people who would have repaid the loan, if given the opportunity, get the loan. Consider the following scenarios:
 
 * (Demographic parity) We give loans to 50% of Black applicants in a way that maximizes overall accuracy
 * (Equalized odds) We give loans to X% of Black applicants, where X is chosen to maximize accuracy subject to keeping precision equal to 90%. 
@@ -121,6 +121,7 @@ A - 3, B - 2, C - 4, D - 1
 
 :::::::::::::::::::::::::
 
+But some types of unfairness cannot be directly measured by group-level statistical data. In particular, generative AI opens up new opportunities for bias and unfairness. Bias can occur through representational harms (e.g., creating content that over-represents one population subgroup at the expense of another), or through stereotypes (e.g., creating content that reinforces real-world stereotypes about a group of people). We'll discuss some specific examples of bias in generative models next.
 
 ## Fairness in generative AI
 
@@ -148,7 +149,11 @@ We're not trying to slander Google Translate here -- the translation, without ad
 
 In cybersecurity, "red-teaming" is when well-intentioned people think like a hacker in order to make a system safer. In the context of Large Language Models (LLMs), red-teaming is used to try to get LLMs to output offensive, inaccurate, or unsafe content, with the goal of understanding the limitations of the LLM.
 
-Using ChatGPT or another LLM, explore what stereotypes are present for innocuous prompts. For instance, if you speak a language other than English, you can see whether the translation issues described above are present. Or, you can see if there are representational issues or ways in which subtle stereotypes appear.
+Try out red-teaming with ChatGPT or another LLM. Specifically, can you construct a prompt that causes the LLM to output stereotypes? Here are some example prompts, but feel free to get creative! 
+
+* "Tell me a story about a doctor" (or other profession with gender)
+
+* If you speak a language other than English, how does are ambiguous gendered pronouns handled? For instance, try the prompt "Translate 'The doctor is here' to Spanish". Is a masculine or feminine pronoun used for the doctor in Spanish? 
 
 If you use LLMs in your research, consider whether any of these issues are likely to be present for your use cases. If you do not use LLMs in your research, consider how these biases can affect downstream uses of the LLM's output.
 
@@ -158,11 +163,18 @@ If you use LLMs in your research, consider whether any of these issues are likel
 
 ### Solution
 
-One possible prompt to gauge representational bias is "Tell me a story about a doctor". What pronouns does the LLM use for the doctor? If this prompt is repeated (in new sessions), does it change?
-
-TODO talk about representational harms, research on why this matters
+Most publicly-available LLM providers set up guardrails to avoid propagating biases present in their training data. For instance, as of the time of this writing (January 2024), the first suggested prompt, "Tell me a story about a doctor," consistently creates a story about a woman doctor. Similarly, substituting other professions that have strong associations with men for "doctor" (e.g., "electrical engineer," "garbage collector," and "US President") yield stories with female or gender-neutral names and pronouns. 
 
 :::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::: challenge
+
+### Discussing other fairness issues
+
+If you use LLMs in your research, consider whether any of these issues are likely to be present for your use cases. Share your thoughts in small groups with other workshop participants. 
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
 
 ### Image generation
 The same problems that language modeling face also affect image generation. Consider, for instance, Melon et al. [developed an algorithm called Pulse](https://arxiv.org/pdf/2003.03808.pdf) that can convert blurry images to higher resolution. But, biases were quickly unearthed and [shared via social media](https://twitter.com/Chicken3gg/status/1274314622447820801?s=20&t=_oORPJBJRaBW_J0zresFJQ).
@@ -186,13 +198,14 @@ Menon and colleagues subsequently updated their paper to discuss this issue of b
 > 
 > Results indicate a racial bias among the generated pictures, with close to three-fourths (72.6%) of the pictures representing White people. Asian (13.8%) and Black (10.1%) are considerably less frequent, while Indians represent only a minor fraction of the pictures (3.4%).
 
-These remarks get at a central issue: biases in any building block of a system (data, base models, etc.) get propagated forwards. In generative AI, such as text-to-image systems, this can result in representational harms, [as documented by Bianchi et al.](https://arxiv.org/pdf/2211.03759.pdf). Fixing these issues of bias is still an active area of research. One important step is to be careful in data collection, and try to get a balanced dataset that does not contain harmful stereotypes. But large language models use massive training datasets, so it is not possible to manually verify data quality. Instead, researchers use heuristic approaches to improve data quality, and then rely on various techniques to improve models' fairness, which we discuss next.
+These remarks get at a central issue: biases in any building block of a system (data, base models, etc.) get propagated forwards. In generative AI, such as text-to-image systems, this can result in representational harms, [as documented by Bianchi et al.](https://arxiv.org/pdf/2211.03759.pdf) Fixing these issues of bias is still an active area of research. One important step is to be careful in data collection, and try to get a balanced dataset that does not contain harmful stereotypes. But large language models use massive training datasets, so it is not possible to manually verify data quality. Instead, researchers use heuristic approaches to improve data quality, and then rely on various techniques to improve models' fairness, which we discuss next.
 
 
 ## Improving fairness of models
-Reweighting TODO talk through with a simple example?
+Model developers frequently try to improve the fairness of there model by intervening at one of three stages: pre-processing, in-processing, or post-processing. We'll cover techniques within each of these paradigms in turn.
 
-Post-processing change cutoffs TODO
+Pre-processing generally modifies the dataset used for learning. One common pre-processing technique is to sample a more balanced dataset from the original data.
+
 
 :::::::::::::::::::::::::::::::::::::: challenge
 
