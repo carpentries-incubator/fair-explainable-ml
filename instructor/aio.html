@@ -621,7 +621,7 @@ performance.</li>
 </div>
 </div></section><section id="aio-3-model-eval"><p>Content from <a href="3-model-eval.html">Model evaluation and fairness</a></p>
 <hr>
-<p>Last updated on 2024-01-09 |
+<p>Last updated on 2024-01-18 |
         
         <a href="https://github.com/annapmeyer/fair-explainable-ml/edit/main/episodes/3-model-eval.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 0 minutes</p>
@@ -776,27 +776,32 @@ precision score is ideal.</p></li>
 </div>
 </div>
 </div>
-</section><section id="fairness-metrics"><h2 class="section-heading">Fairness metrics<a class="anchor" aria-label="anchor" href="#fairness-metrics"></a>
+</section><section id="how-do-we-measure-fairness"><h2 class="section-heading">How do we measure fairness?<a class="anchor" aria-label="anchor" href="#how-do-we-measure-fairness"></a>
 </h2>
 <hr class="half-width">
-<p>What does it mean for a machine learning model to be fair? There is
-no single definition of fairness, adn it stems beyond data, model
-internals, and model output to how a model is deployed in practice. But
-the aggregate model outputs can be used to gain an overall understanding
-of how models behave with respect to different demographic groups – an
-approach called group fairness.</p>
-<p>In general, if there are no differences between groups, achieving
-fairness is easy. But, in practice, in many social settings where
-prediction tools are used, there are differences between groups, e.g.,
-due to historical and current discrimination.</p>
+<p>What does it mean for a machine learning model to be fair or
+unbiased? There is no single definition of fairness, and we can talk
+about fairness at several levels (ranging from training data, to model
+internals, to how a model is deployed in practice). Similarly, bias is
+often used as a catch-all term for any behavior that we think is unfair.
+Even though there is no tidy definition of unfairness or bias, we can
+use aggregate model outputs to gain an overall understanding of how
+models behave with respect to different demographic groups – an approach
+called group fairness.</p>
+<p>In general, if there are no differences between groups in the real
+world (e.g., if we lived in a utopia with no racial or gender gaps),
+achieving fairness is easy. But, in practice, in many social settings
+where prediction tools are used, there are differences between groups,
+e.g., due to historical and current discrimination.</p>
 <p>For instance, in a loan prediction setting in the United States, the
 average white applicant may be better positioned to repay a loan than
 the average Black applicant due to differences in generational wealth,
 education opportunities, and other factors stemming from anti-Black
-racism. If, say, 50% of white applicants are granted a loan, with a
-precision of 90% and a recall of 70% – in other words, 90% of white
-people granted loans end up repaying them, and 70% of all people who
-would have repaid the loan, if given the opportunity, get the loan.
+racism. Suppose that a bank uses a machine learning model to decide who
+gets a loan. Suppose that 50% of white applicants are granted a loan,
+with a precision of 90% and a recall of 70% – in other words, 90% of
+white people granted loans end up repaying them, and 70% of all people
+who would have repaid the loan, if given the opportunity, get the loan.
 Consider the following scenarios:</p>
 <ul>
 <li>(Demographic parity) We give loans to 50% of Black applicants in a
@@ -849,6 +854,14 @@ same rate.</li>
 </div>
 </div>
 </div>
+<p>But some types of unfairness cannot be directly measured by
+group-level statistical data. In particular, generative AI opens up new
+opportunities for bias and unfairness. Bias can occur through
+representational harms (e.g., creating content that over-represents one
+population subgroup at the expense of another), or through stereotypes
+(e.g., creating content that reinforces real-world stereotypes about a
+group of people). We’ll discuss some specific examples of bias in
+generative models next.</p>
 </section><section id="fairness-in-generative-ai"><h2 class="section-heading">Fairness in generative AI<a class="anchor" aria-label="anchor" href="#fairness-in-generative-ai"></a>
 </h2>
 <hr class="half-width">
@@ -896,11 +909,17 @@ like a hacker in order to make a system safer. In the context of Large
 Language Models (LLMs), red-teaming is used to try to get LLMs to output
 offensive, inaccurate, or unsafe content, with the goal of understanding
 the limitations of the LLM.</p>
-<p>Using ChatGPT or another LLM, explore what stereotypes are present
-for innocuous prompts. For instance, if you speak a language other than
-English, you can see whether the translation issues described above are
-present. Or, you can see if there are representational issues or ways in
-which subtle stereotypes appear.</p>
+<p>Try out red-teaming with ChatGPT or another LLM. Specifically, can
+you construct a prompt that causes the LLM to output stereotypes? Here
+are some example prompts, but feel free to get creative!</p>
+<ul>
+<li><p>“Tell me a story about a doctor” (or other profession with
+gender)</p></li>
+<li><p>If you speak a language other than English, how does are
+ambiguous gendered pronouns handled? For instance, try the prompt
+“Translate ‘The doctor is here’ to Spanish”. Is a masculine or feminine
+pronoun used for the doctor in Spanish?</p></li>
+</ul>
 <p>If you use LLMs in your research, consider whether any of these
 issues are likely to be present for your use cases. If you do not use
 LLMs in your research, consider how these biases can affect downstream
@@ -915,12 +934,29 @@ uses of the LLM’s output.</p>
 </button>
 <div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
-<p>One possible prompt to gauge representational bias is “Tell me a
-story about a doctor”. What pronouns does the LLM use for the doctor? If
-this prompt is repeated (in new sessions), does it change?</p>
-<p>TODO talk about representational harms, research on why this
-matters</p>
+<p>Most publicly-available LLM providers set up guardrails to avoid
+propagating biases present in their training data. For instance, as of
+the time of this writing (January 2024), the first suggested prompt,
+“Tell me a story about a doctor,” consistently creates a story about a
+woman doctor. Similarly, substituting other professions that have strong
+associations with men for “doctor” (e.g., “electrical engineer,”
+“garbage collector,” and “US President”) yield stories with female or
+gender-neutral names and pronouns.</p>
 </div>
+</div>
+</div>
+</div>
+<div id="discussing-other-fairness-issues" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div id="discussing-other-fairness-issues" class="callout-inner">
+<h3 class="callout-title">Discussing other fairness issues<a class="anchor" aria-label="anchor" href="#discussing-other-fairness-issues"></a>
+</h3>
+<div class="callout-content">
+<p>If you use LLMs in your research, consider whether any of these
+issues are likely to be present for your use cases. Share your thoughts
+in small groups with other workshop participants.</p>
 </div>
 </div>
 </div>
@@ -933,12 +969,12 @@ generation. Consider, for instance, Melon et al. <a href="https://arxiv.org/pdf
 called Pulse</a> that can convert blurry images to higher resolution.
 But, biases were quickly unearthed and <a href="https://twitter.com/Chicken3gg/status/1274314622447820801?s=20&amp;t=_oORPJBJRaBW_J0zresFJQ" class="external-link">shared
 via social media</a>.</p>
-<div id="discussion4" class="callout discussion">
+<div id="discussion5" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
 <div class="callout-inner">
-<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#discussion4"></a>
+<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#discussion5"></a>
 </h3>
 <div class="callout-content">
 <p>Who is shown in this blurred picture? <img src="https://raw.githubusercontent.com/annapmeyer/fair-explainable-ml/main/images/e4-obama.png" alt="blurry image of Barack Obama" class="figure"></p>
@@ -980,19 +1016,24 @@ while Indians represent only a minor fraction of the pictures
 a system (data, base models, etc.) get propagated forwards. In
 generative AI, such as text-to-image systems, this can result in
 representational harms, <a href="https://arxiv.org/pdf/2211.03759.pdf" class="external-link">as documented by Bianchi et
-al.</a>. Fixing these issues of bias is still an active area of
-research. One important step is to be careful in data collection, and
-try to get a balanced dataset that does not contain harmful stereotypes.
-But large language models use massive training datasets, so it is not
-possible to manually verify data quality. Instead, researchers use
-heuristic approaches to improve data quality, and then rely on various
-techniques to improve models’ fairness, which we discuss next.</p>
+al.</a> Fixing these issues of bias is still an active area of research.
+One important step is to be careful in data collection, and try to get a
+balanced dataset that does not contain harmful stereotypes. But large
+language models use massive training datasets, so it is not possible to
+manually verify data quality. Instead, researchers use heuristic
+approaches to improve data quality, and then rely on various techniques
+to improve models’ fairness, which we discuss next.</p>
 </div>
 </section><section id="improving-fairness-of-models"><h2 class="section-heading">Improving fairness of models<a class="anchor" aria-label="anchor" href="#improving-fairness-of-models"></a>
 </h2>
 <hr class="half-width">
-<p>Reweighting TODO talk through with a simple example?</p>
-<p>Post-processing change cutoffs TODO</p>
+<p>Model developers frequently try to improve the fairness of there
+model by intervening at one of three stages: pre-processing,
+in-processing, or post-processing. We’ll cover techniques within each of
+these paradigms in turn.</p>
+<p>Pre-processing generally modifies the dataset used for learning. One
+common pre-processing technique is to sample a more balanced dataset
+from the original data.</p>
 <div id="matching-fairness-terminology-with-definitions-1" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
@@ -1208,8 +1249,8 @@ should not be used.</li>
   "url": "https://annapmeyer.github.io/fair-explainable-ml/instructor/aio.html",
   "identifier": "https://annapmeyer.github.io/fair-explainable-ml/instructor/aio.html",
   "dateCreated": "2023-12-05",
-  "dateModified": "2024-01-16",
-  "datePublished": "2024-01-16"
+  "dateModified": "2024-01-18",
+  "datePublished": "2024-01-18"
 }
 
   </script><script>
