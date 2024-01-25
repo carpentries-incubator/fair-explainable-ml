@@ -1,4 +1,3 @@
-
 ---
 title: "R Markdown with Python"
 output: html_document
