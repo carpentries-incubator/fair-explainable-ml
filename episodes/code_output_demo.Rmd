@@ -1,0 +1,15 @@
+
+---
+title: "R Markdown with Python"
+output: html_document
+---
+
+You can include Python code in R Markdown documents. R Markdown is a versatile document format that supports multiple programming languages. To include Python code, you can use code chunks with the {python} option.
+
+Here's an example of how you can include Python code in an R Markdown document:
+
+## Python Code in R Markdown
+
+```{python}
+# This is a Python code chunk
+print("Hello from Python!")
