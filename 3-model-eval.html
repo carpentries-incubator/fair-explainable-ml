@@ -349,13 +349,12 @@ as members of -.</p>
 <ul><li>300 / (300 + 25) = 0.923</li>
 <li>Recall is 92.3%</li>
 </ul></li>
-</ul><div id="callout1" class="callout callout">
+</ul><div id="callout1" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="callout-inner">
-<h3 class="callout-title">Callout<a class="anchor" aria-label="anchor" href="#callout1"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title">Callout</h3>
 <div class="callout-content">
 <p>TODO we’ve discussed binary classification but for other types of
 tasks there are different metrics. E.g., top-k accuracy for multi-class
@@ -506,11 +505,13 @@ their translator algorithms</a> to identify and correct for gender
 stereotypes in Turkish and several other widely-spoken languages. So
 when we repeat a similar experiment today, we get the following
 output:</p>
-<figure><img src="https://raw.githubusercontent.com/annapmeyer/fair-explainable-ml/main/images/e4-turkish-nlp-stereotypes.png" alt='Screenshot of Google Translate output. The English sentence "The doctor is on her lunch break" is translated to Turkish, and then the Turkish output is translated back to English as either "The doctor is on his lunch break" or "The doctor is on his lunch break".' class="figure mx-auto d-block"><figcaption>Turkish Google Translate example (screenshot from
-1/9/2024)</figcaption></figure><p>But for other, less widely-spoken languages, the original problem
+<figure><img src="https://raw.githubusercontent.com/annapmeyer/fair-explainable-ml/main/images/e4-turkish-nlp-stereotypes.png" alt='Screenshot of Google Translate output. The English sentence "The doctor is on her lunch break" is translated to Turkish, and then the Turkish output is translated back to English as either "The doctor is on his lunch break" or "The doctor is on his lunch break".' class="figure mx-auto d-block"><div class="figcaption">Turkish Google Translate example (screenshot
+from 1/9/2024)</div>
+</figure><p>But for other, less widely-spoken languages, the original problem
 persists:</p>
-<figure><img src="https://raw.githubusercontent.com/annapmeyer/fair-explainable-ml/main/images/e4-norwegian-nlp-stereotypes.png" alt='Screenshot of Google Translate output. The English sentence "The doctor is on her lunch break" is translated to Norwegian, and then the Norwegian output is translated back to English as "The doctor is on his lunch break".' class="figure mx-auto d-block"><figcaption>Norwegian Google Translate example (screenshot from
-1/9/2024)</figcaption></figure><p>We’re not trying to slander Google Translate here – the translation,
+<figure><img src="https://raw.githubusercontent.com/annapmeyer/fair-explainable-ml/main/images/e4-norwegian-nlp-stereotypes.png" alt='Screenshot of Google Translate output. The English sentence "The doctor is on her lunch break" is translated to Norwegian, and then the Norwegian output is translated back to English as "The doctor is on his lunch break".' class="figure mx-auto d-block"><div class="figcaption">Norwegian Google Translate example (screenshot
+from 1/9/2024)</div>
+</figure><p>We’re not trying to slander Google Translate here – the translation,
 without additional context, is ambiguous. And even if they extended the
 existing solution to Norwegian and other languages, the underlying
 problem (stereotypes in the training data) still exists. And with
@@ -761,7 +762,7 @@ any links that you are not going to use.
   "identifier": "https://annapmeyer.github.io/fair-explainable-ml/3-model-eval.html",
   "dateCreated": "2023-12-05",
   "dateModified": "2024-01-18",
-  "datePublished": "2024-02-27"
+  "datePublished": "2024-02-29"
 }
 
   </script><script>

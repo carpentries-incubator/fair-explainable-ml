@@ -385,7 +385,7 @@ reinforce the objectives.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Output</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -414,7 +414,7 @@ challenge blocks?<a class="anchor" aria-label="anchor" href="#challenge-2-how-do
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>You can add a line with at least three colons and a
 <code>solution</code> tag.</p>
@@ -428,13 +428,13 @@ challenge blocks?<a class="anchor" aria-label="anchor" href="#challenge-2-how-do
 <p>You can use standard markdown for static figures with the following
 syntax:</p>
 <p><code>![optional caption that appears below the figure](figure url){alt='alt text for accessibility purposes'}</code></p>
-<figure><img src="https://raw.githubusercontent.com/carpentries/logo/master/Badge_Carpentries.svg" alt="Blue Carpentries hex person logo with no text." class="figure mx-auto d-block"><figcaption>You belong in The Carpentries!</figcaption></figure><div id="callout1" class="callout callout">
+<figure><img src="https://raw.githubusercontent.com/carpentries/logo/master/Badge_Carpentries.svg" alt="Blue Carpentries hex person logo with no text." class="figure mx-auto d-block"><div class="figcaption">You belong in The Carpentries!</div>
+</figure><div id="callout1" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="callout-inner">
-<h3 class="callout-title">Callout<a class="anchor" aria-label="anchor" href="#callout1"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title">Callout</h3>
 <div class="callout-content">
 <p>Callout sections can highlight information.</p>
 <p>They are sometimes used to emphasise particularly important points
@@ -697,13 +697,12 @@ as members of -.</p>
 </ul>
 </li>
 </ul>
-<div id="callout1" class="callout callout">
+<div id="callout1" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="callout-inner">
-<h3 class="callout-title">Callout<a class="anchor" aria-label="anchor" href="#callout1"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title">Callout</h3>
 <div class="callout-content">
 <p>TODO we’ve discussed binary classification but for other types of
 tasks there are different metrics. E.g., top-k accuracy for multi-class
@@ -865,11 +864,13 @@ their translator algorithms</a> to identify and correct for gender
 stereotypes in Turkish and several other widely-spoken languages. So
 when we repeat a similar experiment today, we get the following
 output:</p>
-<figure><img src="https://raw.githubusercontent.com/annapmeyer/fair-explainable-ml/main/images/e4-turkish-nlp-stereotypes.png" alt='Screenshot of Google Translate output. The English sentence "The doctor is on her lunch break" is translated to Turkish, and then the Turkish output is translated back to English as either "The doctor is on his lunch break" or "The doctor is on his lunch break".' class="figure mx-auto d-block"><figcaption>Turkish Google Translate example (screenshot from
-1/9/2024)</figcaption></figure><p>But for other, less widely-spoken languages, the original problem
+<figure><img src="https://raw.githubusercontent.com/annapmeyer/fair-explainable-ml/main/images/e4-turkish-nlp-stereotypes.png" alt='Screenshot of Google Translate output. The English sentence "The doctor is on her lunch break" is translated to Turkish, and then the Turkish output is translated back to English as either "The doctor is on his lunch break" or "The doctor is on his lunch break".' class="figure mx-auto d-block"><div class="figcaption">Turkish Google Translate example (screenshot
+from 1/9/2024)</div>
+</figure><p>But for other, less widely-spoken languages, the original problem
 persists:</p>
-<figure><img src="https://raw.githubusercontent.com/annapmeyer/fair-explainable-ml/main/images/e4-norwegian-nlp-stereotypes.png" alt='Screenshot of Google Translate output. The English sentence "The doctor is on her lunch break" is translated to Norwegian, and then the Norwegian output is translated back to English as "The doctor is on his lunch break".' class="figure mx-auto d-block"><figcaption>Norwegian Google Translate example (screenshot from
-1/9/2024)</figcaption></figure><p>We’re not trying to slander Google Translate here – the translation,
+<figure><img src="https://raw.githubusercontent.com/annapmeyer/fair-explainable-ml/main/images/e4-norwegian-nlp-stereotypes.png" alt='Screenshot of Google Translate output. The English sentence "The doctor is on her lunch break" is translated to Norwegian, and then the Norwegian output is translated back to English as "The doctor is on his lunch break".' class="figure mx-auto d-block"><div class="figcaption">Norwegian Google Translate example (screenshot
+from 1/9/2024)</div>
+</figure><p>We’re not trying to slander Google Translate here – the translation,
 without additional context, is ambiguous. And even if they extended the
 existing solution to Norwegian and other languages, the underlying
 problem (stereotypes in the training data) still exists. And with
@@ -1226,8 +1227,8 @@ should not be used.</li>
   "url": "https://annapmeyer.github.io/fair-explainable-ml/aio.html",
   "identifier": "https://annapmeyer.github.io/fair-explainable-ml/aio.html",
   "dateCreated": "2023-12-05",
-  "dateModified": "2024-02-27",
-  "datePublished": "2024-02-27"
+  "dateModified": "2024-02-29",
+  "datePublished": "2024-02-29"
 }
 
   </script><script>
