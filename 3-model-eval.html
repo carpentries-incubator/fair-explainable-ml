@@ -270,7 +270,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Model evaluation and fairness</h1>
-        <p>Last updated on 2024-01-18 |
+        <p>Last updated on 2024-03-14 |
         
         <a href="https://github.com/annapmeyer/fair-explainable-ml/edit/main/episodes/3-model-eval.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -353,8 +353,9 @@ as members of -.</p>
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title">Callout</h3>
+<div class="callout-inner">
+<h3 class="callout-title">Callout<a class="anchor" aria-label="anchor" href="#callout1"></a>
+</h3>
 <div class="callout-content">
 <p>TODO we’ve discussed binary classification but for other types of
 tasks there are different metrics. E.g., top-k accuracy for multi-class
@@ -389,7 +390,7 @@ and can have unpleasant side effects.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <ol style="list-style-type: decimal"><li><p>It is best if all patients who need the screening get it, and
 there is little downside for doing screenings unnecessarily because the
@@ -468,7 +469,7 @@ same rate.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>A - 3, B - 2, C - 4, D - 1</p>
 </div>
@@ -551,7 +552,7 @@ uses of the LLM’s output.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3">Show me the solution</h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <p>Most publicly-available LLM providers set up guardrails to avoid
 propagating biases present in their training data. For instance, as of
@@ -604,7 +605,7 @@ via social media</a>.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4">Show me the solution</h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <p>While the picture is of Barack Obama, the upsampled image shows a
 white face. <img src="https://raw.githubusercontent.com/annapmeyer/fair-explainable-ml/main/images/e4-obama-upsampled.png" alt="Unblurred version of the pixelated picture of Obama. Instead of showing Obama, it shows a white man." class="figure"></p>
@@ -648,16 +649,81 @@ to improve models’ fairness, which we discuss next.</p>
 model by intervening at one of three stages: pre-processing,
 in-processing, or post-processing. We’ll cover techniques within each of
 these paradigms in turn.</p>
-<p>Pre-processing generally modifies the dataset used for learning. One
-common pre-processing technique is to sample a more balanced dataset
-from the original data.</p>
-<div id="matching-fairness-terminology-with-definitions-1" class="callout discussion">
+<p>We start, though, by discussing why removing the sensitive
+attribute(s) is not sufficient. Consider the task of deciding which loan
+applicants are funded. Suppose we are concerned with racial bias in the
+model outputs. If we remove race from the set of attributes available to
+the model, the model cannot make <em>overly</em> racist decisions.
+However, it could instead make decisions based on zip code, which in the
+US is a very good proxy for race.</p>
+<p>Can we simply remove all proxy variables? We could likely remove zip
+code, if we cannot identify a causal relationship between where someone
+lives and whether they will be able to repay a loan. But what about an
+attribute like educational achievement? Someone with a college degree
+(compared with someone with, say, less than a high school degree) has
+better employment opportunities and therefore might reasonably be
+expected to be more likely to be able to repay a loan. However,
+educational attainment is still a proxy for race in the United States
+due to historical (and ongoing) discrimination.</p>
+<p><strong>Pre-processing</strong> generally modifies the dataset used
+for learning. Techniques in this category include *
+Oversampling/undersampling: instead of training a machine learning model
+on all of the data, <em>undersample</em> the majority class by removing
+some of the majority class samples from the dataset in order to have a
+more balanced dataset. Alternatively, <em>oversample</em> the minority
+class by duplicating samples belonging to this group. * Reweighting
+samples: many machine learning models allow for reweighting individual
+samples, i.e., indicating that misclassifying certain, rarer, samples
+should be penalized more severely in the loss function. In the code
+example, we show how to reweight samples using AIF360’s <a href="https://aif360.readthedocs.io/en/latest/modules/generated/aif360.algorithms.preprocessing.Reweighing.html" class="external-link">Reweighting</a>
+function. * Sophisticated: use a generative adversarial network (GAN) to
+generate additional data corresponding to the minority class. We won’t
+cover this method in this workshop (using a GAN can be more
+computationally expensive than other techniques). If you’re interested,
+you can learn more about this method from the paper <a href="https://link.springer.com/chapter/10.1007/978-3-030-58542-6_23" class="external-link">Inclusive
+GAN: Improving Data and Minority Coverage in Generative Models</a>.</p>
+<div id="pros-and-cons-of-preprocessing-options" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
-<div id="matching-fairness-terminology-with-definitions-1" class="callout-inner">
-<h3 class="callout-title">Matching fairness terminology with
-definitions<a class="anchor" aria-label="anchor" href="#matching-fairness-terminology-with-definitions-1"></a>
+<div id="pros-and-cons-of-preprocessing-options" class="callout-inner">
+<h3 class="callout-title">Pros and cons of preprocessing options<a class="anchor" aria-label="anchor" href="#pros-and-cons-of-preprocessing-options"></a>
+</h3>
+<div class="callout-content">
+<p>Discuss what you think the pros and cons of the different
+pre-processing options are. What techniques might work better in
+different settings?</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution5" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution5" aria-expanded="false" aria-controls="collapseSolution5">
+  <h4 class="accordion-header" id="headingSolution5">Show me the solution</h4>
+</button>
+<div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
+<div class="accordion-body">
+<p>A downside of oversampling is that it may violate statistical
+assumptions about independence of samples. A downside of undersampling
+is that the total amount of data is reduced, potentially resulting in
+models that perform less well overall.</p>
+<p>A downside of using GANs to generate additional data is that this
+process may be expensive and require higher levels of ML expertise.</p>
+<p>A challenge with all techniques is that if there is not sufficient
+data from minority groups, it may be hard to achieve good performance on
+the groups without simply collecting more or higher-quality data.</p>
+</div>
+</div>
+</div>
+</div>
+<p>In-processing * Easy: class re-weighting</p>
+<p>Post-processing * Easy: different thresholds</p>
+<div id="other-fairness-interventions" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div id="other-fairness-interventions" class="callout-inner">
+<h3 class="callout-title">Other fairness interventions<a class="anchor" aria-label="anchor" href="#other-fairness-interventions"></a>
 </h3>
 <div class="callout-content">
 <p>Computer scientists have proposed many interventions to improve the
@@ -668,12 +734,12 @@ to the techniques we talked about above?</p>
 </div>
 </div>
 </div>
-<div id="accordionSolution5" class="accordion challenge-accordion accordion-flush">
+<div id="accordionSolution6" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution5" aria-expanded="false" aria-controls="collapseSolution5">
-  <h4 class="accordion-header" id="headingSolution5">Show me the solution</h4>
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution6" aria-expanded="false" aria-controls="collapseSolution6">
+  <h4 class="accordion-header" id="headingSolution6">Show me the solution</h4>
 </button>
-<div id="collapseSolution5" class="accordion-collapse collapse" data-bs-parent="#accordionSolution5" aria-labelledby="headingSolution5">
+<div id="collapseSolution6" class="accordion-collapse collapse" aria-labelledby="headingSolution6" data-bs-parent="#accordionSolution6">
 <div class="accordion-body">
 <p>TODO (discuss one or two?)</p>
 </div>
@@ -739,7 +805,7 @@ any links that you are not going to use.
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
         
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.2" class="external-link">sandpaper (0.16.2)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.4" class="external-link">pegboard (0.7.4)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.1" class="external-link">varnish (1.0.1)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.3" class="external-link">sandpaper (0.16.3)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.4" class="external-link">pegboard (0.7.4)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.1" class="external-link">varnish (1.0.1)</a></p>
 			</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -761,8 +827,8 @@ any links that you are not going to use.
   "url": "https://annapmeyer.github.io/fair-explainable-ml/3-model-eval.html",
   "identifier": "https://annapmeyer.github.io/fair-explainable-ml/3-model-eval.html",
   "dateCreated": "2023-12-05",
-  "dateModified": "2024-01-18",
-  "datePublished": "2024-03-12"
+  "dateModified": "2024-03-14",
+  "datePublished": "2024-03-14"
 }
 
   </script><script>
