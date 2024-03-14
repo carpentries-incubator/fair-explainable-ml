@@ -204,12 +204,47 @@ These remarks get at a central issue: biases in any building block of a system (
 ## Improving fairness of models
 Model developers frequently try to improve the fairness of there model by intervening at one of three stages: pre-processing, in-processing, or post-processing. We'll cover techniques within each of these paradigms in turn.
 
-Pre-processing generally modifies the dataset used for learning. One common pre-processing technique is to sample a more balanced dataset from the original data.
+We start, though, by discussing why removing the sensitive attribute(s) is not sufficient. Consider the task of deciding which loan applicants are funded. Suppose we are concerned with racial bias in the model outputs. If we remove race from the set of attributes available to the model, the model cannot make *overly* racist decisions. However, it could instead make decisions based on zip code, which in the US is a very good proxy for race. 
+
+Can we simply remove all proxy variables? We could likely remove zip code, if we cannot identify a causal relationship between where someone lives and whether they will be able to repay a loan. But what about an attribute like educational achievement? Someone with a college degree (compared with someone with, say, less than a high school degree) has better employment opportunities and therefore might reasonably be expected to be more likely to be able to repay a loan. However, educational attainment is still a proxy for race in the United States due to historical (and ongoing) discrimination. 
+
+**Pre-processing** generally modifies the dataset used for learning. Techniques in this category include
+* Oversampling/undersampling: instead of training a machine learning model on all of the data,  *undersample* the majority class by removing some of the majority class samples from the dataset in order to have a more balanced dataset. Alternatively, *oversample* the minority class by duplicating samples belonging to this group.
+* Reweighting samples: many machine learning models allow for reweighting individual samples, i.e., indicating that misclassifying certain, rarer, samples should be penalized more severely in the loss function. In the code example, we show how to reweight samples using AIF360's [Reweighting](https://aif360.readthedocs.io/en/latest/modules/generated/aif360.algorithms.preprocessing.Reweighing.html) function. 
+* Sophisticated: use a generative adversarial network (GAN) to generate additional data corresponding to the minority class. We won't cover this method in this workshop (using a GAN can be more computationally expensive than other techniques). If you're interested, you can learn more about this method from the paper [Inclusive GAN: Improving Data and Minority Coverage in Generative Models](https://link.springer.com/chapter/10.1007/978-3-030-58542-6_23). 
+
+:::::::::::::::::::::::::::::::::::::: challenge
+
+### Pros and cons of preprocessing options
+
+Discuss what you think the pros and cons of the different pre-processing options are. What techniques might work better in different settings?
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::: solution
+
+### Solution
+
+A downside of oversampling is that it may violate statistical assumptions about independence of samples. A downside of undersampling is that the total amount of data is reduced, potentially resulting in models that perform less well overall. 
+
+A downside of using GANs to generate additional data is that this process may be expensive and require higher levels of ML expertise. 
+
+A challenge with all techniques is that if there is not sufficient data from minority groups, it may be hard to achieve good performance on the groups without simply collecting more or higher-quality data.
+
+:::::::::::::::::::::::::
+
+In-processing
+* Easy: class re-weighting
+
+Post-processing
+* Easy: different thresholds
+
+
 
 
 :::::::::::::::::::::::::::::::::::::: challenge
 
-### Matching fairness terminology with definitions
+### Other fairness interventions
 
 Computer scientists have proposed many interventions to improve the fairness of machine learning models. A partial list is available (TODO FIND RESOURCE). Visit the list and read about one of the methods. When would using that method be beneficial for fairness? How does it compare to the techniques we talked about above?
 
@@ -222,6 +257,8 @@ Computer scientists have proposed many interventions to improve the fairness of 
 TODO (discuss one or two?)
 
 :::::::::::::::::::::::::
+
+
 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
