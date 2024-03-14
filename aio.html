@@ -385,7 +385,7 @@ reinforce the objectives.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Output</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -414,7 +414,7 @@ challenge blocks?<a class="anchor" aria-label="anchor" href="#challenge-2-how-do
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>You can add a line with at least three colons and a
 <code>solution</code> tag.</p>
@@ -1030,22 +1030,28 @@ expected to be more likely to be able to repay a loan. However,
 educational attainment is still a proxy for race in the United States
 due to historical (and ongoing) discrimination.</p>
 <p><strong>Pre-processing</strong> generally modifies the dataset used
-for learning. Techniques in this category include *
-Oversampling/undersampling: instead of training a machine learning model
-on all of the data, <em>undersample</em> the majority class by removing
-some of the majority class samples from the dataset in order to have a
-more balanced dataset. Alternatively, <em>oversample</em> the minority
-class by duplicating samples belonging to this group. * Reweighting
-samples: many machine learning models allow for reweighting individual
-samples, i.e., indicating that misclassifying certain, rarer, samples
-should be penalized more severely in the loss function. In the code
-example, we show how to reweight samples using AIF360’s <a href="https://aif360.readthedocs.io/en/latest/modules/generated/aif360.algorithms.preprocessing.Reweighing.html" class="external-link">Reweighting</a>
-function. * Sophisticated: use a generative adversarial network (GAN) to
+for learning. Techniques in this category include</p>
+<ul>
+<li><p>Oversampling/undersampling: instead of training a machine
+learning model on all of the data, <em>undersample</em> the majority
+class by removing some of the majority class samples from the dataset in
+order to have a more balanced dataset. Alternatively,
+<em>oversample</em> the minority class by duplicating samples belonging
+to this group.</p></li>
+<li><p>Reweighting samples: many machine learning models allow for
+reweighting individual samples, i.e., indicating that misclassifying
+certain, rarer, samples should be penalized more severely in the loss
+function. In the code example, we show how to reweight samples using
+AIF360’s <a href="https://aif360.readthedocs.io/en/latest/modules/generated/aif360.algorithms.preprocessing.Reweighing.html" class="external-link">Reweighting</a>
+function.</p></li>
+<li><p>Sophisticated: use a generative adversarial network (GAN) to
 generate additional data corresponding to the minority class. We won’t
 cover this method in this workshop (using a GAN can be more
 computationally expensive than other techniques). If you’re interested,
 you can learn more about this method from the paper <a href="https://link.springer.com/chapter/10.1007/978-3-030-58542-6_23" class="external-link">Inclusive
-GAN: Improving Data and Minority Coverage in Generative Models</a>.</p>
+GAN: Improving Data and Minority Coverage in Generative
+Models</a>.</p></li>
+</ul>
 <div id="pros-and-cons-of-preprocessing-options" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
@@ -1080,8 +1086,14 @@ the groups without simply collecting more or higher-quality data.</p>
 </div>
 </div>
 </div>
-<p>In-processing * Easy: class re-weighting</p>
-<p>Post-processing * Easy: different thresholds</p>
+<p>In-processing</p>
+<ul>
+<li>class re-weighting</li>
+</ul>
+<p>Post-processing</p>
+<ul>
+<li>different thresholds</li>
+</ul>
 <div id="other-fairness-interventions" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>

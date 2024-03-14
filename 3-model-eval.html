@@ -666,23 +666,27 @@ expected to be more likely to be able to repay a loan. However,
 educational attainment is still a proxy for race in the United States
 due to historical (and ongoing) discrimination.</p>
 <p><strong>Pre-processing</strong> generally modifies the dataset used
-for learning. Techniques in this category include *
-Oversampling/undersampling: instead of training a machine learning model
-on all of the data, <em>undersample</em> the majority class by removing
-some of the majority class samples from the dataset in order to have a
-more balanced dataset. Alternatively, <em>oversample</em> the minority
-class by duplicating samples belonging to this group. * Reweighting
-samples: many machine learning models allow for reweighting individual
-samples, i.e., indicating that misclassifying certain, rarer, samples
-should be penalized more severely in the loss function. In the code
-example, we show how to reweight samples using AIF360’s <a href="https://aif360.readthedocs.io/en/latest/modules/generated/aif360.algorithms.preprocessing.Reweighing.html" class="external-link">Reweighting</a>
-function. * Sophisticated: use a generative adversarial network (GAN) to
+for learning. Techniques in this category include</p>
+<ul><li><p>Oversampling/undersampling: instead of training a machine
+learning model on all of the data, <em>undersample</em> the majority
+class by removing some of the majority class samples from the dataset in
+order to have a more balanced dataset. Alternatively,
+<em>oversample</em> the minority class by duplicating samples belonging
+to this group.</p></li>
+<li><p>Reweighting samples: many machine learning models allow for
+reweighting individual samples, i.e., indicating that misclassifying
+certain, rarer, samples should be penalized more severely in the loss
+function. In the code example, we show how to reweight samples using
+AIF360’s <a href="https://aif360.readthedocs.io/en/latest/modules/generated/aif360.algorithms.preprocessing.Reweighing.html" class="external-link">Reweighting</a>
+function.</p></li>
+<li><p>Sophisticated: use a generative adversarial network (GAN) to
 generate additional data corresponding to the minority class. We won’t
 cover this method in this workshop (using a GAN can be more
 computationally expensive than other techniques). If you’re interested,
 you can learn more about this method from the paper <a href="https://link.springer.com/chapter/10.1007/978-3-030-58542-6_23" class="external-link">Inclusive
-GAN: Improving Data and Minority Coverage in Generative Models</a>.</p>
-<div id="pros-and-cons-of-preprocessing-options" class="callout discussion">
+GAN: Improving Data and Minority Coverage in Generative
+Models</a>.</p></li>
+</ul><div id="pros-and-cons-of-preprocessing-options" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
@@ -716,9 +720,11 @@ the groups without simply collecting more or higher-quality data.</p>
 </div>
 </div>
 </div>
-<p>In-processing * Easy: class re-weighting</p>
-<p>Post-processing * Easy: different thresholds</p>
-<div id="other-fairness-interventions" class="callout discussion">
+<p>In-processing</p>
+<ul><li>class re-weighting</li>
+</ul><p>Post-processing</p>
+<ul><li>different thresholds</li>
+</ul><div id="other-fairness-interventions" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
