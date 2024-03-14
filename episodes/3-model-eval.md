@@ -208,9 +208,13 @@ We start, though, by discussing why removing the sensitive attribute(s) is not s
 
 Can we simply remove all proxy variables? We could likely remove zip code, if we cannot identify a causal relationship between where someone lives and whether they will be able to repay a loan. But what about an attribute like educational achievement? Someone with a college degree (compared with someone with, say, less than a high school degree) has better employment opportunities and therefore might reasonably be expected to be more likely to be able to repay a loan. However, educational attainment is still a proxy for race in the United States due to historical (and ongoing) discrimination. 
 
-**Pre-processing** generally modifies the dataset used for learning. Techniques in this category include
+**Pre-processing** generally modifies the dataset used for learning. 
+Techniques in this category include
+
 * Oversampling/undersampling: instead of training a machine learning model on all of the data,  *undersample* the majority class by removing some of the majority class samples from the dataset in order to have a more balanced dataset. Alternatively, *oversample* the minority class by duplicating samples belonging to this group.
+
 * Reweighting samples: many machine learning models allow for reweighting individual samples, i.e., indicating that misclassifying certain, rarer, samples should be penalized more severely in the loss function. In the code example, we show how to reweight samples using AIF360's [Reweighting](https://aif360.readthedocs.io/en/latest/modules/generated/aif360.algorithms.preprocessing.Reweighing.html) function. 
+
 * Sophisticated: use a generative adversarial network (GAN) to generate additional data corresponding to the minority class. We won't cover this method in this workshop (using a GAN can be more computationally expensive than other techniques). If you're interested, you can learn more about this method from the paper [Inclusive GAN: Improving Data and Minority Coverage in Generative Models](https://link.springer.com/chapter/10.1007/978-3-030-58542-6_23). 
 
 :::::::::::::::::::::::::::::::::::::: challenge
@@ -234,10 +238,12 @@ A challenge with all techniques is that if there is not sufficient data from min
 :::::::::::::::::::::::::
 
 In-processing
-* Easy: class re-weighting
+
+* class re-weighting
 
 Post-processing
-* Easy: different thresholds
+
+* different thresholds
 
 
 
