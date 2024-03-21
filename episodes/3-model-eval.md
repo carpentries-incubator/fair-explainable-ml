@@ -211,11 +211,11 @@ Can we simply remove all proxy variables? We could likely remove zip code, if we
 **Pre-processing** generally modifies the dataset used for learning. 
 Techniques in this category include
 
-* Oversampling/undersampling: instead of training a machine learning model on all of the data,  *undersample* the majority class by removing some of the majority class samples from the dataset in order to have a more balanced dataset. Alternatively, *oversample* the minority class by duplicating samples belonging to this group.
+* Oversampling/undersampling: instead of training a machine learning model on all of the data,  *undersample* the majority class by removing some of the majority class samples from the dataset in order to have a more balanced dataset. Alternatively, *oversample* the minority class by duplicating samples belonging to this group. 
 
-* Reweighting samples: many machine learning models allow for reweighting individual samples, i.e., indicating that misclassifying certain, rarer, samples should be penalized more severely in the loss function. In the code example, we show how to reweight samples using AIF360's [Reweighting](https://aif360.readthedocs.io/en/latest/modules/generated/aif360.algorithms.preprocessing.Reweighing.html) function. 
+* Data augmentation: the number of samples from minority groups may be increased by generating synthetic data with a generative adversarial network (GAN). We won't cover this method in this workshop (using a GAN can be more computationally expensive than other techniques). If you're interested, you can learn more about this method from the paper [Inclusive GAN: Improving Data and Minority Coverage in Generative Models](https://link.springer.com/chapter/10.1007/978-3-030-58542-6_23). 
 
-* Sophisticated: use a generative adversarial network (GAN) to generate additional data corresponding to the minority class. We won't cover this method in this workshop (using a GAN can be more computationally expensive than other techniques). If you're interested, you can learn more about this method from the paper [Inclusive GAN: Improving Data and Minority Coverage in Generative Models](https://link.springer.com/chapter/10.1007/978-3-030-58542-6_23). 
+* Changing feature representations: various techniques have been proposed to increase fairness by removing unfairness from the data directly. To do so, the data is converted into an alternate representation so that differences between demographic groups are minimized, yet enough information is maintained in order to be able to learn a model that performs well. An advantage of this method is that it is model-agnostic, however, a challenge is it reduces the interpretability of interpretable models and makes post-hoc explainability less meaningful for black-box models. 
 
 :::::::::::::::::::::::::::::::::::::: challenge
 
@@ -237,11 +237,13 @@ A challenge with all techniques is that if there is not sufficient data from min
 
 :::::::::::::::::::::::::
 
-In-processing
+**In-processing** modifies the learning algorithm. 
 
-* class re-weighting
+* Reweighting samples: many machine learning models allow for reweighting individual samples, i.e., indicating that misclassifying certain, rarer, samples should be penalized more severely in the loss function. In the code example, we show how to reweight samples using AIF360's [Reweighting](https://aif360.readthedocs.io/en/latest/modules/generated/aif360.algorithms.preprocessing.Reweighing.html) function. 
 
-Post-processing
+* Incorporating fairness into the loss function: reweighting explicitly instructs the loss function to penalize the misclassification of certain samples more harshly. However, another option is to add a term to the loss function corresponding to the fairness metric of interest. 
+
+**Post-processing** modifies an existing model to increase its fairness.
 
 * different thresholds
 
