@@ -46,9 +46,10 @@ We can compute the following metrics:
 
 :::::::::::::::::::::::::::::::::::::::::: callout
 
-TODO we've discussed binary classification but for other types of tasks there are different metrics. E.g., top-k accuracy for multi-class problems, ROC for regression tasks
+We've discussed binary classification but for other types of tasks there are different metrics. For example,
 
-TODO also discuss F1 score here?
+* Multi-class problems often use [Top-K accuracy](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.top_k_accuracy_score.html), a metric of how often the true response appears in their top-K guesses. 
+* Regression tasks often use the [Area Under the ROC curve (AUC ROC)](https://en.wikipedia.org/wiki/Receiver_operating_characteristic) as a measure of how well the classifier performs at different thresholds.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -62,7 +63,6 @@ Different accuracy metrics may be more relevant in different situations. Discuss
 
 1. Deciding what patients are high risk for a disease and who should get additional low-cost screening.
 2. Deciding what patients are high risk for a disease and should start taking medication to lower the disease risk. The medication is expensive and can have unpleasant side effects. 
-3. **TODO**
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -73,8 +73,6 @@ Different accuracy metrics may be more relevant in different situations. Discuss
 1. It is best if all patients who need the screening get it, and there is little downside for doing screenings unnecessarily because the screening costs are low. Thus, a high recall score is optimal.
 
 2. Given the costs and side effects of the medicine, we do not want patients not at risk for the disease to take the medication. So, a high precision score is ideal.
-
-3. **TODO**
 
 :::::::::::::::::::::::::
 
@@ -92,10 +90,9 @@ For instance, in a loan prediction setting in the United States, the average whi
 * (Group level calibration) We give loans to X% of Black applicants, where X is chosen to maximize accuracy while keeping recall equal to 70%. 
 
 There are *many* notions of statistical group fairness, but most boil down to one of the three above options: demographic parity, equalized  odds, and group-level calibration.
+All three are forms of *distributional* (or *outcome*) fairness. Another dimension, though, is *procedural* fairness: whether decisions are made in a just way, regardless of final outcomes. Procedural fairness contains many facets, but one way to operationalize it is to consider individual fairness (also called counterfactual fairness), which was suggested in 2012 by [Dwork et al.](https://dl.acm.org/doi/abs/10.1145/2090236.2090255) as a way to ensure that "similar individuals [are treated] similarly". For instance, if two individuals differ only on their race or gender, they should receive the same outcome from an algorithm that decides whether to approve a loan application. 
 
-**TODO** need example here, case study
-
-**TODO** need discussion of individual fairness (especially if we keep the challenge below)
+In practice, it's hard to use individual fairness because defining a complete set of rules about when two individuals are sufficiently "similar" is challenging.
 
 :::::::::::::::::::::::::::::::::::::: challenge
 
@@ -209,7 +206,7 @@ We start, though, by discussing why removing the sensitive attribute(s) is not s
 Can we simply remove all proxy variables? We could likely remove zip code, if we cannot identify a causal relationship between where someone lives and whether they will be able to repay a loan. But what about an attribute like educational achievement? Someone with a college degree (compared with someone with, say, less than a high school degree) has better employment opportunities and therefore might reasonably be expected to be more likely to be able to repay a loan. However, educational attainment is still a proxy for race in the United States due to historical (and ongoing) discrimination. 
 
 **Pre-processing** generally modifies the dataset used for learning. 
-Techniques in this category include
+Techniques in this category include:
 
 * Oversampling/undersampling: instead of training a machine learning model on all of the data,  *undersample* the majority class by removing some of the majority class samples from the dataset in order to have a more balanced dataset. Alternatively, *oversample* the minority class by duplicating samples belonging to this group. 
 
@@ -237,17 +234,15 @@ A challenge with all techniques is that if there is not sufficient data from min
 
 :::::::::::::::::::::::::
 
-**In-processing** modifies the learning algorithm. 
+**In-processing** modifies the learning algorithm. Some specific in-processing techniques include:
 
 * Reweighting samples: many machine learning models allow for reweighting individual samples, i.e., indicating that misclassifying certain, rarer, samples should be penalized more severely in the loss function. In the code example, we show how to reweight samples using AIF360's [Reweighting](https://aif360.readthedocs.io/en/latest/modules/generated/aif360.algorithms.preprocessing.Reweighing.html) function. 
 
 * Incorporating fairness into the loss function: reweighting explicitly instructs the loss function to penalize the misclassification of certain samples more harshly. However, another option is to add a term to the loss function corresponding to the fairness metric of interest. 
 
-**Post-processing** modifies an existing model to increase its fairness.
+**Post-processing** modifies an existing model to increase its fairness. Techniques in this category often compute a custom *threshold* for each demographic group in order to satisfy a specific notion of group fairness. For instance, if a machine learning model for a binary prediction task uses 0.5 as a cutoff (e.g., raw scores less than 0.5 get a prediction of 0 and others get a prediction of 1), fair post-processing techniques may select different thresholds, e.g., 0.4 or 0.6 for different demographic groups. 
 
-* different thresholds
-
-
+In the code, 
 
 
 :::::::::::::::::::::::::::::::::::::: challenge
