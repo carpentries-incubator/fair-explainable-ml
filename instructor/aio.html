@@ -626,7 +626,7 @@ performance.</li>
 </div>
 </div></section><section id="aio-3-model-eval"><p>Content from <a href="3-model-eval.html">Model evaluation and fairness</a></p>
 <hr>
-<p>Last updated on 2024-03-21 |
+<p>Last updated on 2024-04-17 |
         
         <a href="https://github.com/annapmeyer/fair-explainable-ml/edit/main/episodes/3-model-eval.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 0 minutes</p>
@@ -731,10 +731,16 @@ as members of -.</p>
 <h3 class="callout-title">Callout<a class="anchor" aria-label="anchor" href="#callout1"></a>
 </h3>
 <div class="callout-content">
-<p>TODO we’ve discussed binary classification but for other types of
-tasks there are different metrics. E.g., top-k accuracy for multi-class
-problems, ROC for regression tasks</p>
-<p>TODO also discuss F1 score here?</p>
+<p>We’ve discussed binary classification but for other types of tasks
+there are different metrics. For example,</p>
+<ul>
+<li>Multi-class problems often use <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.top_k_accuracy_score.html" class="external-link">Top-K
+accuracy</a>, a metric of how often the true response appears in their
+top-K guesses.</li>
+<li>Regression tasks often use the <a href="https://en.wikipedia.org/wiki/Receiver_operating_characteristic" class="external-link">Area
+Under the ROC curve (AUC ROC)</a> as a measure of how well the
+classifier performs at different thresholds.</li>
+</ul>
 </div>
 </div>
 </div>
@@ -756,7 +762,6 @@ get additional low-cost screening.</li>
 <li>Deciding what patients are high risk for a disease and should start
 taking medication to lower the disease risk. The medication is expensive
 and can have unpleasant side effects.</li>
-<li><strong>TODO</strong></li>
 </ol>
 </div>
 </div>
@@ -766,7 +771,7 @@ and can have unpleasant side effects.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li><p>It is best if all patients who need the screening get it, and
@@ -775,7 +780,6 @@ screening costs are low. Thus, a high recall score is optimal.</p></li>
 <li><p>Given the costs and side effects of the medicine, we do not want
 patients not at risk for the disease to take the medication. So, a high
 precision score is ideal.</p></li>
-<li><p><strong>TODO</strong></p></li>
 </ol>
 </div>
 </div>
@@ -820,10 +824,20 @@ where X is chosen to maximize accuracy while keeping recall equal to
 </ul>
 <p>There are <em>many</em> notions of statistical group fairness, but
 most boil down to one of the three above options: demographic parity,
-equalized odds, and group-level calibration.</p>
-<p><strong>TODO</strong> need example here, case study</p>
-<p><strong>TODO</strong> need discussion of individual fairness
-(especially if we keep the challenge below)</p>
+equalized odds, and group-level calibration. All three are forms of
+<em>distributional</em> (or <em>outcome</em>) fairness. Another
+dimension, though, is <em>procedural</em> fairness: whether decisions
+are made in a just way, regardless of final outcomes. Procedural
+fairness contains many facets, but one way to operationalize it is to
+consider individual fairness (also called counterfactual fairness),
+which was suggested in 2012 by <a href="https://dl.acm.org/doi/abs/10.1145/2090236.2090255" class="external-link">Dwork et
+al.</a> as a way to ensure that “similar individuals [are treated]
+similarly”. For instance, if two individuals differ only on their race
+or gender, they should receive the same outcome from an algorithm that
+decides whether to approve a loan application.</p>
+<p>In practice, it’s hard to use individual fairness because defining a
+complete set of rules about when two individuals are sufficiently
+“similar” is challenging.</p>
 <div id="matching-fairness-terminology-with-definitions" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
@@ -852,7 +866,7 @@ same rate.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>A - 3, B - 2, C - 4, D - 1</p>
 </div>
@@ -939,7 +953,7 @@ uses of the LLM’s output.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3">Show me the solution</h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <p>Most publicly-available LLM providers set up guardrails to avoid
 propagating biases present in their training data. For instance, as of
@@ -993,7 +1007,7 @@ via social media</a>.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4">Show me the solution</h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <p>While the picture is of Barack Obama, the upsampled image shows a
 white face. <img src="https://raw.githubusercontent.com/annapmeyer/fair-explainable-ml/main/images/e4-obama-upsampled.png" alt="Unblurred version of the pixelated picture of Obama. Instead of showing Obama, it shows a white man." class="figure"></p>
@@ -1055,7 +1069,7 @@ expected to be more likely to be able to repay a loan. However,
 educational attainment is still a proxy for race in the United States
 due to historical (and ongoing) discrimination.</p>
 <p><strong>Pre-processing</strong> generally modifies the dataset used
-for learning. Techniques in this category include</p>
+for learning. Techniques in this category include:</p>
 <ul>
 <li><p>Oversampling/undersampling: instead of training a machine
 learning model on all of the data, <em>undersample</em> the majority
@@ -1099,7 +1113,7 @@ different settings?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution5" aria-expanded="false" aria-controls="collapseSolution5">
   <h4 class="accordion-header" id="headingSolution5">Show me the solution</h4>
 </button>
-<div id="collapseSolution5" class="accordion-collapse collapse" data-bs-parent="#accordionSolution5" aria-labelledby="headingSolution5">
+<div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
 <div class="accordion-body">
 <p>A downside of oversampling is that it may violate statistical
 assumptions about independence of samples. A downside of undersampling
@@ -1114,7 +1128,8 @@ the groups without simply collecting more or higher-quality data.</p>
 </div>
 </div>
 </div>
-<p><strong>In-processing</strong> modifies the learning algorithm.</p>
+<p><strong>In-processing</strong> modifies the learning algorithm. Some
+specific in-processing techniques include:</p>
 <ul>
 <li><p>Reweighting samples: many machine learning models allow for
 reweighting individual samples, i.e., indicating that misclassifying
@@ -1129,10 +1144,14 @@ term to the loss function corresponding to the fairness metric of
 interest.</p></li>
 </ul>
 <p><strong>Post-processing</strong> modifies an existing model to
-increase its fairness.</p>
-<ul>
-<li>different thresholds</li>
-</ul>
+increase its fairness. Techniques in this category often compute a
+custom <em>threshold</em> for each demographic group in order to satisfy
+a specific notion of group fairness. For instance, if a machine learning
+model for a binary prediction task uses 0.5 as a cutoff (e.g., raw
+scores less than 0.5 get a prediction of 0 and others get a prediction
+of 1), fair post-processing techniques may select different thresholds,
+e.g., 0.4 or 0.6 for different demographic groups.</p>
+<p>In the code,</p>
 <div id="other-fairness-interventions" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
@@ -1154,7 +1173,7 @@ to the techniques we talked about above?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution6" aria-expanded="false" aria-controls="collapseSolution6">
   <h4 class="accordion-header" id="headingSolution6">Show me the solution</h4>
 </button>
-<div id="collapseSolution6" class="accordion-collapse collapse" data-bs-parent="#accordionSolution6" aria-labelledby="headingSolution6">
+<div id="collapseSolution6" class="accordion-collapse collapse" aria-labelledby="headingSolution6" data-bs-parent="#accordionSolution6">
 <div class="accordion-body">
 <p>TODO (discuss one or two?)</p>
 </div>
@@ -1347,8 +1366,8 @@ should not be used.</li>
   "url": "https://annapmeyer.github.io/fair-explainable-ml/instructor/aio.html",
   "identifier": "https://annapmeyer.github.io/fair-explainable-ml/instructor/aio.html",
   "dateCreated": "2023-12-05",
-  "dateModified": "2024-04-16",
-  "datePublished": "2024-04-16"
+  "dateModified": "2024-04-17",
+  "datePublished": "2024-04-17"
 }
 
   </script><script>
