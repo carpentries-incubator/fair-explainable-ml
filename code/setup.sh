@@ -4,6 +4,7 @@
 # you downloaded the data to a different directory.
 
 pip install aif360
+pip install fairlearn
 
 # find place where libraries are stored
 PYTHONLOC=$(pip show numpy | awk '/Location:/{print $2}')
