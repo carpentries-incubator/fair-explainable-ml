@@ -58,9 +58,10 @@ episodes:
 - 0-introduction.md
 - 1-preparing-to-train.md
 - 2-model-fitting.md
-- 3-model-eval.md
-- 4-explainability.md
-- 5-releasing-a-model.md
+- 3-model-eval-and-fairness.md
+- 4-explainability-vs-interpretability.md
+- 5-explainable-AI-methods.md
+- 6-releasing-a-model.md
 
 # Information for Learners
 learners: 
