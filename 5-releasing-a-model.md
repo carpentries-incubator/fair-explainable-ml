@@ -1,5 +1,5 @@
 ---
-title: "Documenting and Releasing a Model"
+title: "Documenting and releasing a model"
 teaching: 0
 exercises: 0
 ---
