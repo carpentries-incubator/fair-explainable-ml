@@ -375,7 +375,7 @@ reinforce the objectives.</li>
   <h3 class="accordion-header" id="headingInstructor1">
 <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div>Instructor Note</h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
 <div class="accordion-body">
 <p>Inline instructor notes can help inform instructors of timing
 challenges associated with the lessons. They appear in the “Instructor
@@ -407,7 +407,7 @@ View”</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Output</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -436,7 +436,7 @@ challenge blocks?<a class="anchor" aria-label="anchor" href="#challenge-2-how-do
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>You can add a line with at least three colons and a
 <code>solution</code> tag.</p>
@@ -1378,6 +1378,65 @@ scarcity</li>
 <strong>Resource efficiency</strong>: Instead of training a model
 from the ground up, practitioners can use existing models as a starting
 point, saving time, computational resources, and energy.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="what-pieces-must-be-well-documented-to-ensure-reproducible-and-responsible-model-sharing" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div id="what-pieces-must-be-well-documented-to-ensure-reproducible-and-responsible-model-sharing" class="callout-inner">
+<h3 class="callout-title">What pieces must be well-documented to ensure
+reproducible and responsible model sharing?<a class="anchor" aria-label="anchor" href="#what-pieces-must-be-well-documented-to-ensure-reproducible-and-responsible-model-sharing"></a>
+</h3>
+<div class="callout-content">
+<p>Discuss in small groups and report out: <em>Why do you believe it is
+or isn’t important to share ML models? How has model-sharing contributed
+to your experiences or projects?</em></p>
+</div>
+</div>
+</div>
+<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
+  <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
+</button>
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div class="accordion-body">
+<ul>
+<li>Environment setup</li>
+<li>Training data
+<ul>
+<li>How the data was collected</li>
+<li>Who owns the data: data license and usage terms</li>
+<li>Basic descriptive statistics: number of samples, features, classes,
+etc.</li>
+<li>Note any class imbalance or general bias issues</li>
+<li>Description of data distribution to help prevent out-of-distribution
+failures.</li>
+</ul>
+</li>
+<li>Preprocessing steps.
+<ul>
+<li>Data splitting</li>
+<li>Standardization method</li>
+<li>Feature selection</li>
+<li>Outlier detection and other filters</li>
+</ul>
+</li>
+<li>Model architecture, hyperparameters and, training procedure (e.g.,
+dropout or early stopping)</li>
+<li>Model weights</li>
+<li>Evaluation metrics. Results and performance. The more tasks/datasets
+you can evaluate on, the better.</li>
+<li>Ethical considerations: Include investigations of bias/fairness when
+applicable (i.e., if your model involves human data or affects
+decision-making involving humans)</li>
+<li>Contact info</li>
+<li>Acknowledgments</li>
+<li>Examples and demos (highly recommended)</li>
 </ul>
 </div>
 </div>
