@@ -1,5 +1,5 @@
 ---
-title: "Scientific Validity in the Modeling Process"
+title: "Scientific validity in the modeling process"
 teaching: 0
 exercises: 0
 ---
