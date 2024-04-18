@@ -84,3 +84,24 @@ Discuss in small groups and report out: *Why do you believe it is or isn’t imp
 * Acknowledgments
 * Examples and demos (highly recommended)
 :::::::::::::::::::::::::
+
+
+:::::::::::::::::::::::::::::::::::::: challenge
+
+### Challenges and risks of model sharing
+Discuss in small groups and report out: *What are some potential challenges, risks, or ethical concerns associated with model sharing and reproducing ML workflows?*
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::: solution
+
+### Solution
+* **Privacy concerns**: Sharing models that were trained on sensitive or private data raises privacy concerns. The potential disclosure of personal information through the model poses a risk to individuals and can lead to unintended consequences.
+* **Informed consent**: If models involve user data, ensuring informed consent is crucial. Sharing models trained on user-generated content without clear consent may violate privacy norms and regulations.
+* **Data bias and fairness**: Models trained on biased datasets may perpetuate or exacerbate existing biases. Reproducing workflows without addressing bias in the data may result in unfair outcomes, particularly in applications like hiring or criminal justice.
+* **Intellectual property**: Models may be developed within organizations with proprietary data and methodologies. Sharing such models without proper consent or authorization may lead to intellectual property disputes and legal consequences.
+* **Model robustness and generalization**: Reproduced models may not generalize well to new datasets or real-world scenarios. Failure to account for the limitations of the original model can result in reduced performance and reliability in diverse settings.
+* **Lack of reproducibility**: Incomplete documentation, missing details, or changes in dependencies over time can hinder the reproducibility of ML workflows. This lack of reproducibility can impede scientific progress and validation of research findings.
+* **Unintended use and misuse**: Shared models may be used in unintended ways, leading to ethical concerns. Developers should consider the potential consequences of misuse, particularly in applications with societal impact, such as healthcare or law enforcement.
+* **Responsible AI considerations**: Ethical considerations, such as fairness, accountability, and transparency, should be addressed during model sharing. Failing to consider these aspects can result in models that inadvertently discriminate or lack interpretability. Models used for decision-making, especially in critical areas like healthcare or finance, should be ethically deployed. Transparent documentation and disclosure of how decisions are made are essential for responsible AI adoption.
+:::::::::::::::::::::::::
