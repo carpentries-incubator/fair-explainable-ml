@@ -37,8 +37,3 @@ Once you have your account created, you'll need to generate an *access token* so
 
 ### Data
 
-
-
-
-[workbench]: https://carpentries.github.io/sandpaper-docs
-
