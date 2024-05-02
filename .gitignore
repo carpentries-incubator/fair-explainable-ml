@@ -49,3 +49,7 @@ docs/
 # translation temp files
 po/*~
 
+# jupyter checkpoints
+code/.ipynb_checkpoints/
+
+
