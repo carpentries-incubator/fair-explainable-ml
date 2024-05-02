@@ -50,6 +50,7 @@ docs/
 po/*~
 
 # jupyter checkpoints
-code/.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+
 
 
