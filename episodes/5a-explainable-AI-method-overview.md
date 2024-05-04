@@ -16,7 +16,7 @@ Post hoc explainable technices can be applied to neural networks to provide expl
 
 Striking the right balance between these factors is key to selecting the most suitable model for a given task, considering both its predictive performance and the need for interpretability.
 
-![The tradeoff between Interpretability and Complexity](../images/interpretability-vs-complexity.png)
+![The tradeoff between Interpretability and Complexity](../images/e5-interpretability-vs-complexity.png)
 _Credits: AAAI 2021 Tutorial on Explaining Machine Learning Predictions: State of the Art, Challenges, Opportunities._
 
 ### Local vs Global Explanations
