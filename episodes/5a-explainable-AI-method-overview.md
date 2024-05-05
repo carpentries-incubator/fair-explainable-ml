@@ -1,13 +1,15 @@
 # Fantastic Explainability Methods and Where to Use Them
 
+We will now take a bird's eye view of explainability methods that are widely applied on complex models like neural networks. 
+We will get a sense of when to use which kind of method, and what the tradeoffs between these methods are. 
+
 
 ## Three axes of use cases for understanding model behavior
 
-### Inherently Interpretable vs Post Hoc Explainable
+When deciding which explainability method to use, it is helpful to define your setting along three axes. 
+This helps in understanding the context in which the model is being used, and the kind of insights you are looking to gain from the model.
 
-[//]: # (Simple models like decisions trees, random forests and linear regression are inherently interpretable. )
-[//]: # (Conversely, neural networks are complex and hard to interpret. They thus require post-hoc methods applied to them to explain their predictions. )
-[//]: # (While neural networks are harder to interpret, they possess higher expressive power and are capable of solving harder problems. This is an instance of the “complexity-interpretability” tradeoff. )
+### Inherently Interpretable vs Post Hoc Explainable
 
 Understanding the tradeoff between interpretability and complexity is crucial in machine learning. 
 Simple models like decision trees, random forests, and linear regression offer transparency and ease of understanding, making them ideal for explaining predictions to stakeholders. 
@@ -37,7 +39,7 @@ Some large models are closed-source due to commercial or safety concerns; for ex
 
 
 
-## Classes of Methods for Understanding Model Behaviour
+## Classes of Explainability Methods for Understanding Model Behavior
 
 ### Diagnostic Testing
 
@@ -154,6 +156,8 @@ Furthermore, the model components that have been shown to contain certain knowle
 
 ## Summary
 
+To summarize the methods discussed above, we can categorize them based on their approach, interpretability, and scope.
+
 | Approach                                                                                         | Post Hoc or Inherently Interpretable? | Local or Global? | White Box or Black Box? |
 |--------------------------------------------------------------------------------------------------|---------------------------------------|------------------|-------------------------|
 | [Diagnostic Testing](#diagnostic-testing)                                                        | Post Hoc                              | Global           | Black Box               |
@@ -202,6 +206,8 @@ Q: Can you explain the decisions you make for each method you use?
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ### References and Further Reading
+
+This lesson provides a gentle overview into the world of explainability methods. If you'd like to know more, here are some resources to get you started:
 
 - Tutorials on Explainability:
   - [Wallace, E., Gardner, M., & Singh, S. (2020, November). Interpreting predictions of NLP models. In Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing: Tutorial Abstracts (pp. 20-23).](https://github.com/Eric-Wallace/interpretability-tutorial-emnlp2020/blob/master/tutorial_slides.pdf)
