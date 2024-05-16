@@ -60,9 +60,12 @@ episodes:
 - 2-model-fitting.md
 - 3-model-eval-and-fairness.md
 - 4-explainability-vs-interpretability.md
-- 5-explainable-AI-methods.md
-- 6-distribution-shift-OOD-detection.md
-- 7-releasing-a-model.md
+- 5a-explainable-AI-method-overview.md
+- 5b-deep-dive-into-methodss.md
+- 5c-probes.md
+- 6-confidence-intervals.md
+- 7-distribution-shift-OOD-detection.md
+- 8-releasing-a-model.md
 
 # Information for Learners
 learners: 

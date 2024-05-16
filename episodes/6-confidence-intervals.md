@@ -1,5 +1,5 @@
 ---
-title: "Explainabile AI methods"
+title: "Estimating model uncertainty"
 teaching: 0
 exercises: 0
 ---
@@ -21,3 +21,4 @@ exercises: 0
 - TODO
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
+
