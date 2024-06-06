@@ -62,7 +62,6 @@ episodes:
 - 4-explainability-vs-interpretability.md
 - 5a-explainable-AI-method-overview.md
 - 5b-deep-dive-into-methods.md
-- 5c-probes.md
 - 6-confidence-intervals.md
 - 7-distribution-shift-OOD-detection.md
 - 8-releasing-a-model.md
