@@ -20,7 +20,7 @@ This helps in understanding the context in which the model is being used, and th
 Understanding the tradeoff between interpretability and complexity is crucial in machine learning. 
 Simple models like decision trees, random forests, and linear regression offer transparency and ease of understanding, making them ideal for explaining predictions to stakeholders. 
 In contrast, neural networks, while powerful, lack interpretability due to their complexity. 
-Post hoc explainable technices can be applied to neural networks to provide explanations for predictions, but it's essential to recognize that using such methods involves a tradeoff between model complexity and interpretability. 
+Post hoc explainable techniques can be applied to neural networks to provide explanations for predictions, but it's essential to recognize that using such methods involves a tradeoff between model complexity and interpretability. 
 
 Striking the right balance between these factors is key to selecting the most suitable model for a given task, considering both its predictive performance and the need for interpretability.
 
@@ -99,7 +99,7 @@ Furthermore, these rules only showcase the model's weaknesses, but give next to 
 Just like how a picture tells a thousand words, visualizations can help encapsulate complex model behavior in a simple image. 
 Visualizations are commonly used in explaining neural networks, where the weights or data representations of the model are directly visualized.
 Many such approaches involve reducing the high-dimensional weights or representations to a 2D or 3D space, using techniques like PCA, tSNE, or UMAP.
-Alternatively, these visualizations can retain their high dimentional representation, but use color or size to identify which dimentions or neurons are more important.
+Alternatively, these visualizations can retain their high dimensional representation, but use color or size to identify which dimensions or neurons are more important.
 
 **Use Case:** Black box, Post Hoc, Global
 
@@ -109,7 +109,7 @@ Alternatively, these visualizations can retain their high dimentional representa
 Gleaning model behaviour from visualizations is very intuitive and user-friendly, and visualizations sometimes have interactive interfaces.
 However, visualizations can be misleading, especially when high-dimensional vectors are reduced to 2D, leading to a loss of information (crowding issue).
 
-An iconic debate expemplifying the validity of visualizations has centered around attention heatmaps. 
+An iconic debate exemplifying the validity of visualizations has centered around attention heatmaps. 
 Research has shown them to be [unreliable](https://arxiv.org/abs/1902.10186), and then [reliable again](https://arxiv.org/abs/1908.04626). (Check out the titles of these papers!)
 Thus, visualization can only be used as an additional step in an analysis, and not as a standalone method.
 

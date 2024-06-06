@@ -339,7 +339,7 @@ print(explainer_orig_panel19_train.disparate_impact())
 ```
 We see that the disparate impact is about 0.48, which means the privileged group has the favorable outcome at about 2x the rate as the unprivileged group does. 
 
-(In this case, the "favorable" outcome is label=1, i.e., high utlization)
+(In this case, the "favorable" outcome is label=1, i.e., high utilization)
 ## Train a model
 
 We will train a logistic regression classifier.

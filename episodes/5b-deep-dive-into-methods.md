@@ -42,7 +42,7 @@ Alternative approaches, which may not directly generate heatmaps, include [LIME]
 
 Gradient based saliency methods like GradCam are fast to compute, requiring only a handful of backpropagation steps on the model to generate the heatmap.
 The method is also model-agnostic, meaning it can be applied to any model that can be trained using gradient descent.
-Additionaly, the results obtained from these methods are intuitive and easy to understand, making them useful for explaining model predictions to non-experts.
+Additionally, the results obtained from these methods are intuitive and easy to understand, making them useful for explaining model predictions to non-experts.
 
 However, their use is limited to models that can be trained using gradient descent, and have white-box access. 
 It is also difficult to apply these methods to tasks beyond classification, making their application limited with many recent
@@ -55,7 +55,7 @@ On finding issues in the prediction process, it is also hard to pick up on if th
 ## What part of my model causes this prediction?
 
 When a model makes a correct prediction on a task it has been trained on (known as a 'downstream task'), 
-**[Probing classifiers](https://direct.mit.edu/coli/article/48/1/207/107571/Probing-Classifiers-Promises-Shortcomings-and)** can be used to identify if the model actually contains the relavant information or knowledge required 
+**[Probing classifiers](https://direct.mit.edu/coli/article/48/1/207/107571/Probing-Classifiers-Promises-Shortcomings-and)** can be used to identify if the model actually contains the relevant information or knowledge required 
 to make that prediction, or if it is just making a lucky guess.
 Furthermore, probes can be used to identify the specific components of the model that contain this relevant information, 
 providing crucial insights for developing better models over time.
@@ -93,7 +93,7 @@ So essentially, a probe can only tell us if a part of the model _can_ make the p
 
 A new approach known as **[Causal Tracing](https://proceedings.neurips.cc/paper/2020/hash/92650b2e92217715fe312e6fa7b90d82-Abstract.html)** 
 addresses this limitation. The objective of this approach is similar to probes: attempting to understand which part of a model contains 
-information relavant to a downstream task. The approach involves iterating through all parts of the model being examined (e.g. all layers
+information relevant to a downstream task. The approach involves iterating through all parts of the model being examined (e.g. all layers
 of a model), and disrupting the information flow through that part of the model. (This could be as easy as adding some kind of noise on top of the 
 weights of that model component). If the model performance on the downstream task suddenly drops on disrupting a specific model component, 
 we know for sure that that component not only contains the information required to make the prediction, but that the model is actually using that

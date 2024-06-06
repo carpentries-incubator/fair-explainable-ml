@@ -90,7 +90,7 @@ print(f'The model has {num_layers} layers.')
 Before we define the probing classifier or probe, let's set up some utility functions the probe will use. 
 The probe will be trained from hidden representations from a specific layer of the BERT model. The `get_embeddings_from_model` function will retrieve the intermediate layer representations (also known as embeddings) from a user defined layer number.
 
-The `visualize_embeddings` method can be used to see what these high dimentional hidden embeddings would look like when converted into a 2D view. The visualization is not intended to be informative in itself, and is only an additional tool used to get a sense of what the inputs to the probing classifier may look like. 
+The `visualize_embeddings` method can be used to see what these high dimensional hidden embeddings would look like when converted into a 2D view. The visualization is not intended to be informative in itself, and is only an additional tool used to get a sense of what the inputs to the probing classifier may look like. 
 ```python
 def get_embeddings_from_model(model: AutoModel, tokenizer: AutoTokenizer, layer_num: int, data: list[str]) -> torch.Tensor:
     '''
