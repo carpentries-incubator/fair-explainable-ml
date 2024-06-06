@@ -242,24 +242,8 @@ A challenge with all techniques is that if there is not sufficient data from min
 
 **Post-processing** modifies an existing model to increase its fairness. Techniques in this category often compute a custom *threshold* for each demographic group in order to satisfy a specific notion of group fairness. For instance, if a machine learning model for a binary prediction task uses 0.5 as a cutoff (e.g., raw scores less than 0.5 get a prediction of 0 and others get a prediction of 1), fair post-processing techniques may select different thresholds, e.g., 0.4 or 0.6 for different demographic groups. 
 
-In the code, 
+In the code, we explore two different bias mitigations strategies implemented in the [AIF360 Fairness Toolkit](https://aif360.readthedocs.io/en/stable/). 
 
-
-:::::::::::::::::::::::::::::::::::::: challenge
-
-### Other fairness interventions
-
-Computer scientists have proposed many interventions to improve the fairness of machine learning models. A partial list is available (TODO FIND RESOURCE). Visit the list and read about one of the methods. When would using that method be beneficial for fairness? How does it compare to the techniques we talked about above?
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
-:::::::::::::: solution
-
-### Solution
-
-TODO (discuss one or two?)
-
-:::::::::::::::::::::::::
 
 ---
 ```python
