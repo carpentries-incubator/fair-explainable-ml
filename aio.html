@@ -245,7 +245,7 @@
 <div class="accordion accordion-flush" id="accordionFlush7">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading7">
-        <a href="5-explainable-AI-methods.html">6. Explainabile AI methods</a>
+        <a href="5a-explainable-AI-method-overview.html">6. Explainability methods overview</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -257,7 +257,7 @@
 <div class="accordion accordion-flush" id="accordionFlush8">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading8">
-        <a href="6-distribution-shift-OOD-detection.html">7. Distribution shift and OOD detection</a>
+        <a href="5b-deep-dive-into-methods.html">7. Explainability methods: deep dive</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -269,7 +269,31 @@
 <div class="accordion accordion-flush" id="accordionFlush9">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading9">
-        <a href="7-releasing-a-model.html">8. Documenting and releasing a model</a>
+        <a href="6-confidence-intervals.html">8. Estimating model uncertainty</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush10">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading10">
+        <a href="7-distribution-shift-OOD-detection.html">9. Distribution shift and OOD detection</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush11">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading11">
+        <a href="8-releasing-a-model.html">10. Documenting and releasing a model</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -334,7 +358,7 @@
         
 <section id="aio-0-introduction"><p>Content from <a href="0-introduction.html">Introduction</a></p>
 <hr>
-<p>Last updated on 2023-12-14 |
+<p>Last updated on 2024-06-06 |
         
         <a href="https://github.com/annapmeyer/fair-explainable-ml/edit/main/episodes/0-introduction.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -508,7 +532,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-1-preparing-to-train"><p>Content from <a href="1-preparing-to-train.html">Preparing to train a model</a></p>
 <hr>
-<p>Last updated on 2023-12-14 |
+<p>Last updated on 2024-06-06 |
         
         <a href="https://github.com/annapmeyer/fair-explainable-ml/edit/main/episodes/1-preparing-to-train.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -568,7 +592,7 @@ practices.</li>
 </div>
 </div></section><section id="aio-2-model-fitting"><p>Content from <a href="2-model-fitting.html">Scientific validity in the modeling process</a></p>
 <hr>
-<p>Last updated on 2024-04-18 |
+<p>Last updated on 2024-06-06 |
         
         <a href="https://github.com/annapmeyer/fair-explainable-ml/edit/main/episodes/2-model-fitting.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -630,7 +654,7 @@ performance.</li>
 </div>
 </div></section><section id="aio-3-model-eval-and-fairness"><p>Content from <a href="3-model-eval-and-fairness.html">Model evaluation and fairness</a></p>
 <hr>
-<p>Last updated on 2024-05-16 |
+<p>Last updated on 2024-06-06 |
         
         <a href="https://github.com/annapmeyer/fair-explainable-ml/edit/main/episodes/3-model-eval-and-fairness.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -1154,35 +1178,9 @@ model for a binary prediction task uses 0.5 as a cutoff (e.g., raw
 scores less than 0.5 get a prediction of 0 and others get a prediction
 of 1), fair post-processing techniques may select different thresholds,
 e.g., 0.4 or 0.6 for different demographic groups.</p>
-<p>In the code,</p>
-<div id="other-fairness-interventions" class="callout discussion">
-<div class="callout-square">
-<i class="callout-icon" data-feather="message-circle"></i>
-</div>
-<div id="other-fairness-interventions" class="callout-inner">
-<h3 class="callout-title">Other fairness interventions<a class="anchor" aria-label="anchor" href="#other-fairness-interventions"></a>
-</h3>
-<div class="callout-content">
-<p>Computer scientists have proposed many interventions to improve the
-fairness of machine learning models. A partial list is available (TODO
-FIND RESOURCE). Visit the list and read about one of the methods. When
-would using that method be beneficial for fairness? How does it compare
-to the techniques we talked about above?</p>
-</div>
-</div>
-</div>
-<div id="accordionSolution6" class="accordion challenge-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution6" aria-expanded="false" aria-controls="collapseSolution6">
-  <h4 class="accordion-header" id="headingSolution6">Show me the solution</h4>
-</button>
-<div id="collapseSolution6" class="accordion-collapse collapse" data-bs-parent="#accordionSolution6" aria-labelledby="headingSolution6">
-<div class="accordion-body">
-<p>TODO (discuss one or two?)</p>
-</div>
-</div>
-</div>
-</div>
+<p>In the code, we explore two different bias mitigations strategies
+implemented in the <a href="https://aif360.readthedocs.io/en/stable/" class="external-link">AIF360 Fairness
+Toolkit</a>.</p>
 <hr>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1297,7 +1295,7 @@ one racial group than another?</p>
 privileged group has the favorable outcome at about 2x the rate as the
 unprivileged group does.</p>
 <p>(In this case, the “favorable” outcome is label=1, i.e., high
-utlization) ## Train a model</p>
+utilization) ## Train a model</p>
 <p>We will train a logistic regression classifier.</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1668,7 +1666,7 @@ any links that you are not going to use.
 </div>
 </section></section><section id="aio-4-explainability-vs-interpretability"><p>Content from <a href="4-explainability-vs-interpretability.html">Explainability versus interpretability</a></p>
 <hr>
-<p>Last updated on 2024-04-18 |
+<p>Last updated on 2024-06-06 |
         
         <a href="https://github.com/annapmeyer/fair-explainable-ml/edit/main/episodes/4-explainability-vs-interpretability.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -1718,11 +1716,574 @@ any links that you are not going to use.
 </ul>
 </div>
 </div>
-</div></section><section id="aio-5-explainable-AI-methods"><p>Content from <a href="5-explainable-AI-methods.html">Explainabile AI methods</a></p>
+</div></section><section id="aio-5a-explainable-AI-method-overview"><p>Content from <a href="5a-explainable-AI-method-overview.html">Explainability methods overview</a></p>
 <hr>
-<p>Last updated on 2024-04-18 |
+<p>Last updated on 2024-06-06 |
         
-        <a href="https://github.com/annapmeyer/fair-explainable-ml/edit/main/episodes/5-explainable-AI-methods.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+        <a href="https://github.com/annapmeyer/fair-explainable-ml/edit/main/episodes/5a-explainable-AI-method-overview.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+<div class="text-end">
+          <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
+        </div>
+<div class="section level1">
+<h1 id="fantastic-explainability-methods-and-where-to-use-them">Fantastic Explainability Methods and Where to Use Them<a class="anchor" aria-label="anchor" href="#fantastic-explainability-methods-and-where-to-use-them"></a>
+</h1>
+<p>We will now take a bird’s eye view of explainability methods that are
+widely applied on complex models like neural networks. We will get a
+sense of when to use which kind of method, and what the tradeoffs
+between these methods are.</p>
+<div class="section level2">
+<h2 id="three-axes-of-use-cases-for-understanding-model-behavior">Three axes of use cases for understanding model behavior<a class="anchor" aria-label="anchor" href="#three-axes-of-use-cases-for-understanding-model-behavior"></a>
+</h2>
+<p>When deciding which explainability method to use, it is helpful to
+define your setting along three axes. This helps in understanding the
+context in which the model is being used, and the kind of insights you
+are looking to gain from the model.</p>
+<div class="section level3">
+<h3 id="inherently-interpretable-vs-post-hoc-explainable">Inherently Interpretable vs Post Hoc Explainable<a class="anchor" aria-label="anchor" href="#inherently-interpretable-vs-post-hoc-explainable"></a>
+</h3>
+<p>Understanding the tradeoff between interpretability and complexity is
+crucial in machine learning. Simple models like decision trees, random
+forests, and linear regression offer transparency and ease of
+understanding, making them ideal for explaining predictions to
+stakeholders. In contrast, neural networks, while powerful, lack
+interpretability due to their complexity. Post hoc explainable
+techniques can be applied to neural networks to provide explanations for
+predictions, but it’s essential to recognize that using such methods
+involves a tradeoff between model complexity and interpretability.</p>
+<p>Striking the right balance between these factors is key to selecting
+the most suitable model for a given task, considering both its
+predictive performance and the need for interpretability.</p>
+<p><img src="images/e5-interpretability-vs-complexity.png" alt="The tradeoff between Interpretability and Complexity" class="figure"><em>Credits: AAAI 2021 Tutorial on Explaining Machine Learning
+Predictions: State of the Art, Challenges, Opportunities.</em></p>
+</div>
+<div class="section level3">
+<h3 id="local-vs-global-explanations">Local vs Global Explanations<a class="anchor" aria-label="anchor" href="#local-vs-global-explanations"></a>
+</h3>
+<p>Local explanations focus on describing model behavior within a
+specific neighborhood, providing insights into individual predictions.
+Conversely, global explanations aim to elucidate overall model behavior,
+offering a broader perspective. While global explanations may be more
+comprehensive, they run the risk of being overly complex.</p>
+<p>Both types of explanations are valuable for uncovering biases and
+ensuring that the model makes predictions for the right reasons. The
+tradeoff between local and global explanations has a long history in
+statistics, with methods like linear regression (global) and kernel
+smoothing (local) illustrating the importance of considering both
+perspectives in statistical analysis.</p>
+</div>
+<div class="section level3">
+<h3 id="black-box-vs-white-box-approaches">Black box vs White Box Approaches<a class="anchor" aria-label="anchor" href="#black-box-vs-white-box-approaches"></a>
+</h3>
+<p>Even without access to the model weights, black box or top down
+approaches can shed a lot of light on model behavior. For example, by
+simply evaluating the model on certain kinds of data, high level biases
+or trends in the model’s decision making process can be unearthed.</p>
+<p>White box approaches use the weights and activations of the model to
+understand its behavior. These classes or methods are more complex and
+diverse, and we will be discussing them in more detail later in this
+chapter. Some large models are closed-source due to commercial or safety
+concerns; for example, users can’t get access to the weights of GPT-4.
+This limits the use of white box explanations to such models.</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="classes-of-explainability-methods-for-understanding-model-behavior">Classes of Explainability Methods for Understanding Model
+Behavior<a class="anchor" aria-label="anchor" href="#classes-of-explainability-methods-for-understanding-model-behavior"></a>
+</h2>
+<div class="section level3">
+<h3 id="diagnostic-testing">Diagnostic Testing<a class="anchor" aria-label="anchor" href="#diagnostic-testing"></a>
+</h3>
+<p>This is the simplest approach towards explaining model behavior. This
+involves applying a series of unit tests to the model. By developing
+test examples that break the heuristics the model relies on (called
+counterfactuals), you can gain insights into the high-level behavior of
+the model.</p>
+<p><strong>Use-Case:</strong> Black box, post-hoc explainable,
+global</p>
+<p><strong>Example Methods:</strong> <a href="https://arxiv.org/abs/1902.01007" class="external-link">Counterfactuals</a>, <a href="https://arxiv.org/abs/2005.04118" class="external-link">Unit tests</a></p>
+<p><strong>Pros and Cons:</strong> These methods allow for gaining
+insights into the high-level behavior of the model without the needing
+access to model weights. This is especially useful with recent powerful
+closed-source models like GPT-4. One challenge with this approach is
+that it is hard to identify in advance what heuristics a model may
+depend on.</p>
+</div>
+<div class="section level3">
+<h3 id="baking-interpretability-into-models">Baking interpretability into models<a class="anchor" aria-label="anchor" href="#baking-interpretability-into-models"></a>
+</h3>
+<p>Some recent research has focused on tweaking highly complex models
+like neural networks, towards making them more interpretable inherently.
+One such example with language models involves training the model to
+generate rationales for its prediction, in addition to its original
+prediction. This approach has gained some traction, and there are even
+<a href="https://arxiv.org/abs/1911.03429" class="external-link">public benchmarks</a> for
+evaluating the quality of these generated rationales.</p>
+<p><strong>Use Case:</strong> Interpretable, Local, White Box</p>
+<p><strong>Example methods:</strong> <a href="https://arxiv.org/abs/2004.14546" class="external-link">Rationales with WT5</a>, <a href="https://arxiv.org/abs/1606.04155" class="external-link">Older approaches for
+rationales</a></p>
+<p><strong>Pros and cons:</strong> These models hope to achieve the best
+of both worlds: complex models that are also inherently interpretable.
+However, research in this direction is still new, and there are no
+established and reliable approaches for real world applications just
+yet.</p>
+</div>
+<div class="section level3">
+<h3 id="identifying-decision-rules-of-the-model">Identifying Decision Rules of the Model:<a class="anchor" aria-label="anchor" href="#identifying-decision-rules-of-the-model"></a>
+</h3>
+<p>In this class of methods, we try find a set of rules that generally
+explain the decision making process of the model. Loosely, these rules
+would be of the form “if a specific condition is met, then the model
+will predict a certain class”. Explaining the decision making process of
+an <em>entire</em> neural network can be challenging. Instead, these
+rules are built over a small set of inputs, for example, a single
+dataset.</p>
+<p><strong>Use Case:</strong> White box, post-hoc explainable, global or
+local</p>
+<p><strong>Example methods:</strong> <a href="https://aaai.org/papers/11491-anchors-high-precision-model-agnostic-explanations/" class="external-link">Anchors</a>,
+<a href="https://arxiv.org/abs/1908.07125" class="external-link">Universal Adversarial
+Triggers</a></p>
+<p><strong>Pros and cons:</strong> Some global rules help find “bugs” in
+the model, or identify high level biases. But finding such broad
+coverage rules is challenging. Furthermore, these rules only showcase
+the model’s weaknesses, but give next to no insight as to why these
+weaknesses exist.</p>
+</div>
+<div class="section level3">
+<h3 id="visualizing-model-weights-or-representations">Visualizing model weights or representations<a class="anchor" aria-label="anchor" href="#visualizing-model-weights-or-representations"></a>
+</h3>
+<p>Just like how a picture tells a thousand words, visualizations can
+help encapsulate complex model behavior in a simple image.
+Visualizations are commonly used in explaining neural networks, where
+the weights or data representations of the model are directly
+visualized. Many such approaches involve reducing the high-dimensional
+weights or representations to a 2D or 3D space, using techniques like
+PCA, tSNE, or UMAP. Alternatively, these visualizations can retain their
+high dimensional representation, but use color or size to identify which
+dimensions or neurons are more important.</p>
+<p><strong>Use Case:</strong> Black box, Post Hoc, Global</p>
+<p><strong>Example methods:</strong> <a href="https://arxiv.org/abs/1612.08220" class="external-link">Visualizing attention
+heatmaps</a>, Weight visualizations, Model activation visualizations</p>
+<p><strong>Pros and cons:</strong> Gleaning model behaviour from
+visualizations is very intuitive and user-friendly, and visualizations
+sometimes have interactive interfaces. However, visualizations can be
+misleading, especially when high-dimensional vectors are reduced to 2D,
+leading to a loss of information (crowding issue).</p>
+<p>An iconic debate exemplifying the validity of visualizations has
+centered around attention heatmaps. Research has shown them to be <a href="https://arxiv.org/abs/1902.10186" class="external-link">unreliable</a>, and then <a href="https://arxiv.org/abs/1908.04626" class="external-link">reliable again</a>. (Check out
+the titles of these papers!) Thus, visualization can only be used as an
+additional step in an analysis, and not as a standalone method.</p>
+</div>
+<div class="section level3">
+<h3 id="understanding-impact-of-training-examples">Understanding impact of training examples<a class="anchor" aria-label="anchor" href="#understanding-impact-of-training-examples"></a>
+</h3>
+<p>Which of the many datapoints seen during training a model, caused it
+to generate a specific prediction? Identifying this helps in finding
+annotation artifacts in the data, and correcting them.</p>
+<p><strong>Use Case:</strong> White box, Post Hoc, Local</p>
+<p><strong>Example methods:</strong> <a href="https://arxiv.org/abs/1703.04730" class="external-link">Influence functions</a>, <a href="https://arxiv.org/abs/1811.09720" class="external-link">Representer point
+selection</a></p>
+<p><strong>Pros and cons:</strong> The insights from these approaches
+are actionable - by identifying the data responsible for a prediction,
+it can help correct labels/annotation artifacts/labels in that data.
+Unfortunately, these methods scale poorly with the size of the model and
+training data, quickly becoming computationally expensive. Furthermore,
+even knowing which datapoints had a high influence on a prediction, we
+don’t know what in the datapoint caused that that influence.</p>
+</div>
+<div class="section level3">
+<h3 id="understanding-the-impact-of-a-single-example">Understanding the impact of a single example:<a class="anchor" aria-label="anchor" href="#understanding-the-impact-of-a-single-example"></a>
+</h3>
+<p>For a single input, what parts of the input were most important in
+generating the model’s prediction? These methods study the signal sent
+by various features to the model, and observe how the model reacts to
+changes in these features.</p>
+<p><strong>Use Case:</strong> Local, black/white box (depending on
+specific method), post hoc.</p>
+<p><strong>Example methods:</strong> <a href="https://arxiv.org/abs/1312.6034" class="external-link">Saliency Maps</a>, <a href="https://arxiv.org/abs/1602.04938" class="external-link">LIME</a>/<a href="https://arxiv.org/abs/1705.07874" class="external-link">SHAP</a>, Perturbations (<a href="https://arxiv.org/abs/1804.07781" class="external-link">Input reduction</a>, <a href="https://arxiv.org/abs/1712.06751" class="external-link">Adversarial
+Perturbations</a>)</p>
+<p><strong>Pros and cons:</strong> These methods are fast to compute,
+and flexible in their use across models. However, the insights gained
+from these methods are not actionable - knowing which part of the input
+caused the prediction does not highlight why that part caused it. On
+finding issues in the prediction process, it is also hard to pick up on
+if there is an underlying issue in the model, or just the specific
+inputs tested on.</p>
+</div>
+<div class="section level3">
+<h3 id="probing-internal-representations">Probing internal representations<a class="anchor" aria-label="anchor" href="#probing-internal-representations"></a>
+</h3>
+<p>As the name suggests, this class of methods aims to probe the
+internals of a model, to discover what kind of information or knowledge
+is stored inside the model. Probes are often administered to a specific
+component of the model, like a set of neurons or layers within a neural
+network.</p>
+<p><strong>Use Case:</strong> Global/local, white box, post hoc</p>
+<p><strong>Example methods:</strong> <a href="https://direct.mit.edu/coli/article/48/1/207/107571/Probing-Classifiers-Promises-Shortcomings-and" class="external-link">Probing
+classifiers</a>, <a href="https://proceedings.neurips.cc/paper/2020/hash/92650b2e92217715fe312e6fa7b90d82-Abstract.html" class="external-link">Causal
+tracing</a></p>
+<p><strong>Pros and cons:</strong> Probes have shown that it is possible
+to find highly interpretable components in a complex model, e.g., MLP
+layers in transformers have been shown to store factual knowledge in a
+structured manner. However, there is no systematic way of finding
+interpretable components, and many components may remain elusive to
+humans to understand. Furthermore, the model components that have been
+shown to contain certain knowledge may not actually play a role in the
+model’s prediction.</p>
+</div>
+<div class="section level3">
+<h3 id="todo-methods-related-to-graph-based-structures">TODO: Methods related to graph based structures<a class="anchor" aria-label="anchor" href="#todo-methods-related-to-graph-based-structures"></a>
+</h3>
+</div>
+</div>
+<div class="section level2">
+<h2 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
+</h2>
+<p>To summarize the methods discussed above, we can categorize them
+based on their approach, interpretability, and scope.</p>
+<table class="table">
+<colgroup>
+<col width="54%">
+<col width="21%">
+<col width="10%">
+<col width="13%">
+</colgroup>
+<thead><tr class="header">
+<th>Approach</th>
+<th>Post Hoc or Inherently Interpretable?</th>
+<th>Local or Global?</th>
+<th>White Box or Black Box?</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><a href="#diagnostic-testing">Diagnostic Testing</a></td>
+<td>Post Hoc</td>
+<td>Global</td>
+<td>Black Box</td>
+</tr>
+<tr class="even">
+<td><a href="#baking-interpretability-into-models">Baking
+interpretability into models</a></td>
+<td>Inherently Interpretable</td>
+<td>Local</td>
+<td>White Box</td>
+</tr>
+<tr class="odd">
+<td><a href="#identifying-decision-rules-of-the-model">Identifying
+Decision Rules of the Model</a></td>
+<td>Post Hoc</td>
+<td>Both</td>
+<td>White Box</td>
+</tr>
+<tr class="even">
+<td><a href="#visualizing-model-weights-or-representations">Visualizing
+model weights or representations</a></td>
+<td>Post Hoc</td>
+<td>Global</td>
+<td>White Box</td>
+</tr>
+<tr class="odd">
+<td><a href="#understanding-the-impact-of-training-examples">Understanding the
+impact of training examples</a></td>
+<td>Post Hoc</td>
+<td>Local</td>
+<td>White Box</td>
+</tr>
+<tr class="even">
+<td><a href="#understanding-the-impact-of-a-single-example">Understanding the
+impact of a single example</a></td>
+<td>Post Hoc</td>
+<td>Local</td>
+<td>Both</td>
+</tr>
+<tr class="odd">
+<td><a href="#probing-internal-representations">Probing internal
+representations of a model</a></td>
+<td>Post Hoc</td>
+<td>Global/Local</td>
+<td>White Box</td>
+</tr>
+</tbody>
+</table>
+<div id="discussion1" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#discussion1"></a>
+</h3>
+<div class="callout-content">
+<p>Think about the following scenarios and suggest which explainability
+method would be most appropriate to use, and what information could be
+gained from that method. Furthermore, think about the limitations of
+your findings.</p>
+<p><em>Note:</em> These are open-ended questions, and there is no
+correct answer. Feel free to break into discussion groups to discuss the
+scenarios.</p>
+<p><strong>Scenario 1</strong>: Suppose that you are an ML engineer
+working at a tech company. A fast-food chain company consults with you
+about sentimental analysis based on feedback they collected on Yelp and
+their survey. You use an open sourced LLM such as Llama-2 and finetune
+it on the review text data. The fast-food company asks to provide
+explanations for the model: Is there any outlier review? How does each
+review in the data affect the finetuned model? Which part of the
+language in the review indicates that a customer likes or dislikes the
+food? Can you score the food quality according to the reviews? Does the
+review show a trend over time? What item is gaining popularity or losing
+popularity? Q: Can you suggest a few explainability methods that may be
+useful for answering these questions?</p>
+<p><strong>Scenario 2</strong>: Suppose that you are a radiologist who
+analyzes medical images of patients with the help of machine learning
+models. You use black-box models (e.g., CNNs, Vision Transformers) to
+complement human expertise and get useful information before making
+high-stake decisions. Which areas of a medical image most likely
+explains the output of a black-box? Can we visualize and understand what
+features are captured by the intermediate components of the black-box
+models? How do we know if there is a distribution shift? How can we tell
+if an image is an out-of-distribution example? Q: Can you suggest a few
+explainability methods that may be useful for answering these
+questions?</p>
+<p><strong>Scenario 3</strong>: Suppose that you work on genomics and
+you just collected samples of single-cell data into a table: each row
+records gene expression levels, and each column represents a single
+cell. You are interested in scientific hypotheses about evolution of
+cells. You believe that only a few genes are playing a role in your
+study. What exploratory data analysis techniques would you use to
+examine the dataset? How do you check whether there are potential
+outliers, irregularities in the dataset? You believe that only a few
+genes are playing a role in your study. What can you do to find the set
+of most explanatory genes? How do you know if there is clustering, and
+if there is a trajectory of changes in the cells? Q: Can you explain the
+decisions you make for each method you use?</p>
+</div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="references-and-further-reading">References and Further Reading<a class="anchor" aria-label="anchor" href="#references-and-further-reading"></a>
+</h3>
+<p>This lesson provides a gentle overview into the world of
+explainability methods. If you’d like to know more, here are some
+resources to get you started:</p>
+<ul>
+<li>Tutorials on Explainability:
+<ul>
+<li><a href="https://github.com/Eric-Wallace/interpretability-tutorial-emnlp2020/blob/master/tutorial_slides.pdf" class="external-link">Wallace,
+E., Gardner, M., &amp; Singh, S. (2020, November). Interpreting
+predictions of NLP models. In Proceedings of the 2020 Conference on
+Empirical Methods in Natural Language Processing: Tutorial Abstracts
+(pp. 20-23).</a></li>
+<li><a href="https://explainml-tutorial.github.io/aaai21" class="external-link">Lakkaraju, H.,
+Adebayo, J., &amp; Singh, S. (2020). Explaining machine learning
+predictions: State-of-the-art, challenges, and opportunities. NeurIPS
+Tutorial.</a></li>
+<li><a href="https://sebastiangehrmann.github.io/assets/files/acl_2020_interpretability_tutorial.pdf" class="external-link">Belinkov,
+Y., Gehrmann, S., &amp; Pavlick, E. (2020, July). Interpretability and
+analysis in neural NLP. In Proceedings of the 58th annual meeting of the
+association for computational linguistics: tutorial abstracts
+(pp. 1-5).</a></li>
+</ul>
+</li>
+<li>Research papers:
+<ul>
+<li><a href="https://arxiv.org/abs/2308.00189" class="external-link">Holtzman, A., West, P.,
+&amp; Zettlemoyer, L. (2023). Generative Models as a Complex Systems
+Science: How can we make sense of large language model behavior?. arXiv
+preprint arXiv:2308.00189.</a></li>
+</ul>
+</li>
+</ul>
+<!-- 
+Place links that you need to refer to multiple times across pages here. Delete
+any links that you are not going to use. 
+ -->
+</div>
+</div>
+</div></section><section id="aio-5b-deep-dive-into-methods"><p>Content from <a href="5b-deep-dive-into-methods.html">Explainability methods: deep dive</a></p>
+<hr>
+<p>Last updated on 2024-06-06 |
+        
+        <a href="https://github.com/annapmeyer/fair-explainable-ml/edit/main/episodes/5b-deep-dive-into-methods.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+<div class="text-end">
+          <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
+        </div>
+<div class="section level1">
+<h1 id="a-deep-dive-into-methods-for-understanding-model-behaviour">A Deep Dive into Methods for Understanding Model Behaviour<a class="anchor" aria-label="anchor" href="#a-deep-dive-into-methods-for-understanding-model-behaviour"></a>
+</h1>
+<p>In the previous section, we scratched the surface of explainability
+methods, introducing you to the broad classes of methods designed to
+understand different aspects of a model’s behavior.</p>
+<p>Now, we will dive deeper into two widely used methods, each one which
+answers one key question:</p>
+<div class="section level2">
+<h2 id="what-part-of-my-input-causes-this-prediction">What part of my input causes this prediction?<a class="anchor" aria-label="anchor" href="#what-part-of-my-input-causes-this-prediction"></a>
+</h2>
+<p>When a model makes a prediction, we often want to know which parts of
+the input were most important in generating that prediction. This helps
+confirm if the model is making its predictions for the right reasons.
+Sometimes, models use features totally unrelated to the task for their
+prediction - these are known as ‘spurious correlations’. For example, a
+model might predict that a picture contains a dog because it was taken
+in a park, and not because there is actually a dog in the picture.</p>
+<p><strong><a href="https://arxiv.org/abs/1312.6034" class="external-link">Saliency
+Maps</a></strong> are among the most simple and popular methods used
+towards this end. We will be working with a more sophisticated version
+of this method, known as <strong><a href="https://arxiv.org/abs/1610.02391" class="external-link">GradCAM</a></strong>.</p>
+<div class="section level4">
+<h4 id="method-and-examples">Method and Examples<a class="anchor" aria-label="anchor" href="#method-and-examples"></a>
+</h4>
+<p>A saliency map is a kind of visualization - it is a heatmap across
+the input that shows which parts of the input are most important in
+generating the model’s prediction. They can be calculated using the
+gradients of a neural network, or by perturbing the input to any ML
+model and observing how the model reacts to these perturbations. The key
+intuition is that if a small change in a part of the input causes a
+large change in the model’s prediction, then that part of the input is
+important for the prediction. Gradients are useful in this because they
+provide a signal towards how much the model’s prediction would change if
+the input was changed slightly.</p>
+<p>For example, in an image classification task, a saliency map can be
+used to highlight the parts of the image that the model is focusing on
+to make its prediction. In a text classification task, a saliency map
+can be used to highlight the words or phrases that are most important
+for the model’s prediction.</p>
+<p>GradCAM is an extension of this idea, which uses the gradients of the
+final layer of a convolutional neural network to generate a heatmap that
+highlights the important regions of an image. This heatmap can be
+overlaid on the original image to visualize which parts of the image are
+most important for the model’s prediction.</p>
+<p>Other variants of this method include <a href="https://arxiv.org/abs/1703.01365" class="external-link">Integrated Gradients</a>, <a href="https://arxiv.org/pdf/1806.03000" class="external-link">SmoothGrad</a>, and others,
+which are designed to provide more robust and reliable explanations for
+model predictions. However, GradCAM is a good starting point for
+understanding how saliency maps work, and is a popularly used
+approach.</p>
+<p>Alternative approaches, which may not directly generate heatmaps,
+include <a href="https://arxiv.org/abs/1602.04938" class="external-link">LIME</a> and <a href="https://arxiv.org/abs/1705.07874" class="external-link">SHAP</a>, which are also popular
+and recommended for further reading.</p>
+</div>
+<div class="section level4">
+<h4 id="limitations-and-extensions">Limitations and Extensions<a class="anchor" aria-label="anchor" href="#limitations-and-extensions"></a>
+</h4>
+<p>Gradient based saliency methods like GradCam are fast to compute,
+requiring only a handful of backpropagation steps on the model to
+generate the heatmap. The method is also model-agnostic, meaning it can
+be applied to any model that can be trained using gradient descent.
+Additionally, the results obtained from these methods are intuitive and
+easy to understand, making them useful for explaining model predictions
+to non-experts.</p>
+<p>However, their use is limited to models that can be trained using
+gradient descent, and have white-box access. It is also difficult to
+apply these methods to tasks beyond classification, making their
+application limited with many recent generative models (think LLMs).</p>
+<p>Another limitation is that the insights gained from these methods are
+not actionable - knowing which part of the input caused the prediction
+does not highlight why that part caused it. On finding issues in the
+prediction process, it is also hard to pick up on if there is an
+underlying issue in the model, or just the specific inputs tested
+on.</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="what-part-of-my-model-causes-this-prediction">What part of my model causes this prediction?<a class="anchor" aria-label="anchor" href="#what-part-of-my-model-causes-this-prediction"></a>
+</h2>
+<p>When a model makes a correct prediction on a task it has been trained
+on (known as a ‘downstream task’), <strong><a href="https://direct.mit.edu/coli/article/48/1/207/107571/Probing-Classifiers-Promises-Shortcomings-and" class="external-link">Probing
+classifiers</a></strong> can be used to identify if the model actually
+contains the relevant information or knowledge required to make that
+prediction, or if it is just making a lucky guess. Furthermore, probes
+can be used to identify the specific components of the model that
+contain this relevant information, providing crucial insights for
+developing better models over time.</p>
+<div class="section level4">
+<h4 id="method-and-examples-1">Method and Examples<a class="anchor" aria-label="anchor" href="#method-and-examples-1"></a>
+</h4>
+<p>A neural network takes its input as a series of vectors, or
+representations, and transforms them through a series of layers to
+produce an output. The job of the main body of the neural network is to
+develop representations that are as useful for the downstream task as
+possible, so that the final few layers of the network can make a good
+prediction.</p>
+<p>This essentially means that a good quality representation is one that
+<em>already</em> contains all the information required to make a good
+prediction. In other words, the features or representations from the
+model are easily separable by a simple classifier. And that classifier
+is what we call a ‘probe’. A probe is a simple model that uses the
+representations of the model as input, and tries to learn the downstream
+task from them. The probe itself is designed to be too easy to learn the
+task on its own. This means, that the only way the probe get perform
+well on this task is if the representations it is given are already good
+enough to make the prediction.</p>
+<p>These representations can be taken from any part of the model.
+Generally, using representations from the last layer of a neural network
+help identify if the model even contains the information to make
+predictions for the downstream task. However, this can be extended
+further: probing the representations from different layers of the model
+can help identify where in the model the information is stored, and how
+it is transformed through the model.</p>
+<p>Probes have been frequently used in the domain of NLP, where they
+have been used to check if language models contain certain kinds of
+linguistic information. These probes can be designed with varying levels
+of complexity. For example, simple probes have shown language models to
+contain information about simple syntactical features like <a href="https://aclanthology.org/D15-1246.pdf" class="external-link">Part of Speech tags</a>,
+and more complex probes have shown models to contain entire <a href="https://aclanthology.org/N19-1419.pdf" class="external-link">Parse trees</a> of
+sentences.</p>
+</div>
+<div class="section level4">
+<h4 id="limitations-and-extensions-1">Limitations and Extensions<a class="anchor" aria-label="anchor" href="#limitations-and-extensions-1"></a>
+</h4>
+<p>One large challenge in using probes is identifying the correct
+architectural design of the probe. Too simple, and it may not be able to
+learn the downstream task at all. Too complex, and it may be able to
+learn the task even if the model does not contain the information
+required to make the prediction.</p>
+<p>Another large limitation is that even if a probe is able to learn the
+downstream task, it does not mean that the model is actually using the
+information contained in the representations to make the prediction. So
+essentially, a probe can only tell us if a part of the model
+<em>can</em> make the prediction, not if it <em>does</em> make the
+prediction.</p>
+<p>A new approach known as <strong><a href="https://proceedings.neurips.cc/paper/2020/hash/92650b2e92217715fe312e6fa7b90d82-Abstract.html" class="external-link">Causal
+Tracing</a></strong> addresses this limitation. The objective of this
+approach is similar to probes: attempting to understand which part of a
+model contains information relevant to a downstream task. The approach
+involves iterating through all parts of the model being examined
+(e.g. all layers of a model), and disrupting the information flow
+through that part of the model. (This could be as easy as adding some
+kind of noise on top of the weights of that model component). If the
+model performance on the downstream task suddenly drops on disrupting a
+specific model component, we know for sure that that component not only
+contains the information required to make the prediction, but that the
+model is actually using that information to make the prediction.</p>
+<div id="discussion1" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#discussion1"></a>
+</h3>
+<div class="callout-content">
+<p>Now, it’s time to try implementing these methods yourself! Pick one
+of the following problems to work on:</p>
+<ul>
+<li><a href="code/5b-probes.ipynb">Train your own linear probe to check
+if BERT stores the required knowledge for sentiment analysis.</a></li>
+<li><a href="code/5b-gradcam.ipynb">Use GradCAM on a trained model to
+check if the model is using the right features to make
+predictions.</a></li>
+</ul>
+<p>It’s time to get your hands dirty now. Good luck, and have fun!</p>
+</div>
+</div>
+</div>
+<!-- 
+Place links that you need to refer to multiple times across pages here. Delete
+any links that you are not going to use. 
+ -->
+</div>
+</div>
+</div></section><section id="aio-6-confidence-intervals"><p>Content from <a href="6-confidence-intervals.html">Estimating model uncertainty</a></p>
+<hr>
+<p>Last updated on 2024-06-06 |
+        
+        <a href="https://github.com/annapmeyer/fair-explainable-ml/edit/main/episodes/6-confidence-intervals.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
           <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
         </div>
@@ -1764,11 +2325,11 @@ any links that you are not going to use.
 </ul>
 </div>
 </div>
-</div></section><section id="aio-6-distribution-shift-OOD-detection"><p>Content from <a href="6-distribution-shift-OOD-detection.html">Distribution shift and OOD detection</a></p>
+</div></section><section id="aio-7-distribution-shift-OOD-detection"><p>Content from <a href="7-distribution-shift-OOD-detection.html">Distribution shift and OOD detection</a></p>
 <hr>
-<p>Last updated on 2024-05-16 |
+<p>Last updated on 2024-06-06 |
         
-        <a href="https://github.com/annapmeyer/fair-explainable-ml/edit/main/episodes/6-distribution-shift-OOD-detection.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+        <a href="https://github.com/annapmeyer/fair-explainable-ml/edit/main/episodes/7-distribution-shift-OOD-detection.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
           <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
         </div>
@@ -1870,11 +2431,11 @@ Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use. 
  -->
 </li>
-</ul></section></section><section id="aio-7-releasing-a-model"><p>Content from <a href="7-releasing-a-model.html">Documenting and releasing a model</a></p>
+</ul></section></section><section id="aio-8-releasing-a-model"><p>Content from <a href="8-releasing-a-model.html">Documenting and releasing a model</a></p>
 <hr>
-<p>Last updated on 2024-05-16 |
+<p>Last updated on 2024-06-06 |
         
-        <a href="https://github.com/annapmeyer/fair-explainable-ml/edit/main/episodes/7-releasing-a-model.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+        <a href="https://github.com/annapmeyer/fair-explainable-ml/edit/main/episodes/8-releasing-a-model.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
           <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
         </div>
@@ -2173,8 +2734,8 @@ essential for responsible AI adoption.</li>
   "url": "https://annapmeyer.github.io/fair-explainable-ml/aio.html",
   "identifier": "https://annapmeyer.github.io/fair-explainable-ml/aio.html",
   "dateCreated": "2023-12-05",
-  "dateModified": "2024-05-16",
-  "datePublished": "2024-05-16"
+  "dateModified": "2024-06-06",
+  "datePublished": "2024-06-06"
 }
 
   </script><script>

@@ -31,13 +31,28 @@
     <loc>https://annapmeyer.github.io/fair-explainable-ml/5-releasing-a-model.html</loc>
   </url>
   <url>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/5a-explainable-AI-method-overview.html</loc>
+  </url>
+  <url>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/5b-deep-dive-into-methods.html</loc>
+  </url>
+  <url>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/6-confidence-intervals.html</loc>
+  </url>
+  <url>
     <loc>https://annapmeyer.github.io/fair-explainable-ml/6-distribution-shift-OOD-detection.html</loc>
   </url>
   <url>
     <loc>https://annapmeyer.github.io/fair-explainable-ml/6-releasing-a-model.html</loc>
   </url>
   <url>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/7-distribution-shift-OOD-detection.html</loc>
+  </url>
+  <url>
     <loc>https://annapmeyer.github.io/fair-explainable-ml/7-releasing-a-model.html</loc>
+  </url>
+  <url>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/8-releasing-a-model.html</loc>
   </url>
   <url>
     <loc>https://annapmeyer.github.io/fair-explainable-ml/CODE_OF_CONDUCT.html</loc>
@@ -91,13 +106,28 @@
     <loc>https://annapmeyer.github.io/fair-explainable-ml/instructor/5-releasing-a-model.html</loc>
   </url>
   <url>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/instructor/5a-explainable-AI-method-overview.html</loc>
+  </url>
+  <url>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/instructor/5b-deep-dive-into-methods.html</loc>
+  </url>
+  <url>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/instructor/6-confidence-intervals.html</loc>
+  </url>
+  <url>
     <loc>https://annapmeyer.github.io/fair-explainable-ml/instructor/6-distribution-shift-OOD-detection.html</loc>
   </url>
   <url>
     <loc>https://annapmeyer.github.io/fair-explainable-ml/instructor/6-releasing-a-model.html</loc>
   </url>
   <url>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/instructor/7-distribution-shift-OOD-detection.html</loc>
+  </url>
+  <url>
     <loc>https://annapmeyer.github.io/fair-explainable-ml/instructor/7-releasing-a-model.html</loc>
+  </url>
+  <url>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/instructor/8-releasing-a-model.html</loc>
   </url>
   <url>
     <loc>https://annapmeyer.github.io/fair-explainable-ml/instructor/CODE_OF_CONDUCT.html</loc>
@@ -145,6 +175,9 @@
     <loc>https://annapmeyer.github.io/fair-explainable-ml/instructor/scientific-validity.html</loc>
   </url>
   <url>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/instructor/test-markdown-to-jupyter.html</loc>
+  </url>
+  <url>
     <loc>https://annapmeyer.github.io/fair-explainable-ml/instructor-notes.html</loc>
   </url>
   <url>
@@ -167,5 +200,8 @@
   </url>
   <url>
     <loc>https://annapmeyer.github.io/fair-explainable-ml/scientific-validity.html</loc>
+  </url>
+  <url>
+    <loc>https://annapmeyer.github.io/fair-explainable-ml/test-markdown-to-jupyter.html</loc>
   </url>
 </urlset>

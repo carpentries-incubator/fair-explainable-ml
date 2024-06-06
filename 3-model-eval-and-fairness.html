@@ -213,7 +213,7 @@
 <div class="accordion accordion-flush" id="accordionFlush7">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading7">
-        <a href="5-explainable-AI-methods.html">6. Explainabile AI methods</a>
+        <a href="5a-explainable-AI-method-overview.html">6. Explainability methods overview</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -222,7 +222,7 @@
 <div class="accordion accordion-flush" id="accordionFlush8">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading8">
-        <a href="6-distribution-shift-OOD-detection.html">7. Distribution shift and OOD detection</a>
+        <a href="5b-deep-dive-into-methods.html">7. Explainability methods: deep dive</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -231,7 +231,25 @@
 <div class="accordion accordion-flush" id="accordionFlush9">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading9">
-        <a href="7-releasing-a-model.html">8. Documenting and releasing a model</a>
+        <a href="6-confidence-intervals.html">8. Estimating model uncertainty</a>
+    </div><!--/div.accordion-header-->
+        
+  </div><!--/div.accordion-item-->
+</div><!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush10">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading10">
+        <a href="7-distribution-shift-OOD-detection.html">9. Distribution shift and OOD detection</a>
+    </div><!--/div.accordion-header-->
+        
+  </div><!--/div.accordion-item-->
+</div><!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush11">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading11">
+        <a href="8-releasing-a-model.html">10. Documenting and releasing a model</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -295,7 +313,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Model evaluation and fairness</h1>
-        <p>Last updated on 2024-05-16 |
+        <p>Last updated on 2024-06-06 |
         
         <a href="https://github.com/annapmeyer/fair-explainable-ml/edit/main/episodes/3-model-eval-and-fairness.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -781,35 +799,9 @@ model for a binary prediction task uses 0.5 as a cutoff (e.g., raw
 scores less than 0.5 get a prediction of 0 and others get a prediction
 of 1), fair post-processing techniques may select different thresholds,
 e.g., 0.4 or 0.6 for different demographic groups.</p>
-<p>In the code,</p>
-<div id="other-fairness-interventions" class="callout discussion">
-<div class="callout-square">
-<i class="callout-icon" data-feather="message-circle"></i>
-</div>
-<div id="other-fairness-interventions" class="callout-inner">
-<h3 class="callout-title">Other fairness interventions<a class="anchor" aria-label="anchor" href="#other-fairness-interventions"></a>
-</h3>
-<div class="callout-content">
-<p>Computer scientists have proposed many interventions to improve the
-fairness of machine learning models. A partial list is available (TODO
-FIND RESOURCE). Visit the list and read about one of the methods. When
-would using that method be beneficial for fairness? How does it compare
-to the techniques we talked about above?</p>
-</div>
-</div>
-</div>
-<div id="accordionSolution6" class="accordion challenge-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution6" aria-expanded="false" aria-controls="collapseSolution6">
-  <h4 class="accordion-header" id="headingSolution6">Show me the solution</h4>
-</button>
-<div id="collapseSolution6" class="accordion-collapse collapse" data-bs-parent="#accordionSolution6" aria-labelledby="headingSolution6">
-<div class="accordion-body">
-<p>TODO (discuss one or two?)</p>
-</div>
-</div>
-</div>
-</div>
+<p>In the code, we explore two different bias mitigations strategies
+implemented in the <a href="https://aif360.readthedocs.io/en/stable/" class="external-link">AIF360 Fairness
+Toolkit</a>.</p>
 <hr><div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -923,7 +915,7 @@ one racial group than another?</p>
 privileged group has the favorable outcome at about 2x the rate as the
 unprivileged group does.</p>
 <p>(In this case, the “favorable” outcome is label=1, i.e., high
-utlization) ## Train a model</p>
+utilization) ## Train a model</p>
 <p>We will train a logistic regression classifier.</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1340,8 +1332,8 @@ any links that you are not going to use.
   "url": "https://annapmeyer.github.io/fair-explainable-ml/3-model-eval-and-fairness.html",
   "identifier": "https://annapmeyer.github.io/fair-explainable-ml/3-model-eval-and-fairness.html",
   "dateCreated": "2023-12-05",
-  "dateModified": "2024-05-16",
-  "datePublished": "2024-05-16"
+  "dateModified": "2024-06-06",
+  "datePublished": "2024-06-06"
 }
 
   </script><script>
