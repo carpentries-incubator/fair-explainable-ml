@@ -12,3 +12,5 @@ Here's an example of how you can include Python code in an R Markdown document:
 ```{python}
 # This is a Python code chunk
 print("Hello from Python!")
+```
+
