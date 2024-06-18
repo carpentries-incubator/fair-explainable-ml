@@ -198,12 +198,23 @@
 <div class="accordion accordion-flush" id="accordionFlushcurrent">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-headingcurrent">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapsecurrent" aria-expanded="true" aria-controls="flush-collapsecurrent">
         <span class="visually-hidden">Current Chapter</span>
         <span class="current-chapter">
         6. Explainability methods overview
         </span>
-      
+      </button>
     </div><!--/div.accordion-header-->
+        
+    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
+      <div class="accordion-body">
+        <ul><li><a href="#fantastic-explainability-methods-and-where-to-use-them">Fantastic Explainability Methods and Where to Use Them</a></li>
+<li><a href="#three-axes-of-use-cases-for-understanding-model-behavior">Three axes of use cases for understanding model behavior</a></li>
+<li><a href="#classes-of-explainability-methods-for-understanding-model-behavior">Classes of Explainability Methods for Understanding Model
+Behavior</a></li>
+<li><a href="#summary">Summary</a></li>
+        </ul></div><!--/div.accordion-body-->
+    </div><!--/div.accordion-collapse-->
         
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
@@ -304,7 +315,7 @@
         <h1>Explainability methods overview</h1>
         <p>Last updated on 2024-06-18 |
         
-        <a href="https://github.com/annapmeyer/fair-explainable-ml/edit/main/episodes/5a-explainable-AI-method-overview.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+        <a href="https://github.com/carpentries-incubator/fair-explainable-ml/edit/main/episodes/5a-explainable-AI-method-overview.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
         
         
@@ -315,15 +326,16 @@
         </div>
 
         
-<div class="section level1">
-<h1 id="fantastic-explainability-methods-and-where-to-use-them">Fantastic Explainability Methods and Where to Use Them<a class="anchor" aria-label="anchor" href="#fantastic-explainability-methods-and-where-to-use-them"></a></h1>
-<p>We will now take a bird’s eye view of explainability methods that are
+
+<section id="fantastic-explainability-methods-and-where-to-use-them"><h2 class="section-heading">Fantastic Explainability Methods and Where to Use Them<a class="anchor" aria-label="anchor" href="#fantastic-explainability-methods-and-where-to-use-them"></a>
+</h2>
+<hr class="half-width"><p>We will now take a bird’s-eye view of explainability methods that are
 widely applied on complex models like neural networks. We will get a
 sense of when to use which kind of method, and what the tradeoffs
 between these methods are.</p>
-<div class="section level2">
-<h2 id="three-axes-of-use-cases-for-understanding-model-behavior">Three axes of use cases for understanding model behavior<a class="anchor" aria-label="anchor" href="#three-axes-of-use-cases-for-understanding-model-behavior"></a></h2>
-<p>When deciding which explainability method to use, it is helpful to
+</section><section id="three-axes-of-use-cases-for-understanding-model-behavior"><h2 class="section-heading">Three axes of use cases for understanding model behavior<a class="anchor" aria-label="anchor" href="#three-axes-of-use-cases-for-understanding-model-behavior"></a>
+</h2>
+<hr class="half-width"><p>When deciding which explainability method to use, it is helpful to
 define your setting along three axes. This helps in understanding the
 context in which the model is being used, and the kind of insights you
 are looking to gain from the model.</p>
@@ -360,30 +372,30 @@ perspectives in statistical analysis.</p>
 </div>
 <div class="section level3">
 <h3 id="black-box-vs-white-box-approaches">Black box vs White Box Approaches<a class="anchor" aria-label="anchor" href="#black-box-vs-white-box-approaches"></a></h3>
-<p>Even without access to the model weights, black box or top down
-approaches can shed a lot of light on model behavior. For example, by
-simply evaluating the model on certain kinds of data, high level biases
-or trends in the model’s decision making process can be unearthed.</p>
+<p>Techniques that require access to model internals (e.g., model
+architecture and model weights) are called “white box” while techniques
+that only need query access to the model are called “black box”. Even
+without access to the model weights, black box or top down approaches
+can shed a lot of light on model behavior. For example, by simply
+evaluating the model on certain kinds of data, high level biases or
+trends in the model’s decision making process can be unearthed.</p>
 <p>White box approaches use the weights and activations of the model to
 understand its behavior. These classes or methods are more complex and
-diverse, and we will be discussing them in more detail later in this
-chapter. Some large models are closed-source due to commercial or safety
+diverse, and we will discuss them in more detail later in this episode.
+Some large models are closed-source due to commercial or safety
 concerns; for example, users can’t get access to the weights of GPT-4.
-This limits the use of white box explanations to such models.</p>
+This limits the use of white box explanations for such models.</p>
 </div>
-</div>
-<div class="section level2">
-<h2 id="classes-of-explainability-methods-for-understanding-model-behavior">Classes of Explainability Methods for Understanding Model
-Behavior<a class="anchor" aria-label="anchor" href="#classes-of-explainability-methods-for-understanding-model-behavior"></a></h2>
-<div class="section level3">
+</section><section id="classes-of-explainability-methods-for-understanding-model-behavior"><h2 class="section-heading">Classes of Explainability Methods for Understanding Model
+Behavior<a class="anchor" aria-label="anchor" href="#classes-of-explainability-methods-for-understanding-model-behavior"></a>
+</h2>
+<hr class="half-width"><div class="section level3">
 <h3 id="diagnostic-testing">Diagnostic Testing<a class="anchor" aria-label="anchor" href="#diagnostic-testing"></a></h3>
 <p>This is the simplest approach towards explaining model behavior. This
 involves applying a series of unit tests to the model. By developing
 test examples that break the heuristics the model relies on (called
 counterfactuals), you can gain insights into the high-level behavior of
 the model.</p>
-<p><strong>Use-Case:</strong> Black box, post-hoc explainable,
-global</p>
 <p><strong>Example Methods:</strong> <a href="https://arxiv.org/abs/1902.01007" class="external-link">Counterfactuals</a>, <a href="https://arxiv.org/abs/2005.04118" class="external-link">Unit tests</a></p>
 <p><strong>Pros and Cons:</strong> These methods allow for gaining
 insights into the high-level behavior of the model without the needing
@@ -401,7 +413,6 @@ generate rationales for its prediction, in addition to its original
 prediction. This approach has gained some traction, and there are even
 <a href="https://arxiv.org/abs/1911.03429" class="external-link">public benchmarks</a> for
 evaluating the quality of these generated rationales.</p>
-<p><strong>Use Case:</strong> Interpretable, Local, White Box</p>
 <p><strong>Example methods:</strong> <a href="https://arxiv.org/abs/2004.14546" class="external-link">Rationales with WT5</a>, <a href="https://arxiv.org/abs/1606.04155" class="external-link">Older approaches for
 rationales</a></p>
 <p><strong>Pros and cons:</strong> These models hope to achieve the best
@@ -415,16 +426,13 @@ yet.</p>
 <p>In this class of methods, we try find a set of rules that generally
 explain the decision making process of the model. Loosely, these rules
 would be of the form “if a specific condition is met, then the model
-will predict a certain class”. Explaining the decision making process of
-an <em>entire</em> neural network can be challenging. Instead, these
-rules are built over a small set of inputs, for example, a single
-dataset.</p>
-<p><strong>Use Case:</strong> White box, post-hoc explainable, global or
-local</p>
+will predict a certain class”.</p>
 <p><strong>Example methods:</strong> <a href="https://aaai.org/papers/11491-anchors-high-precision-model-agnostic-explanations/" class="external-link">Anchors</a>,
 <a href="https://arxiv.org/abs/1908.07125" class="external-link">Universal Adversarial
 Triggers</a></p>
-<p><strong>Pros and cons:</strong> Some global rules help find “bugs” in
+<figure><img src="https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/e5-anchors-example.png" alt='Table caption: "Generated anchors for Tabular datasets". Table shows the following rules: for the adult dataset, predict less than 50K if no capital gain or loss and never married. Predict over 50K if country is US, married, and work hours over 45. For RCDV dataset, predict not rearrested if person has no priors, no prison violations, and crime not against property. Predict re-arrested if person is male, black, has 1-5 priors, is not married, and the crime not against property. For the Lending dataset, predict bad loan if FICO score is less than 650. Predict good loan if FICO score is between 650 and 700 and loan amount is between 5400 and 10000.' class="figure mx-auto d-block"><div class="figcaption">Example use of anchors (table from <a href="https://aaai.org/papers/11491-anchors-high-precision-model-agnostic-explanations/" class="external-link">Ribeiro
+et al.</a>)</div>
+</figure><p><strong>Pros and cons:</strong> Some global rules help find “bugs” in
 the model, or identify high level biases. But finding such broad
 coverage rules is challenging. Furthermore, these rules only showcase
 the model’s weaknesses, but give next to no insight as to why these
@@ -441,7 +449,6 @@ weights or representations to a 2D or 3D space, using techniques like
 PCA, tSNE, or UMAP. Alternatively, these visualizations can retain their
 high dimensional representation, but use color or size to identify which
 dimensions or neurons are more important.</p>
-<p><strong>Use Case:</strong> Black box, Post Hoc, Global</p>
 <p><strong>Example methods:</strong> <a href="https://arxiv.org/abs/1612.08220" class="external-link">Visualizing attention
 heatmaps</a>, Weight visualizations, Model activation visualizations</p>
 <p><strong>Pros and cons:</strong> Gleaning model behaviour from
@@ -459,7 +466,6 @@ additional step in an analysis, and not as a standalone method.</p>
 <p>Which of the many datapoints seen during training a model, caused it
 to generate a specific prediction? Identifying this helps in finding
 annotation artifacts in the data, and correcting them.</p>
-<p><strong>Use Case:</strong> White box, Post Hoc, Local</p>
 <p><strong>Example methods:</strong> <a href="https://arxiv.org/abs/1703.04730" class="external-link">Influence functions</a>, <a href="https://arxiv.org/abs/1811.09720" class="external-link">Representer point
 selection</a></p>
 <p><strong>Pros and cons:</strong> The insights from these approaches
@@ -476,8 +482,6 @@ don’t know what in the datapoint caused that that influence.</p>
 generating the model’s prediction? These methods study the signal sent
 by various features to the model, and observe how the model reacts to
 changes in these features.</p>
-<p><strong>Use Case:</strong> Local, black/white box (depending on
-specific method), post hoc.</p>
 <p><strong>Example methods:</strong> <a href="https://arxiv.org/abs/1312.6034" class="external-link">Saliency Maps</a>, <a href="https://arxiv.org/abs/1602.04938" class="external-link">LIME</a>/<a href="https://arxiv.org/abs/1705.07874" class="external-link">SHAP</a>, Perturbations (<a href="https://arxiv.org/abs/1804.07781" class="external-link">Input reduction</a>, <a href="https://arxiv.org/abs/1712.06751" class="external-link">Adversarial
 Perturbations</a>)</p>
 <p><strong>Pros and cons:</strong> These methods are fast to compute,
@@ -495,7 +499,6 @@ internals of a model, to discover what kind of information or knowledge
 is stored inside the model. Probes are often administered to a specific
 component of the model, like a set of neurons or layers within a neural
 network.</p>
-<p><strong>Use Case:</strong> Global/local, white box, post hoc</p>
 <p><strong>Example methods:</strong> <a href="https://direct.mit.edu/coli/article/48/1/207/107571/Probing-Classifiers-Promises-Shortcomings-and" class="external-link">Probing
 classifiers</a>, <a href="https://proceedings.neurips.cc/paper/2020/hash/92650b2e92217715fe312e6fa7b90d82-Abstract.html" class="external-link">Causal
 tracing</a></p>
@@ -510,12 +513,30 @@ model’s prediction.</p>
 </div>
 <div class="section level3">
 <h3 id="todo-methods-related-to-graph-based-structures">TODO: Methods related to graph based structures<a class="anchor" aria-label="anchor" href="#todo-methods-related-to-graph-based-structures"></a></h3>
+<div id="classifying-explanation-techniques" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div id="classifying-explanation-techniques" class="callout-inner">
+<h3 class="callout-title">Classifying explanation techniques<a class="anchor" aria-label="anchor" href="#classifying-explanation-techniques"></a>
+</h3>
+<div class="callout-content">
+<p>For each of the explanation techniques described above, discuss the
+following with a partner:</p>
+<ul><li>Does it require black-box or white-box model access?</li>
+<li>Are the explanations it provides global or local?</li>
+<li>Is the technique post-hoc or does it rely on inherent
+interpretability of the model?</li>
+</ul></div>
 </div>
 </div>
-<div class="section level2">
-<h2 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a></h2>
-<p>To summarize the methods discussed above, we can categorize them
-based on their approach, interpretability, and scope.</p>
+<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
+  <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
+</button>
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div class="accordion-body">
 <table class="table"><colgroup><col width="54%"><col width="21%"><col width="10%"><col width="13%"></colgroup><thead><tr class="header"><th>Approach</th>
 <th>Post Hoc or Inherently Interpretable?</th>
 <th>Local or Global?</th>
@@ -554,12 +575,22 @@ representations of a model</a></td>
 <td>Post Hoc</td>
 <td>Global/Local</td>
 <td>White Box</td>
-</tr></tbody></table><div id="discussion1" class="callout discussion">
+</tr></tbody></table></div>
+</div>
+</div>
+</div>
+<p>What explanation should you use when? There is no simple answer, as
+it depends upon your goals (i.e., why you need an explanation), who the
+audience is, the model architecture, and the availability of model
+internals (e.g., there is no white-box access to ChatGPT unless you work
+for Open AI!). The next exercise asks you to consider different
+scenarios and discuss what explanation techniques are appropriate.</p>
+<div id="discussion2" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
 <div class="callout-inner">
-<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#discussion1"></a>
+<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#discussion2"></a>
 </h3>
 <div class="callout-content">
 <p>Think about the following scenarios and suggest which explainability
@@ -607,6 +638,15 @@ decisions you make for each method you use?</p>
 </div>
 </div>
 </div>
+</div>
+</section><section id="summary"><h2 class="section-heading">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
+</h2>
+<hr class="half-width"><p>There are many available explanation techniques and they differ along
+three dimensions: model access (white-box or black-box), explanation
+scope (global or local), and approach (inherently interpretable or
+post-hoc). There’s often no objectively-right answer of which
+explanation technique to use in a given situation, as the different
+methods have different tradeoffs.</p>
 <div class="section level3">
 <h3 id="references-and-further-reading">References and Further Reading<a class="anchor" aria-label="anchor" href="#references-and-further-reading"></a></h3>
 <p>This lesson provides a gentle overview into the world of
@@ -638,11 +678,7 @@ preprint arXiv:2308.00189.</a></li>
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use. 
  --></div>
-</div>
-</div>
-
-
-      </div> <!-- / div.lesson-content -->
+</section></div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter"><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="../instructor/4-explainability-vs-interpretability.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
         <a class="chapter-link float-end" href="../instructor/5b-deep-dive-into-methods.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
@@ -666,12 +702,12 @@ any links that you are not going to use.
         <p>This lesson is subject to the <a href="CODE_OF_CONDUCT.html">Code of Conduct</a></p>
         <p>
         
-        <a href="https://github.com/annapmeyer/fair-explainable-ml/edit/main/episodes/5a-explainable-AI-method-overview.md" class="external-link">Edit on GitHub</a>
+        <a href="https://github.com/carpentries-incubator/fair-explainable-ml/edit/main/episodes/5a-explainable-AI-method-overview.md" class="external-link">Edit on GitHub</a>
         
 	
-        | <a href="https://github.com/annapmeyer/fair-explainable-ml/blob/main/CONTRIBUTING.md" class="external-link">Contributing</a>
-        | <a href="https://github.com/annapmeyer/fair-explainable-ml/" class="external-link">Source</a></p>
-				<p><a href="https://github.com/annapmeyer/fair-explainable-ml/blob/main/CITATION" class="external-link">Cite</a> | <a href="mailto:apmeyer4@wisc.edu">Contact</a> | <a href="https://carpentries.org/about/" class="external-link">About</a></p>
+        | <a href="https://github.com/carpentries-incubator/fair-explainable-ml/blob/main/CONTRIBUTING.md" class="external-link">Contributing</a>
+        | <a href="https://github.com/carpentries-incubator/fair-explainable-ml/" class="external-link">Source</a></p>
+				<p><a href="https://github.com/carpentries-incubator/fair-explainable-ml/blob/main/CITATION" class="external-link">Cite</a> | <a href="mailto:apmeyer4@wisc.edu">Contact</a> | <a href="https://carpentries.org/about/" class="external-link">About</a></p>
 			</div>
 			<div class="col-md-6">
         
@@ -690,15 +726,15 @@ any links that you are not going to use.
     {
   "@context": "https://schema.org",
   "@type": "TrainingMaterial",
-  "@id": "https://annapmeyer.github.io/fair-explainable-ml/instructor/5a-explainable-AI-method-overview.html",
+  "@id": "https://carpentries-incubator.github.io/fair-explainable-ml/instructor/5a-explainable-AI-method-overview.html",
   "inLanguage": "en",
   "dct:conformsTo": "https://bioschemas.org/profiles/TrainingMaterial/1.0-RELEASE",
   "description": "A Carpentries Lesson teaching foundational data and coding skills to researchers worldwide",
   "keywords": "fairness, explainability, fair machine learning, interpretable machine learning, xai, lesson, The Carpentries",
   "name": "Explainability methods overview",
   "creativeWorkStatus": "active",
-  "url": "https://annapmeyer.github.io/fair-explainable-ml/instructor/5a-explainable-AI-method-overview.html",
-  "identifier": "https://annapmeyer.github.io/fair-explainable-ml/instructor/5a-explainable-AI-method-overview.html",
+  "url": "https://carpentries-incubator.github.io/fair-explainable-ml/instructor/5a-explainable-AI-method-overview.html",
+  "identifier": "https://carpentries-incubator.github.io/fair-explainable-ml/instructor/5a-explainable-AI-method-overview.html",
   "dateCreated": "2023-12-05",
   "dateModified": "2024-06-18",
   "datePublished": "2024-06-18"
