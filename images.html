@@ -391,7 +391,43 @@ Predictions: State of the Art, Challenges, Opportunities.</em></p>
 <p aria-hidden="true">Image 1 of 1: ‘Table caption: "Generated anchors for Tabular datasets". Table shows the following rules: for the adult dataset, predict less than 50K if no capital gain or loss and never married. Predict over 50K if country is US, married, and work hours over 45. For RCDV dataset, predict not rearrested if person has no priors, no prison violations, and crime not against property. Predict re-arrested if person is male, black, has 1-5 priors, is not married, and the crime not against property. For the Lending dataset, predict bad loan if FICO score is less than 650. Predict good loan if FICO score is between 650 and 700 and loan amount is between 5400 and 10000.’</p>
 <figure><img src="https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/e5-anchors-example.png" alt='Table caption: "Generated anchors for Tabular datasets". Table shows the following rules: for the adult dataset, predict less than 50K if no capital gain or loss and never married. Predict over 50K if country is US, married, and work hours over 45. For RCDV dataset, predict not rearrested if person has no priors, no prison violations, and crime not against property. Predict re-arrested if person is male, black, has 1-5 priors, is not married, and the crime not against property. For the Lending dataset, predict bad loan if FICO score is less than 650. Predict good loan if FICO score is between 650 and 700 and loan amount is between 5400 and 10000.' class="figure mx-auto d-block"><div class="figcaption">Example use of anchors (table from <a href="https://aaai.org/papers/11491-anchors-high-precision-model-agnostic-explanations/" class="external-link">Ribeiro
 et al.</a>)</div>
-</figure><hr></section><section id="5b-deep-dive-into-methods"><h2 class="section-heading"><a href="5b-deep-dive-into-methods.html">Explainability methods: deep diveA Deep Dive into Methods for Understanding Model Behaviour<a class="anchor" aria-label="anchor" href="#a-deep-dive-into-methods-for-understanding-model-behaviour"></a></a></h2>
+</figure><hr>
+<h3 id="5a-explainable-AI-method-overview-figure-3">Figure 3</h3>
+<p aria-hidden="true">Image 1 of 1: ‘Image shows a grid with 3 rows and 50 columns. Each cell is colored on a scale of -1.5 (white) to 0.9 (dark blue). Darker colors are concentrated in the first row in seemingly-random columns.’</p>
+<figure><img src="https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/e5-visualization-heatmap.png" alt="Image shows a grid with 3 rows and 50 columns. Each cell is colored on a scale of -1.5 (white) to 0.9 (dark blue). Darker colors are concentrated in the first row in seemingly-random columns." class="figure mx-auto d-block"><div class="figcaption">Example usage of visualizing attention heatmaps
+for part-of-speech (POS) identification task using word2vec-encoded
+vectors. Each cell is a unit in a neural network (each row is a layer
+and each column is a dimension). Darker colors indicates that a unit is
+more importance for predictive accuracy (table from <a href="https://arxiv.org/pdf/1612.08220" class="external-link">Li et al.</a>.)</div>
+</figure><hr>
+<h3 id="5a-explainable-AI-method-overview-figure-4">Figure 4</h3>
+<p aria-hidden="true">Image 1 of 1: ‘Two images. On the left, several antelope are standing in the background on a grassy field. On the right, several zebra graze in a field in the background, while there is one antelope in the foreground and other antelope in the background.’</p>
+<figure><img src="https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/e5-influence.png" alt="Two images. On the left, several antelope are standing in the background on a grassy field. On the right, several zebra graze in a field in the background, while there is one antelope in the foreground and other antelope in the background." class="figure mx-auto d-block"><div class="figcaption">Example usage of representer point selection.
+The image on the left is a test image that is misclassified as a deer
+(the true label is antelope). The image on the right is the most
+influential training point. We see that this image is labeled “zebra,”
+but contains both zebras and antelopes. (example adapted from <a href="https://arxiv.org/pdf/1811.09720" class="external-link">Yeh et al.</a>.)</div>
+</figure><hr>
+<h3 id="5a-explainable-AI-method-overview-figure-5">Figure 5</h3>
+<p aria-hidden="true">Image 1 of 1: ‘Two rows images (5 images per row). Leftmost column shows two different pictures, each containing a cat and a dog. Remaining columns show the saliency maps using different techniques (VanillaGrad, InteGrad, GuidedBackProp, and SmoothGrad). Each saliency map has red dots (indicated regions that are influential for predicting "dog") and blue dots (influential for predicting "cat"). All methods except GuidedBackProp have good overlap between the respective dots and where the animals appear in the image. SmoothGrad has the most precise mapping.’</p>
+<figure><img src="https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/e5-smoothgrad.png" alt='Two rows images (5 images per row). Leftmost column shows two different pictures, each containing a cat and a dog. Remaining columns show the saliency maps using different techniques (VanillaGrad, InteGrad, GuidedBackProp, and SmoothGrad). Each saliency map has red dots (indicated regions that are influential for predicting "dog") and blue dots (influential for predicting "cat"). All methods except GuidedBackProp have good overlap between the respective dots and where the animals appear in the image. SmoothGrad has the most precise mapping.' class="figure mx-auto d-block"><div class="figcaption">Example saliency maps. The right 4 columns show
+the result of different saliency method techniques, where red dots
+indicate regions that are influential for predicting “dog” and blue dots
+indicate regions that are influential for predicting “cat”. The image
+creators argue that their method, SmoothGrad, is most effective at
+mapping model behavior to images. (Image taken from <a href="https://arxiv.org/pdf/1706.03825" class="external-link">Smilkov et al.</a>)</div>
+</figure><hr>
+<h3 id="5a-explainable-AI-method-overview-figure-6">Figure 6</h3>
+<p aria-hidden="true">Image 1 of 1: ‘The phrase "The nurse examined the farmer for injuries because PRONOUN" is shown twice, once with PRONOUN=she and once with PRONOUN=he. Each word is annotated with the importance of three different attention heads. The distribution of which heads are important with each pronoun differs for all words, but especially for nurse and farmer.’</p>
+<figure><img src="https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/e5-probe.png" alt='The phrase "The nurse examined the farmer for injuries because PRONOUN" is shown twice, once with PRONOUN=she and once with PRONOUN=he. Each word is annotated with the importance of three different attention heads. The distribution of which heads are important with each pronoun differs for all words, but especially for nurse and farmer.' class="figure mx-auto d-block"><div class="figcaption">Example probe output. The image shows the result
+from probing three attention heads. We see that gender stereotypes are
+encoded into the model because the heads that are important for nurse
+and farmer change depending on the final pronoun. Specifically, Head
+5-10 attends to the stereotypical gender assignment while Head 4-6
+attends to the anti-stereotypical gender assignment. (Image taken from
+<a href="https://proceedings.neurips.cc/paper/2020/hash/92650b2e92217715fe312e6fa7b90d82-Abstract.html" class="external-link">Vig
+et al.</a>)</div>
+</figure><hr></section><section id="5b-deep-dive-into-methods"><h2 class="section-heading"><a href="5b-deep-dive-into-methods.html">Explainability methods: deep dive</a></h2>
 <hr class="half-width"></section><section id="6-confidence-intervals"><h2 class="section-heading"><a href="6-confidence-intervals.html">Estimating model uncertainty</a></h2>
 <hr class="half-width"></section><section id="7-distribution-shift-OOD-detection"><h2 class="section-heading"><a href="7-distribution-shift-OOD-detection.html">Distribution shift and OOD detection</a></h2>
 <hr class="half-width"></section><section id="8-releasing-a-model"><h2 class="section-heading"><a href="8-releasing-a-model.html">Documenting and releasing a model</a></h2>

@@ -207,12 +207,21 @@
 <div class="accordion accordion-flush" id="accordionFlushcurrent">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-headingcurrent">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapsecurrent" aria-expanded="true" aria-controls="flush-collapsecurrent">
         <span class="visually-hidden">Current Chapter</span>
         <span class="current-chapter">
         7. Explainability methods: deep dive
         </span>
-      
+      </button>
     </div><!--/div.accordion-header-->
+        
+    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
+      <div class="accordion-body">
+        <ul><li><a href="#a-deep-dive-into-methods-for-understanding-model-behaviour">A Deep Dive into Methods for Understanding Model Behaviour</a></li>
+<li><a href="#what-part-of-my-input-causes-this-prediction">What part of my input causes this prediction?</a></li>
+<li><a href="#what-part-of-my-model-causes-this-prediction">What part of my model causes this prediction?</a></li>
+        </ul></div><!--/div.accordion-body-->
+    </div><!--/div.accordion-collapse-->
         
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
@@ -313,16 +322,17 @@
         </div>
 
         
-<div class="section level1">
-<h1 id="a-deep-dive-into-methods-for-understanding-model-behaviour">A Deep Dive into Methods for Understanding Model Behaviour<a class="anchor" aria-label="anchor" href="#a-deep-dive-into-methods-for-understanding-model-behaviour"></a></h1>
-<p>In the previous section, we scratched the surface of explainability
+
+<section id="a-deep-dive-into-methods-for-understanding-model-behaviour"><h2 class="section-heading">A Deep Dive into Methods for Understanding Model Behaviour<a class="anchor" aria-label="anchor" href="#a-deep-dive-into-methods-for-understanding-model-behaviour"></a>
+</h2>
+<hr class="half-width"><p>In the previous section, we scratched the surface of explainability
 methods, introducing you to the broad classes of methods designed to
 understand different aspects of a model’s behavior.</p>
 <p>Now, we will dive deeper into two widely used methods, each one which
 answers one key question:</p>
-<div class="section level2">
-<h2 id="what-part-of-my-input-causes-this-prediction">What part of my input causes this prediction?<a class="anchor" aria-label="anchor" href="#what-part-of-my-input-causes-this-prediction"></a></h2>
-<p>When a model makes a prediction, we often want to know which parts of
+</section><section id="what-part-of-my-input-causes-this-prediction"><h2 class="section-heading">What part of my input causes this prediction?<a class="anchor" aria-label="anchor" href="#what-part-of-my-input-causes-this-prediction"></a>
+</h2>
+<hr class="half-width"><p>When a model makes a prediction, we often want to know which parts of
 the input were most important in generating that prediction. This helps
 confirm if the model is making its predictions for the right reasons.
 Sometimes, models use features totally unrelated to the task for their
@@ -384,10 +394,9 @@ prediction process, it is also hard to pick up on if there is an
 underlying issue in the model, or just the specific inputs tested
 on.</p>
 </div>
-</div>
-<div class="section level2">
-<h2 id="what-part-of-my-model-causes-this-prediction">What part of my model causes this prediction?<a class="anchor" aria-label="anchor" href="#what-part-of-my-model-causes-this-prediction"></a></h2>
-<p>When a model makes a correct prediction on a task it has been trained
+</section><section id="what-part-of-my-model-causes-this-prediction"><h2 class="section-heading">What part of my model causes this prediction?<a class="anchor" aria-label="anchor" href="#what-part-of-my-model-causes-this-prediction"></a>
+</h2>
+<hr class="half-width"><p>When a model makes a correct prediction on a task it has been trained
 on (known as a ‘downstream task’), <strong><a href="https://direct.mit.edu/coli/article/48/1/207/107571/Probing-Classifiers-Promises-Shortcomings-and" class="external-link">Probing
 classifiers</a></strong> can be used to identify if the model actually
 contains the relevant information or knowledge required to make that
@@ -477,11 +486,7 @@ Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use. 
  -->
 </div>
-</div>
-</div>
-
-
-      </div> <!-- / div.lesson-content -->
+</section></div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter"><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="5a-explainable-AI-method-overview.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
         <a class="chapter-link float-end" href="6-confidence-intervals.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
