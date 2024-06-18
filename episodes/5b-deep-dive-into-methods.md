@@ -4,7 +4,7 @@ teaching: 0
 exercises: 0
 ---
 
-# A Deep Dive into Methods for Understanding Model Behaviour
+## A Deep Dive into Methods for Understanding Model Behaviour
 
 In the previous section, we scratched the surface of explainability methods, introducing you to the broad classes of methods designed to understand different aspects of a model's behavior.
 

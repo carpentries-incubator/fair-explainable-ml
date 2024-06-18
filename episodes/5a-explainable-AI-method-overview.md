@@ -98,6 +98,8 @@ Alternatively, these visualizations can retain their high dimensional representa
 
 **Example methods:** [Visualizing attention heatmaps](https://arxiv.org/abs/1612.08220), Weight visualizations, Model activation visualizations
 
+![Example usage of visualizing attention heatmaps for part-of-speech (POS) identification task using word2vec-encoded vectors. Each cell is a unit in a neural network (each row is a layer and each column is a dimension). Darker colors indicates that a unit is more importance for predictive accuracy (table from [Li et al.](https://arxiv.org/pdf/1612.08220).)](https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/e5-visualization-heatmap.png){alt='Image shows a grid with 3 rows and 50 columns. Each cell is colored on a scale of -1.5 (white) to 0.9 (dark blue). Darker colors are concentrated in the first row in seemingly-random columns.'}
+
 **Pros and cons:**
 Gleaning model behaviour from visualizations is very intuitive and user-friendly, and visualizations sometimes have interactive interfaces.
 However, visualizations can be misleading, especially when high-dimensional vectors are reduced to 2D, leading to a loss of information (crowding issue).
@@ -108,15 +110,16 @@ Thus, visualization can only be used as an additional step in an analysis, and n
 
 
 ### Understanding impact of training examples
-Which of the many datapoints seen during training a model, caused it to generate a specific prediction? 
-Identifying this helps in finding annotation artifacts in the data, and correcting them. 
+These techniques unearth which training data instances caused the model to generate a specific prediction for a given sample.
 
 **Example methods:** [Influence functions](https://arxiv.org/abs/1703.04730), [Representer point selection](https://arxiv.org/abs/1811.09720)
 
+![Example usage of representer point selection. The image on the left is a test image that is misclassified as a deer (the true label is antelope). The image on the right is the most influential training point. We see that this image is labeled "zebra," but contains both zebras and antelopes. (example adapted from [Yeh et al.](https://arxiv.org/pdf/1811.09720).)](https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/e5-influence.png){alt='Two images. On the left, several antelope are standing in the background on a grassy field. On the right, several zebra graze in a field in the background, while there is one antelope in the foreground and other antelope in the background.'}
+
 **Pros and cons:**
-The insights from these approaches are actionable - by identifying the data responsible for a prediction, it can help correct labels/annotation artifacts/labels in that data.
+The insights from these approaches are actionable - by identifying the data responsible for a prediction, it can help correct labels or annotation artifacts in that data.
 Unfortunately, these methods scale poorly with the size of the model and training data, quickly becoming computationally expensive.
-Furthermore, even knowing which datapoints had a high influence on a prediction, we don’t know what in the datapoint caused that that influence.
+Furthermore, even knowing which datapoints had a high influence on a prediction, we don’t know what it was about that datapoint that caused the influence.
 
 
 ### Understanding the impact of a single example:
@@ -125,10 +128,13 @@ These methods study the signal sent by various features to the model, and observ
 
 **Example methods:** [Saliency Maps](https://arxiv.org/abs/1312.6034), [LIME](https://arxiv.org/abs/1602.04938)/[SHAP](https://arxiv.org/abs/1705.07874), Perturbations ([Input reduction](https://arxiv.org/abs/1804.07781), [Adversarial Perturbations](https://arxiv.org/abs/1712.06751))
 
+![Example saliency maps. The right 4 columns show the result of different saliency method techniques, where red dots indicate regions that are influential for predicting "dog" and blue dots indicate regions that are influential for predicting "cat". The image creators argue that their method, SmoothGrad, is most effective at mapping model behavior to images. (Image taken from [Smilkov et al.](https://arxiv.org/pdf/1706.03825))](https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/e5-smoothgrad.png){alt='Two rows images (5 images per row). Leftmost column shows two different pictures, each containing a cat and a dog. Remaining columns show the saliency maps using different techniques (VanillaGrad, InteGrad, GuidedBackProp, and SmoothGrad). Each saliency map has red dots (indicated regions that are influential for predicting "dog") and blue dots (influential for predicting "cat"). All methods except GuidedBackProp have good overlap between the respective dots and where the animals appear in the image. SmoothGrad has the most precise mapping.'}
+
 **Pros and cons:**
 These methods are fast to compute, and flexible in their use across models.
 However, the insights gained from these methods are not actionable - knowing which part of the input caused the prediction does not highlight why that part caused it.
 On finding issues in the prediction process, it is also hard to pick up on if there is an underlying issue in the model, or just the specific inputs tested on.
+Relatedly, these methods can be unstable, and can even be [fooled by adversarial examples](https://proceedings.neurips.cc/paper_files/paper/2019/hash/7fea637fd6d02b8f0adf6f7dc36aed93-Abstract.html). 
 
 
 ### Probing internal representations
@@ -137,6 +143,8 @@ As the name suggests, this class of methods aims to probe the internals of a mod
 Probes are often administered to a specific component of the model, like a set of neurons or layers within a neural network. 
 
 **Example methods:** [Probing classifiers](https://direct.mit.edu/coli/article/48/1/207/107571/Probing-Classifiers-Promises-Shortcomings-and), [Causal tracing](https://proceedings.neurips.cc/paper/2020/hash/92650b2e92217715fe312e6fa7b90d82-Abstract.html)
+
+![Example probe output. The image shows the result from probing three attention heads. We see that gender stereotypes are encoded into the model because the heads that are important for nurse and farmer change depending on the final pronoun. Specifically, Head 5-10 attends to the stereotypical gender assignment while Head 4-6 attends to the anti-stereotypical gender assignment. (Image taken from [Vig et al.](https://proceedings.neurips.cc/paper/2020/hash/92650b2e92217715fe312e6fa7b90d82-Abstract.html))](https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/e5-probe.png){alt='The phrase "The nurse examined the farmer for injuries because PRONOUN" is shown twice, once with PRONOUN=she and once with PRONOUN=he. Each word is annotated with the importance of three different attention heads. The distribution of which heads are important with each pronoun differs for all words, but especially for nurse and farmer.'}
 
 **Pros and cons:**
 Probes have shown that it is possible to find highly interpretable components in a complex model, e.g., MLP layers in transformers have been shown to store factual knowledge in a structured manner.
