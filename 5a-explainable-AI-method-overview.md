@@ -4,9 +4,9 @@ teaching: 0
 exercises: 0
 ---
 
-# Fantastic Explainability Methods and Where to Use Them
+## Fantastic Explainability Methods and Where to Use Them
 
-We will now take a bird's eye view of explainability methods that are widely applied on complex models like neural networks. 
+We will now take a bird's-eye view of explainability methods that are widely applied on complex models like neural networks. 
 We will get a sense of when to use which kind of method, and what the tradeoffs between these methods are. 
 
 
@@ -36,13 +36,13 @@ Both types of explanations are valuable for uncovering biases and ensuring that 
 The tradeoff between local and global explanations has a long history in statistics, with methods like linear regression (global) and kernel smoothing (local) illustrating the importance of considering both perspectives in statistical analysis.
 
 ### Black box vs White Box Approaches
+Techniques that require access to model internals (e.g., model architecture and model weights) are called "white box" while techniques that only need query access to the model are called "black box". 
 Even without access to the model weights, black box or top down approaches can shed a lot of light on model behavior. 
 For example, by simply evaluating the model on certain kinds of data, high level biases or trends in the model’s decision making process can be unearthed. 
 
 White box approaches use the weights and activations of the model to understand its behavior. 
-These classes or methods are more complex and diverse, and we will be discussing them in more detail later in this chapter.
-Some large models are closed-source due to commercial or safety concerns; for example, users can’t get access to the weights of GPT-4. This limits the use of white box explanations to such models.
-
+These classes or methods are more complex and diverse, and we will discuss them in more detail later in this episode.
+Some large models are closed-source due to commercial or safety concerns; for example, users can’t get access to the weights of GPT-4. This limits the use of white box explanations for such models.
 
 
 ## Classes of Explainability Methods for Understanding Model Behavior
@@ -52,8 +52,6 @@ Some large models are closed-source due to commercial or safety concerns; for ex
 This is the simplest approach towards explaining model behavior. 
 This involves applying a series of unit tests to the model. 
 By developing test examples that break the heuristics the model relies on (called counterfactuals), you can gain insights into the high-level behavior of the model.
-
-**Use-Case:** Black box, post-hoc explainable, global
 
 **Example Methods:** [Counterfactuals](https://arxiv.org/abs/1902.01007), [Unit tests](https://arxiv.org/abs/2005.04118)
 
@@ -69,8 +67,6 @@ Some recent research has focused on tweaking highly complex models like neural n
 One such example with language models involves training the model to generate rationales for its prediction, in addition to its original prediction.
 This approach has gained some traction, and there are even [public benchmarks](https://arxiv.org/abs/1911.03429) for evaluating the quality of these generated rationales.
 
-**Use Case:** Interpretable, Local, White Box
-
 **Example methods:** [Rationales with WT5](https://arxiv.org/abs/2004.14546), [Older approaches for rationales](https://arxiv.org/abs/1606.04155)   
 
 **Pros and cons:**
@@ -82,12 +78,11 @@ However, research in this direction is still new, and there are no established a
 
 In this class of methods, we try find a set of rules that generally explain the decision making process of the model. 
 Loosely, these rules would be of the form "if a specific condition is met, then the model will predict a certain class".
-Explaining the decision making process of an _entire_ neural network can be challenging.
-Instead, these rules are built over a small set of inputs, for example, a single dataset. 
 
-**Use Case:** White box, post-hoc explainable, global or local
 
 **Example methods:** [Anchors](https://aaai.org/papers/11491-anchors-high-precision-model-agnostic-explanations/), [Universal Adversarial Triggers](https://arxiv.org/abs/1908.07125)
+
+![Example use of anchors (table from [Ribeiro et al.](https://aaai.org/papers/11491-anchors-high-precision-model-agnostic-explanations/))](https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/e5-anchors-example.png){alt='Table caption: "Generated anchors for Tabular datasets". Table shows the following rules: for the adult dataset, predict less than 50K if no capital gain or loss and never married. Predict over 50K if country is US, married, and work hours over 45. For RCDV dataset, predict not rearrested if person has no priors, no prison violations, and crime not against property. Predict re-arrested if person is male, black, has 1-5 priors, is not married, and the crime not against property. For the Lending dataset, predict bad loan if FICO score is less than 650. Predict good loan if FICO score is between 650 and 700 and loan amount is between 5400 and 10000.'}
 
 **Pros and cons:**
 Some global rules help find "bugs" in the model, or identify high level biases. But finding such broad coverage rules is challenging. 
@@ -100,8 +95,6 @@ Just like how a picture tells a thousand words, visualizations can help encapsul
 Visualizations are commonly used in explaining neural networks, where the weights or data representations of the model are directly visualized.
 Many such approaches involve reducing the high-dimensional weights or representations to a 2D or 3D space, using techniques like PCA, tSNE, or UMAP.
 Alternatively, these visualizations can retain their high dimensional representation, but use color or size to identify which dimensions or neurons are more important.
-
-**Use Case:** Black box, Post Hoc, Global
 
 **Example methods:** [Visualizing attention heatmaps](https://arxiv.org/abs/1612.08220), Weight visualizations, Model activation visualizations
 
@@ -118,8 +111,6 @@ Thus, visualization can only be used as an additional step in an analysis, and n
 Which of the many datapoints seen during training a model, caused it to generate a specific prediction? 
 Identifying this helps in finding annotation artifacts in the data, and correcting them. 
 
-**Use Case:** White box, Post Hoc, Local
-
 **Example methods:** [Influence functions](https://arxiv.org/abs/1703.04730), [Representer point selection](https://arxiv.org/abs/1811.09720)
 
 **Pros and cons:**
@@ -131,8 +122,6 @@ Furthermore, even knowing which datapoints had a high influence on a prediction,
 ### Understanding the impact of a single example:
 For a single input, what parts of the input were most important in generating the model's prediction? 
 These methods study the signal sent by various features to the model, and observe how the model reacts to changes in these features.
-
-**Use Case:** Local, black/white box (depending on specific method), post hoc.
 
 **Example methods:** [Saliency Maps](https://arxiv.org/abs/1312.6034), [LIME](https://arxiv.org/abs/1602.04938)/[SHAP](https://arxiv.org/abs/1705.07874), Perturbations ([Input reduction](https://arxiv.org/abs/1804.07781), [Adversarial Perturbations](https://arxiv.org/abs/1712.06751))
 
@@ -147,8 +136,6 @@ On finding issues in the prediction process, it is also hard to pick up on if th
 As the name suggests, this class of methods aims to probe the internals of a model, to discover what kind of information or knowledge is stored inside the model. 
 Probes are often administered to a specific component of the model, like a set of neurons or layers within a neural network. 
 
-**Use Case:** Global/local, white box, post hoc
-
 **Example methods:** [Probing classifiers](https://direct.mit.edu/coli/article/48/1/207/107571/Probing-Classifiers-Promises-Shortcomings-and), [Causal tracing](https://proceedings.neurips.cc/paper/2020/hash/92650b2e92217715fe312e6fa7b90d82-Abstract.html)
 
 **Pros and cons:**
@@ -159,10 +146,22 @@ Furthermore, the model components that have been shown to contain certain knowle
 
 ### TODO: Methods related to graph based structures
 
+:::::::::::::::::::::::::::::::::::::: challenge
 
-## Summary
+### Classifying explanation techniques
 
-To summarize the methods discussed above, we can categorize them based on their approach, interpretability, and scope.
+For each of the explanation techniques described above, discuss the following with a partner:
+
+* Does it require black-box or white-box model access? 
+* Are the explanations it provides global or local? 
+* Is the technique post-hoc or does it rely on inherent interpretability of the model?
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::: solution
+
+### Solution
+
 
 | Approach                                                                                         | Post Hoc or Inherently Interpretable? | Local or Global? | White Box or Black Box? |
 |--------------------------------------------------------------------------------------------------|---------------------------------------|------------------|-------------------------|
@@ -175,6 +174,9 @@ To summarize the methods discussed above, we can categorize them based on their 
 | [Probing internal representations of a model](#probing-internal-representations)                 | Post Hoc                              | Global/Local     | White Box               |
 
 
+:::::::::::::::::::::::::
+
+What explanation should you use when? There is no simple answer, as it depends upon your goals (i.e., why you need an explanation), who the audience is, the model architecture, and the availability of model internals (e.g., there is no white-box access to ChatGPT unless you work for Open AI!). The next exercise asks you to consider different scenarios and discuss what explanation techniques are appropriate.
 
 
 :::::::::::::::::::::::::::::::::::::: challenge
@@ -210,6 +212,12 @@ How do you know if there is clustering, and if there is a trajectory of changes 
 Q: Can you explain the decisions you make for each method you use?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+## Summary
+
+There are many available explanation techniques and they differ along three dimensions: model access (white-box or black-box), explanation scope (global or local), and approach (inherently interpretable or post-hoc). There's often no objectively-right answer of which explanation technique to use in a given situation, as the different methods have different tradeoffs. 
+
 
 ### References and Further Reading
 
