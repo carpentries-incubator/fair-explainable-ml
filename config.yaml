@@ -27,7 +27,7 @@ life_cycle: 'pre-alpha' # FIXME
 license: 'CC-BY 4.0'
 
 # Link to the source repository for this lesson
-source: 'https://github.com/annapmeyer/fair-explainable-ml'
+source: 'https://github.com/carpentries-incubator/fair-explainable-ml'
 
 # Default branch of your lesson
 branch: 'main'

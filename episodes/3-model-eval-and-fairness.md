@@ -131,12 +131,12 @@ In 2016, Caliskan et al. [showed that machine translation systems exhibit gender
 
 In response, Google [tweaked their translator algorithms](https://blog.research.google/2018/12/providing-gender-specific-translations.html) to identify and correct for gender stereotypes in Turkish and several other widely-spoken languages. So when we repeat a similar experiment today, we get the following output:
 
-![Turkish Google Translate example (screenshot from 1/9/2024)](https://raw.githubusercontent.com/annapmeyer/fair-explainable-ml/main/images/e4-turkish-nlp-stereotypes.png){alt='Screenshot of Google Translate output. The English sentence "The doctor is on her lunch break" is translated to Turkish, and then the Turkish output is translated back to English as either "The doctor is on his lunch break" or "The doctor is on his lunch break".'}
+![Turkish Google Translate example (screenshot from 1/9/2024)](https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/e4-turkish-nlp-stereotypes.png){alt='Screenshot of Google Translate output. The English sentence "The doctor is on her lunch break" is translated to Turkish, and then the Turkish output is translated back to English as either "The doctor is on his lunch break" or "The doctor is on his lunch break".'}
 
 
 But for other, less widely-spoken languages, the original problem persists:
 
-![Norwegian Google Translate example (screenshot from 1/9/2024)](https://raw.githubusercontent.com/annapmeyer/fair-explainable-ml/main/images/e4-norwegian-nlp-stereotypes.png){alt='Screenshot of Google Translate output. The English sentence "The doctor is on her lunch break" is translated to Norwegian, and then the Norwegian output is translated back to English as "The doctor is on his lunch break".'}
+![Norwegian Google Translate example (screenshot from 1/9/2024)](https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/e4-norwegian-nlp-stereotypes.png){alt='Screenshot of Google Translate output. The English sentence "The doctor is on her lunch break" is translated to Norwegian, and then the Norwegian output is translated back to English as "The doctor is on his lunch break".'}
 
 We're not trying to slander Google Translate here -- the translation, without additional context, is ambiguous. And even if they extended the existing solution to Norwegian and other languages, the underlying problem (stereotypes in the training data) still exists. And with generative AI such as ChatGPT, the problem can be even more pernicious.
 
@@ -177,11 +177,11 @@ If you use LLMs in your research, consider whether any of these issues are likel
 The same problems that language modeling face also affect image generation. Consider, for instance, Melon et al. [developed an algorithm called Pulse](https://arxiv.org/pdf/2003.03808.pdf) that can convert blurry images to higher resolution. But, biases were quickly unearthed and [shared via social media](https://twitter.com/Chicken3gg/status/1274314622447820801?s=20&t=_oORPJBJRaBW_J0zresFJQ).
 
 :::::::::::::::::::::::::::::::::::::: challenge
-Who is shown in this blurred picture? ![Barack Obama by @Chicken3gg, Twitter](https://raw.githubusercontent.com/annapmeyer/fair-explainable-ml/main/images/e4-obama.png){alt="blurry image of Barack Obama"}
+Who is shown in this blurred picture? ![Barack Obama by @Chicken3gg, Twitter](https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/e4-obama.png){alt="blurry image of Barack Obama"}
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::: solution
-While the picture is of Barack Obama, the upsampled image shows a white face. ![Barack Obama by @Chicken3gg, Twitter](https://raw.githubusercontent.com/annapmeyer/fair-explainable-ml/main/images/e4-obama-upsampled.png){alt="Unblurred version of the pixelated picture of Obama. Instead of showing Obama, it shows a white man."}
+While the picture is of Barack Obama, the upsampled image shows a white face. ![Barack Obama by @Chicken3gg, Twitter](https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/e4-obama-upsampled.png){alt="Unblurred version of the pixelated picture of Obama. Instead of showing Obama, it shows a white man."}
 
 You can [try the model here](https://colab.research.google.com/github/tg-bomze/Face-Depixelizer/blob/master/Face_Depixelizer_Eng.ipynb#scrollTo=fU0aGtD4Nl4W).
 ::::::::::::::::::::::::::::::::::::::::::::::::::

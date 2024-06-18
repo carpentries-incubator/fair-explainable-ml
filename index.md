@@ -18,7 +18,7 @@ This lesson aims to teach responsible machine learning practices with a focus on
 
 There are a number of files we need to conduct the workshop. By cloning the git repository, you will be able to have a copy of all of the necessary files and functions required to run through the exercises.
 
-1. Click the link below to open the [Github](https://github.com/annapmeyer/fair-explainable-ml/tree/main) page.
+1. Click the link below to open the [Github](https://github.com/carpentries-incubator/fair-explainable-ml/tree/main) page.
 2. Click the green "Code <>" button.
 3. Click "Download as zip."
 4. Unzip the directory to your desktop or working directory.
