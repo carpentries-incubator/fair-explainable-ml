@@ -128,13 +128,7 @@ pip install torch torchvision
 ```
 
 
-::::::::::::::::::::::::::::::::::::::: discussion
 
-### Python package installation troubleshooting
-
-
-
-:::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
 ::::::::::::::::::: spoiler
