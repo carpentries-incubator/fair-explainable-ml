@@ -27,7 +27,7 @@ life_cycle: 'pre-alpha' # FIXME
 license: 'CC-BY 4.0'
 
 # Link to the source repository for this lesson
-source: 'https://github.com/annapmeyer/fair-explainable-ml'
+source: 'https://github.com/carpentries-incubator/fair-explainable-ml'
 
 # Default branch of your lesson
 branch: 'main'
@@ -60,9 +60,11 @@ episodes:
 - 2-model-fitting.md
 - 3-model-eval-and-fairness.md
 - 4-explainability-vs-interpretability.md
-- 5-explainable-AI-methods.md
-- 6-distribution-shift-OOD-detection.md
-- 7-releasing-a-model.md
+- 5a-explainable-AI-method-overview.md
+- 5b-deep-dive-into-methods.md
+- 6-confidence-intervals.md
+- 7-distribution-shift-OOD-detection.md
+- 8-releasing-a-model.md
 
 # Information for Learners
 learners: 
