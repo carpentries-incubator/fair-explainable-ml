@@ -23,7 +23,11 @@ To create an account on Hugging Face, visit: [https://huggingface.co/join](https
 
 
 Once you have your account created, you'll need to generate an *access token* so that you can upload/share models to your Hugging Face account during the workshop. To generate a token, visit the [Access Tokens setting page](https://huggingface.co/settings/tokens) after logging in. Once there, click "New token" to generate an access token. We'll use this token later to log in to Hugging Face via Python.
+
 ## Software setup
+
+::::::::::::::::::::::::::::::::::::::: discussion
+
 ### Installing Python using Anaconda
 
 [Python][python] is a popular language for scientific computing, and a frequent choice
