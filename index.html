@@ -207,8 +207,9 @@
         
     <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
       <div class="accordion-body">
-        <ul><li><a href="#data-sets">Data Sets</a></li>
-<li><a href="#software-setup">Software Setup</a></li>
+        <ul><li><a href="#clone-the-git-project">Clone the git project</a></li>
+<li><a href="#create-a-hugging-face-account-and-access-token">Create a Hugging Face account and access Token</a></li>
+<li><a href="#software-setup">Software setup</a></li>
         </ul></div><!--/div.accordion-body-->
     </div><!--/div.accordion-collapse-->
         
@@ -384,80 +385,273 @@ any links that you are not going to use.
  -->
 
 
-      <section id="setup"><p>FIXME: Setup instructions live in this document. Please specify the
-tools and the data sets the Learner needs to have installed.</p>
-<section id="data-sets"><h2 class="section-heading">Data Sets<a class="anchor" aria-label="anchor" href="#data-sets"></a>
+      <section id="setup"><section id="clone-the-git-project"><h2 class="section-heading">Clone the git project<a class="anchor" aria-label="anchor" href="#clone-the-git-project"></a>
 </h2>
 <hr class="half-width"><!--
+## Data Sets
 FIXME: place any data you want learners to use in `episodes/data` and then use
        a relative link ( [data zip file](data/lesson-data.zip) ) to provide a
-       link to it, replacing the example.com link.
---><p>Download the <a href="https://example.com/FIXME" class="external-link">data zip file</a>
-and unzip it to your Desktop</p>
-</section><section id="software-setup"><h2 class="section-heading">Software Setup<a class="anchor" aria-label="anchor" href="#software-setup"></a>
+       link to it, replacing the example.com link. Download the [data zip file](https://example.com/FIXME) and unzip it to your Desktop
+--><p>There are a number of files we need to conduct the workshop. By
+cloning the git repository, you will be able to have a copy of all of
+the necessary files and functions required to run through the
+exercises.</p>
+<ol style="list-style-type: decimal"><li>Click the link below to open the <a href="https://github.com/carpentries-incubator/fair-explainable-ml/tree/main" class="external-link">Github</a>
+page.</li>
+<li>Click the green “Code &lt;&gt;” button.</li>
+<li>Click “Download as zip.”</li>
+<li>Unzip the directory to your desktop or working directory.</li>
+</ol></section><section id="create-a-hugging-face-account-and-access-token"><h2 class="section-heading">Create a Hugging Face account and access Token<a class="anchor" aria-label="anchor" href="#create-a-hugging-face-account-and-access-token"></a>
 </h2>
-<hr class="half-width"><div id="details" class="callout discussion">
+<hr class="half-width"><p>You will need a Hugging Face account for the workshop episode on
+model sharing. Hugging Face is a very popular machine learning (ML)
+platform and community that helps users build, deploy, share, and train
+machine learning models.</p>
+<p>To create an account on Hugging Face, visit: <a href="https://huggingface.co/join" class="external-link">https://huggingface.co/join</a>.
+Enter an email address and password, and follow the instructions
+provided via Hugging Face (you may need to verify your email address) to
+complete the process.</p>
+<p>Once you have your account created, you’ll need to generate an
+<em>access token</em> so that you can upload/share models to your
+Hugging Face account during the workshop. To generate a token, visit the
+<a href="https://huggingface.co/settings/tokens" class="external-link">Access Tokens setting
+page</a> after logging in. Once there, click “New token” to generate an
+access token. We’ll use this token later to log in to Hugging Face via
+Python.</p>
+</section><section id="software-setup"><h2 class="section-heading">Software setup<a class="anchor" aria-label="anchor" href="#software-setup"></a>
+</h2>
+<hr class="half-width"><div id="installing-python-using-anaconda" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
-<div id="details" class="callout-inner">
-<h3 class="callout-title">Details<a class="anchor" aria-label="anchor" href="#details"></a>
+<div id="installing-python-using-anaconda" class="callout-inner">
+<h3 class="callout-title">Installing Python using Anaconda<a class="anchor" aria-label="anchor" href="#installing-python-using-anaconda"></a>
 </h3>
 <div class="callout-content">
-<p>Setup for different systems can be presented in dropdown menus via a
-<code>solution</code> tag. They will join to this discussion block, so
-you can give a general overview of the software used in this lesson here
-and fill out the individual operating systems (and potentially add more,
-e.g. online setup) in the solutions blocks.</p>
+<p>[Python][python] is a popular language for scientific computing, and
+a frequent choice for machine learning as well. Installing all of its
+scientific packages individually can be a bit difficult, however, so we
+recommend the installer [Anaconda][anaconda] which includes most (but
+not all) of the software you will need.</p>
+<p>Regardless of how you choose to install it, please make sure you
+install Python version 3.x (e.g., 3.4 is fine). Also, please set up your
+python environment at least a day in advance of the workshop. If you
+encounter problems with the installation procedure, ask your workshop
+organizers via e-mail for assistance so you are ready to go as soon as
+the workshop begins.</p>
 </div>
 </div>
 </div>
-<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div id="accordionSpoiler1" class="accordion spoiler-accordion accordion-flush">
 <div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
-  <h4 class="accordion-header" id="headingSolution1">
+<button class="accordion-button spoiler-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpoiler1" aria-expanded="false" aria-controls="collapseSpoiler1">
+  <h3 class="accordion-header" id="headingSpoiler1">
+  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="eye"></i></div>
   Windows
-  </h4>
+  </h3>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSpoiler1" class="accordion-collapse collapse" aria-labelledby="headingSpoiler1" data-bs-parent="#accordionSpoiler1">
 <div class="accordion-body">
-<p>Use PuTTY</p>
+<p>Checkout the [video tutorial][video-windows] or:</p>
+<ol style="list-style-type: decimal"><li>Open [<a href="https://www.anaconda.com/products/distribution" class="external-link uri">https://www.anaconda.com/products/distribution</a>][anaconda-distribution]
+with your web browser.</li>
+<li>Download the Python 3 installer for Windows.</li>
+<li>Double-click the executable and install Python 3 using <em>MOST</em>
+of the default settings. The only exception is to check the <strong>Make
+Anaconda the default Python</strong> option.</li>
+</ol></div>
 </div>
 </div>
 </div>
-</div>
-<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
+<div id="accordionSpoiler2" class="accordion spoiler-accordion accordion-flush">
 <div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
-  <h4 class="accordion-header" id="headingSolution2">
+<button class="accordion-button spoiler-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpoiler2" aria-expanded="false" aria-controls="collapseSpoiler2">
+  <h3 class="accordion-header" id="headingSpoiler2">
+  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="eye"></i></div>
   MacOS
-  </h4>
+  </h3>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSpoiler2" class="accordion-collapse collapse" aria-labelledby="headingSpoiler2" data-bs-parent="#accordionSpoiler2">
 <div class="accordion-body">
-<p>Use Terminal.app</p>
+<p>Checkout the [video tutorial][video-mac] or:</p>
+<ol style="list-style-type: decimal"><li>Open [<a href="https://www.anaconda.com/products/distribution" class="external-link uri">https://www.anaconda.com/products/distribution</a>][anaconda-distribution]
+with your web browser.</li>
+<li>Download the Python 3 installer for OS X. Make sure to use the
+correct version for your hardware, i.e. choose the options with “(M1)”
+if yours is one of the more recent models containing Apple’s chip.</li>
+<li>Install Python 3 using all of the defaults for installation.</li>
+</ol></div>
 </div>
 </div>
 </div>
-</div>
-<div id="accordionSolution3" class="accordion challenge-accordion accordion-flush">
+<div id="accordionSpoiler3" class="accordion spoiler-accordion accordion-flush">
 <div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
-  <h4 class="accordion-header" id="headingSolution3">
+<button class="accordion-button spoiler-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpoiler3" aria-expanded="false" aria-controls="collapseSpoiler3">
+  <h3 class="accordion-header" id="headingSpoiler3">
+  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="eye"></i></div>
   Linux
-  </h4>
+  </h3>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSpoiler3" class="accordion-collapse collapse" aria-labelledby="headingSpoiler3" data-bs-parent="#accordionSpoiler3">
 <div class="accordion-body">
-<p>Use Terminal</p>
+<p>Note that the following installation steps require you to work from
+the shell. If you run into any difficulties, please request help before
+the workshop begins.</p>
+<ol style="list-style-type: decimal"><li>Open [<a href="https://www.anaconda.com/products/distribution" class="external-link uri">https://www.anaconda.com/products/distribution</a>][anaconda-distribution]
+with your web browser.</li>
+<li>Download the Python 3 installer for Linux.</li>
+<li>Install Python 3 using all of the defaults for installation.
+<ol style="list-style-type: lower-alpha"><li>Open a terminal window.</li>
+<li>Navigate to the folder where you downloaded the installer</li>
+<li>Type</li>
+</ol><div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">bash</span> Anaconda3-</span></code></pre>
+</div>
+and press tab. The name of the file you just downloaded should appear.
+<ol start="4" style="list-style-type: lower-alpha"><li>Press enter.</li>
+<li>Follow the text-only prompts. When the license agreement appears (a
+colon will be present at the bottom of the screen) hold the down arrow
+until the bottom of the text. Type <code>yes</code> and press enter to
+approve the license. Press enter again to approve the default location
+for the files. Type <code>yes</code> and press enter to prepend Anaconda
+to your <code>PATH</code> (this makes the Anaconda distribution the
+default Python).</li>
+</ol></li>
+</ol></div>
+</div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="packages">Installing the required packages<a class="anchor" aria-label="anchor" href="#packages"></a></h3>
+<p><a href="https://docs.conda.io/projects/conda/en/latest/" class="external-link">Conda</a>
+is the package management system associated with <a href="https://anaconda.org" class="external-link">Anaconda</a> and runs on Windows, macOS and
+Linux. Conda should already be available in your system once you
+installed Anaconda successfully. Conda thus works regardless of the
+operating system.</p>
+<ol style="list-style-type: decimal"><li><p>Make sure you have an up-to-date version of Conda running. See <a href="https://docs.anaconda.com/anaconda/install/update-version/" class="external-link">these
+instructions</a> for updating Conda if required. {: .callout}</p></li>
+<li><p>To create a conda environment called <code>trustworthy_ML</code>
+with the required packages, open a terminal (Mac/Linux) or Anaconda
+prompt (Windows) and type the command:</p></li>
+</ol><div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">--name</span> trustworthy_ML python jupyter scikit-learn pandas</span></code></pre>
+</div>
+<ol start="3" style="list-style-type: decimal"><li>Activate the newly created environment:</li>
+</ol><pre><code>conda activate trustworthy_ML</code></pre>
+<ol start="4" style="list-style-type: decimal"><li>After activating your environment, install pytorch using pip
+(python’s package manager):</li>
+</ol><div class="codewrapper sourceCode" id="cb4">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="ex">pip</span> install torch torchvision</span></code></pre>
+</div>
+<div id="python-package-installation-troubleshooting" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div id="python-package-installation-troubleshooting" class="callout-inner">
+<h3 class="callout-title">Python package installation
+troubleshooting<a class="anchor" aria-label="anchor" href="#python-package-installation-troubleshooting"></a>
+</h3>
+<div class="callout-content">
+
+</div>
+</div>
+</div>
+<div id="accordionSpoiler4" class="accordion spoiler-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button spoiler-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpoiler4" aria-expanded="false" aria-controls="collapseSpoiler4">
+  <h3 class="accordion-header" id="headingSpoiler4">
+  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="eye"></i></div>
+  Troubleshooting for Macs with Apple silicon chip
+  </h3>
+</button>
+<div id="collapseSpoiler4" class="accordion-collapse collapse" aria-labelledby="headingSpoiler4" data-bs-parent="#accordionSpoiler4">
+<div class="accordion-body">
+<p>Newer Macs (from 2020 onwards) often have a different kind of chip,
+manufactured by Apple instead of Intel. This can lead to problems
+installing Tensorflow. If you get errors running the installation
+command or conda hangs endlessly, you probably <a href="https://www.youtube.com/watch?v=BEUU-icPg78" class="external-link">need to change the
+version of Anaconda you have installed</a>.</p>
+<ol style="list-style-type: decimal"><li>Uninstall Anaconda</li>
+<li>[Download the version of Anaconda for Apple
+chips][anaconda-distribution] (i.e. the version with “(M1)” in the name)
+and install it with the default settings</li>
+<li>Follow <a href="#packages">the instructions above</a> to install the
+required packages</li>
+</ol></div>
 </div>
 </div>
 </div>
 </div>
+<div class="section level3">
+<h3 id="starting-jupyter-lab">Starting Jupyter Lab<a class="anchor" aria-label="anchor" href="#starting-jupyter-lab"></a></h3>
+<p>We will teach using Python in [Jupyter lab][jupyter], a programming
+environment that runs in a web browser. Jupyter requires a reasonably
+up-to-date browser, preferably a current version of Chrome, Safari, or
+Firefox (note that Internet Explorer version 9 and below are
+<em>not</em> supported). If you installed Python using Anaconda, Jupyter
+should already be on your system. If you did not use Anaconda, use the
+Python package manager pip (see the [Jupyter website][jupyter-install]
+for details.)</p>
+<p>To start jupyter lab, open a terminal (Mac/Linux) or Anaconda prompt
+(Windows) and type the command:</p>
+<div class="codewrapper sourceCode" id="cb5">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">jupyter</span> lab</span></code></pre>
+</div>
+<p>To start the Python interpreter without jupyter lab, open a terminal
+(Mac/Linux) or Anaconda prompt (Windows) or git bash and type the
+command:</p>
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="ex">python</span></span></code></pre>
+</div>
+</div>
+<div class="section level3">
+<h3 id="check-your-software-setup">Check your software setup<a class="anchor" aria-label="anchor" href="#check-your-software-setup"></a></h3>
+<p>To check whether all packages installed correctly, start a jupyter
+notebook in jupyter lab as explained above. Run the following lines of
+code:</p>
+<div class="codewrapper sourceCode" id="cb7">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="im">import</span> sklearn</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'sklearn version: '</span>, sklearn.__version__)</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="im">import</span> pandas</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'pandas version: '</span>, pandas.__version__)</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'torch version: '</span>, torch.__version__)</span></code></pre>
+</div>
+<p>This should output the versions of all required packages without
+giving errors. Most versions will work fine with this lesson, but: - For
+pytorch, the minimum version is 2.0 - For sklearn, the minimum version
+is 1.2.2</p>
+</div>
+<div class="section level3">
+<h3 id="fallback-option-cloud-environment">Fallback option: cloud environment<a class="anchor" aria-label="anchor" href="#fallback-option-cloud-environment"></a></h3>
+<p>If a local installation does not work for you, it is also possible to
+run this lesson in <a href="https://mybinder.org/v2/gh/carpentries-incubator/deep-learning-intro/scaffolds" class="external-link">Binder
+Hub</a>. This should give you an environment with all the required
+software and data to run this lesson, nothing which is saved will be
+stored, please copy any files you want to keep. Note that if you are the
+first person to launch this in the last few days it can take several
+minutes to startup. The second person who loads it should find it loads
+in under a minute. Instructors who intend to use this option should
+start it themselves shortly before the workshop begins.</p>
 <!-- 
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use. 
  -->
+</div>
 </section></section></main><nav class="bottom-pagination mx-md-4" aria-label="Next Chapter"><!-- content for small screens --><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link float-end" href="0-introduction.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
