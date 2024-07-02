@@ -1672,7 +1672,7 @@ methods to understand model behavior.</li>
 </div>
 </div></section><section id="aio-5a-explainable-AI-method-overview"><p>Content from <a href="5a-explainable-AI-method-overview.html">Explainability methods overview</a></p>
 <hr>
-<p>Last updated on 2024-06-19 |
+<p>Last updated on 2024-07-02 |
         
         <a href="https://github.com/carpentries-incubator/fair-explainable-ml/edit/main/episodes/5a-explainable-AI-method-overview.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -1750,10 +1750,11 @@ Behavior<a class="anchor" aria-label="anchor" href="#classes-of-explainability-m
 <h3 id="diagnostic-testing">Diagnostic Testing<a class="anchor" aria-label="anchor" href="#diagnostic-testing"></a>
 </h3>
 <p>This is the simplest approach towards explaining model behavior. This
-involves applying a series of unit tests to the model. By developing
-test examples that break the heuristics the model relies on (called
-counterfactuals), you can gain insights into the high-level behavior of
-the model.</p>
+involves applying a series of unit tests to the model, where each test
+is a sample input where you know what the correct output should be. By
+identifying test examples that break the heuristics the model relies on
+(called counterfactuals), you can gain insights into the high-level
+behavior of the model.</p>
 <p><strong>Example Methods:</strong> <a href="https://arxiv.org/abs/1902.01007" class="external-link">Counterfactuals</a>, <a href="https://arxiv.org/abs/2005.04118" class="external-link">Unit tests</a></p>
 <p><strong>Pros and Cons:</strong> These methods allow for gaining
 insights into the high-level behavior of the model without the needing
@@ -1831,7 +1832,10 @@ additional step in an analysis, and not as a standalone method.</p>
 <h3 id="understanding-impact-of-training-examples">Understanding impact of training examples<a class="anchor" aria-label="anchor" href="#understanding-impact-of-training-examples"></a>
 </h3>
 <p>These techniques unearth which training data instances caused the
-model to generate a specific prediction for a given sample.</p>
+model to generate a specific prediction for a given sample. At a high
+level, these techniques mathematically identify what training samples
+that – if removed from the training process – are most influential for
+causing a particular prediction.</p>
 <p><strong>Example methods:</strong> <a href="https://arxiv.org/abs/1703.04730" class="external-link">Influence functions</a>, <a href="https://arxiv.org/abs/1811.09720" class="external-link">Representer point
 selection</a></p>
 <figure><img src="https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/e5-influence.png" alt="Two images. On the left, several antelope are standing in the background on a grassy field. On the right, several zebra graze in a field in the background, while there is one antelope in the foreground and other antelope in the background." class="figure mx-auto d-block"><div class="figcaption">Example usage of representer point selection.
@@ -1857,6 +1861,11 @@ by various features to the model, and observe how the model reacts to
 changes in these features.</p>
 <p><strong>Example methods:</strong> <a href="https://arxiv.org/abs/1312.6034" class="external-link">Saliency Maps</a>, <a href="https://arxiv.org/abs/1602.04938" class="external-link">LIME</a>/<a href="https://arxiv.org/abs/1705.07874" class="external-link">SHAP</a>, Perturbations (<a href="https://arxiv.org/abs/1804.07781" class="external-link">Input reduction</a>, <a href="https://arxiv.org/abs/1712.06751" class="external-link">Adversarial
 Perturbations</a>)</p>
+<p>These methods can be further subdivided into two categories:
+gradient-based methods that rely on white-box model access to directly
+see the impact of changing a single input, and perturbation-based
+methods that manually perturb an input and re-query the model to see how
+the prediction changes.</p>
 <figure><img src="https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/e5-smoothgrad.png" alt='Two rows images (5 images per row). Leftmost column shows two different pictures, each containing a cat and a dog. Remaining columns show the saliency maps using different techniques (VanillaGrad, InteGrad, GuidedBackProp, and SmoothGrad). Each saliency map has red dots (indicated regions that are influential for predicting "dog") and blue dots (influential for predicting "cat"). All methods except GuidedBackProp have good overlap between the respective dots and where the animals appear in the image. SmoothGrad has the most precise mapping.' class="figure mx-auto d-block"><div class="figcaption">Example saliency maps. The right 4 columns show
 the result of different saliency method techniques, where red dots
 indicate regions that are influential for predicting “dog” and blue dots
@@ -1900,10 +1909,22 @@ interpretable components, and many components may remain elusive to
 humans to understand. Furthermore, the model components that have been
 shown to contain certain knowledge may not actually play a role in the
 model’s prediction.</p>
+<div id="is-that-all" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3">
-<h3 id="todo-methods-related-to-graph-based-structures">TODO: Methods related to graph based structures<a class="anchor" aria-label="anchor" href="#todo-methods-related-to-graph-based-structures"></a>
+<div id="is-that-all" class="callout-inner">
+<h3 class="callout-title">Is that all?<a class="anchor" aria-label="anchor" href="#is-that-all"></a>
 </h3>
+<div class="callout-content">
+<p>Nope! We’ve discussed a few of the common explanation techniques, but
+many others exist. In particular, specialized model architectures often
+need their own explanation algorithms. For instance, <a href="https://ieeexplore.ieee.org/abstract/document/9875989?casa_token=BiFHRXv7_9gAAAAA:wPV-PXOpCLFg2g1qYgEQ7QF_LKZs32cOXEJBvwjK3z43sXeaGfvQ9e1QePW03MTLq4lrUsh4Jw" class="external-link">Yuan
+et al.</a> give an overview of different explanation techniques for
+graph neural networks (GNNs).</p>
+</div>
+</div>
+</div>
 <div id="classifying-explanation-techniques" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
@@ -1928,7 +1949,7 @@ interpretability of the model?</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <table class="table">
 <colgroup>
@@ -2524,7 +2545,7 @@ to your experiences or projects?</em></p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <ul>
 <li>
@@ -2581,7 +2602,7 @@ to your experiences or projects?</em></p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <ul>
 <li>Environment setup</li>
@@ -2639,7 +2660,7 @@ reproducing ML workflows?</em></p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <ul>
 <li>
