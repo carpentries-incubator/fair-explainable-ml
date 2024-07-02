@@ -1,4 +1,9 @@
 ---
+title: "Explainability methods: linear probe"
+teaching: 0
+exercises: 0
+---
+
 ```python
 # Let's start by importing the necessary libraries.
 
