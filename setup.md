@@ -19,10 +19,9 @@ There are a number of files we need to conduct the workshop. By cloning the git 
 ## Create a Hugging Face account and access Token
 You will need a Hugging Face account for the workshop episode on model sharing. Hugging Face is a very popular machine learning (ML) platform and community that helps users build, deploy, share, and train machine learning models. 
 
-To create an account on Hugging Face, visit [huggingface.co/join](https://huggingface.co/join). Enter an email address and password, and follow the instructions provided via Hugging Face (you may need to verify your email address) to complete the process.
+**Create account**: To create an account on Hugging Face, visit: [huggingface.co/join](https://huggingface.co/join). Enter an email address and password, and follow the instructions provided via Hugging Face (you may need to verify your email address) to complete the process.
 
-
-Once you have your account created, you'll need to generate an *access token* so that you can upload/share models to your Hugging Face account during the workshop. To generate a token, visit the [Access Tokens setting page](https://huggingface.co/settings/tokens) after logging in. Once there, click "New token" to generate an access token. We'll use this token later to log in to Hugging Face via Python.
+**Setup access token**: Once you have your account created, you’ll need to generate an access token so that you can upload/share models to your Hugging Face account during the workshop. To generate a token, visit the [Access Tokens setting page](https://huggingface.co/settings/tokens) after logging in. Once there, click “New token” to generate an access token. We’ll use this token later to log in to Hugging Face via Python
 
 ## Software setup
 
