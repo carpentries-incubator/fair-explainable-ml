@@ -37,6 +37,12 @@
     <loc>https://carpentries-incubator.github.io/fair-explainable-ml/5b-deep-dive-into-methods.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/fair-explainable-ml/5c-probes.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/fair-explainable-ml/5d-gradcam.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/fair-explainable-ml/6-confidence-intervals.html</loc>
   </url>
   <url>
@@ -110,6 +116,12 @@
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/fair-explainable-ml/instructor/5b-deep-dive-into-methods.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/fair-explainable-ml/instructor/5c-probes.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/fair-explainable-ml/instructor/5d-gradcam.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/fair-explainable-ml/instructor/6-confidence-intervals.html</loc>

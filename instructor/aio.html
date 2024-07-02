@@ -328,7 +328,7 @@
 <div class="accordion accordion-flush" id="accordionFlush9">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading9">
-        <a href="6-confidence-intervals.html">8. Estimating model uncertainty</a>
+        <a href="5c-probes.html">8. Explainability methods: linear probe</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -340,7 +340,7 @@
 <div class="accordion accordion-flush" id="accordionFlush10">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading10">
-        <a href="7-distribution-shift-OOD-detection.html">9. Distribution shift and OOD detection</a>
+        <a href="5d-gradcam.html">9. Explainability methods: GradCAM</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -352,7 +352,31 @@
 <div class="accordion accordion-flush" id="accordionFlush11">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading11">
-        <a href="8-releasing-a-model.html">10. Documenting and releasing a model</a>
+        <a href="6-confidence-intervals.html">10. Estimating model uncertainty</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush12">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading12">
+        <a href="7-distribution-shift-OOD-detection.html">11. Distribution shift and OOD detection</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush13">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading13">
+        <a href="8-releasing-a-model.html">12. Documenting and releasing a model</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -742,7 +766,7 @@ and can have unpleasant side effects.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li><p>It is best if all patients who need the screening get it, and
@@ -836,7 +860,7 @@ same rate.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>A - 3, B - 2, C - 4, D - 1</p>
 </div>
@@ -923,7 +947,7 @@ uses of the LLM’s output.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <p>Most publicly-available LLM providers set up guardrails to avoid
 propagating biases present in their training data. For instance, as of
@@ -977,7 +1001,7 @@ via social media</a>.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
 <p>While the picture is of Barack Obama, the upsampled image shows a
 white face. <img src="https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/e4-obama-upsampled.png" alt="Unblurred version of the pixelated picture of Obama. Instead of showing Obama, it shows a white man." class="figure"></p>
@@ -1083,7 +1107,7 @@ different settings?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution5" aria-expanded="false" aria-controls="collapseSolution5">
   <h4 class="accordion-header" id="headingSolution5"> Show me the solution </h4>
 </button>
-<div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
+<div id="collapseSolution5" class="accordion-collapse collapse" data-bs-parent="#accordionSolution5" aria-labelledby="headingSolution5">
 <div class="accordion-body">
 <p>A downside of oversampling is that it may violate statistical
 assumptions about independence of samples. A downside of undersampling
@@ -1972,7 +1996,7 @@ interpretability of the model?</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <table class="table">
 <colgroup>
@@ -2331,7 +2355,686 @@ Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use. 
  -->
 </div>
-</section></section><section id="aio-6-confidence-intervals"><p>Content from <a href="6-confidence-intervals.html">Estimating model uncertainty</a></p>
+</section></section><section id="aio-5c-probes"><p>Content from <a href="5c-probes.html">Explainability methods: linear probe</a></p>
+<hr>
+<p>Last updated on 2024-07-02 |
+        
+        <a href="https://github.com/carpentries-incubator/fair-explainable-ml/edit/main/episodes/5c-probes.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+<p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 0 minutes</p>
+<div class="text-end">
+          <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
+        </div>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Let's start by importing the necessary libraries.</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="im">import</span> logging</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> Tuple</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="im">from</span> sklearn.manifold <span class="im">import</span> TSNE</span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="im">from</span> datasets <span class="im">import</span> load_dataset, Dataset</span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> AutoModel, AutoTokenizer, AutoConfig</span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a>logging.basicConfig(level<span class="op">=</span>logging.INFO)</span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>os.environ[<span class="st">'TOKENIZERS_PARALLELISM'</span>] <span class="op">=</span> <span class="st">'false'</span>  <span class="co"># This is needed to avoid a warning from huggingface</span></span></code></pre>
+</div>
+<p>Now, let’s set the random seed to ensure reproducibility. Setting
+random seeds is like setting a starting point for your machine learning
+adventure. It ensures that every time you train your model, it starts
+from the same place, using the same random numbers, making your results
+consistent and comparable.</p>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># Set random seeds for reproducibility - pick any number of your choice to set the seed. We use 42, since that is the answer to everything, after all.</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>torch.manual_seed(<span class="dv">42</span>)</span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Set the GPU to use</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>os.environ[<span class="st">'CUDA_VISIBLE_DEVICES'</span>] <span class="op">=</span> <span class="st">'0'</span>  </span></code></pre>
+</div>
+<div class="section level5">
+<h5 id="loading-the-dataset">Loading the Dataset<a class="anchor" aria-label="anchor" href="#loading-the-dataset"></a>
+</h5>
+<p>Let’s load our data: the IMDB Movie Review dataset. The dataset
+contains text reviews and their corresponding sentiment labels (positive
+or negative). The label 1 corresponds to a positive review, and 0
+corresponds to a negative review.</p>
+<div class="codewrapper sourceCode" id="cb4">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="kw">def</span> load_imdb_dataset(keep_samples: <span class="bu">int</span> <span class="op">=</span> <span class="dv">100</span>) <span class="op">-&gt;</span> Tuple[Dataset, Dataset, Dataset]:</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>    <span class="co">'''</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="co">    Load the IMDB dataset from huggingface.</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="co">    The dataset contains text reviews and their corresponding sentiment labels (positive or negative).</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="co">    The label 1 corresponds to a positive review, and 0 corresponds to a negative review.</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="co">    :param keep_samples: Number of samples to keep, for faster training.</span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="co">    :return: train, dev, test datasets. Each can be treated as a dictionary with keys 'text' and 'label'.</span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="co">    '''</span></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>    dataset <span class="op">=</span> load_dataset(<span class="st">'imdb'</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a>    <span class="co"># Keep only a subset of the data for faster training</span></span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a>    train_dataset <span class="op">=</span> Dataset.from_dict(dataset[<span class="st">'train'</span>].shuffle(seed<span class="op">=</span><span class="dv">42</span>)[:keep_samples])</span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a>    dev_dataset <span class="op">=</span> Dataset.from_dict(dataset[<span class="st">'test'</span>].shuffle(seed<span class="op">=</span><span class="dv">42</span>)[:keep_samples])</span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a>    test_dataset <span class="op">=</span> Dataset.from_dict(dataset[<span class="st">'test'</span>].shuffle(seed<span class="op">=</span><span class="dv">42</span>)[keep_samples:<span class="dv">2</span><span class="op">*</span>keep_samples])</span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a>    <span class="co"># train_dataset[0] will return {'text': ...., 'label': 0}</span></span>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a>    logging.info(<span class="ss">f'Loaded IMDB dataset: </span><span class="sc">{</span><span class="bu">len</span>(train_dataset)<span class="sc">}</span><span class="ss"> training samples, </span><span class="sc">{</span><span class="bu">len</span>(dev_dataset)<span class="sc">}</span><span class="ss"> dev samples, </span><span class="sc">{</span><span class="bu">len</span>(test_dataset)<span class="sc">}</span><span class="ss"> test samples.'</span>)</span>
+<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a>    <span class="cf">return</span> train_dataset, dev_dataset, test_dataset</span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb5">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>train_dataset, dev_dataset, test_dataset <span class="op">=</span> load_imdb_dataset(keep_samples<span class="op">=</span><span class="dv">50</span>)</span></code></pre>
+</div>
+</div>
+<div class="section level5">
+<h5 id="loading-the-model">Loading the Model<a class="anchor" aria-label="anchor" href="#loading-the-model"></a>
+</h5>
+<p>We will load a model from huggingface, and use this model to get the
+embeddings for the probe. We use BERT for this example, but feel free to
+explore other models from huggingface after the exercise.</p>
+<p>BERT is a transformer-based model, and is known to perform well on a
+variety of NLP tasks. The model is pre-trained on a large corpus of
+text, and can be fine-tuned for specific tasks.</p>
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="kw">def</span> load_model(model_name: <span class="bu">str</span>) <span class="op">-&gt;</span> Tuple[AutoModel, AutoTokenizer]:</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>    <span class="co">'''</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="co">    Load a model from huggingface.</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="co">    :param model_name: Check huggingface for acceptable model names.</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co">    :return: Model and tokenizer.</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="co">    '''</span></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>    tokenizer <span class="op">=</span> AutoTokenizer.from_pretrained(model_name)</span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a>    config <span class="op">=</span> AutoConfig.from_pretrained(model_name)</span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>    model <span class="op">=</span> AutoModel.from_pretrained(model_name, config<span class="op">=</span>config)</span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a>    model.config.max_position_embeddings <span class="op">=</span> <span class="dv">128</span>  <span class="co"># Reducing from default 512 to 128 for computational efficiency</span></span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a>    logging.info(<span class="ss">f'Loaded model and tokenizer: </span><span class="sc">{</span>model_name<span class="sc">}</span><span class="ss"> with </span><span class="sc">{</span>model<span class="sc">.</span>config<span class="sc">.</span>num_hidden_layers<span class="sc">}</span><span class="ss"> layers, '</span></span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a>                 <span class="ss">f'hidden size </span><span class="sc">{</span>model<span class="sc">.</span>config<span class="sc">.</span>hidden_size<span class="sc">}</span><span class="ss"> and sequence length </span><span class="sc">{</span>model<span class="sc">.</span>config<span class="sc">.</span>max_position_embeddings<span class="sc">}</span><span class="ss">.'</span>)</span>
+<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a>    <span class="cf">return</span> model, tokenizer</span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb7">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># To play around with other models, find a list of models and their model_ids at: https://huggingface.co/models</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>model, tokenizer <span class="op">=</span> load_model(<span class="st">'bert-base-uncased'</span>)</span></code></pre>
+</div>
+<p>Let’s see what the model’s architecture looks like. How many layers
+does it have?</p>
+<div class="codewrapper sourceCode" id="cb8">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="bu">print</span>(model)</span></code></pre>
+</div>
+<p>Let’s see if your answer matches the actual number of layers in the
+model.</p>
+<div class="codewrapper sourceCode" id="cb9">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>num_layers <span class="op">=</span> model.config.num_hidden_layers</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'The model has </span><span class="sc">{</span>num_layers<span class="sc">}</span><span class="ss"> layers.'</span>)</span></code></pre>
+</div>
+</div>
+<div class="section level5">
+<h5 id="setting-up-the-probe">Setting up the Probe<a class="anchor" aria-label="anchor" href="#setting-up-the-probe"></a>
+</h5>
+<p>Before we define the probing classifier or probe, let’s set up some
+utility functions the probe will use. The probe will be trained from
+hidden representations from a specific layer of the BERT model. The
+<code>get_embeddings_from_model</code> function will retrieve the
+intermediate layer representations (also known as embeddings) from a
+user defined layer number.</p>
+<p>The <code>visualize_embeddings</code> method can be used to see what
+these high dimensional hidden embeddings would look like when converted
+into a 2D view. The visualization is not intended to be informative in
+itself, and is only an additional tool used to get a sense of what the
+inputs to the probing classifier may look like.</p>
+<div class="codewrapper sourceCode" id="cb10">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="kw">def</span> get_embeddings_from_model(model: AutoModel, tokenizer: AutoTokenizer, layer_num: <span class="bu">int</span>, data: <span class="bu">list</span>[<span class="bu">str</span>]) <span class="op">-&gt;</span> torch.Tensor:</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>    <span class="co">'''</span></span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="co">    Get the embeddings from a model.</span></span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="co">    :param model: The model to use. This is needed to get the embeddings.</span></span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a><span class="co">    :param tokenizer: The tokenizer to use. This is needed to convert the data to input IDs.</span></span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a><span class="co">    :param layer_num: The layer to get embeddings from. 0 is the input embeddings, and the last layer is the output embeddings.</span></span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a><span class="co">    :param data: The data to get embeddings for. A list of strings.</span></span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a><span class="co">    :return: The embeddings. Shape is N, L, D, where N is the number of samples, L is the length of the sequence, and D is the dimensionality of the embeddings.</span></span>
+<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a><span class="co">    '''</span></span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a>    logging.info(<span class="ss">f'Getting embeddings from layer </span><span class="sc">{</span>layer_num<span class="sc">}</span><span class="ss"> for </span><span class="sc">{</span><span class="bu">len</span>(data)<span class="sc">}</span><span class="ss"> samples...'</span>)</span>
+<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a>    <span class="co"># Batch the data for computational efficiency</span></span>
+<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a>    batch_size <span class="op">=</span> <span class="dv">32</span></span>
+<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a>    batch_num <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="bu">len</span>(data), batch_size):</span>
+<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a>        batch <span class="op">=</span> data[i:i<span class="op">+</span>batch_size]</span>
+<span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a>        logging.info(<span class="ss">f'Getting embeddings for batch </span><span class="sc">{</span>batch_num<span class="sc">}</span><span class="ss">...'</span>)</span>
+<span id="cb10-18"><a href="#cb10-18" tabindex="-1"></a>        batch_num <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb10-19"><a href="#cb10-19" tabindex="-1"></a></span>
+<span id="cb10-20"><a href="#cb10-20" tabindex="-1"></a>        <span class="co"># Tokenize the batch of data</span></span>
+<span id="cb10-21"><a href="#cb10-21" tabindex="-1"></a>        inputs <span class="op">=</span> tokenizer(batch, return_tensors<span class="op">=</span><span class="st">'pt'</span>, padding<span class="op">=</span><span class="va">True</span>, truncation<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb10-22"><a href="#cb10-22" tabindex="-1"></a></span>
+<span id="cb10-23"><a href="#cb10-23" tabindex="-1"></a>        <span class="co"># Get the embeddings from the model</span></span>
+<span id="cb10-24"><a href="#cb10-24" tabindex="-1"></a>        outputs <span class="op">=</span> model(<span class="op">**</span>inputs, output_hidden_states<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb10-25"><a href="#cb10-25" tabindex="-1"></a></span>
+<span id="cb10-26"><a href="#cb10-26" tabindex="-1"></a>        <span class="co"># Get the embeddings for the specific the layer</span></span>
+<span id="cb10-27"><a href="#cb10-27" tabindex="-1"></a>        embeddings <span class="op">=</span> outputs.hidden_states[layer_num]</span>
+<span id="cb10-28"><a href="#cb10-28" tabindex="-1"></a></span>
+<span id="cb10-29"><a href="#cb10-29" tabindex="-1"></a>        <span class="co"># Concatenate the embeddings from each batch</span></span>
+<span id="cb10-30"><a href="#cb10-30" tabindex="-1"></a>        <span class="cf">if</span> i <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb10-31"><a href="#cb10-31" tabindex="-1"></a>            all_embeddings <span class="op">=</span> embeddings</span>
+<span id="cb10-32"><a href="#cb10-32" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb10-33"><a href="#cb10-33" tabindex="-1"></a>            all_embeddings <span class="op">=</span> torch.cat([all_embeddings, embeddings], dim<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb10-34"><a href="#cb10-34" tabindex="-1"></a></span>
+<span id="cb10-35"><a href="#cb10-35" tabindex="-1"></a>    logging.info(<span class="ss">f'Got embeddings for </span><span class="sc">{</span><span class="bu">len</span>(data)<span class="sc">}</span><span class="ss"> samples from layer </span><span class="sc">{</span>layer_num<span class="sc">}</span><span class="ss">. Shape: </span><span class="sc">{</span>all_embeddings<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb10-36"><a href="#cb10-36" tabindex="-1"></a>    <span class="cf">return</span> all_embeddings</span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb11">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="kw">def</span> visualize_embeddings(embeddings: torch.Tensor, labels: <span class="bu">list</span>, layer_num: <span class="bu">int</span>, save_plot: <span class="bu">bool</span> <span class="op">=</span> <span class="va">False</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>    <span class="co">'''</span></span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="co">    Visualize the embeddings using t-SNE.</span></span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="co">    :param embeddings: The embeddings to visualize. Shape is N, L, D, where N is the number of samples, L is the length of the sequence, and D is the dimensionality of the embeddings.</span></span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="co">    :param labels: The labels for the embeddings. A list of integers.</span></span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="co">    :return: None</span></span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a><span class="co">    '''</span></span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a>    <span class="co"># Since we are working with sentiment analysis, which is sentence based task, we can use sentence embeddings.</span></span>
+<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a>    <span class="co"># The sentence embeddings are simply the mean of the token embeddings of that sentence.</span></span>
+<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a>    sentence_embeddings <span class="op">=</span> torch.mean(embeddings, dim<span class="op">=</span><span class="dv">1</span>)  <span class="co"># N, D</span></span>
+<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a></span>
+<span id="cb11-13"><a href="#cb11-13" tabindex="-1"></a>    <span class="co"># Convert to numpy</span></span>
+<span id="cb11-14"><a href="#cb11-14" tabindex="-1"></a>    sentence_embeddings <span class="op">=</span> sentence_embeddings.detach().numpy()</span>
+<span id="cb11-15"><a href="#cb11-15" tabindex="-1"></a>    labels <span class="op">=</span> np.array(labels)</span>
+<span id="cb11-16"><a href="#cb11-16" tabindex="-1"></a></span>
+<span id="cb11-17"><a href="#cb11-17" tabindex="-1"></a>    <span class="co"># Visualize the embeddings using t-SNE</span></span>
+<span id="cb11-18"><a href="#cb11-18" tabindex="-1"></a>    tsne <span class="op">=</span> TSNE(n_components<span class="op">=</span><span class="dv">2</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb11-19"><a href="#cb11-19" tabindex="-1"></a>    embeddings_2d <span class="op">=</span> tsne.fit_transform(sentence_embeddings)</span>
+<span id="cb11-20"><a href="#cb11-20" tabindex="-1"></a></span>
+<span id="cb11-21"><a href="#cb11-21" tabindex="-1"></a>    negative_points <span class="op">=</span> embeddings_2d[labels <span class="op">==</span> <span class="dv">0</span>]</span>
+<span id="cb11-22"><a href="#cb11-22" tabindex="-1"></a>    positive_points <span class="op">=</span> embeddings_2d[labels <span class="op">==</span> <span class="dv">1</span>]</span>
+<span id="cb11-23"><a href="#cb11-23" tabindex="-1"></a></span>
+<span id="cb11-24"><a href="#cb11-24" tabindex="-1"></a>    <span class="co"># Plot the embeddings. We want to colour the datapoints by label.</span></span>
+<span id="cb11-25"><a href="#cb11-25" tabindex="-1"></a>    fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb11-26"><a href="#cb11-26" tabindex="-1"></a>    ax.scatter(negative_points[:, <span class="dv">0</span>], negative_points[:, <span class="dv">1</span>], label<span class="op">=</span><span class="st">'Negative'</span>, color<span class="op">=</span><span class="st">'red'</span>, marker<span class="op">=</span><span class="st">'o'</span>, s<span class="op">=</span><span class="dv">10</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb11-27"><a href="#cb11-27" tabindex="-1"></a>    ax.scatter(positive_points[:, <span class="dv">0</span>], positive_points[:, <span class="dv">1</span>], label<span class="op">=</span><span class="st">'Positive'</span>, color<span class="op">=</span><span class="st">'blue'</span>, marker<span class="op">=</span><span class="st">'o'</span>, s<span class="op">=</span><span class="dv">10</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb11-28"><a href="#cb11-28" tabindex="-1"></a>    plt.xlabel(<span class="st">'t-SNE dimension 1'</span>)</span>
+<span id="cb11-29"><a href="#cb11-29" tabindex="-1"></a>    plt.ylabel(<span class="st">'t-SNE dimension 2'</span>)</span>
+<span id="cb11-30"><a href="#cb11-30" tabindex="-1"></a>    plt.title(<span class="ss">f't-SNE of Sentence Embeddings - Layer</span><span class="sc">{</span>layer_num<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb11-31"><a href="#cb11-31" tabindex="-1"></a>    plt.legend()</span>
+<span id="cb11-32"><a href="#cb11-32" tabindex="-1"></a></span>
+<span id="cb11-33"><a href="#cb11-33" tabindex="-1"></a>    <span class="co"># Save the plot if needed, then display it</span></span>
+<span id="cb11-34"><a href="#cb11-34" tabindex="-1"></a>    <span class="cf">if</span> save_plot:</span>
+<span id="cb11-35"><a href="#cb11-35" tabindex="-1"></a>        plt.savefig(<span class="ss">f'tsne_layer_</span><span class="sc">{</span>layer_num<span class="sc">}</span><span class="ss">.png'</span>)</span>
+<span id="cb11-36"><a href="#cb11-36" tabindex="-1"></a>    plt.show()</span>
+<span id="cb11-37"><a href="#cb11-37" tabindex="-1"></a></span>
+<span id="cb11-38"><a href="#cb11-38" tabindex="-1"></a>    logging.info(<span class="st">'Visualized embeddings using t-SNE.'</span>)</span></code></pre>
+</div>
+<p>Now, it’s finally time to define our probe! We set this up as a
+class, where the probe itself is an object of this class. The class also
+contains methods used to train and evaluate the probe.</p>
+<p>Read through this code block in a bit more detail - from this whole
+exercise, this part provides you with the most useful takeaways on ways
+to define and train neural networks!</p>
+<div class="codewrapper sourceCode" id="cb12">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="kw">class</span> Probe():</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, hidden_dim: <span class="bu">int</span> <span class="op">=</span> <span class="dv">768</span>, class_size: <span class="bu">int</span> <span class="op">=</span> <span class="dv">2</span>)  <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>        <span class="co">'''</span></span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a><span class="co">        Initialize the probe.</span></span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a><span class="co">        :param hidden_dim: The dimensionality of the hidden layer of the probe.</span></span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a><span class="co">        :param num_layers: The number of layers in the probe.</span></span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a><span class="co">        :return: None</span></span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a><span class="co">        '''</span></span>
+<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a>        <span class="co"># The probe is a simple linear classifier, with a hidden layer and an output layer.</span></span>
+<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a>        <span class="co"># The input to the probe is the embeddings from the model, and the output is the predicted class.</span></span>
+<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a></span>
+<span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a>        <span class="co"># Exercise: Try playing around with the hidden_dim and num_layers to see how it affects the probe's performance.</span></span>
+<span id="cb12-14"><a href="#cb12-14" tabindex="-1"></a>        <span class="co"># But watch out: if a complex probe performs well on the task, we don't know if the performance</span></span>
+<span id="cb12-15"><a href="#cb12-15" tabindex="-1"></a>        <span class="co"># is because of the model embeddings, or the probe itself learning the task!</span></span>
+<span id="cb12-16"><a href="#cb12-16" tabindex="-1"></a></span>
+<span id="cb12-17"><a href="#cb12-17" tabindex="-1"></a>        <span class="va">self</span>.probe <span class="op">=</span> torch.nn.Sequential(</span>
+<span id="cb12-18"><a href="#cb12-18" tabindex="-1"></a>            torch.nn.Linear(hidden_dim, hidden_dim),</span>
+<span id="cb12-19"><a href="#cb12-19" tabindex="-1"></a>            torch.nn.ReLU(),</span>
+<span id="cb12-20"><a href="#cb12-20" tabindex="-1"></a>            torch.nn.Linear(hidden_dim, class_size),</span>
+<span id="cb12-21"><a href="#cb12-21" tabindex="-1"></a></span>
+<span id="cb12-22"><a href="#cb12-22" tabindex="-1"></a>            <span class="co"># Add more layers here if needed</span></span>
+<span id="cb12-23"><a href="#cb12-23" tabindex="-1"></a></span>
+<span id="cb12-24"><a href="#cb12-24" tabindex="-1"></a>            <span class="co"># Sigmoid is used to convert the hidden states into a probability distribution over the classes</span></span>
+<span id="cb12-25"><a href="#cb12-25" tabindex="-1"></a>            torch.nn.Sigmoid()</span>
+<span id="cb12-26"><a href="#cb12-26" tabindex="-1"></a>        )</span>
+<span id="cb12-27"><a href="#cb12-27" tabindex="-1"></a></span>
+<span id="cb12-28"><a href="#cb12-28" tabindex="-1"></a></span>
+<span id="cb12-29"><a href="#cb12-29" tabindex="-1"></a>    <span class="kw">def</span> train(<span class="va">self</span>, data_embeddings: torch.Tensor, labels: torch.Tensor, num_epochs: <span class="bu">int</span> <span class="op">=</span> <span class="dv">10</span>,</span>
+<span id="cb12-30"><a href="#cb12-30" tabindex="-1"></a>              learning_rate: <span class="bu">float</span> <span class="op">=</span> <span class="fl">0.001</span>, batch_size: <span class="bu">int</span> <span class="op">=</span> <span class="dv">32</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb12-31"><a href="#cb12-31" tabindex="-1"></a>        <span class="co">'''</span></span>
+<span id="cb12-32"><a href="#cb12-32" tabindex="-1"></a><span class="co">        Train the probe on the embeddings of data from the model.</span></span>
+<span id="cb12-33"><a href="#cb12-33" tabindex="-1"></a><span class="co">        :param data_embeddings: A tensor of shape N, L, D, where N is the number of samples, L is the length of the sequence, and D is the dimensionality of the embeddings.</span></span>
+<span id="cb12-34"><a href="#cb12-34" tabindex="-1"></a><span class="co">        :param labels: A tensor of shape N, where N is the number of samples. Each element is the label for the corresponding sample.</span></span>
+<span id="cb12-35"><a href="#cb12-35" tabindex="-1"></a><span class="co">        :param num_epochs: The number of epochs to train the probe for. An epoch is one pass through the entire dataset.</span></span>
+<span id="cb12-36"><a href="#cb12-36" tabindex="-1"></a><span class="co">        :param learning_rate: How fast the probe learns. A hyperparameter.</span></span>
+<span id="cb12-37"><a href="#cb12-37" tabindex="-1"></a><span class="co">        :param batch_size: Used to batch the data for computational efficiency. A hyperparameter.</span></span>
+<span id="cb12-38"><a href="#cb12-38" tabindex="-1"></a><span class="co">        :return:</span></span>
+<span id="cb12-39"><a href="#cb12-39" tabindex="-1"></a><span class="co">        '''</span></span>
+<span id="cb12-40"><a href="#cb12-40" tabindex="-1"></a></span>
+<span id="cb12-41"><a href="#cb12-41" tabindex="-1"></a>        <span class="co"># Setup the loss function (training objective) for the training process.</span></span>
+<span id="cb12-42"><a href="#cb12-42" tabindex="-1"></a>        <span class="co"># The cross-entropy loss is used for multi-class classification, and represents the negative log likelihood of the true class.</span></span>
+<span id="cb12-43"><a href="#cb12-43" tabindex="-1"></a>        criterion <span class="op">=</span> torch.nn.CrossEntropyLoss()</span>
+<span id="cb12-44"><a href="#cb12-44" tabindex="-1"></a></span>
+<span id="cb12-45"><a href="#cb12-45" tabindex="-1"></a>        <span class="co"># Setup the optimization algorithm to update the probe's parameters during training.</span></span>
+<span id="cb12-46"><a href="#cb12-46" tabindex="-1"></a>        <span class="co"># The Adam optimizer is an extension to stochastic gradient descent, and is a popular choice.</span></span>
+<span id="cb12-47"><a href="#cb12-47" tabindex="-1"></a>        optimizer <span class="op">=</span> torch.optim.Adam(<span class="va">self</span>.probe.parameters(), lr<span class="op">=</span>learning_rate)</span>
+<span id="cb12-48"><a href="#cb12-48" tabindex="-1"></a></span>
+<span id="cb12-49"><a href="#cb12-49" tabindex="-1"></a>        <span class="co"># Train the probe</span></span>
+<span id="cb12-50"><a href="#cb12-50" tabindex="-1"></a>        logging.info(<span class="st">'Training the probe...'</span>)</span>
+<span id="cb12-51"><a href="#cb12-51" tabindex="-1"></a>        <span class="cf">for</span> epoch <span class="kw">in</span> <span class="bu">range</span>(num_epochs):  <span class="co"># Pass over the data num_epochs times</span></span>
+<span id="cb12-52"><a href="#cb12-52" tabindex="-1"></a></span>
+<span id="cb12-53"><a href="#cb12-53" tabindex="-1"></a>            <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="bu">len</span>(data_embeddings), batch_size):</span>
+<span id="cb12-54"><a href="#cb12-54" tabindex="-1"></a></span>
+<span id="cb12-55"><a href="#cb12-55" tabindex="-1"></a>                <span class="co"># Iterate through one batch of data at a time</span></span>
+<span id="cb12-56"><a href="#cb12-56" tabindex="-1"></a>                batch_embeddings <span class="op">=</span> data_embeddings[i:i<span class="op">+</span>batch_size].detach()</span>
+<span id="cb12-57"><a href="#cb12-57" tabindex="-1"></a>                batch_labels <span class="op">=</span> labels[i:i<span class="op">+</span>batch_size]</span>
+<span id="cb12-58"><a href="#cb12-58" tabindex="-1"></a></span>
+<span id="cb12-59"><a href="#cb12-59" tabindex="-1"></a>                <span class="co"># Convert to sentence embeddings, since we are performing a sentence classification task</span></span>
+<span id="cb12-60"><a href="#cb12-60" tabindex="-1"></a>                batch_embeddings <span class="op">=</span> torch.mean(batch_embeddings, dim<span class="op">=</span><span class="dv">1</span>)  <span class="co"># N, D</span></span>
+<span id="cb12-61"><a href="#cb12-61" tabindex="-1"></a></span>
+<span id="cb12-62"><a href="#cb12-62" tabindex="-1"></a>                <span class="co"># Get the probe's predictions, given the embeddings from the model</span></span>
+<span id="cb12-63"><a href="#cb12-63" tabindex="-1"></a>                outputs <span class="op">=</span> <span class="va">self</span>.probe(batch_embeddings)</span>
+<span id="cb12-64"><a href="#cb12-64" tabindex="-1"></a></span>
+<span id="cb12-65"><a href="#cb12-65" tabindex="-1"></a>                <span class="co"># Calculate the loss of the predictions, against the true labels</span></span>
+<span id="cb12-66"><a href="#cb12-66" tabindex="-1"></a>                loss <span class="op">=</span> criterion(outputs, batch_labels)</span>
+<span id="cb12-67"><a href="#cb12-67" tabindex="-1"></a></span>
+<span id="cb12-68"><a href="#cb12-68" tabindex="-1"></a>                <span class="co"># Backward pass - update the probe's parameters</span></span>
+<span id="cb12-69"><a href="#cb12-69" tabindex="-1"></a>                optimizer.zero_grad()</span>
+<span id="cb12-70"><a href="#cb12-70" tabindex="-1"></a>                loss.backward()</span>
+<span id="cb12-71"><a href="#cb12-71" tabindex="-1"></a>                optimizer.step()</span>
+<span id="cb12-72"><a href="#cb12-72" tabindex="-1"></a></span>
+<span id="cb12-73"><a href="#cb12-73" tabindex="-1"></a>        logging.info(<span class="st">'Trained the probe.'</span>)</span>
+<span id="cb12-74"><a href="#cb12-74" tabindex="-1"></a></span>
+<span id="cb12-75"><a href="#cb12-75" tabindex="-1"></a></span>
+<span id="cb12-76"><a href="#cb12-76" tabindex="-1"></a>    <span class="kw">def</span> predict(<span class="va">self</span>, data_embeddings: torch.Tensor, batch_size: <span class="bu">int</span> <span class="op">=</span> <span class="dv">32</span>) <span class="op">-&gt;</span> torch.Tensor:</span>
+<span id="cb12-77"><a href="#cb12-77" tabindex="-1"></a>        <span class="co">'''</span></span>
+<span id="cb12-78"><a href="#cb12-78" tabindex="-1"></a><span class="co">        Get the probe's predictions on the embeddings from the model, for unseen data.</span></span>
+<span id="cb12-79"><a href="#cb12-79" tabindex="-1"></a><span class="co">        :param data_embeddings: A tensor of shape N, L, D, where N is the number of samples, L is the length of the sequence, and D is the dimensionality of the embeddings.</span></span>
+<span id="cb12-80"><a href="#cb12-80" tabindex="-1"></a><span class="co">        :param batch_size: Used to batch the data for computational efficiency.</span></span>
+<span id="cb12-81"><a href="#cb12-81" tabindex="-1"></a><span class="co">        :return: A tensor of shape N, where N is the number of samples. Each element is the predicted class for the corresponding sample.</span></span>
+<span id="cb12-82"><a href="#cb12-82" tabindex="-1"></a><span class="co">        '''</span></span>
+<span id="cb12-83"><a href="#cb12-83" tabindex="-1"></a></span>
+<span id="cb12-84"><a href="#cb12-84" tabindex="-1"></a>        <span class="co"># Iterate through batches</span></span>
+<span id="cb12-85"><a href="#cb12-85" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="bu">len</span>(data_embeddings), batch_size):</span>
+<span id="cb12-86"><a href="#cb12-86" tabindex="-1"></a></span>
+<span id="cb12-87"><a href="#cb12-87" tabindex="-1"></a>            <span class="co"># Iterate through one batch of data at a time</span></span>
+<span id="cb12-88"><a href="#cb12-88" tabindex="-1"></a>            batch_embeddings <span class="op">=</span> data_embeddings[i:i<span class="op">+</span>batch_size]</span>
+<span id="cb12-89"><a href="#cb12-89" tabindex="-1"></a></span>
+<span id="cb12-90"><a href="#cb12-90" tabindex="-1"></a>            <span class="co"># Get the probe's predictions</span></span>
+<span id="cb12-91"><a href="#cb12-91" tabindex="-1"></a>            outputs <span class="op">=</span> <span class="va">self</span>.probe(batch_embeddings)</span>
+<span id="cb12-92"><a href="#cb12-92" tabindex="-1"></a></span>
+<span id="cb12-93"><a href="#cb12-93" tabindex="-1"></a>            <span class="co"># Get the predicted class for each sample</span></span>
+<span id="cb12-94"><a href="#cb12-94" tabindex="-1"></a>            _, predicted <span class="op">=</span> torch.<span class="bu">max</span>(outputs, <span class="dv">1</span>)</span>
+<span id="cb12-95"><a href="#cb12-95" tabindex="-1"></a></span>
+<span id="cb12-96"><a href="#cb12-96" tabindex="-1"></a>            <span class="co"># Concatenate the predictions from each batch</span></span>
+<span id="cb12-97"><a href="#cb12-97" tabindex="-1"></a>            <span class="cf">if</span> i <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb12-98"><a href="#cb12-98" tabindex="-1"></a>                all_predicted <span class="op">=</span> predicted</span>
+<span id="cb12-99"><a href="#cb12-99" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb12-100"><a href="#cb12-100" tabindex="-1"></a>                all_predicted <span class="op">=</span> torch.cat([all_predicted, predicted], dim<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb12-101"><a href="#cb12-101" tabindex="-1"></a></span>
+<span id="cb12-102"><a href="#cb12-102" tabindex="-1"></a>        <span class="cf">return</span> all_predicted</span>
+<span id="cb12-103"><a href="#cb12-103" tabindex="-1"></a></span>
+<span id="cb12-104"><a href="#cb12-104" tabindex="-1"></a></span>
+<span id="cb12-105"><a href="#cb12-105" tabindex="-1"></a>    <span class="kw">def</span> evaluate(<span class="va">self</span>, data_embeddings: torch.tensor, labels: torch.tensor, batch_size: <span class="bu">int</span> <span class="op">=</span> <span class="dv">32</span>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
+<span id="cb12-106"><a href="#cb12-106" tabindex="-1"></a>        <span class="co">'''</span></span>
+<span id="cb12-107"><a href="#cb12-107" tabindex="-1"></a><span class="co">        Evaluate the probe's performance by testing it on unseen data.</span></span>
+<span id="cb12-108"><a href="#cb12-108" tabindex="-1"></a><span class="co">        :param data_embeddings: A tensor of shape N, L, D, where N is the number of samples, L is the length of the sequence, and D is the dimensionality of the embeddings.</span></span>
+<span id="cb12-109"><a href="#cb12-109" tabindex="-1"></a><span class="co">        :param labels: A tensor of shape N, where N is the number of samples. Each element is the label for the corresponding sample.</span></span>
+<span id="cb12-110"><a href="#cb12-110" tabindex="-1"></a><span class="co">        :return: The accuracy of the probe on the unseen data.</span></span>
+<span id="cb12-111"><a href="#cb12-111" tabindex="-1"></a><span class="co">        '''</span></span>
+<span id="cb12-112"><a href="#cb12-112" tabindex="-1"></a></span>
+<span id="cb12-113"><a href="#cb12-113" tabindex="-1"></a>        <span class="co"># Iterate through batches</span></span>
+<span id="cb12-114"><a href="#cb12-114" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="bu">len</span>(data_embeddings), batch_size):</span>
+<span id="cb12-115"><a href="#cb12-115" tabindex="-1"></a></span>
+<span id="cb12-116"><a href="#cb12-116" tabindex="-1"></a>            <span class="co"># Iterate through one batch of data at a time</span></span>
+<span id="cb12-117"><a href="#cb12-117" tabindex="-1"></a>            batch_embeddings <span class="op">=</span> data_embeddings[i:i<span class="op">+</span>batch_size]</span>
+<span id="cb12-118"><a href="#cb12-118" tabindex="-1"></a>            batch_labels <span class="op">=</span> labels[i:i<span class="op">+</span>batch_size]</span>
+<span id="cb12-119"><a href="#cb12-119" tabindex="-1"></a></span>
+<span id="cb12-120"><a href="#cb12-120" tabindex="-1"></a>            <span class="co"># Convert to sentence embeddings, since we are performing a sentence classification task</span></span>
+<span id="cb12-121"><a href="#cb12-121" tabindex="-1"></a>            batch_embeddings <span class="op">=</span> torch.mean(batch_embeddings, dim<span class="op">=</span><span class="dv">1</span>)  <span class="co"># N, D</span></span>
+<span id="cb12-122"><a href="#cb12-122" tabindex="-1"></a></span>
+<span id="cb12-123"><a href="#cb12-123" tabindex="-1"></a>            <span class="co"># Get the probe's predictions</span></span>
+<span id="cb12-124"><a href="#cb12-124" tabindex="-1"></a>            <span class="cf">with</span> torch.no_grad():</span>
+<span id="cb12-125"><a href="#cb12-125" tabindex="-1"></a>                outputs <span class="op">=</span> <span class="va">self</span>.probe(batch_embeddings)</span>
+<span id="cb12-126"><a href="#cb12-126" tabindex="-1"></a></span>
+<span id="cb12-127"><a href="#cb12-127" tabindex="-1"></a>            <span class="co"># Get the predicted class for each sample</span></span>
+<span id="cb12-128"><a href="#cb12-128" tabindex="-1"></a>            _, predicted <span class="op">=</span> torch.<span class="bu">max</span>(outputs, dim<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb12-129"><a href="#cb12-129" tabindex="-1"></a></span>
+<span id="cb12-130"><a href="#cb12-130" tabindex="-1"></a>            <span class="co"># Concatenate the predictions from each batch</span></span>
+<span id="cb12-131"><a href="#cb12-131" tabindex="-1"></a>            <span class="cf">if</span> i <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb12-132"><a href="#cb12-132" tabindex="-1"></a>                all_predicted <span class="op">=</span> predicted</span>
+<span id="cb12-133"><a href="#cb12-133" tabindex="-1"></a>                all_labels <span class="op">=</span> batch_labels</span>
+<span id="cb12-134"><a href="#cb12-134" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb12-135"><a href="#cb12-135" tabindex="-1"></a>                all_predicted <span class="op">=</span> torch.cat([all_predicted, predicted], dim<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb12-136"><a href="#cb12-136" tabindex="-1"></a>                all_labels <span class="op">=</span> torch.cat([all_labels, batch_labels], dim<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb12-137"><a href="#cb12-137" tabindex="-1"></a></span>
+<span id="cb12-138"><a href="#cb12-138" tabindex="-1"></a>        <span class="co"># Calculate the accuracy of the probe</span></span>
+<span id="cb12-139"><a href="#cb12-139" tabindex="-1"></a>        correct <span class="op">=</span> (all_predicted <span class="op">==</span> all_labels).<span class="bu">sum</span>().item()</span>
+<span id="cb12-140"><a href="#cb12-140" tabindex="-1"></a>        accuracy <span class="op">=</span> correct <span class="op">/</span> all_labels.shape[<span class="dv">0</span>]</span>
+<span id="cb12-141"><a href="#cb12-141" tabindex="-1"></a>        logging.info(<span class="ss">f'Probe accuracy: </span><span class="sc">{</span>accuracy<span class="sc">:.2f}</span><span class="ss">'</span>)</span>
+<span id="cb12-142"><a href="#cb12-142" tabindex="-1"></a></span>
+<span id="cb12-143"><a href="#cb12-143" tabindex="-1"></a>        <span class="cf">return</span> accuracy</span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb13">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="co"># Initialize the probing classifier (or probe)</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>probe <span class="op">=</span> Probe()</span></code></pre>
+</div>
+</div>
+<div class="section level5">
+<h5 id="analysing-the-model-using-probes">Analysing the model using Probes<a class="anchor" aria-label="anchor" href="#analysing-the-model-using-probes"></a>
+</h5>
+<p>Time to start evaluating the model using our probing tool! Let’s see
+which layer has most information about sentiment analysis on IMDB. For
+this, we will train the probe on embeddings from each layer of the
+model, and see which layer performs the best on the dev set.</p>
+<div class="codewrapper sourceCode" id="cb14">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>layer_wise_accuracies <span class="op">=</span> []</span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>best_probe, best_layer, best_accuracy <span class="op">=</span> <span class="va">None</span>, <span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span></span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a><span class="cf">for</span> layer_num <span class="kw">in</span> <span class="bu">range</span>(num_layers):</span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>    logging.info(<span class="ss">f'</span><span class="ch">\n\n</span><span class="ss">Evaluating representations of layer </span><span class="sc">{</span>layer_num<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">...'</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a>    train_embeddings <span class="op">=</span> get_embeddings_from_model(model, tokenizer, layer_num<span class="op">=</span>layer_num, data<span class="op">=</span>train_dataset[<span class="st">'text'</span>])</span>
+<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a>    dev_embeddings <span class="op">=</span> get_embeddings_from_model(model, tokenizer, layer_num<span class="op">=</span>layer_num, data<span class="op">=</span>dev_dataset[<span class="st">'text'</span>])</span>
+<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a>    train_labels, dev_labels <span class="op">=</span> torch.tensor(train_dataset[<span class="st">'label'</span>],  dtype<span class="op">=</span>torch.<span class="bu">long</span>), torch.tensor(dev_dataset[<span class="st">'label'</span>],  dtype<span class="op">=</span>torch.<span class="bu">long</span>)</span>
+<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a>    <span class="co"># Before training the probe, let's visualize the embeddings using t-SNE.</span></span>
+<span id="cb14-12"><a href="#cb14-12" tabindex="-1"></a>    <span class="co"># If the layer has information about sentiment analysis, would we see some structure in the embeddings?</span></span>
+<span id="cb14-13"><a href="#cb14-13" tabindex="-1"></a>    <span class="co"># Compare plots from layers where the probe does poorly, with ones where it does well. What do you notice?</span></span>
+<span id="cb14-14"><a href="#cb14-14" tabindex="-1"></a>    visualize_embeddings(embeddings<span class="op">=</span>train_embeddings, labels<span class="op">=</span>train_dataset[<span class="st">'label'</span>], layer_num<span class="op">=</span>layer_num, save_plot<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb14-15"><a href="#cb14-15" tabindex="-1"></a></span>
+<span id="cb14-16"><a href="#cb14-16" tabindex="-1"></a>    <span class="co"># Now, let's train the probe on the embeddings from the model.</span></span>
+<span id="cb14-17"><a href="#cb14-17" tabindex="-1"></a>    <span class="co"># Feel free to play around with the training hyperparameters, and see what works best for your probe.</span></span>
+<span id="cb14-18"><a href="#cb14-18" tabindex="-1"></a>    probe <span class="op">=</span> Probe()</span>
+<span id="cb14-19"><a href="#cb14-19" tabindex="-1"></a>    probe.train(data_embeddings<span class="op">=</span>train_embeddings, labels<span class="op">=</span>train_labels,</span>
+<span id="cb14-20"><a href="#cb14-20" tabindex="-1"></a>                num_epochs<span class="op">=</span><span class="dv">5</span>, learning_rate<span class="op">=</span><span class="fl">0.001</span>, batch_size<span class="op">=</span><span class="dv">32</span>)</span>
+<span id="cb14-21"><a href="#cb14-21" tabindex="-1"></a></span>
+<span id="cb14-22"><a href="#cb14-22" tabindex="-1"></a>    <span class="co"># Let's see how well our probe does on a held out dev set</span></span>
+<span id="cb14-23"><a href="#cb14-23" tabindex="-1"></a>    accuracy <span class="op">=</span> probe.evaluate(data_embeddings<span class="op">=</span>dev_embeddings, labels<span class="op">=</span>dev_labels)</span>
+<span id="cb14-24"><a href="#cb14-24" tabindex="-1"></a>    layer_wise_accuracies.append(accuracy)</span>
+<span id="cb14-25"><a href="#cb14-25" tabindex="-1"></a></span>
+<span id="cb14-26"><a href="#cb14-26" tabindex="-1"></a>    <span class="co"># Keep track of the best probe</span></span>
+<span id="cb14-27"><a href="#cb14-27" tabindex="-1"></a>    <span class="cf">if</span> accuracy <span class="op">&gt;</span> best_accuracy:</span>
+<span id="cb14-28"><a href="#cb14-28" tabindex="-1"></a>        best_probe, best_layer, best_accuracy <span class="op">=</span> probe, layer_num, accuracy</span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb15">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="co"># Seeing a list of accuracies can be hard to interpret. Let's plot the layer-wise accuracies to see which layer is best.</span></span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>plt.plot(layer_wise_accuracies)</span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a>plt.xlabel(<span class="st">'Layer'</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a>plt.ylabel(<span class="st">'Accuracy'</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a>plt.title(<span class="st">'Probe Accuracy by Layer'</span>)</span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a>plt.grid(alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a>plt.show()</span></code></pre>
+</div>
+<p>Which layer has the best accuracy? What does this tell us about the
+model?</p>
+<p>Let’s go ahead and stress test this. Is the best layer able to
+predict sentiment for sentences outside the IMDB dataset?</p>
+<p>For answering this question, you are the test set! Try to think of
+challenging sequences for which the model may not be able to predict
+sentiment.</p>
+<div class="codewrapper sourceCode" id="cb16">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>test_sequences <span class="op">=</span> [<span class="st">'Your sentence here'</span>, <span class="st">'Here is another sentence'</span>]</span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>embeddings <span class="op">=</span> get_embeddings_from_model(model<span class="op">=</span>model, tokenizer<span class="op">=</span>tokenizer, layer_num<span class="op">=</span>best_layer, data<span class="op">=</span>test_sequences)</span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>preds <span class="op">=</span> probe.predict(data_embeddings<span class="op">=</span>embeddings)</span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a>predictions <span class="op">=</span> [<span class="st">'Positive'</span> <span class="cf">if</span> pred <span class="op">==</span> <span class="dv">1</span> <span class="cf">else</span> <span class="st">'Negative'</span> <span class="cf">for</span> pred <span class="kw">in</span> preds]</span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Predictions for test sequences: </span><span class="sc">{</span>predictions<span class="sc">}</span><span class="ss">'</span>)</span></code></pre>
+</div>
+<!-- 
+Place links that you need to refer to multiple times across pages here. Delete
+any links that you are not going to use. 
+ -->
+</div></section><section id="aio-5d-gradcam"><p>Content from <a href="5d-gradcam.html">Explainability methods: GradCAM</a></p>
+<hr>
+<p>Last updated on 2024-07-02 |
+        
+        <a href="https://github.com/carpentries-incubator/fair-explainable-ml/edit/main/episodes/5d-gradcam.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+<p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 0 minutes</p>
+<div class="text-end">
+          <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
+        </div>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Let's begin by installing the grad-cam package - this will significantly simplify our implementation</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="op">!</span>pip install grad<span class="op">-</span>cam</span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># Packages to download test images</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co"># Packages to view and process images</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="im">import</span> cv2</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="im">from</span> PIL <span class="im">import</span> Image</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="im">from</span> google.colab.patches <span class="im">import</span> cv2_imshow</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="co"># Packages to load the model</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="im">from</span> torchvision.models <span class="im">import</span> resnet50</span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="co"># GradCAM Packaes</span></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="im">from</span> pytorch_grad_cam <span class="im">import</span> GradCAM</span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a><span class="im">from</span> pytorch_grad_cam.utils.model_targets <span class="im">import</span> ClassifierOutputTarget</span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a><span class="im">from</span> pytorch_grad_cam.utils.image <span class="im">import</span> show_cam_on_image, preprocess_image</span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>device <span class="op">=</span> <span class="st">'gpu'</span> <span class="cf">if</span> torch.cuda.is_available() <span class="cf">else</span> <span class="st">'cpu'</span></span></code></pre>
+</div>
+<div class="section level5">
+<h5 id="load-model">Load Model<a class="anchor" aria-label="anchor" href="#load-model"></a>
+</h5>
+<p>We’ll load the ResNet-50 model from torchvision. This model is
+pre-trained on the ImageNet dataset, which contains 1.2 million images
+across 1000 classes. ResNet-50 is popular model that is a type of
+convolutional neural network. You can learn more about it here: <a href="https://pytorch.org/hub/pytorch_vision_resnet/" class="external-link uri">https://pytorch.org/hub/pytorch_vision_resnet/</a></p>
+<div class="codewrapper sourceCode" id="cb4">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>model <span class="op">=</span> resnet50(pretrained<span class="op">=</span><span class="va">True</span>).to(device).<span class="bu">eval</span>()</span></code></pre>
+</div>
+</div>
+<div class="section level5">
+<h5 id="load-test-image">Load Test Image<a class="anchor" aria-label="anchor" href="#load-test-image"></a>
+</h5>
+<div class="codewrapper sourceCode" id="cb5">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co"># Let's first take a look at the image, which we source from the GradCAM package</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/jacobgil/pytorch-grad-cam/master/examples/both.png"</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>Image.<span class="bu">open</span>(requests.get(url, stream<span class="op">=</span><span class="va">True</span>).raw)</span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="co"># Cute, isn't it? Do you prefer dogs or cats?</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="co"># We will need to convert the image into a tensor to feed it into the model.</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="co"># Let's create a function to do this for us.</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="kw">def</span> load_image(url):</span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>    rgb_img <span class="op">=</span> np.array(Image.<span class="bu">open</span>(requests.get(url, stream<span class="op">=</span><span class="va">True</span>).raw))</span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>    rgb_img <span class="op">=</span> np.float32(rgb_img) <span class="op">/</span> <span class="dv">255</span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a>    input_tensor <span class="op">=</span> preprocess_image(rgb_img).to(device)</span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>    <span class="cf">return</span> input_tensor, rgb_img</span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb7">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>input_tensor, rgb_image <span class="op">=</span> load_image(url)</span></code></pre>
+</div>
+</div>
+<div class="section level3">
+<h3 id="grad-cam-time">Grad-CAM Time!<a class="anchor" aria-label="anchor" href="#grad-cam-time"></a>
+</h3>
+<div class="codewrapper sourceCode" id="cb8">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="co"># Let's start by selecting which layers of the model we want to use to generate the CAM.</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="co"># For that, we will need to inspect the model architecture.</span></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="co"># We can do that by simply printing the model object.</span></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="bu">print</span>(model)</span></code></pre>
+</div>
+<p>Here we want to interpret what the model as a whole is doing (not
+what a specific layer is doing). That means that we want to use the
+embeddings of the last layer before the final classification layer. This
+is the layer that contains the information about the image encoded by
+the model as a whole.</p>
+<p>Looking at the model, we can see that the last layer before the final
+classification layer is <code>layer4</code>.</p>
+<div class="codewrapper sourceCode" id="cb9">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>target_layers <span class="op">=</span> [model.layer4]</span></code></pre>
+</div>
+<p>We also want to pick a label for the CAM - this is the class we want
+to visualize the activation for. Essentially, we want to see what the
+model is looking at when it is predicting a certain class.</p>
+<p>Since ResNet was trained on the ImageNet dataset with 1000 classes,
+let’s get an indexed list of those classes. We can then pick the index
+of the class we want to visualize.</p>
+<div class="codewrapper sourceCode" id="cb10">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>imagenet_categories_url <span class="op">=</span> <span class="op">\</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>     <span class="st">"https://gist.githubusercontent.com/yrevar/942d3a0ac09ec9e5eb3a/raw/238f720ff059c1f82f368259d1ca4ffa5dd8f9f5/imagenet1000_clsidx_to_labels.txt"</span></span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>labels <span class="op">=</span> <span class="bu">eval</span>(requests.get(imagenet_categories_url).text)</span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>labels</span></code></pre>
+</div>
+<p>Well, that’s a lot! To simplify things, we have already picked out
+the indices of a few interesting classes.</p>
+<ul>
+<li>157: Siberian Husky</li>
+<li>162: Beagle</li>
+<li>245: French Bulldog</li>
+<li>281: Tabby Cat</li>
+<li>285: Egyptian cat</li>
+<li>360: Otter</li>
+<li>537: Dog Sleigh</li>
+<li>799: Sliding Door</li>
+<li>918: Street Sign</li>
+</ul>
+<div class="codewrapper sourceCode" id="cb11">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="co"># Specify the target class for visualization here. If you set this to None, the class with the highest score from the model will automatically be used.</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>visualized_class_id <span class="op">=</span> <span class="dv">245</span></span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb12">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="kw">def</span> viz_gradcam(model, target_layers, class_id):</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>  <span class="cf">if</span> class_id <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>    targets <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>  <span class="cf">else</span>:</span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a>    targets <span class="op">=</span> [ClassifierOutputTarget(class_id)]</span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a>  cam_algorithm <span class="op">=</span> GradCAM</span>
+<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a>  <span class="cf">with</span> cam_algorithm(model<span class="op">=</span>model, target_layers<span class="op">=</span>target_layers) <span class="im">as</span> cam:</span>
+<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a>      grayscale_cam <span class="op">=</span> cam(input_tensor<span class="op">=</span>input_tensor,</span>
+<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a>                          targets<span class="op">=</span>targets)</span>
+<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a></span>
+<span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a>      grayscale_cam <span class="op">=</span> grayscale_cam[<span class="dv">0</span>, :]</span>
+<span id="cb12-14"><a href="#cb12-14" tabindex="-1"></a></span>
+<span id="cb12-15"><a href="#cb12-15" tabindex="-1"></a>      cam_image <span class="op">=</span> show_cam_on_image(rgb_image, grayscale_cam, use_rgb<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb12-16"><a href="#cb12-16" tabindex="-1"></a>      cam_image <span class="op">=</span> cv2.cvtColor(cam_image, cv2.COLOR_RGB2BGR)</span>
+<span id="cb12-17"><a href="#cb12-17" tabindex="-1"></a></span>
+<span id="cb12-18"><a href="#cb12-18" tabindex="-1"></a>  cv2_imshow(cam_image)</span></code></pre>
+</div>
+<p>Finally, we can start visualizing! Let’s begin by seeing what parts
+of the image the model looks at to make its most confident
+prediction.</p>
+<div class="codewrapper sourceCode" id="cb13">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>viz_gradcam(model<span class="op">=</span>model, target_layers<span class="op">=</span>target_layers, class_id<span class="op">=</span><span class="va">None</span>)</span></code></pre>
+</div>
+<p>Interesting, it looks like the model totally ignores the cat and
+makes a prediction based on the dog. If we set the output class to
+“French Bulldog” (<code>class_id=245</code>), we see the same
+visualization - meaning that the model is indeed looking at the correct
+part of the image to make the correct prediction.</p>
+<p>Let’s see what the heatmap looks like when we force the model to look
+at the cat.</p>
+<div class="codewrapper sourceCode" id="cb14">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>viz_gradcam(model<span class="op">=</span>model, target_layers<span class="op">=</span>target_layers, class_id<span class="op">=</span><span class="dv">281</span>)</span></code></pre>
+</div>
+<p>The model is indeed looking at the cat when asked to predict the
+class “Tabby Cat” (<code>class_id=281</code>)! But why is it still
+predicting the dog? Well, the model was trained on the ImageNet dataset,
+which contains a lot of images of dogs and cats. The model has learned
+that the dog is a better indicator of the class “Tabby Cat” than the cat
+itself.</p>
+<p>Let’s see another example of this. The image has not only a dog and a
+cat, but also a items in the background. Can the model correctly
+identify the door?</p>
+<div class="codewrapper sourceCode" id="cb15">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>viz_gradcam(model<span class="op">=</span>model, target_layers<span class="op">=</span>target_layers, class_id<span class="op">=</span><span class="dv">799</span>)</span></code></pre>
+</div>
+<p>It can! However, it seems to also think of the shelf behind the dog
+as a door.</p>
+<p>Let’s try an unrelated object now. Where in the image does the model
+see a street sign?</p>
+<div class="codewrapper sourceCode" id="cb16">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>viz_gradcam(model<span class="op">=</span>model, target_layers<span class="op">=</span>target_layers, class_id<span class="op">=</span><span class="dv">918</span>)</span></code></pre>
+</div>
+<p>Looks like our analysis has revealed a shortcoming of the model! It
+seems to percieve cats and street signs similarly.</p>
+<p>Ideally, when the target class is some unrelated object, a good model
+will look at no significant part of the image. For example, the model
+does a good job with the class for Dog Sleigh.</p>
+<div class="codewrapper sourceCode" id="cb17">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>viz_gradcam(model<span class="op">=</span>model, target_layers<span class="op">=</span>target_layers, class_id<span class="op">=</span><span class="dv">537</span>)</span></code></pre>
+</div>
+<p>Explaining model predictions though visualization techniques like
+this can be very subjective and prone to error. However, this still
+provides some degree of insight a completely black box model would not
+provide.</p>
+<p>Spend some time playing around with different classes and seeing
+which part of the image the model looks at. Feel free to play around
+with other base images as well. Have fun! <!-- 
+Place links that you need to refer to multiple times across pages here. Delete
+any links that you are not going to use. 
+ --></p>
+</div></section><section id="aio-6-confidence-intervals"><p>Content from <a href="6-confidence-intervals.html">Estimating model uncertainty</a></p>
 <hr>
 <p>Last updated on 2024-06-19 |
         
@@ -2572,7 +3275,7 @@ to your experiences or projects?</em></p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <ul>
 <li>
@@ -2629,7 +3332,7 @@ to your experiences or projects?</em></p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <ul>
 <li>Environment setup</li>
@@ -2687,7 +3390,7 @@ reproducing ML workflows?</em></p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <ul>
 <li>
