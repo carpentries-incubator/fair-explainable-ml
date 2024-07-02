@@ -50,8 +50,8 @@ Some large models are closed-source due to commercial or safety concerns; for ex
 ### Diagnostic Testing
 
 This is the simplest approach towards explaining model behavior. 
-This involves applying a series of unit tests to the model. 
-By developing test examples that break the heuristics the model relies on (called counterfactuals), you can gain insights into the high-level behavior of the model.
+This involves applying a series of unit tests to the model, where each test is a sample input where you know what the correct output should be.
+By identifying test examples that break the heuristics the model relies on (called counterfactuals), you can gain insights into the high-level behavior of the model.
 
 **Example Methods:** [Counterfactuals](https://arxiv.org/abs/1902.01007), [Unit tests](https://arxiv.org/abs/2005.04118)
 
@@ -110,7 +110,7 @@ Thus, visualization can only be used as an additional step in an analysis, and n
 
 
 ### Understanding impact of training examples
-These techniques unearth which training data instances caused the model to generate a specific prediction for a given sample.
+These techniques unearth which training data instances caused the model to generate a specific prediction for a given sample. At a high level, these techniques mathematically identify what training samples that -- if removed from the training process -- are most influential for causing a particular prediction.
 
 **Example methods:** [Influence functions](https://arxiv.org/abs/1703.04730), [Representer point selection](https://arxiv.org/abs/1811.09720)
 
@@ -124,9 +124,11 @@ Furthermore, even knowing which datapoints had a high influence on a prediction,
 
 ### Understanding the impact of a single example:
 For a single input, what parts of the input were most important in generating the model's prediction? 
-These methods study the signal sent by various features to the model, and observe how the model reacts to changes in these features.
+These methods study the signal sent by various features to the model, and observe how the model reacts to changes in these features. 
 
 **Example methods:** [Saliency Maps](https://arxiv.org/abs/1312.6034), [LIME](https://arxiv.org/abs/1602.04938)/[SHAP](https://arxiv.org/abs/1705.07874), Perturbations ([Input reduction](https://arxiv.org/abs/1804.07781), [Adversarial Perturbations](https://arxiv.org/abs/1712.06751))
+
+These methods can be further subdivided into two categories: gradient-based methods that rely on white-box model access to directly see the impact of changing a single input, and perturbation-based methods that manually perturb an input and re-query the model to see how the prediction changes. 
 
 ![Example saliency maps. The right 4 columns show the result of different saliency method techniques, where red dots indicate regions that are influential for predicting "dog" and blue dots indicate regions that are influential for predicting "cat". The image creators argue that their method, SmoothGrad, is most effective at mapping model behavior to images. (Image taken from [Smilkov et al.](https://arxiv.org/pdf/1706.03825))](https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/e5-smoothgrad.png){alt='Two rows images (5 images per row). Leftmost column shows two different pictures, each containing a cat and a dog. Remaining columns show the saliency maps using different techniques (VanillaGrad, InteGrad, GuidedBackProp, and SmoothGrad). Each saliency map has red dots (indicated regions that are influential for predicting "dog") and blue dots (influential for predicting "cat"). All methods except GuidedBackProp have good overlap between the respective dots and where the animals appear in the image. SmoothGrad has the most precise mapping.'}
 
@@ -151,8 +153,14 @@ Probes have shown that it is possible to find highly interpretable components in
 However, there is no systematic way of finding interpretable components, and many components may remain elusive to humans to understand.
 Furthermore, the model components that have been shown to contain certain knowledge may not actually play a role in the model's prediction.
 
+:::: callout
 
-### TODO: Methods related to graph based structures
+### Is that all?
+Nope! We've discussed a few of the common explanation techniques, but many others exist. In particular, specialized model architectures often need their own explanation algorithms. 
+For instance, [Yuan et al.](https://ieeexplore.ieee.org/abstract/document/9875989?casa_token=BiFHRXv7_9gAAAAA:wPV-PXOpCLFg2g1qYgEQ7QF_LKZs32cOXEJBvwjK3z43sXeaGfvQ9e1QePW03MTLq4lrUsh4Jw) give an overview of different explanation techniques for graph neural networks (GNNs). 
+
+::::::::::::
+
 
 :::::::::::::::::::::::::::::::::::::: challenge
 
@@ -169,7 +177,6 @@ For each of the explanation techniques described above, discuss the following wi
 :::::::::::::: solution
 
 ### Solution
-
 
 | Approach                                                                                         | Post Hoc or Inherently Interpretable? | Local or Global? | White Box or Black Box? |
 |--------------------------------------------------------------------------------------------------|---------------------------------------|------------------|-------------------------|
