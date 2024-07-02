@@ -18,5 +18,5 @@
 "episodes/8-releasing-a-model.md" "5a03ddf922afd8b23f04895a97749a9a" "site/built/8-releasing-a-model.md" "2024-06-19"
 "instructors/instructor-notes.md" "cae72b6712578d74a49fea7513099f8c" "site/built/instructor-notes.md" "2024-06-19"
 "learners/reference.md" "1c7cc4e229304d9806a13f69ca1b8ba4" "site/built/reference.md" "2024-06-19"
-"learners/setup.md" "991829f04878d59b7257be19d3d16794" "site/built/setup.md" "2024-06-19"
+"learners/setup.md" "7d17cc1d402b2359b0bc4a630d7638bc" "site/built/setup.md" "2024-07-02"
 "profiles/learner-profiles.md" "60b93493cf1da06dfd63255d73854461" "site/built/learner-profiles.md" "2024-06-19"
