@@ -3,6 +3,17 @@ title: "Explainability methods: GradCAM"
 teaching: 0
 exercises: 0
 ---
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- TODO
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- TODO
+
+::::::::::::::::::::::::::::::::::::::::::::::::
 
 ```python
 # Let's begin by installing the grad-cam package - this will significantly simplify our implementation
