@@ -4,6 +4,18 @@ teaching: 0
 exercises: 0
 ---
 
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- TODO
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- TODO
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
 ## Fantastic Explainability Methods and Where to Use Them
 
 We will now take a bird's-eye view of explainability methods that are widely applied on complex models like neural networks. 

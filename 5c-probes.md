@@ -3,6 +3,17 @@ title: "Explainability methods: linear probe"
 teaching: 0
 exercises: 0
 ---
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- TODO
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- TODO
+
+::::::::::::::::::::::::::::::::::::::::::::::::
 
 ```python
 # Let's start by importing the necessary libraries.

@@ -4,6 +4,18 @@ teaching: 0
 exercises: 0
 ---
 
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- TODO
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- TODO
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
 ## A Deep Dive into Methods for Understanding Model Behaviour
 
 In the previous section, we scratched the surface of explainability methods, introducing you to the broad classes of methods designed to understand different aspects of a model's behavior.
