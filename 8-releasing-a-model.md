@@ -18,7 +18,6 @@ exercises: 0
 - Understand the importance of model sharing and best practices to ensure reproducibility and responsible use of models.
 - Understand the challenges, risks, and ethical concerns associated with model sharing.
 - Apply model-sharing best practices through using model cards and the Hugging Face platform.
-- Understand distribution shift and its implications.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -26,8 +25,6 @@ exercises: 0
 
 - Model cards are the standard technique for communicating information about how machine learning systems were trained and how they should and should not be used.
 - Models can be shared and reused via the Hugging Face platform.
-- Distribution shift is common. It can be caused by temporal shifts (i.e., using old training data) or by applying a model to new populations.
-- Distribution shift can be addressed by TODO
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
