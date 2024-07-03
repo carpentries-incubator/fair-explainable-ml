@@ -121,7 +121,7 @@ Research has shown them to be [unreliable](https://arxiv.org/abs/1902.10186), an
 Thus, visualization can only be used as an additional step in an analysis, and not as a standalone method.
 
 
-### Understanding impact of training examples
+### Understanding the impact of training examples
 These techniques unearth which training data instances caused the model to generate a specific prediction for a given sample. At a high level, these techniques mathematically identify what training samples that -- if removed from the training process -- are most influential for causing a particular prediction.
 
 **Example methods:** [Influence functions](https://arxiv.org/abs/1703.04730), [Representer point selection](https://arxiv.org/abs/1811.09720)
