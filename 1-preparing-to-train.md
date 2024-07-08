@@ -24,7 +24,7 @@ exercises: 0
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Some tasks are not appropriate for machine learning due to ethical concerns.
+- Some tasks are not appropriate for machine learning due to ethical concerns. 
 - Machine learning tasks should have a valid prediction target that maps clearly to the real-world goal.
 - Training data can be biased due to societal inequities, errors in the data collection process, and lack of attention to careful sampling practices.
 
