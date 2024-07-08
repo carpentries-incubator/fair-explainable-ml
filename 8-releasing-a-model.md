@@ -183,12 +183,14 @@ print(loaded_model)
 
 ## Saving a model to Hugging Face
 To share your model with a wider audience, we recommend uploading your model to Hugging Face. Hugging Face is a very popular machine learning (ML) platform and community that helps users build, deploy, share, and train machine learning models. It has quickly become the go-to option for sharing models with the public.
+
 ### Create a Hugging Face account and access Token
 If you haven't completed these steps from the setup, make sure to do this now.
 
 **Create account**: To create an account on Hugging Face, visit: [huggingface.co/join](https://huggingface.co/join). Enter an email address and password, and follow the instructions provided via Hugging Face (you may need to verify your email address) to complete the process.
 
-**Setup access token**: Once you have your account created, you’ll need to generate an access token so that you can upload/share models to your Hugging Face account during the workshop. To generate a token, visit the [Access Tokens setting page](https://huggingface.co/settings/tokens) after logging in. **bold text**
+**Setup access token**: Once you have your account created, you’ll need to generate an access token so that you can upload/share models to your Hugging Face account during the workshop. To generate a token, visit the [Access Tokens setting page](https://huggingface.co/settings/tokens) after logging in. 
+
 ### Login to Hugging Face account
 To login, you will need to retrieve your access token from the [Access Tokens setting page](https://huggingface.co/settings/tokens)
 
@@ -197,6 +199,7 @@ To login, you will need to retrieve your access token from the [Access Tokens se
 ```
 
 You might get a message saying you cannot authenticate through git-credential as no helper is defined on your machine. TODO: What does this warning mean?
+
 Once logged in, we will need to edit our model class defnition to include Hugging Face's "push_to_hub" attribe. To enable the push_to_hub functionality, you'll need to include the PyTorchModelHubMixin "mixin class" provided by the huggingface_hub library. A mixin class is a type of class used in object-oriented programming to "mix in" additional properties and methods into a class. The PyTorchModelHubMixin class adds methods to your PyTorch model to enable easy saving and loading from the Hugging Face Model Hub.
 
  Here's how you can adjust the code to incorporate both saving/loading locally and pushing the model to the Hugging Face Hub.
@@ -230,6 +233,7 @@ model.push_to_hub("my-awesome-model", config=config)
 ```
 
 **Verifying**: To check your work, head back over to your Hugging Face and click your profile icon in the top-right of the website. Click "Profile" from there to view all of your uploaded models. Alternatively, you can search for your username (or model name) from the [Model Hub](https://huggingface.co/models).
+
 #### Loading the model from Hugging Face
 
 ```python
@@ -238,6 +242,7 @@ model = MyModel.from_pretrained("your-username/my-awesome-model")
 ```
 
 ## Uploading transformer models to Hugging Face
+
 Key Differences
 * **Saving and Loading the Tokenizer**: Transformer models require a tokenizer that needs to be saved and loaded with the model. This is not necessary for custom PyTorch models that typically do not require a separate tokenizer.
 * **Using Pre-trained Classes**: Transformer models use classes like AutoModelForSequenceClassification and AutoTokenizer from the transformers library, which are pre-built and designed for specific tasks (e.g., sequence classification).
