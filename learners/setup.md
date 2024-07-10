@@ -141,7 +141,7 @@ you probably [need to change the version of Anaconda you have installed](https:/
 1. Uninstall Anaconda
 2. [Download the version of Anaconda for Apple chips][anaconda-distribution] (i.e. the version with "(M1)" in the name)
    and install it with the default settings
-3. Follow [the instructions above](#packages) to install the required packages
+3. Follow the instructions above to install the required packages
 
 ::::::::::::::::::::::::::::
 
