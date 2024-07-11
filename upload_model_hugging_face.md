@@ -1,4 +1,3 @@
----
 ## Saving model locally
 Let's review the simplest method for sharing a model first — saving the model locally. When working with PyTorch, it's important to know how to save and load models efficiently. This process ensures that you can pause your work, share your models, or deploy them for inference without having to retrain them from scratch each time.
 
