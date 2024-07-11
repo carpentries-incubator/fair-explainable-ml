@@ -4,7 +4,6 @@
 "config.yaml" "80de989bfdc39b8ba171cd7bb5963307" "site/built/config.yaml" "2024-07-02"
 "index.md" "f4eb5b39bdc4832754c37279ac71a279" "site/built/index.md" "2024-06-19"
 "links.md" "8184cf4149eafbf03ce8da8ff0778c14" "site/built/links.md" "2024-06-19"
-"code/upload_model_hugging_face.md" "0cd4c1685feab2b75ccd5422b6a91603" "site/built/upload_model_hugging_face.md" "2024-07-02"
 "episodes/0-introduction.md" "b92b5d4ec7c1ca0934fad8154769f3f6" "site/built/0-introduction.md" "2024-06-19"
 "episodes/1-preparing-to-train.md" "9726de922ae7e4caa46a0fd1227a77c0" "site/built/1-preparing-to-train.md" "2024-07-10"
 "episodes/2-model-fitting.md" "9c455f511aaac73d193f49fa1378cb30" "site/built/2-model-fitting.md" "2024-06-19"
