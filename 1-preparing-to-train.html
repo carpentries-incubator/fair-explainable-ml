@@ -27,7 +27,7 @@
             <span class="visually-hidden">This lesson is in the pre-alpha phase, which means that it is in early development, but has not yet been taught.</span>
           </abbr>
         </span>
-        
+
       </div>
     </div>
     <div class="selector-container">
@@ -56,7 +56,7 @@
             </li>
           </ul></li>
       </div>
-      
+
       <div class="dropdown" id="instructor-dropdown">
         <button class="btn btn-secondary dropdown-toggle bordered-button" type="button" id="dropdownMenu1" data-bs-toggle="dropdown" aria-expanded="false">
           <i aria-hidden="true" class="icon" data-feather="eye"></i> Learner View <i data-feather="chevron-down"></i>
@@ -180,7 +180,7 @@
                 </div><!--/div.accordion-flush-->
               </div><!--div.sidenav-view-selector -->
             </div><!--/div.col -->
-      
+
             <hr></div><!--/div.mobile-row -->
 
           <div class="accordion accordion-flush" id="accordionFlush11">
@@ -199,7 +199,7 @@
     <div class="accordion-header" id="flush-heading1">
         <a href="index.html">Summary and Setup</a>
     </div><!--/div.accordion-header-->
-        
+
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
@@ -208,20 +208,29 @@
     <div class="accordion-header" id="flush-heading2">
         <a href="0-introduction.html">1. Overview</a>
     </div><!--/div.accordion-header-->
-        
+
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
 <div class="accordion accordion-flush" id="accordionFlushcurrent">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-headingcurrent">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapsecurrent" aria-expanded="true" aria-controls="flush-collapsecurrent">
         <span class="visually-hidden">Current Chapter</span>
         <span class="current-chapter">
         2. Preparing to train a model
         </span>
-      
+      </button>
     </div><!--/div.accordion-header-->
-        
+
+    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
+      <div class="accordion-body">
+        <ul><li><a href="#choosing-appropriate-tasks">Choosing appropriate tasks</a></li>
+<li><a href="#choosing-the-outcome-variable">Choosing the outcome variable</a></li>
+<li><a href="#understanding-bias">Understanding bias</a></li>
+        </ul></div><!--/div.accordion-body-->
+    </div><!--/div.accordion-collapse-->
+
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
@@ -230,7 +239,7 @@
     <div class="accordion-header" id="flush-heading4">
         <a href="2-model-fitting.html">3. Scientific validity in the modeling process</a>
     </div><!--/div.accordion-header-->
-        
+
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
@@ -239,7 +248,7 @@
     <div class="accordion-header" id="flush-heading5">
         <a href="3-model-eval-and-fairness.html">4. Model evaluation and fairness</a>
     </div><!--/div.accordion-header-->
-        
+
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
@@ -248,7 +257,7 @@
     <div class="accordion-header" id="flush-heading6">
         <a href="4-explainability-vs-interpretability.html">5. Interpretablility versus explainability</a>
     </div><!--/div.accordion-header-->
-        
+
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
@@ -257,7 +266,7 @@
     <div class="accordion-header" id="flush-heading7">
         <a href="5a-explainable-AI-method-overview.html">6. Explainability methods overview</a>
     </div><!--/div.accordion-header-->
-        
+
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
@@ -266,7 +275,7 @@
     <div class="accordion-header" id="flush-heading8">
         <a href="5b-deep-dive-into-methods.html">7. Explainability methods: deep dive</a>
     </div><!--/div.accordion-header-->
-        
+
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
@@ -275,7 +284,7 @@
     <div class="accordion-header" id="flush-heading9">
         <a href="5c-probes.html">8. Explainability methods: linear probe</a>
     </div><!--/div.accordion-header-->
-        
+
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
@@ -284,7 +293,7 @@
     <div class="accordion-header" id="flush-heading10">
         <a href="5d-gradcam.html">9. Explainability methods: GradCAM</a>
     </div><!--/div.accordion-header-->
-        
+
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
@@ -293,7 +302,7 @@
     <div class="accordion-header" id="flush-heading11">
         <a href="6-confidence-intervals.html">10. Estimating model uncertainty</a>
     </div><!--/div.accordion-header-->
-        
+
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
@@ -302,7 +311,7 @@
     <div class="accordion-header" id="flush-heading12">
         <a href="7-distribution-shift-OOD-detection.html">11. Distribution shift and OOD detection</a>
     </div><!--/div.accordion-header-->
-        
+
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
@@ -311,7 +320,7 @@
     <div class="accordion-header" id="flush-heading13">
         <a href="8-releasing-a-model.html">12. Documenting and releasing a model</a>
     </div><!--/div.accordion-header-->
-        
+
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
@@ -343,10 +352,10 @@
               </div>
             </div>
             <hr class="half-width resources"><a href="aio.html">See all in one page</a>
-            
+
 
             <hr class="d-none d-sm-block d-md-none"><div class="d-grid gap-1">
-            
+
             </div>
           </div><!-- /div.accordion -->
         </div><!-- /div.sidebar-inner -->
@@ -367,18 +376,18 @@
           Previous: Overview
         </a>
         <a class="chapter-link float-end" href="2-model-fitting.html" rel="next">
-          Next: Scientific validity... 
+          Next: Scientific validity...
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i>
         </a>
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Preparing to train a model</h1>
-        <p>Last updated on 2024-06-19 |
-        
+        <p>Last updated on 2024-07-10 |
+
         <a href="https://github.com/carpentries-incubator/fair-explainable-ml/edit/main/episodes/1-preparing-to-train.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
-        
-        
-        
+
+
+
         <div class="text-end">
           <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
         </div>
@@ -396,8 +405,8 @@
 tool?</li>
 <li>How can inappropriate target variable choice lead to suboptimal
 outcomes in a machine learning pipeline?</li>
-<li>What is “biased” training data, and where does this bias come
-from?</li>
+<li>What forms of “bias” can occur in machine learning, and where do
+these biases come from?</li>
 </ul></div>
 </div>
 </div>
@@ -408,10 +417,162 @@ from?</li>
 <ul><li>Judge what tasks are appropriate for machine learning</li>
 <li>Understand why the choice of prediction task / target variable is
 important.</li>
-<li>Describe how bias can appear in training data.</li>
+<li>Describe how bias can appear in training data and algorithms.</li>
 </ul></div>
 </div>
 </div>
+</div>
+</div>
+<section><h2 class="section-heading" id="choosing-appropriate-tasks">Choosing appropriate tasks<a class="anchor" aria-label="anchor" href="#choosing-appropriate-tasks"></a>
+<a class="anchor" aria-label="anchor" href="#choosing-appropriate-tasks"></a></h2>
+<hr class="half-width"><p>Machine learning is a rapidly advancing, powerful technology that is
+helping to drive innovation. Before embarking on a machine learning
+project, we need to consider the task carefully. Many machine learning
+efforts are not solving problems that need to be solved. Or, the problem
+may be valid, but the machine learning approach makes incorrect
+assumptions and fails to solve the problem effectively. Worse, many
+applications of machine learning are not for the public good.</p>
+<p>We will start by considering the <a href="https://www.nih.gov/health-information/nih-clinical-research-trials-you/guiding-principles-ethical-research" class="external-link">NIH
+Guiding Principles for Ethical Research</a>, which provide a useful set
+of considerations for any project.</p>
+<div id="discussion1" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#discussion1"></a>
+</h3>
+<div class="callout-content">
+<p>Take a look at the <a href="https://www.nih.gov/health-information/nih-clinical-research-trials-you/guiding-principles-ethical-research" class="external-link">NIH
+Guiding Principles for Ethical Research</a>.</p>
+<p>What are the main principles?</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
+  <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
+</button>
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div class="accordion-body">
+<p>A summary of the principles is listed below:</p>
+<ul><li>Social and clinical value: Does the social or clinical value of
+developing and implementing the model outweigh the risk and burden of
+the people involved?</li>
+<li>Scientific validity: Once created, will the model provide valid,
+meaningful outputs?</li>
+<li>Fair subject selection: Are the people who contribute and benefit
+from the model selected fairly, and not through vulnerability,
+privilege, or other unrelated factors?</li>
+<li>Favorable risk-benefit ratio: Do the potential benefits of of
+developing and implementing the model outweigh the risks?</li>
+<li>Independent review: Has the project been reviewed by someone
+independent of the project, and has an Institutional Review Board (IRB)
+been approached where appropriate?</li>
+<li>Informed consent: Are participants whose data contributes to
+development and implementation of the model, as well as downstream
+recipients of the model, kept informed?</li>
+<li>Respect for potential and enrolled subjects: Is the privacy of
+participants respected and are steps taken to continuously monitor the
+effect of the model on downstream participants?</li>
+</ul></div>
+</div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="case-study-1-identifying-genetic-disorders">Case study 1: Identifying genetic disorders<a class="anchor" aria-label="anchor" href="#case-study-1-identifying-genetic-disorders"></a></h3>
+</div>
+<div class="section level3">
+<h3 id="case-study-2-reading-a-persons-face">Case study 2: “Reading” a person’s face<a class="anchor" aria-label="anchor" href="#case-study-2-reading-a-persons-face"></a></h3>
+</div>
+</section><section><h2 class="section-heading" id="choosing-the-outcome-variable">Choosing the outcome variable<a class="anchor" aria-label="anchor" href="#choosing-the-outcome-variable"></a>
+<a class="anchor" aria-label="anchor" href="#choosing-the-outcome-variable"></a></h2>
+<hr class="half-width"><div id="case-study" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div id="case-study" class="callout-inner">
+<h3 class="callout-title">Case Study<a class="anchor" aria-label="anchor" href="#case-study"></a>
+</h3>
+<div class="callout-content">
+<p>A well-known <a href="https://escholarship.org/content/qt6h92v832/qt6h92v832.pdf" class="external-link">study
+by Obermeyer et al.</a> analyzed an algorithm that hospitals used to
+assign patients risk scores for various conditions. The algorithm had
+access to various patient data, such as demographics (e.g., age and
+sex), the number of chronic conditions, insurance type, diagnoses, and
+medical costs. The algorithm did not have access to the patient’s race.
+The patient risk score determined the level of care the patient should
+receive, with higher-risk patients receiving additional care.</p>
+<p>Obermeyer et al. reveal that the algorithm is biased against Black
+patients. That is, if there are two individuals – one white and one
+Black – with equal health, the algorithm tends to assign a higher risk
+score to the white patient, thus giving them access to higher care
+quality. The target variable used to construct the algorithm is health
+care cost, and the authors blame this choice of target variable for the
+algorithm’s racial bias.</p>
+<p>Discuss the following with a partner or small group:</p>
+<ol style="list-style-type: decimal"><li>Why might using health care cost as a target variable lead to
+racially biased outcomes? (Hint: this algorithm was deployed in the
+United States.)</li>
+<li>What would be a more appropriate target variable to use
+instead?</li>
+<li>Why do you think the algorithm designers chose to use health care
+cost as the target variable?</li>
+<li>How could the algorithm’s racial bias have been caught before
+deploying it widely? E.g., what processes could the algorithm developers
+have implemented?</li>
+</ol></div>
+</div>
+</div>
+<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
+  <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
+</button>
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div class="accordion-body">
+<ol style="list-style-type: decimal"><li>Racial disparities in the US lead to Black Americans receiving less
+care than equally-sick white Americans.</li>
+<li>Data focusing on health, not the cost of care, may be more
+appropriate. For instance, the paper suggests using the number of
+chronic conditions (or number of chronic conditions that flare up in a
+given year) as an alternate label.</li>
+<li>The algorithm designers probably assumed that cost would be a good
+proxy for health. (Indeed, health needs and health cost <em>are</em>
+correlated.) Another factor may have been the quality of data – health
+care billing is standardized and will be present for all patient
+visits.</li>
+<li>There’s no single right answer – the algorithm developers could have
+experimented with using different target variables and compared the
+outcomes for different racial groups, or they could have engaged with
+non-technical experts who may be more attuned to the impacts of race
+disparities in the US health system.</li>
+</ol></div>
+</div>
+</div>
+</div>
+</section><section><h2 class="section-heading" id="understanding-bias">Understanding bias<a class="anchor" aria-label="anchor" href="#understanding-bias"></a>
+<a class="anchor" aria-label="anchor" href="#understanding-bias"></a></h2>
+<hr class="half-width"><div id="case-study-1" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div id="case-study-1" class="callout-inner">
+<h3 class="callout-title">Case Study<a class="anchor" aria-label="anchor" href="#case-study-1"></a>
+</h3>
+<div class="callout-content">
+<p>With a partner or small group, choose one of the three case study
+options. Read individually, then discuss as a group how bias manifested
+in the training data, and what strategies could correct for it.</p>
+<p>After the discussion, share with the whole workshop what you
+discussed.</p>
+<ol style="list-style-type: decimal"><li><a href="https://www.technologyreview.com/2019/02/13/137444/predictive-policing-algorithms-ai-crime-dirty-data/" class="external-link">Predictive
+policing</a></li>
+<li>Computer vision</li>
+<li><a href="https://www.aclu.org/news/womens-rights/why-amazons-automated-hiring-tool-discriminated-against" class="external-link">Amazon
+hiring tool</a></li>
+</ol></div>
 </div>
 </div>
 <div id="keypoints1" class="callout keypoints">
@@ -429,17 +590,16 @@ maps clearly to the real-world goal.</li>
 <li>Training data can be biased due to societal inequities, errors in
 the data collection process, and lack of attention to careful sampling
 practices.</li>
+<li>“Bias” also refers to statistical bias, and certain algorithms can
+be biased towards some solutions.</li>
 </ul></div>
 </div>
 </div>
-<!-- 
+<!--
 Place links that you need to refer to multiple times across pages here. Delete
-any links that you are not going to use. 
+any links that you are not going to use.
  -->
-
-
-
-      </div> <!-- / div.lesson-content -->
+</section></div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter"><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="0-introduction.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
         <a class="chapter-link float-end" href="2-model-fitting.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
@@ -451,7 +611,7 @@ any links that you are not going to use.
           Previous: Overview
         </a>
         <a class="chapter-link float-end" href="2-model-fitting.html" rel="next">
-          Next: Scientific validity... 
+          Next: Scientific validity...
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i>
         </a>
       </div>
@@ -462,18 +622,18 @@ any links that you are not going to use.
       		<footer class="row footer mx-md-3"><hr><div class="col-md-6">
         <p>This lesson is subject to the <a href="CODE_OF_CONDUCT.html">Code of Conduct</a></p>
         <p>
-        
+
         <a href="https://github.com/carpentries-incubator/fair-explainable-ml/edit/main/episodes/1-preparing-to-train.md" class="external-link">Edit on GitHub</a>
-        
+
 	
         | <a href="https://github.com/carpentries-incubator/fair-explainable-ml/blob/main/CONTRIBUTING.md" class="external-link">Contributing</a>
         | <a href="https://github.com/carpentries-incubator/fair-explainable-ml/" class="external-link">Source</a></p>
 				<p><a href="https://github.com/carpentries-incubator/fair-explainable-ml/blob/main/CITATION" class="external-link">Cite</a> | <a href="mailto:apmeyer4@wisc.edu">Contact</a> | <a href="https://carpentries.org/about/" class="external-link">About</a></p>
 			</div>
 			<div class="col-md-6">
-        
+
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
-        
+
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
         <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.5" class="external-link">sandpaper (0.16.5)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.6" class="external-link">pegboard (0.7.6)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.3" class="external-link">varnish (1.0.3)</a></p>
 			</div>
@@ -497,8 +657,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/fair-explainable-ml/1-preparing-to-train.html",
   "identifier": "https://carpentries-incubator.github.io/fair-explainable-ml/1-preparing-to-train.html",
   "dateCreated": "2023-12-05",
-  "dateModified": "2024-06-19",
-  "datePublished": "2024-07-02"
+  "dateModified": "2024-07-10",
+  "datePublished": "2024-07-11"
 }
 
   </script><script>
