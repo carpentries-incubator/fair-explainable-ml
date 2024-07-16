@@ -50,37 +50,7 @@ Data scarcity
 
 :::::::::::::::::::::::::
 
-:::::::::::::::::::::::::::::::::::::: challenge
 
-### What pieces must be well-documented to ensure reproducible and responsible model sharing?
-Discuss in small groups and report out: *Why do you believe it is or isn’t important to share ML models? How has model-sharing contributed to your experiences or projects?*
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
-:::::::::::::: solution
-
-### Solution
-
-* Environment setup
-* Training data
-  * How the data was collected
-  * Who owns the data: data license and usage terms
-  * Basic descriptive statistics: number of samples, features, classes, etc.
-  * Note any class imbalance or general bias issues
-  * Description of data distribution to help prevent out-of-distribution failures.
-* Preprocessing steps. 
-  * Data splitting
-  * Standardization method
-  * Feature selection
-  * Outlier detection and other filters
-* Model architecture, hyperparameters and, training procedure (e.g., dropout or early stopping)
-* Model weights
-* Evaluation metrics. Results and performance. The more tasks/datasets you can evaluate on, the better.
-* Ethical considerations:  Include investigations of bias/fairness when applicable (i.e., if your model involves human data or affects decision-making involving humans)
-* Contact info
-* Acknowledgments
-* Examples and demos (highly recommended)
-:::::::::::::::::::::::::
 
 
 :::::::::::::::::::::::::::::::::::::: challenge
@@ -282,3 +252,49 @@ hub_tokenizer = AutoTokenizer.from_pretrained("user-name/my-awesome-transformer-
 print(hub_model)
 print(hub_tokenizer)
 ```
+:::::::::::::::::::::::::::::::::::::: challenge
+
+### What pieces must be well-documented to ensure reproducible and responsible model sharing?
+Discuss in small groups and report out: *Why do you believe it is or isn’t important to share ML models? How has model-sharing contributed to your experiences or projects?*
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::: solution
+
+### Solution
+
+* Environment setup
+* Training data
+  * How the data was collected
+  * Who owns the data: data license and usage terms
+  * Basic descriptive statistics: number of samples, features, classes, etc.
+  * Note any class imbalance or general bias issues
+  * Description of data distribution to help prevent out-of-distribution failures.
+* Preprocessing steps. 
+  * Data splitting
+  * Standardization method
+  * Feature selection
+  * Outlier detection and other filters
+* Model architecture, hyperparameters and, training procedure (e.g., dropout or early stopping)
+* Model weights
+* Evaluation metrics. Results and performance. The more tasks/datasets you can evaluate on, the better.
+* Ethical considerations:  Include investigations of bias/fairness when applicable (i.e., if your model involves human data or affects decision-making involving humans)
+* Contact info
+* Acknowledgments
+* Examples and demos (highly recommended)
+:::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::: challenge
+
+### Document your model
+TODO
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::: solution
+
+### Solution
+TODO
+
+
+:::::::::::::::::::::::::
