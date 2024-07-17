@@ -125,7 +125,7 @@ Hematological biomarkers included white blood cells, neutrophils count, lymphocy
 
 **Real-World Impact:**
 
-During the pandemic, numerous studies and models were developed to aid in predicting COVID-19 outcomes. The study from the NCBI article serves as an excellent example of how detailed patient data can inform model development. By designing a suitable model, researchers and healthcare providers can not only achieve high predictive accuracy but also ensure that their findings are actionable and trustworthy.
+During the pandemic, numerous studies and models were developed to aid in predicting COVID-19 outcomes. The study from this paper serves as an excellent example of how detailed patient data can inform model development. By designing a suitable machine learning model, researchers and healthcare providers can not only achieve high predictive accuracy but also ensure that their findings are actionable and trustworthy.
 
 **Discussion Questions:**
 
