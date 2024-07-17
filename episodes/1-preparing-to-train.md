@@ -18,7 +18,6 @@ exercises: 0
 - Understand why the choice of prediction task / target variable is important.
 - Describe how bias can appear in training data and algorithms.
 
-
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Choosing appropriate tasks
@@ -49,69 +48,121 @@ A summary of the principles is listed below:
 
 :::::::::::::::::::::::::
 
-### Case study 1: Identifying genetic disorders
+AI tasks are often most controversial when they involve human subjects, and especially visual representations of people. We'll discuss two case studies that use people's faces as a prediction tool, and discuss whether these uses of AI are appropriate.
 
+### Case study 1: Physiognomy
+In 2019, Nature Medicine [published a paper](https://www.nature.com/articles/s41591-018-0279-0.epdf) that describes a model that can identify genetic disorders from a photograph of a patient’s face. The abstract of the paper is copied below:
 
-### Case study 2: "Reading" a person's face
+    Syndromic genetic conditions, in aggregate, affect 8% of the population. Many syndromes have recognizable facial features that are highly informative to clinical geneticists. Recent studies show that facial analysis technologies measured up to the capabilities of expert clinicians in syndrome identification. However, these technologies identified only a few disease phenotypes, limiting their role in clinical settings, where hundreds of diagnoses must be considered. Here we present a facial image analysis framework, DeepGestalt, using computer vision and deep-learning algorithms, that quantifies similarities to hundreds of syndromes.
 
+    DeepGestalt outperformed clinicians in three initial experiments, two with the goal of distinguishing subjects with a target syndrome from other syndromes, and one of separating different genetic sub-types in Noonan syndrome. On the final experiment reflecting a real clinical setting problem, DeepGestalt achieved 91% top-10 accuracy in identifying the correct syndrome on 502 different images. The model was trained on a dataset of over 17,000 images representing more than 200 syndromes, curated through a community-driven phenotyping platform. DeepGestalt potentially adds considerable value to phenotypic evaluations in clinical genetics, genetic testing, research and precision medicine.
 
+* What is the proposed value of the algorithm?
+* What are the potential risks?
+* Are you supportive of this kind of research?
+* What safeguards, if any, would you want to be used when developing and using this algorithm?
+
+Media reports about this paper were largely positive, e.g., [reporting that clinicians are excited about the new technology](https://www.genengnews.com/insights/a-i-gets-in-the-face-of-rare-genetic-diseases/). 
+
+### Case study 2: 
+
+There is a long history of physiognomy, the “science” of trying to read someone’s character from their face. With the advent of machine learning, this discredited area of research has made a comeback. There have been numerous studies attempting to guess characteristics such as trustworthness, criminality, and political and sexual orientation.
+
+In 2018, for example, researchers suggested that neural networks could be used to detect sexual orientation from facial images. The abstract is copied below:
+
+    We show that faces contain much more information about sexual orientation than can be perceived and interpreted by the human brain. We used deep neural networks to extract features from 35,326 facial images. These features were entered into a logistic regression aimed at classifying sexual orientation. Given a single facial image, a classifier could correctly distinguish between gay and heterosexual men in 81% of cases, and in 74% of cases for women. Human judges achieved much lower accuracy: 61% for men and 54% for women. The accuracy of the algorithm increased to 91% and 83%, respectively, given five facial images per person.
+
+    Facial features employed by the classifier included both fixed (e.g., nose shape) and transient facial features (e.g., grooming style). Consistent with the prenatal hormone theory of sexual orientation, gay men and women tended to have gender-atypical facial morphology, expression, and grooming styles. Prediction models aimed at gender alone allowed for detecting gay males with 57% accuracy and gay females with 58% accuracy. Those findings advance our understanding of the origins of sexual orientation and the limits of human perception. Additionally, given that companies and governments are increasingly using computer vision algorithms to detect people’s intimate traits, our findings expose a threat to the privacy and safety of gay men and women.
+
+* What is the proposed value of the algorithm?
+* What are the potential risks?
+* Are you supportive of this kind of research?
+* What distinguishes this use of AI from the use of AI described in Case Study 1?
+
+Media reports of this algorithm were largely negative, with a [Scientific American article](https://www.scientificamerican.com/blog/observations/can-we-read-a-persons-character-from-facial-images/) highlighting the connections to physiognomy and raising concern over government use of these algorithms: 
+
+    This is precisely the kind of “scientific” claim that can motivate repressive governments to apply AI algorithms to images of their citizens. And what is it to stop them from “reading” intelligence, political orientation and criminal inclinations from these images?
 
 
 ## Choosing the outcome variable
 
+Sometimes, choosing the outcome variable is easy: for instance, when building a model to predict how warm it will be out tomorrow, the temperature can be the outcome variable because it's measurable (i.e., you know what temperature it was yesterday and today) and your predictions won't cause a feedback loop (e.g., given a set of past weather data, the weather next Monday won't change based on what your model predicts tomorrow's temperature to be).
+
+By contrast, sometimes it's not possible to measure the target prediction subject directly, and sometimes predictions can cause feedback loops.
+
+### Case Study: Proxy variables
+
+Consider the scenario described in the challenge below.
 
 :::::::::::::::::::::::::::::::::::::: challenge
 
-### Case Study
-
-A well-known [study by Obermeyer et al.](https://escholarship.org/content/qt6h92v832/qt6h92v832.pdf) analyzed an algorithm that hospitals used to assign patients risk scores for various conditions. The algorithm had access to various patient data, such as demographics (e.g., age and sex), the number of chronic conditions, insurance type, diagnoses, and medical costs. The algorithm did not have access to the patient's race.
-The patient risk score determined the level of care the patient should receive, with higher-risk patients receiving additional care. 
-
-Obermeyer et al. reveal that the algorithm is biased against Black patients. 
-That is, if there are two individuals -- one white and one Black -- with equal health,
-the algorithm tends to assign a higher risk score to the white patient, thus giving them
-access to higher care quality. 
-The target variable used to construct the algorithm is health care cost, and the authors blame this choice of target variable for the algorithm's racial bias.
+Suppose that you work for a hospital and are asked to build a model to predict which patients are high-risk and need extra care to prevent negative health outcomes. 
 
 Discuss the following with a partner or small group:
-
-1. Why might using health care cost as a target variable lead to racially biased outcomes? (Hint: this algorithm was deployed in the United States.)
-2. What would be a more appropriate target variable to use instead? 
-3. Why do you think the algorithm designers chose to use health care cost as the target variable? 
-4. How could the algorithm's racial bias have been caught before deploying it widely? E.g., what processes could the algorithm developers have implemented?
+1. What is the goal target variable? 
+2. What are challenges in measuring the target variable in the training data (i.e., former patients)?
+3. Are there other variables that are easier to measure, but can approximate the target variable, that could serve as proxies?
+3. How do social inequities interplay with the value of the target variable versus the value of the proxies?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-:::::::::::::: solution
+The "challenge" scenario is not hypothetical:
+A well-known [study by Obermeyer et al.](https://escholarship.org/content/qt6h92v832/qt6h92v832.pdf) analyzed an algorithm that hospitals used to assign patients risk scores for various conditions. The algorithm had access to various patient data, such as demographics (e.g., age and sex), the number of chronic conditions, insurance type, diagnoses, and medical costs. The algorithm did not have access to the patient's race.
+The patient risk score determined the level of care the patient should receive, with higher-risk patients receiving additional care. 
 
-### Solution
-1. Racial disparities in the US lead to Black Americans receiving less care than equally-sick white Americans. 
-2. Data focusing on health, not the cost of care, may be more appropriate. For instance, the paper suggests using the number of chronic conditions (or number of chronic conditions that flare up in a given year) as an alternate label.
-3. The algorithm designers probably assumed that cost would be a good proxy for health. (Indeed, health needs and health cost *are* correlated.) Another factor may have been the quality of data -- health care billing is standardized and will be present for all patient visits.
-4. There's no single right answer -- the algorithm developers could have experimented with using different target variables and compared the outcomes for different racial groups, or they could have engaged with non-technical experts who may be more attuned to the impacts of race disparities in the US health system. 
+Ideally, the target variable would be health needs, but this can be challenging to measure: how do you compare the severity of two different conditions? Do you count chronic and acute conditions equally? In the system described by Obermeyer et al., the hospital decided to use **health-care costs** as a proxy for health needs, perhaps reasoning that this data is at least standardized across patients and doctors.
 
-:::::::::::::::::::::::::
+However, Obermeyer et al. reveal that the algorithm is biased against Black patients. 
+That is, if there are two individuals -- one white and one Black -- with equal health,
+the algorithm tends to assign a higher risk score to the white patient, thus giving them
+access to higher care quality. 
+The authors blame the choice of proxy variable for the racial disparities. 
 
+The authors go on to describe how, due to how health-care access is structured in the US, richer patients have more healthcare expenses, even if they are equally (un)healthy to a lower-income patient. The richer patients are also more likely to be white. 
 
+Consider the following:
+* How could the algorithm developers have caught this problem earlier? 
+* Is this a technical mistake or a process-based mistake? Why?
+
+### Case study: Feedback loop
+TODO
 
 ## Understanding bias
+The term "bias" is overloaded, and can have the following definitions:
+
+* (Statistical) bias: the tendency of an algorithm to produce one solution over another, even though some alternatives may be just as good, or better. Statistical bias can have multiple sources, which we'll get into below. 
+* (Social) bias: outcomes are unfair to one or more social groups. Social bias can be the result of statistical bias (i.e., an algorithm giving preferential treatment to one social group over others), but can also occur outside of a machine learning context. 
+
+### Sources of statistical bias
+
+#### Algorithmic bias
+Algorithmic bias is the tendency of an algorithm to favor one solution over another. Algorithmic bias is not always bad, and may sometimes be encoded for by algorithm developers. For instance, linear regression with L0-regularization displays algorithmic bias towards sparse classifiers (i.e., classifiers where most weights are 0). This bias may be desirable in settings where human interpretability is important.
+
+But algorithmic bias can also occur unintentionally: for instance, if there is data bias (described below), this may lead algorithm developers to select an algorithm that is ill-suited to underrepresented groups. Then, even if the data bias is rectified, sticking with the original algorithm choice may not fix biased outcomes.
 
 
+#### Data bias: 
+Data bias is when the available training data is not accurate or representative of the target population. Data bias is extremely common (it's often hard to collect perfectly-representative, and perfectly-accurate data), and care arise in multiple ways:
+
+* Measurement error - if a tool is not well calibrated, measurements taken by that tool won't be accurate. Likewise, human biases can lead to measurement error, for instance, if people systematically over-report their height on dating apps, or if doctors do not believe patient's self-reports of their pain levels.
+* Response bias - for instance, when conducting a survey about customer satisfaction, customers who had very positive or very negative experiences may be more likely to respond. 
+* Representation bias - the data is not well representative of the whole population. For instance, doing clinical trials primarily on white men means that women and other races are not well represented in data.
+
+Through the rest of this lesson, if we use the term "bias" without any additional context, we will be referring to social bias that stems from statistical bias.
 
 :::::::::::::::::::::::::::::::::::::: challenge
 
 ### Case Study
 
-With a partner or small group, choose one of the three case study options. Read individually, then discuss as a group how bias manifested in the training data, and what strategies could correct for it.
+With a partner or small group, choose one of the three case study options. Read or watch individually, then discuss as a group how bias manifested in the training data, and what strategies could correct for it.
 
 After the discussion, share with the whole workshop what you discussed.
 
 1. [Predictive policing](https://www.technologyreview.com/2019/02/13/137444/predictive-policing-algorithms-ai-crime-dirty-data/)
-2. Computer vision
+2. [Facial recognition](http://gendershades.org/) (video, 5 min.)
 3. [Amazon hiring tool](https://www.aclu.org/news/womens-rights/why-amazons-automated-hiring-tool-discriminated-against)
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
-
 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
