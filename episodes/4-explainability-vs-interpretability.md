@@ -35,7 +35,7 @@ exercises: 2
 
 :::::::::::::::::::::::::::::::::::::: Exercise
 
-### Exercise 1: Model Selection for Predicting COVID-19 Progression [study by Giotta et al.](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9602523/)
+### Exercise 1: Model Selection for Predicting COVID-19 Progression, a study by [Giotta et al.](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9602523/)
 
 **Objective:** 
 
@@ -168,7 +168,7 @@ During the pandemic, numerous studies and models were developed to aid in predic
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::: Exercise
-### Exercise2: COVID-19 Diagnosis Using Chest X-Rays [study by Ucar and Korkmaz](https://www.sciencedirect.com/science/article/pii/S0306987720307702)
+### Exercise2: COVID-19 Diagnosis Using Chest X-Rays, a study by [Ucar and Korkmaz](https://www.sciencedirect.com/science/article/pii/S0306987720307702)
 
 **Objective:** Diagnose COVID-19 through chest X-rays.
 
