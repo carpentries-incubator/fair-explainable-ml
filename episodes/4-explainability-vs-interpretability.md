@@ -215,7 +215,7 @@ The COVID-19 pandemic highlighted the urgent need for rapid and accurate diagnos
 
 2. **Assess the Drawbacks:**
    - **Deep Neural Networks:** Require large labeled datasets for training, which may not always be available. The models can be seen as "black boxes", making it challenging to interpret their decisions without additional explainability methods.
-   - **Traditional Methods:** Time-consuming and may have lower detection rates. They often require specialized equipment and personnel, leading to delays in diagnosis.
+   - **Traditional Methods:** Time-consuming and may have lower detection accuracy. They often require specialized equipment and personnel, leading to delays in diagnosis.
 
 3. **Decision-Making Criteria:**
    - **Prioritizing Deep Neural Networks:** When rapid diagnosis is critical, and chest X-rays are readily available. Useful in large-scale screening scenarios where speed is more critical than the detailed understanding provided by genomic data.
