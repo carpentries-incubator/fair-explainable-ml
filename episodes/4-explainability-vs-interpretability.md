@@ -33,7 +33,7 @@ exercises: 2
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-:::::::::::::::::::::::::::::::::::::: Exercise
+:::::::::::::::::::::::::::::::::::::: exercise
 
 ### Exercise 1: Model Selection for Predicting COVID-19 Progression, a study by [Giotta et al.](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9602523/)
 
@@ -147,7 +147,7 @@ During the pandemic, numerous studies and models were developed to aid in predic
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::: solutions
+::::::::::::::::::::::::::::::::::::: solution
 ### Solution
 1. **Compare the Advantages:**
    - **Explainable Models:** Allow healthcare professionals to understand and trust the model's decisions, providing clear insights into which biomarkers contribute most to predicting bad outcomes. This transparency is crucial in critical fields such as healthcare, where understanding the decision-making process can inform treatment plans and improve patient outcomes.
@@ -167,7 +167,7 @@ During the pandemic, numerous studies and models were developed to aid in predic
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-:::::::::::::::::::::::::::::::::::::: Exercise
+:::::::::::::::::::::::::::::::::::::: exercise
 ### Exercise2: COVID-19 Diagnosis Using Chest X-Rays, a study by [Ucar and Korkmaz](https://www.sciencedirect.com/science/article/pii/S0306987720307702)
 
 **Objective:** Diagnose COVID-19 through chest X-rays.
@@ -207,7 +207,7 @@ The COVID-19 pandemic highlighted the urgent need for rapid and accurate diagnos
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::: Solutions
+::::::::::::::::::::::::::::::::::::: solution
 ### Solution
 1. **Compare the Advantages:**
    - **Deep Neural Networks:** Provide high accuracy (e.g., 98%) in diagnosing COVID-19 from chest X-rays, offering a quick and non-invasive diagnostic tool. They can handle large amounts of image data and identify complex patterns that might be missed by human eyes.
