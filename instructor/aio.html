@@ -483,7 +483,7 @@
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p>Inline instructor notes can help inform instructors of timing
 challenges associated with the lessons. They appear in the “Instructor
@@ -498,7 +498,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-1-preparing-to-train"><p>Content from <a href="1-preparing-to-train.html">Preparing to train a model</a></p>
 <hr>
-<p>Last updated on 2024-07-10 |
+<p>Last updated on 2024-07-17 |
 
         <a href="https://github.com/carpentries-incubator/fair-explainable-ml/edit/main/episodes/1-preparing-to-train.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 0 minutes</p>
@@ -599,18 +599,200 @@ effect of the model on downstream participants?</li>
 </div>
 </div>
 </div>
+<p>AI tasks are often most controversial when they involve human
+subjects, and especially visual representations of people. We’ll discuss
+two case studies that use people’s faces as a prediction tool, and
+discuss whether these uses of AI are appropriate.</p>
 <div class="section level3">
-<h3 id="case-study-1-identifying-genetic-disorders">Case study 1: Identifying genetic disorders<a class="anchor" aria-label="anchor" href="#case-study-1-identifying-genetic-disorders"></a>
+<h3 id="case-study-1-physiognomy">Case study 1: Physiognomy<a class="anchor" aria-label="anchor" href="#case-study-1-physiognomy"></a>
 </h3>
+<p>In 2019, Nature Medicine <a href="https://www.nature.com/articles/s41591-018-0279-0.epdf" class="external-link">published
+a paper</a> that describes a model that can identify genetic disorders
+from a photograph of a patient’s face. The abstract of the paper is
+copied below:</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">Syndromic</span> genetic conditions, in aggregate, affect 8% of the population. Many syndromes have recognizable facial features that are highly informative to clinical geneticists. Recent studies show that facial analysis technologies measured up to the capabilities of expert clinicians in syndrome identification. However, these technologies identified only a few disease phenotypes, limiting their role in clinical settings, where hundreds of diagnoses must be considered. Here we present a facial image analysis framework, DeepGestalt, using computer vision and deep-learning algorithms, that quantifies similarities to hundreds of syndromes.</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="ex">DeepGestalt</span> outperformed clinicians in three initial experiments, two with the goal of distinguishing subjects with a target syndrome from other syndromes, and one of separating different genetic sub-types in Noonan syndrome. On the final experiment reflecting a real clinical setting problem, DeepGestalt achieved 91% top-10 accuracy in identifying the correct syndrome on 502 different images. The model was trained on a dataset of over 17,000 images representing more than 200 syndromes, curated through a community-driven phenotyping platform. DeepGestalt potentially adds considerable value to phenotypic evaluations in clinical genetics, genetic testing, research and precision medicine.</span></code></pre>
+</div>
+<ul>
+<li>What is the proposed value of the algorithm?</li>
+<li>What are the potential risks?</li>
+<li>Are you supportive of this kind of research?</li>
+<li>What safeguards, if any, would you want to be used when developing
+and using this algorithm?</li>
+</ul>
+<p>Media reports about this paper were largely positive, e.g., <a href="https://www.genengnews.com/insights/a-i-gets-in-the-face-of-rare-genetic-diseases/" class="external-link">reporting
+that clinicians are excited about the new technology</a>.</p>
 </div>
 <div class="section level3">
-<h3 id="case-study-2-reading-a-persons-face">Case study 2: “Reading” a person’s face<a class="anchor" aria-label="anchor" href="#case-study-2-reading-a-persons-face"></a>
+<h3 id="case-study-2">Case study 2:<a class="anchor" aria-label="anchor" href="#case-study-2"></a>
 </h3>
+<p>There is a long history of physiognomy, the “science” of trying to
+read someone’s character from their face. With the advent of machine
+learning, this discredited area of research has made a comeback. There
+have been numerous studies attempting to guess characteristics such as
+trustworthness, criminality, and political and sexual orientation.</p>
+<p>In 2018, for example, researchers suggested that neural networks
+could be used to detect sexual orientation from facial images. The
+abstract is copied below:</p>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">We</span> show that faces contain much more information about sexual orientation than can be perceived and interpreted by the human brain. We used deep neural networks to extract features from 35,326 facial images. These features were entered into a logistic regression aimed at classifying sexual orientation. Given a single facial image, a classifier could correctly distinguish between gay and heterosexual men in 81% of cases, and in 74% of cases for women. Human judges achieved much lower accuracy: 61% for men and 54% for women. The accuracy of the algorithm increased to 91% and 83%, respectively, given five facial images per person.</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="ex">Facial</span> features employed by the classifier included both fixed <span class="er">(</span><span class="ex">e.g.,</span> nose shape<span class="kw">)</span> <span class="ex">and</span> transient facial features <span class="er">(</span><span class="ex">e.g.,</span> grooming style<span class="kw">)</span><span class="bu">.</span> Consistent with the prenatal hormone theory of sexual orientation, gay men and women tended to have gender-atypical facial morphology, expression, and grooming styles. Prediction models aimed at gender alone allowed for detecting gay males with 57% accuracy and gay females with 58% accuracy. Those findings advance our understanding of the origins of sexual orientation and the limits of human perception. Additionally, given that companies and governments are increasingly using computer vision algorithms to detect people’s intimate traits, our findings expose a threat to the privacy and safety of gay men and women.</span></code></pre>
+</div>
+<ul>
+<li>What is the proposed value of the algorithm?</li>
+<li>What are the potential risks?</li>
+<li>Are you supportive of this kind of research?</li>
+<li>What distinguishes this use of AI from the use of AI described in
+Case Study 1?</li>
+</ul>
+<p>Media reports of this algorithm were largely negative, with a <a href="https://www.scientificamerican.com/blog/observations/can-we-read-a-persons-character-from-facial-images/" class="external-link">Scientific
+American article</a> highlighting the connections to physiognomy and
+raising concern over government use of these algorithms:</p>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">This</span> is precisely the kind of “scientific” claim that can motivate repressive governments to apply AI algorithms to images of their citizens. And what is it to stop them from “reading” intelligence, political orientation and criminal inclinations from these images<span class="pp">?</span></span></code></pre>
+</div>
 </div>
 </section><section><h2 class="section-heading" id="choosing-the-outcome-variable">Choosing the outcome variable<a class="anchor" aria-label="anchor" href="#choosing-the-outcome-variable"></a>
 <a class="anchor" aria-label="anchor" href="#choosing-the-outcome-variable"></a>
 </h2>
 <hr class="half-width">
+<p>Sometimes, choosing the outcome variable is easy: for instance, when
+building a model to predict how warm it will be out tomorrow, the
+temperature can be the outcome variable because it’s measurable (i.e.,
+you know what temperature it was yesterday and today) and your
+predictions won’t cause a feedback loop (e.g., given a set of past
+weather data, the weather next Monday won’t change based on what your
+model predicts tomorrow’s temperature to be).</p>
+<p>By contrast, sometimes it’s not possible to measure the target
+prediction subject directly, and sometimes predictions can cause
+feedback loops.</p>
+<div class="section level3">
+<h3 id="case-study-proxy-variables">Case Study: Proxy variables<a class="anchor" aria-label="anchor" href="#case-study-proxy-variables"></a>
+</h3>
+<p>Consider the scenario described in the challenge below.</p>
+<div id="discussion2" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#discussion2"></a>
+</h3>
+<div class="callout-content">
+<p>Suppose that you work for a hospital and are asked to build a model
+to predict which patients are high-risk and need extra care to prevent
+negative health outcomes.</p>
+<p>Discuss the following with a partner or small group: 1. What is the
+goal target variable? 2. What are challenges in measuring the target
+variable in the training data (i.e., former patients)? 3. Are there
+other variables that are easier to measure, but can approximate the
+target variable, that could serve as proxies? 3. How do social
+inequities interplay with the value of the target variable versus the
+value of the proxies?</p>
+</div>
+</div>
+</div>
+<p>The “challenge” scenario is not hypothetical: A well-known <a href="https://escholarship.org/content/qt6h92v832/qt6h92v832.pdf" class="external-link">study
+by Obermeyer et al.</a> analyzed an algorithm that hospitals used to
+assign patients risk scores for various conditions. The algorithm had
+access to various patient data, such as demographics (e.g., age and
+sex), the number of chronic conditions, insurance type, diagnoses, and
+medical costs. The algorithm did not have access to the patient’s race.
+The patient risk score determined the level of care the patient should
+receive, with higher-risk patients receiving additional care.</p>
+<p>Ideally, the target variable would be health needs, but this can be
+challenging to measure: how do you compare the severity of two different
+conditions? Do you count chronic and acute conditions equally? In the
+system described by Obermeyer et al., the hospital decided to use
+<strong>health-care costs</strong> as a proxy for health needs, perhaps
+reasoning that this data is at least standardized across patients and
+doctors.</p>
+<p>However, Obermeyer et al. reveal that the algorithm is biased against
+Black patients. That is, if there are two individuals – one white and
+one Black – with equal health, the algorithm tends to assign a higher
+risk score to the white patient, thus giving them access to higher care
+quality. The authors blame the choice of proxy variable for the racial
+disparities.</p>
+<p>The authors go on to describe how, due to how health-care access is
+structured in the US, richer patients have more healthcare expenses,
+even if they are equally (un)healthy to a lower-income patient. The
+richer patients are also more likely to be white.</p>
+<p>Consider the following: * How could the algorithm developers have
+caught this problem earlier? * Is this a technical mistake or a
+process-based mistake? Why?</p>
+</div>
+<div class="section level3">
+<h3 id="case-study-feedback-loop">Case study: Feedback loop<a class="anchor" aria-label="anchor" href="#case-study-feedback-loop"></a>
+</h3>
+<p>TODO</p>
+</div>
+</section><section><h2 class="section-heading" id="understanding-bias">Understanding bias<a class="anchor" aria-label="anchor" href="#understanding-bias"></a>
+<a class="anchor" aria-label="anchor" href="#understanding-bias"></a>
+</h2>
+<hr class="half-width">
+<p>The term “bias” is overloaded, and can have the following
+definitions:</p>
+<ul>
+<li>(Statistical) bias: the tendency of an algorithm to produce one
+solution over another, even though some alternatives may be just as
+good, or better. Statistical bias can have multiple sources, which we’ll
+get into below.</li>
+<li>(Social) bias: outcomes are unfair to one or more social groups.
+Social bias can be the result of statistical bias (i.e., an algorithm
+giving preferential treatment to one social group over others), but can
+also occur outside of a machine learning context.</li>
+</ul>
+<div class="section level3">
+<h3 id="sources-of-statistical-bias">Sources of statistical bias<a class="anchor" aria-label="anchor" href="#sources-of-statistical-bias"></a>
+</h3>
+<div class="section level4">
+<h4 id="algorithmic-bias">Algorithmic bias<a class="anchor" aria-label="anchor" href="#algorithmic-bias"></a>
+</h4>
+<p>Algorithmic bias is the tendency of an algorithm to favor one
+solution over another. Algorithmic bias is not always bad, and may
+sometimes be encoded for by algorithm developers. For instance, linear
+regression with L0-regularization displays algorithmic bias towards
+sparse classifiers (i.e., classifiers where most weights are 0). This
+bias may be desirable in settings where human interpretability is
+important.</p>
+<p>But algorithmic bias can also occur unintentionally: for instance, if
+there is data bias (described below), this may lead algorithm developers
+to select an algorithm that is ill-suited to underrepresented groups.
+Then, even if the data bias is rectified, sticking with the original
+algorithm choice may not fix biased outcomes.</p>
+</div>
+<div class="section level4">
+<h4 id="data-bias">Data bias:<a class="anchor" aria-label="anchor" href="#data-bias"></a>
+</h4>
+<p>Data bias is when the available training data is not accurate or
+representative of the target population. Data bias is extremely common
+(it’s often hard to collect perfectly-representative, and
+perfectly-accurate data), and care arise in multiple ways:</p>
+<ul>
+<li>Measurement error - if a tool is not well calibrated, measurements
+taken by that tool won’t be accurate. Likewise, human biases can lead to
+measurement error, for instance, if people systematically over-report
+their height on dating apps, or if doctors do not believe patient’s
+self-reports of their pain levels.</li>
+<li>Response bias - for instance, when conducting a survey about
+customer satisfaction, customers who had very positive or very negative
+experiences may be more likely to respond.</li>
+<li>Representation bias - the data is not well representative of the
+whole population. For instance, doing clinical trials primarily on white
+men means that women and other races are not well represented in
+data.</li>
+</ul>
+<p>Through the rest of this lesson, if we use the term “bias” without
+any additional context, we will be referring to social bias that stems
+from statistical bias.</p>
 <div id="case-study" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
@@ -619,87 +801,18 @@ effect of the model on downstream participants?</li>
 <h3 class="callout-title">Case Study<a class="anchor" aria-label="anchor" href="#case-study"></a>
 </h3>
 <div class="callout-content">
-<p>A well-known <a href="https://escholarship.org/content/qt6h92v832/qt6h92v832.pdf" class="external-link">study
-by Obermeyer et al.</a> analyzed an algorithm that hospitals used to
-assign patients risk scores for various conditions. The algorithm had
-access to various patient data, such as demographics (e.g., age and
-sex), the number of chronic conditions, insurance type, diagnoses, and
-medical costs. The algorithm did not have access to the patient’s race.
-The patient risk score determined the level of care the patient should
-receive, with higher-risk patients receiving additional care.</p>
-<p>Obermeyer et al. reveal that the algorithm is biased against Black
-patients. That is, if there are two individuals – one white and one
-Black – with equal health, the algorithm tends to assign a higher risk
-score to the white patient, thus giving them access to higher care
-quality. The target variable used to construct the algorithm is health
-care cost, and the authors blame this choice of target variable for the
-algorithm’s racial bias.</p>
-<p>Discuss the following with a partner or small group:</p>
-<ol style="list-style-type: decimal">
-<li>Why might using health care cost as a target variable lead to
-racially biased outcomes? (Hint: this algorithm was deployed in the
-United States.)</li>
-<li>What would be a more appropriate target variable to use
-instead?</li>
-<li>Why do you think the algorithm designers chose to use health care
-cost as the target variable?</li>
-<li>How could the algorithm’s racial bias have been caught before
-deploying it widely? E.g., what processes could the algorithm developers
-have implemented?</li>
-</ol>
-</div>
-</div>
-</div>
-<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
-  <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
-</button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
-<div class="accordion-body">
-<ol style="list-style-type: decimal">
-<li>Racial disparities in the US lead to Black Americans receiving less
-care than equally-sick white Americans.</li>
-<li>Data focusing on health, not the cost of care, may be more
-appropriate. For instance, the paper suggests using the number of
-chronic conditions (or number of chronic conditions that flare up in a
-given year) as an alternate label.</li>
-<li>The algorithm designers probably assumed that cost would be a good
-proxy for health. (Indeed, health needs and health cost <em>are</em>
-correlated.) Another factor may have been the quality of data – health
-care billing is standardized and will be present for all patient
-visits.</li>
-<li>There’s no single right answer – the algorithm developers could have
-experimented with using different target variables and compared the
-outcomes for different racial groups, or they could have engaged with
-non-technical experts who may be more attuned to the impacts of race
-disparities in the US health system.</li>
-</ol>
-</div>
-</div>
-</div>
-</div>
-</section><section><h2 class="section-heading" id="understanding-bias">Understanding bias<a class="anchor" aria-label="anchor" href="#understanding-bias"></a>
-<a class="anchor" aria-label="anchor" href="#understanding-bias"></a>
-</h2>
-<hr class="half-width">
-<div id="case-study-1" class="callout discussion">
-<div class="callout-square">
-<i class="callout-icon" data-feather="message-circle"></i>
-</div>
-<div id="case-study-1" class="callout-inner">
-<h3 class="callout-title">Case Study<a class="anchor" aria-label="anchor" href="#case-study-1"></a>
-</h3>
-<div class="callout-content">
 <p>With a partner or small group, choose one of the three case study
-options. Read individually, then discuss as a group how bias manifested
-in the training data, and what strategies could correct for it.</p>
+options. Read or watch individually, then discuss as a group how bias
+manifested in the training data, and what strategies could correct for
+it.</p>
 <p>After the discussion, share with the whole workshop what you
 discussed.</p>
 <ol style="list-style-type: decimal">
 <li><a href="https://www.technologyreview.com/2019/02/13/137444/predictive-policing-algorithms-ai-crime-dirty-data/" class="external-link">Predictive
 policing</a></li>
-<li>Computer vision</li>
+<li>
+<a href="http://gendershades.org/" class="external-link">Facial recognition</a> (video, 5
+min.)</li>
 <li><a href="https://www.aclu.org/news/womens-rights/why-amazons-automated-hiring-tool-discriminated-against" class="external-link">Amazon
 hiring tool</a></li>
 </ol>
@@ -732,6 +845,8 @@ be biased towards some solutions.</li>
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
+</div>
+</div>
 </section></section><section id="aio-2-model-fitting"><p>Content from <a href="2-model-fitting.html">Scientific validity in the modeling process</a></p>
 <hr>
 <p>Last updated on 2024-06-19 |
@@ -943,7 +1058,7 @@ and can have unpleasant side effects.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li><p>It is best if all patients who need the screening get it, and
@@ -1038,7 +1153,7 @@ same rate.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>A - 3, B - 2, C - 4, D - 1</p>
 </div>
@@ -1126,7 +1241,7 @@ uses of the LLM’s output.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <p>Most publicly-available LLM providers set up guardrails to avoid
 propagating biases present in their training data. For instance, as of
@@ -1180,7 +1295,7 @@ via social media</a>.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
 <p>While the picture is of Barack Obama, the upsampled image shows a
 white face. <img src="https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/e4-obama-upsampled.png" alt="Unblurred version of the pixelated picture of Obama. Instead of showing Obama, it shows a white man." class="figure"></p>
@@ -1287,7 +1402,7 @@ different settings?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution5" aria-expanded="false" aria-controls="collapseSolution5">
   <h4 class="accordion-header" id="headingSolution5"> Show me the solution </h4>
 </button>
-<div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
+<div id="collapseSolution5" class="accordion-collapse collapse" data-bs-parent="#accordionSolution5" aria-labelledby="headingSolution5">
 <div class="accordion-body">
 <p>A downside of oversampling is that it may violate statistical
 assumptions about independence of samples. A downside of undersampling
@@ -3563,7 +3678,7 @@ to your experiences or projects?</em></p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <ul>
 <li>
@@ -3620,7 +3735,7 @@ reproducing ML workflows?</em></p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <ul>
 <li>
@@ -3932,7 +4047,7 @@ to your experiences or projects?</em></p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <ul>
 <li>Environment setup</li>
@@ -3988,7 +4103,7 @@ decision-making involving humans)</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <p>TODO</p>
 </div>
@@ -4047,8 +4162,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/fair-explainable-ml/instructor/aio.html",
   "identifier": "https://carpentries-incubator.github.io/fair-explainable-ml/instructor/aio.html",
   "dateCreated": "2023-12-05",
-  "dateModified": "2024-07-16",
-  "datePublished": "2024-07-16"
+  "dateModified": "2024-07-17",
+  "datePublished": "2024-07-17"
 }
 
   </script><script>
