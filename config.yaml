@@ -66,6 +66,8 @@ episodes:
 - 5d-gradcam.md
 - 6-confidence-intervals.md
 - 7a-OOD-detection-output-based.md
+- 7b-OOD-detection-distance-based.md
+- 7c-OOD-detection-algo-design.md
 - 8-releasing-a-model.md
 
 # Information for Learners
