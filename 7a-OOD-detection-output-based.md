@@ -1,5 +1,5 @@
 ---
-title: "Distribution Shift and Out-of-Distribution (OOD) Detection: Output-Based Methods"
+title: "OOD Detection: Overview, Output-Based Methods"
 teaching: 0
 exercises: 0
 ---
