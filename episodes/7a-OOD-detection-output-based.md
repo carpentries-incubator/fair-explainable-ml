@@ -66,7 +66,7 @@ Threshold-based methods are one of the simplest and most intuitive approaches fo
 
 ### Distance-based
 - Distance: This method calculates the distance of an instance from the distribution of training data features. If the distance is beyond a certain threshold, the instance is considered OOD.
-
+  
 # Example 1: Softmax scores
 ```python
 n_epochs = 10
