@@ -376,7 +376,31 @@
 <div class="accordion accordion-flush" id="accordionFlush13">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading13">
-        <a href="8-releasing-a-model.html">12. Documenting and releasing a model</a>
+        <a href="7b-OOD-detection-distance-based.html">12. OOD Detection: Distance-Based and Contrastive Learning</a>
+    </div>
+<!--/div.accordion-header-->
+
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush14">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading14">
+        <a href="7c-OOD-detection-algo-design.html">13. OOD Detection: Training-Time Regularization</a>
+    </div>
+<!--/div.accordion-header-->
+
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush15">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading15">
+        <a href="8-releasing-a-model.html">14. Documenting and releasing a model</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -571,7 +595,7 @@ Guiding Principles for Ethical Research</a>.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>A summary of the principles is listed below:</p>
 <ul>
@@ -2554,7 +2578,7 @@ making informed decisions.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>
@@ -2704,7 +2728,7 @@ in making informed decisions quickly.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>
@@ -4937,6 +4961,1006 @@ separable</p></li>
 </h3>
 <pre class="sourceCode python" tabindex="0"><code class="sourceCode python"></code></pre>
 </div>
+<!--
+Place links that you need to refer to multiple times across pages here. Delete
+any links that you are not going to use.
+ -->
+</div></section><section id="aio-7b-OOD-detection-distance-based"><p>Content from <a href="7b-OOD-detection-distance-based.html">OOD Detection: Distance-Based and Contrastive Learning</a></p>
+<hr>
+<p>Last updated on 2024-07-31 |
+
+        <a href="https://github.com/carpentries-incubator/fair-explainable-ml/edit/main/episodes/7b-OOD-detection-distance-based.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+<p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 0 minutes</p>
+<div class="text-end">
+          <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
+        </div>
+<div class="overview card">
+<h2 class="card-header">Overview</h2>
+<div class="row g-0">
+<div class="col-md-4">
+<div class="card-body">
+<div class="inner">
+<h3 class="card-title">Questions</h3>
+<ul>
+<li>How do distance-based methods like Mahalanobis distance and KNN work
+for OOD detection?</li>
+<li>What is contrastive learning and how does it improve feature
+representations?</li>
+<li>How does contrastive learning enhance the effectiveness of
+distance-based OOD detection methods?</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="col-md-8">
+<div class="card-body">
+<div class="inner bordered">
+<h3 class="card-title">Objectives</h3>
+<ul>
+<li>Gain a thorough understanding of distance-based OOD detection
+methods, including Mahalanobis distance and KNN.</li>
+<li>Learn the principles of contrastive learning and its role in
+improving feature representations.</li>
+<li>Explore the synergy between contrastive learning and distance-based
+OOD detection methods to enhance detection performance.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section level1">
+<h1 id="example-3-distance-based-methods">Example 3: Distance-Based Methods<a class="anchor" aria-label="anchor" href="#example-3-distance-based-methods"></a>
+</h1>
+<p><em>Lee et al., A simple unified framework for detecting
+out-of-distribution samples and adversarial attacks. NeurIPS
+2018.</em></p>
+<p>With softmax and energy-based methods, we focus on the models outputs
+to determine a threshold that defines ID and OOD data. With
+distance-based methods, we focus on the feature representations learned
+by the model.</p>
+<p>In the case of neural networks, a common approach is to use the
+penultimate layer as a feature representation that can define an ID
+clusters for each class. You can then use distance to the closesent
+centroid as a proxy for OOD measure.</p>
+<div class="section level2">
+<h2 id="mahalanobis-distance-parametric">Mahalanobis distance (parametric)<a class="anchor" aria-label="anchor" href="#mahalanobis-distance-parametric"></a>
+</h2>
+<p>Model the feature space as a mixture of multivariate Gaussian
+distribution, one for each class. use distance to the closest centroid
+as proxy for OOD measure</p>
+<div class="section level3">
+<h3 id="limiations-of-parametric-approach">Limiations of parametric approach<a class="anchor" aria-label="anchor" href="#limiations-of-parametric-approach"></a>
+</h3>
+<ul>
+<li>Strong distributional assumption (features may not necessarily be
+Gassian-distributed)</li>
+<li>Suboptimal embedding</li>
+</ul>
+</div>
+</div>
+<div class="section level2">
+<h2 id="nearest-neighbor-distance-non-parametric">Nearest Neighbor Distance (non-parametric)<a class="anchor" aria-label="anchor" href="#nearest-neighbor-distance-non-parametric"></a>
+</h2>
+<p><em>Sun et al., Out-of-distribution Detection with Deep Nearest
+Neighbors, ICML 2022</em></p>
+<ul>
+<li>Sample considered OOD if it has a large KNN distrance w.r.t.
+training data (and vice versa)</li>
+<li>No distributional assumptions about underlying embedding space.
+Stronger generality and flexibility than mahalanobis distancew</li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="cider">CIDER<a class="anchor" aria-label="anchor" href="#cider"></a>
+</h2>
+<p>This one might be out of scope…</p>
+<p>Ming et al., How to Exploit Hyperspherical Embeddings for
+Out-of-Distribution Detection # Contrastive Learning</p>
+<ul>
+<li>Explain the basic idea of contrastive learning: learning
+representations by contrasting positive and negative pairs.</li>
+<li>Highlight the role of contrastive learning in learning
+discriminative features that can separate in-distribution (ID) from OOD
+data more effectively.</li>
+<li>Illustrate how contrastive learning improves the feature space,
+making distance-based methods (like Mahalanobis and KNN) more
+effective.</li>
+<li>Provide examples or case studies where contrastive learning has been
+applied to enhance OOD detection. # Example X: Comparing feature
+representations with and without contrastive learning</li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="returning-to-umap">Returning to UMAP<a class="anchor" aria-label="anchor" href="#returning-to-umap"></a>
+</h2>
+<p>Notice how in our UMAP visualization, we say three distinct clusters
+representing each class. However, our model still confidently rated many
+sandals as being tshirts. The crux of this issue is that models do not
+know what they don’t know. They simply draw classifcation boundaries
+between the classes available to them during training.</p>
+<p>One way to get around this problem is to train models to learn
+discriminative features…</p>
+</div>
+<div class="section level2">
+<h2 id="contrastive-learning">Contrastive learning<a class="anchor" aria-label="anchor" href="#contrastive-learning"></a>
+</h2>
+<p>In this experiment, we use both a traditional neural network and a
+contrastive learning model to classify images from the Fashion MNIST
+dataset, focusing on T-shirts (class 0) and Trousers (class 1).
+Additionally, we evaluate the models on out-of-distribution (OOD) data,
+specifically Sandals (class 5). To visualize the models’ learned
+features, we extract features from specific layers of the neural
+networks and reduce their dimensionality using UMAP.</p>
+</div>
+<div class="section level2">
+<h2 id="overview-of-steps">Overview of steps<a class="anchor" aria-label="anchor" href="#overview-of-steps"></a>
+</h2>
+<div class="section level4">
+<h4 id="train-model">1) Train model<a class="anchor" aria-label="anchor" href="#train-model"></a>
+</h4>
+<ul>
+<li>With or without contrastive learning</li>
+<li>Focusing on T-shirts (class 0) and Trousers (class 1)</li>
+<li>Additionally, we evaluate the models on out-of-distribution (OOD)
+data, specifically Sandals (class 5)</li>
+</ul>
+</div>
+<div class="section level4">
+<h4 id="feature-extraction">2) Feature Extraction:<a class="anchor" aria-label="anchor" href="#feature-extraction"></a>
+</h4>
+<ul>
+<li>After training, we set the models to evaluation mode to prevent
+updates to the model parameters.</li>
+<li>For each subset of the data (training, validation, and OOD), we pass
+the images through the entire network up to the first fully connected
+layer.</li>
+<li>The output of this layer, which captures high-level features and
+abstractions, is then used as a 1D feature vector.</li>
+<li>These feature vectors are detached from the computational graph and
+converted to NumPy arrays for further processing.</li>
+</ul>
+</div>
+<div class="section level4">
+<h4 id="dimensionality-reduction-and-visualization">3) Dimensionality Reduction and Visualization:<a class="anchor" aria-label="anchor" href="#dimensionality-reduction-and-visualization"></a>
+</h4>
+<ul>
+<li>We combine the feature vectors from the training, validation, and
+OOD data into a single dataset.</li>
+<li>UMAP (Uniform Manifold Approximation and Projection) is used to
+reduce the dimensionality of the feature vectors from the
+high-dimensional space to 2D, making it possible to visualize the
+relationships between different data points.</li>
+<li>The reduced features are then plotted, with different colors
+representing the training data (T-shirts and Trousers), validation data
+(T-shirts and Trousers), and OOD data (Sandals).</li>
+</ul>
+<p>By visualizing the features generated from different subsets of the
+data, we can observe how well the models have learned to distinguish
+between in-distribution classes (T-shirts and Trousers) and handle OOD
+data (Sandals). This approach allows us to evaluate the robustness and
+generalization capabilities of the models in dealing with data that may
+not have been seen during training. ## Standard neural network w/out
+contrastive learning</p>
+</div>
+<div class="section level3">
+<h3 id="train-model-1">1) Train model<a class="anchor" aria-label="anchor" href="#train-model-1"></a>
+</h3>
+<p>We’ll first train our vanilla CNN w/out contrastive learning.</p>
+<ul>
+<li>Focusing on T-shirts (class 0) and Trousers (class 1)</li>
+<li>Additionally, we evaluate the models on out-of-distribution (OOD)
+data, specifically Sandals (class 5)</li>
+</ul>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="im">import</span> torch.optim <span class="im">as</span> optim</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="im">from</span> torchvision <span class="im">import</span> datasets, transforms</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="im">from</span> torch.utils.data <span class="im">import</span> DataLoader, Subset, Dataset</span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="co"># Check if GPU is available and set device</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>device <span class="op">=</span> torch.device(<span class="st">"cuda"</span> <span class="cf">if</span> torch.cuda.is_available() <span class="cf">else</span> <span class="st">"cpu"</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Using device: </span><span class="sc">{</span>device<span class="sc">}</span><span class="ss">'</span>)</span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># Define a simple CNN model for classification</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="kw">class</span> ClassificationModel(nn.Module):</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>        <span class="bu">super</span>(ClassificationModel, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>        <span class="va">self</span>.conv1 <span class="op">=</span> nn.Conv2d(<span class="dv">1</span>, <span class="dv">32</span>, kernel_size<span class="op">=</span><span class="dv">3</span>, stride<span class="op">=</span><span class="dv">1</span>, padding<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>        <span class="va">self</span>.relu <span class="op">=</span> nn.ReLU()</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>        <span class="va">self</span>.flatten <span class="op">=</span> nn.Flatten()</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>        <span class="va">self</span>.fc1 <span class="op">=</span> nn.Linear(<span class="dv">32</span> <span class="op">*</span> <span class="dv">28</span> <span class="op">*</span> <span class="dv">28</span>, <span class="dv">128</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>        <span class="va">self</span>.fc2 <span class="op">=</span> nn.Linear(<span class="dv">128</span>, <span class="dv">2</span>)  <span class="co"># 2 classes for T-shirts and Trousers</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, x):</span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>        x <span class="op">=</span> <span class="va">self</span>.conv1(x)</span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>        x <span class="op">=</span> <span class="va">self</span>.relu(x)</span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>        x <span class="op">=</span> <span class="va">self</span>.flatten(x)</span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>        x <span class="op">=</span> <span class="va">self</span>.fc1(x)</span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>        x <span class="op">=</span> <span class="va">self</span>.relu(x)</span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>        x <span class="op">=</span> <span class="va">self</span>.fc2(x)</span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>        <span class="cf">return</span> x</span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a><span class="co"># Load Fashion MNIST dataset and filter for T-shirts and Trousers</span></span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>transform <span class="op">=</span> transforms.Compose([transforms.ToTensor()])</span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>train_dataset <span class="op">=</span> datasets.FashionMNIST(root<span class="op">=</span><span class="st">'./data'</span>, train<span class="op">=</span><span class="va">True</span>, download<span class="op">=</span><span class="va">True</span>, transform<span class="op">=</span>transform)</span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a>test_dataset <span class="op">=</span> datasets.FashionMNIST(root<span class="op">=</span><span class="st">'./data'</span>, train<span class="op">=</span><span class="va">False</span>, download<span class="op">=</span><span class="va">True</span>, transform<span class="op">=</span>transform)</span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a></span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a>train_indices <span class="op">=</span> np.where((train_dataset.targets <span class="op">==</span> <span class="dv">0</span>) <span class="op">|</span> (train_dataset.targets <span class="op">==</span> <span class="dv">1</span>))[<span class="dv">0</span>]</span>
+<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a>val_indices <span class="op">=</span> np.where((test_dataset.targets <span class="op">==</span> <span class="dv">0</span>) <span class="op">|</span> (test_dataset.targets <span class="op">==</span> <span class="dv">1</span>))[<span class="dv">0</span>]</span>
+<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a>ood_indices <span class="op">=</span> np.where(test_dataset.targets <span class="op">==</span> <span class="dv">5</span>)[<span class="dv">0</span>]</span>
+<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a></span>
+<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a><span class="co"># Use a subset of the data for quicker training</span></span>
+<span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a>train_subset <span class="op">=</span> Subset(train_dataset, np.random.choice(train_indices, size<span class="op">=</span><span class="dv">5000</span>, replace<span class="op">=</span><span class="va">False</span>))</span>
+<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a>val_subset <span class="op">=</span> Subset(test_dataset, np.random.choice(val_indices, size<span class="op">=</span><span class="dv">1000</span>, replace<span class="op">=</span><span class="va">False</span>))</span>
+<span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a>ood_subset <span class="op">=</span> Subset(test_dataset, np.random.choice(ood_indices, size<span class="op">=</span><span class="dv">1000</span>, replace<span class="op">=</span><span class="va">False</span>))</span>
+<span id="cb2-33"><a href="#cb2-33" tabindex="-1"></a></span>
+<span id="cb2-34"><a href="#cb2-34" tabindex="-1"></a>train_loader <span class="op">=</span> DataLoader(train_subset, batch_size<span class="op">=</span><span class="dv">256</span>, shuffle<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb2-35"><a href="#cb2-35" tabindex="-1"></a>val_loader <span class="op">=</span> DataLoader(val_subset, batch_size<span class="op">=</span><span class="dv">256</span>, shuffle<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb2-36"><a href="#cb2-36" tabindex="-1"></a>ood_loader <span class="op">=</span> DataLoader(ood_subset, batch_size<span class="op">=</span><span class="dv">256</span>, shuffle<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb2-37"><a href="#cb2-37" tabindex="-1"></a></span>
+<span id="cb2-38"><a href="#cb2-38" tabindex="-1"></a><span class="co"># Initialize the model and move it to the device</span></span>
+<span id="cb2-39"><a href="#cb2-39" tabindex="-1"></a>classification_model <span class="op">=</span> ClassificationModel().to(device)</span>
+<span id="cb2-40"><a href="#cb2-40" tabindex="-1"></a></span>
+<span id="cb2-41"><a href="#cb2-41" tabindex="-1"></a><span class="co"># Loss function and optimizer</span></span>
+<span id="cb2-42"><a href="#cb2-42" tabindex="-1"></a>criterion <span class="op">=</span> nn.CrossEntropyLoss()</span>
+<span id="cb2-43"><a href="#cb2-43" tabindex="-1"></a>optimizer <span class="op">=</span> optim.Adam(classification_model.parameters(), lr<span class="op">=</span><span class="fl">0.001</span>)</span>
+<span id="cb2-44"><a href="#cb2-44" tabindex="-1"></a></span>
+<span id="cb2-45"><a href="#cb2-45" tabindex="-1"></a><span class="co"># Training loop for standard neural network</span></span>
+<span id="cb2-46"><a href="#cb2-46" tabindex="-1"></a>train_losses <span class="op">=</span> []</span>
+<span id="cb2-47"><a href="#cb2-47" tabindex="-1"></a>val_losses <span class="op">=</span> []</span>
+<span id="cb2-48"><a href="#cb2-48" tabindex="-1"></a></span>
+<span id="cb2-49"><a href="#cb2-49" tabindex="-1"></a><span class="cf">for</span> epoch <span class="kw">in</span> <span class="bu">range</span>(n_epochs):</span>
+<span id="cb2-50"><a href="#cb2-50" tabindex="-1"></a>    total_train_loss <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb2-51"><a href="#cb2-51" tabindex="-1"></a>    classification_model.train()</span>
+<span id="cb2-52"><a href="#cb2-52" tabindex="-1"></a>    <span class="cf">for</span> batch_images, batch_labels <span class="kw">in</span> train_loader:</span>
+<span id="cb2-53"><a href="#cb2-53" tabindex="-1"></a>        batch_images, batch_labels <span class="op">=</span> batch_images.to(device), batch_labels.to(device)</span>
+<span id="cb2-54"><a href="#cb2-54" tabindex="-1"></a></span>
+<span id="cb2-55"><a href="#cb2-55" tabindex="-1"></a>        optimizer.zero_grad()</span>
+<span id="cb2-56"><a href="#cb2-56" tabindex="-1"></a>        outputs <span class="op">=</span> classification_model(batch_images)</span>
+<span id="cb2-57"><a href="#cb2-57" tabindex="-1"></a>        loss <span class="op">=</span> criterion(outputs, batch_labels)</span>
+<span id="cb2-58"><a href="#cb2-58" tabindex="-1"></a></span>
+<span id="cb2-59"><a href="#cb2-59" tabindex="-1"></a>        loss.backward()</span>
+<span id="cb2-60"><a href="#cb2-60" tabindex="-1"></a>        optimizer.step()</span>
+<span id="cb2-61"><a href="#cb2-61" tabindex="-1"></a></span>
+<span id="cb2-62"><a href="#cb2-62" tabindex="-1"></a>        total_train_loss <span class="op">+=</span> loss.item()</span>
+<span id="cb2-63"><a href="#cb2-63" tabindex="-1"></a></span>
+<span id="cb2-64"><a href="#cb2-64" tabindex="-1"></a>    total_val_loss <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb2-65"><a href="#cb2-65" tabindex="-1"></a>    classification_model.<span class="bu">eval</span>()</span>
+<span id="cb2-66"><a href="#cb2-66" tabindex="-1"></a>    <span class="cf">with</span> torch.no_grad():</span>
+<span id="cb2-67"><a href="#cb2-67" tabindex="-1"></a>        <span class="cf">for</span> batch_images, batch_labels <span class="kw">in</span> val_loader:</span>
+<span id="cb2-68"><a href="#cb2-68" tabindex="-1"></a>            batch_images, batch_labels <span class="op">=</span> batch_images.to(device), batch_labels.to(device)</span>
+<span id="cb2-69"><a href="#cb2-69" tabindex="-1"></a>            outputs <span class="op">=</span> classification_model(batch_images)</span>
+<span id="cb2-70"><a href="#cb2-70" tabindex="-1"></a>            loss <span class="op">=</span> criterion(outputs, batch_labels)</span>
+<span id="cb2-71"><a href="#cb2-71" tabindex="-1"></a>            total_val_loss <span class="op">+=</span> loss.item()</span>
+<span id="cb2-72"><a href="#cb2-72" tabindex="-1"></a></span>
+<span id="cb2-73"><a href="#cb2-73" tabindex="-1"></a>    avg_train_loss <span class="op">=</span> total_train_loss <span class="op">/</span> <span class="bu">len</span>(train_loader)</span>
+<span id="cb2-74"><a href="#cb2-74" tabindex="-1"></a>    avg_val_loss <span class="op">=</span> total_val_loss <span class="op">/</span> <span class="bu">len</span>(val_loader)</span>
+<span id="cb2-75"><a href="#cb2-75" tabindex="-1"></a>    train_losses.append(avg_train_loss)</span>
+<span id="cb2-76"><a href="#cb2-76" tabindex="-1"></a>    val_losses.append(avg_val_loss)</span>
+<span id="cb2-77"><a href="#cb2-77" tabindex="-1"></a></span>
+<span id="cb2-78"><a href="#cb2-78" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'Epoch </span><span class="sc">{</span>epoch <span class="op">+</span> <span class="dv">1</span><span class="sc">}</span><span class="ss">, Train Loss: </span><span class="sc">{</span>avg_train_loss<span class="sc">:.4f}</span><span class="ss">, Val Loss: </span><span class="sc">{</span>avg_val_loss<span class="sc">:.4f}</span><span class="ss">'</span>)</span>
+<span id="cb2-79"><a href="#cb2-79" tabindex="-1"></a></span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Plot training and validation loss</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>plt.plot(<span class="bu">range</span>(<span class="dv">1</span>, n_epochs <span class="op">+</span> <span class="dv">1</span>), train_losses, label<span class="op">=</span><span class="st">'Train Loss'</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>plt.plot(<span class="bu">range</span>(<span class="dv">1</span>, n_epochs <span class="op">+</span> <span class="dv">1</span>), val_losses, label<span class="op">=</span><span class="st">'Validation Loss'</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>plt.xlabel(<span class="st">'Epoch'</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>plt.ylabel(<span class="st">'Loss'</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>plt.title(<span class="st">'Training and Validation Loss - Classification Model'</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>plt.legend()</span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>plt.show()</span></code></pre>
+</div>
+</div>
+<div class="section level3">
+<h3 id="extracting-learned-features">2) Extracting learned features<a class="anchor" aria-label="anchor" href="#extracting-learned-features"></a>
+</h3>
+<ul>
+<li>After training, we set the models to evaluation mode to prevent
+updates to the model parameters.</li>
+<li>For each subset of the data (training, validation, and OOD), we pass
+the images through the entire network up to the first fully connected
+layer.</li>
+<li>The output of this layer, which captures high-level features and
+abstractions, is then used as a 1D feature vector.</li>
+<li>These feature vectors are detached from the computational graph and
+converted to NumPy arrays for further processing.</li>
+</ul>
+<div class="section level4">
+<h4 id="why-later-layer-features-are-better">Why later layer features are better<a class="anchor" aria-label="anchor" href="#why-later-layer-features-are-better"></a>
+</h4>
+<p>In both the traditional neural network and the contrastive learning
+model, we will extract features from the first fully connected layer
+(fc1) before the final classification layer. Here’s why this layer is
+particularly suitable for feature extraction:</p>
+<ul>
+<li><p><strong>Hierarchical feature representation</strong>: In neural
+networks, the initial layers typically capture low-level features such
+as edges, textures, and simple shapes (e.g., with CNNs). As you move
+deeper into the network, the layers capture higher-level, more abstract
+features that are more relevant for the final classification task. These
+high-level features are combinations of the low-level features and are
+typically more discriminative.</p></li>
+<li><p><strong>Better separation of classes</strong>: Features from
+later layers have been transformed through several layers of non-linear
+activations and pooling operations, making them more suitable for
+distinguishing between classes. These features are usually more compact
+and have a better separation in the feature space, which helps in
+visualization and understanding the model’s decision-making
+process.</p></li>
+</ul>
+<div class="codewrapper sourceCode" id="cb4">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># Extract features using the trained classification model</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>classification_model.<span class="bu">eval</span>()</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>train_features <span class="op">=</span> []</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>train_labels_list <span class="op">=</span> []</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="cf">for</span> batch_images, batch_labels <span class="kw">in</span> train_loader:</span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>    batch_images <span class="op">=</span> batch_images.to(device)</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>    features <span class="op">=</span> classification_model.fc1(classification_model.flatten(classification_model.conv1(batch_images)))</span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>    train_features.append(features.detach().cpu().numpy())</span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>    train_labels_list.append(batch_labels.numpy())</span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a>val_features <span class="op">=</span> []</span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a>val_labels_list <span class="op">=</span> []</span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="cf">for</span> batch_images, batch_labels <span class="kw">in</span> val_loader:</span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a>    batch_images <span class="op">=</span> batch_images.to(device)</span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a>    features <span class="op">=</span> classification_model.fc1(classification_model.flatten(classification_model.conv1(batch_images)))</span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a>    val_features.append(features.detach().cpu().numpy())</span>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a>    val_labels_list.append(batch_labels.numpy())</span>
+<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a>ood_features <span class="op">=</span> []</span>
+<span id="cb4-20"><a href="#cb4-20" tabindex="-1"></a>ood_labels_list <span class="op">=</span> []</span>
+<span id="cb4-21"><a href="#cb4-21" tabindex="-1"></a><span class="cf">for</span> batch_images, batch_labels <span class="kw">in</span> ood_loader:</span>
+<span id="cb4-22"><a href="#cb4-22" tabindex="-1"></a>    batch_images <span class="op">=</span> batch_images.to(device)</span>
+<span id="cb4-23"><a href="#cb4-23" tabindex="-1"></a>    features <span class="op">=</span> classification_model.fc1(classification_model.flatten(classification_model.conv1(batch_images)))</span>
+<span id="cb4-24"><a href="#cb4-24" tabindex="-1"></a>    ood_features.append(features.detach().cpu().numpy())</span>
+<span id="cb4-25"><a href="#cb4-25" tabindex="-1"></a>    ood_labels_list.append(batch_labels.numpy())</span></code></pre>
+</div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="dimensionality-reduction-and-visualization-1">3) Dimensionality Reduction and Visualization:<a class="anchor" aria-label="anchor" href="#dimensionality-reduction-and-visualization-1"></a>
+</h3>
+<ul>
+<li>We combine the feature vectors from the training, validation, and
+OOD data into a single dataset.</li>
+<li>UMAP (Uniform Manifold Approximation and Projection) is used to
+reduce the dimensionality of the feature vectors from the
+high-dimensional space to 2D, making it possible to visualize the
+relationships between different data points.</li>
+<li>The reduced features are then plotted, with different colors
+representing the training data (T-shirts and Trousers), validation data
+(T-shirts and Trousers), and OOD data (Sandals).</li>
+</ul>
+<div class="codewrapper sourceCode" id="cb5">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>train_features <span class="op">=</span> np.concatenate(train_features)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>train_labels <span class="op">=</span> np.concatenate(train_labels_list)</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>val_features <span class="op">=</span> np.concatenate(val_features)</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>val_labels <span class="op">=</span> np.concatenate(val_labels_list)</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>ood_features <span class="op">=</span> np.concatenate(ood_features)</span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>ood_labels <span class="op">=</span> np.concatenate(ood_labels_list)</span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="co"># Perform UMAP to visualize the classification model features</span></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>combined_features <span class="op">=</span> np.vstack([train_features, val_features, ood_features])</span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>combined_labels <span class="op">=</span> np.hstack([train_labels, val_labels, np.full(<span class="bu">len</span>(ood_labels), <span class="dv">2</span>)])  <span class="co"># Use 2 for OOD class</span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a>umap_reducer <span class="op">=</span> umap.UMAP(n_components<span class="op">=</span><span class="dv">2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a>umap_results <span class="op">=</span> umap_reducer.fit_transform(combined_features)</span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="co"># Split the results back into train, val, and OOD data</span></span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a>umap_train_features <span class="op">=</span> umap_results[:<span class="bu">len</span>(train_features)]</span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a>umap_val_features <span class="op">=</span> umap_results[<span class="bu">len</span>(train_features):<span class="bu">len</span>(train_features) <span class="op">+</span> <span class="bu">len</span>(val_features)]</span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a>umap_ood_features <span class="op">=</span> umap_results[<span class="bu">len</span>(train_features) <span class="op">+</span> <span class="bu">len</span>(val_features):]</span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="co"># Plotting UMAP components for classification model</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">.2</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="co"># Plot train T-shirts</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>scatter1 <span class="op">=</span> plt.scatter(umap_train_features[train_labels <span class="op">==</span> <span class="dv">0</span>, <span class="dv">0</span>], umap_train_features[train_labels <span class="op">==</span> <span class="dv">0</span>, <span class="dv">1</span>], c<span class="op">=</span><span class="st">'blue'</span>, alpha<span class="op">=</span>alpha, label<span class="op">=</span><span class="st">'Train T-shirts (ID)'</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="co"># Plot train Trousers</span></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>scatter2 <span class="op">=</span> plt.scatter(umap_train_features[train_labels <span class="op">==</span> <span class="dv">1</span>, <span class="dv">0</span>], umap_train_features[train_labels <span class="op">==</span> <span class="dv">1</span>, <span class="dv">1</span>], c<span class="op">=</span><span class="st">'red'</span>, alpha<span class="op">=</span>alpha, label<span class="op">=</span><span class="st">'Train Trousers (ID)'</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="co"># Plot val T-shirts</span></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>scatter3 <span class="op">=</span> plt.scatter(umap_val_features[val_labels <span class="op">==</span> <span class="dv">0</span>, <span class="dv">0</span>], umap_val_features[val_labels <span class="op">==</span> <span class="dv">0</span>, <span class="dv">1</span>], c<span class="op">=</span><span class="st">'blue'</span>, alpha<span class="op">=</span>alpha, marker<span class="op">=</span><span class="st">'x'</span>, label<span class="op">=</span><span class="st">'Val T-shirts (ID)'</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="co"># Plot val Trousers</span></span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a>scatter4 <span class="op">=</span> plt.scatter(umap_val_features[val_labels <span class="op">==</span> <span class="dv">1</span>, <span class="dv">0</span>], umap_val_features[val_labels <span class="op">==</span> <span class="dv">1</span>, <span class="dv">1</span>], c<span class="op">=</span><span class="st">'red'</span>, alpha<span class="op">=</span>alpha, marker<span class="op">=</span><span class="st">'x'</span>, label<span class="op">=</span><span class="st">'Val Trousers (ID)'</span>)</span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a><span class="co"># Plot OOD Sandals</span></span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a>scatter5 <span class="op">=</span> plt.scatter(umap_ood_features[:, <span class="dv">0</span>], umap_ood_features[:, <span class="dv">1</span>], c<span class="op">=</span><span class="st">'green'</span>, alpha<span class="op">=</span>alpha, marker<span class="op">=</span><span class="st">'o'</span>, label<span class="op">=</span><span class="st">'OOD Sandals'</span>)</span>
+<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a>plt.legend(handles<span class="op">=</span>[scatter1, scatter2, scatter3, scatter4, scatter5])</span>
+<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a>plt.xlabel(<span class="st">'First UMAP Component'</span>)</span>
+<span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a>plt.ylabel(<span class="st">'Second UMAP Component'</span>)</span>
+<span id="cb6-17"><a href="#cb6-17" tabindex="-1"></a>plt.title(<span class="st">'UMAP of Classification Model Features'</span>)</span>
+<span id="cb6-18"><a href="#cb6-18" tabindex="-1"></a>plt.show()</span></code></pre>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="neural-network-trained-with-contrastive-learning">Neural network trained with contrastive learning<a class="anchor" aria-label="anchor" href="#neural-network-trained-with-contrastive-learning"></a>
+</h2>
+<div class="section level3">
+<h3 id="what-is-contrastive-learning">What is Contrastive Learning?<a class="anchor" aria-label="anchor" href="#what-is-contrastive-learning"></a>
+</h3>
+<p>Contrastive learning is a technique where the model learns to
+distinguish between similar and dissimilar pairs of data. This can be
+achieved through different types of learning: supervised, unsupervised,
+and self-supervised.</p>
+<ul>
+<li><p>Supervised Contrastive Learning: Uses labeled data to create
+pairs or groups of similar and dissimilar data points based on their
+labels.</p></li>
+<li><p>Unsupervised Contrastive Learning: Does not use any labels.
+Instead, it relies on inherent patterns in the data to create pairs. For
+example, random pairs of data points might be assumed to be dissimilar,
+while augmented versions of the same data point might be assumed to be
+similar.</p></li>
+<li><p>Self-Supervised Contrastive Learning: A form of unsupervised
+learning where the model generates its own supervisory signal from the
+data. This typically involves data augmentation techniques where
+positive pairs are created by augmenting the same image (e.g., cropping,
+rotating), and negative pairs are formed from different images.</p></li>
+</ul>
+<p>In contrastive learning, the model learns to bring similar pairs
+closer in the embedding space while pushing dissimilar pairs further
+apart. This approach is particularly useful for tasks like image
+retrieval, clustering, and representation learning.</p>
+<p>Certainly! Let’s expand on how we are treating the T-shirt, Trouser,
+and Sandals classes in the context of our supervised contrastive
+learning framework.</p>
+</div>
+<div class="section level3">
+<h3 id="key-concepts-in-our-code">Key Concepts in Our Code<a class="anchor" aria-label="anchor" href="#key-concepts-in-our-code"></a>
+</h3>
+</div>
+<div class="section level3">
+<h3 id="data-preparation">Data Preparation<a class="anchor" aria-label="anchor" href="#data-preparation"></a>
+</h3>
+<ul>
+<li>
+<strong>Dataset</strong>: We use the Fashion MNIST dataset, which
+contains images of various clothing items, each labeled with a specific
+class.</li>
+<li>
+<strong>Class Filtering</strong>: For this exercise, we are focusing
+on three classes from the Fashion MNIST dataset:
+<ul>
+<li>
+<strong>T-shirts</strong> (class label 0)</li>
+<li>
+<strong>Trousers</strong> (class label 1)</li>
+<li>
+<strong>Sandals</strong> (class label 5)</li>
+</ul>
+</li>
+<li>
+<strong>In-Distribution (ID) Data</strong>: We treat T-shirts and
+Trousers as our primary classes for training. These are considered
+“in-distribution” data.</li>
+<li>
+<strong>Out-of-Distribution (OOD) Data</strong>: Sandals are treated
+as a different class for testing the robustness of our learned
+embeddings, making them “out-of-distribution” data.</li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="pairs-creation">Pairs Creation<a class="anchor" aria-label="anchor" href="#pairs-creation"></a>
+</h3>
+<p>For each image in our training set: - <strong>Positive Pair</strong>:
+We find another image of the same class (either T-shirt or Trouser).
+These pairs are labeled as similar. - <strong>Negative Pair</strong>: We
+randomly choose an image from a different class (T-shirt paired with
+Trouser or vice versa). These pairs are labeled as dissimilar.</p>
+<p>By creating these pairs, the model learns to produce embeddings where
+similar images (same class) are close together, and dissimilar images
+(different classes) are farther apart.</p>
+</div>
+<div class="section level3">
+<h3 id="model-architecture">Model Architecture<a class="anchor" aria-label="anchor" href="#model-architecture"></a>
+</h3>
+<p>The model is a simple Convolutional Neural Network (CNN) designed to
+output embeddings. It consists of: - Two convolutional layers to extract
+features from the images. - Fully connected layers to map these features
+to a 50-dimensional embedding space.</p>
+</div>
+<div class="section level3">
+<h3 id="training-process">Training Process<a class="anchor" aria-label="anchor" href="#training-process"></a>
+</h3>
+<ul>
+<li>
+<strong>Forward Pass</strong>: The model processes pairs of images
+and outputs their embeddings.</li>
+<li>
+<strong>Contrastive Loss</strong>: We use a contrastive loss
+function to train the model. This loss encourages embeddings of similar
+pairs to be close and embeddings of dissimilar pairs to be far apart.
+Specifically, we:
+<ul>
+<li>Normalize the embeddings.</li>
+<li>Calculate similarity scores.</li>
+<li>Compute the contrastive loss, which penalizes similar pairs if they
+are not close enough and dissimilar pairs if they are too close.</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="differences-from-standard-neural-network-training">Differences from Standard Neural Network Training<a class="anchor" aria-label="anchor" href="#differences-from-standard-neural-network-training"></a>
+</h3>
+<ul>
+<li>
+<strong>Data Pairing</strong>: In contrastive learning, we create
+pairs of data points. Standard neural network training typically
+involves individual data points with corresponding labels.</li>
+<li>
+<strong>Loss Function</strong>: We use a contrastive loss function
+instead of the typical cross-entropy loss used in classification tasks.
+The contrastive loss is designed to optimize the relative distances
+between pairs of embeddings.</li>
+<li>
+<strong>Supervised Learning</strong>: Our approach uses labeled data
+to form similar and dissimilar pairs, making it supervised contrastive
+learning. This contrasts with self-supervised or unsupervised methods
+where labels are not used.</li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="specific-type-of-contrastive-learning">Specific Type of Contrastive Learning<a class="anchor" aria-label="anchor" href="#specific-type-of-contrastive-learning"></a>
+</h3>
+<p>The specific contrastive learning technique we are using here is a
+form of <strong>supervised contrastive learning</strong>. This involves
+using labeled data to create similar and dissimilar pairs of images. The
+model is trained to output embeddings where a contrastive loss function
+is applied to these pairs. By doing so, the model learns to map images
+into an embedding space where similar images are close together, and
+dissimilar images are farther apart.</p>
+<p>By training with this method, the model learns robust feature
+representations that are useful for various downstream tasks, even with
+limited labeled data. This is powerful because it allows leveraging
+labeled data to improve the model’s performance and
+generalizability.</p>
+</div>
+<div class="section level3">
+<h3 id="application-of-the-framework">Application of the Framework<a class="anchor" aria-label="anchor" href="#application-of-the-framework"></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Training with In-Distribution Data</strong>:
+<ul>
+<li>
+<strong>T-shirts and Trousers</strong>: These classes are used to
+train the model. Positive and negative pairs are created within this
+subset to teach the model to distinguish between the two classes.</li>
+</ul>
+</li>
+<li>
+<strong>Testing with Out-of-Distribution Data</strong>:
+<ul>
+<li>
+<strong>Sandals</strong>: This class is used to test the robustness
+of the embeddings learned by the model. By introducing a completely
+different class during testing, we can evaluate how well the model
+generalizes to new, unseen data.</li>
+</ul>
+</li>
+</ol>
+<p>This framework demonstrates how supervised contrastive learning can
+be effectively applied to learn discriminative embeddings that can
+generalize well to both in-distribution and out-of-distribution
+data.</p>
+<div class="codewrapper sourceCode" id="cb7">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="im">from</span> torch.utils.data <span class="im">import</span> Dataset, DataLoader, Subset</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="im">from</span> torchvision <span class="im">import</span> datasets, transforms</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="im">import</span> umap</span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a><span class="im">import</span> torch.optim <span class="im">as</span> optim</span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a><span class="kw">class</span> PairDataset(Dataset):</span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, images, labels):</span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a>        <span class="va">self</span>.images <span class="op">=</span> images</span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a>        <span class="va">self</span>.labels <span class="op">=</span> labels</span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__len__</span>(<span class="va">self</span>):</span>
+<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">len</span>(<span class="va">self</span>.images)</span>
+<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a></span>
+<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__getitem__</span>(<span class="va">self</span>, idx):</span>
+<span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a>        img1 <span class="op">=</span> <span class="va">self</span>.images[idx]</span>
+<span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a>        label1 <span class="op">=</span> <span class="va">self</span>.labels[idx]</span>
+<span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a>        idx2 <span class="op">=</span> np.random.choice(np.where(<span class="va">self</span>.labels <span class="op">==</span> label1)[<span class="dv">0</span>])</span>
+<span id="cb7-22"><a href="#cb7-22" tabindex="-1"></a>        img2 <span class="op">=</span> <span class="va">self</span>.images[idx2]</span>
+<span id="cb7-23"><a href="#cb7-23" tabindex="-1"></a>        <span class="cf">return</span> img1, img2, label1</span>
+<span id="cb7-24"><a href="#cb7-24" tabindex="-1"></a></span>
+<span id="cb7-25"><a href="#cb7-25" tabindex="-1"></a><span class="co"># Load Fashion MNIST dataset and filter for T-shirts and Trousers</span></span>
+<span id="cb7-26"><a href="#cb7-26" tabindex="-1"></a>transform <span class="op">=</span> transforms.Compose([transforms.ToTensor()])</span>
+<span id="cb7-27"><a href="#cb7-27" tabindex="-1"></a>train_dataset <span class="op">=</span> datasets.FashionMNIST(root<span class="op">=</span><span class="st">'./data'</span>, train<span class="op">=</span><span class="va">True</span>, download<span class="op">=</span><span class="va">True</span>, transform<span class="op">=</span>transform)</span>
+<span id="cb7-28"><a href="#cb7-28" tabindex="-1"></a>test_dataset <span class="op">=</span> datasets.FashionMNIST(root<span class="op">=</span><span class="st">'./data'</span>, train<span class="op">=</span><span class="va">False</span>, download<span class="op">=</span><span class="va">True</span>, transform<span class="op">=</span>transform)</span>
+<span id="cb7-29"><a href="#cb7-29" tabindex="-1"></a></span>
+<span id="cb7-30"><a href="#cb7-30" tabindex="-1"></a>train_indices <span class="op">=</span> np.where((train_dataset.targets <span class="op">==</span> <span class="dv">0</span>) <span class="op">|</span> (train_dataset.targets <span class="op">==</span> <span class="dv">1</span>))[<span class="dv">0</span>]</span>
+<span id="cb7-31"><a href="#cb7-31" tabindex="-1"></a>val_indices <span class="op">=</span> np.where((test_dataset.targets <span class="op">==</span> <span class="dv">0</span>) <span class="op">|</span> (test_dataset.targets <span class="op">==</span> <span class="dv">1</span>))[<span class="dv">0</span>]</span>
+<span id="cb7-32"><a href="#cb7-32" tabindex="-1"></a>ood_indices <span class="op">=</span> np.where(test_dataset.targets <span class="op">==</span> <span class="dv">5</span>)[<span class="dv">0</span>]</span>
+<span id="cb7-33"><a href="#cb7-33" tabindex="-1"></a></span>
+<span id="cb7-34"><a href="#cb7-34" tabindex="-1"></a><span class="co"># Use a subset of the data for quicker training</span></span>
+<span id="cb7-35"><a href="#cb7-35" tabindex="-1"></a>train_subset <span class="op">=</span> Subset(train_dataset, np.random.choice(train_indices, size<span class="op">=</span><span class="dv">5000</span>, replace<span class="op">=</span><span class="va">False</span>))</span>
+<span id="cb7-36"><a href="#cb7-36" tabindex="-1"></a>val_subset <span class="op">=</span> Subset(test_dataset, np.random.choice(val_indices, size<span class="op">=</span><span class="dv">1000</span>, replace<span class="op">=</span><span class="va">False</span>))</span>
+<span id="cb7-37"><a href="#cb7-37" tabindex="-1"></a>ood_subset <span class="op">=</span> Subset(test_dataset, np.random.choice(ood_indices, size<span class="op">=</span><span class="dv">1000</span>, replace<span class="op">=</span><span class="va">False</span>))</span>
+<span id="cb7-38"><a href="#cb7-38" tabindex="-1"></a></span>
+<span id="cb7-39"><a href="#cb7-39" tabindex="-1"></a><span class="co"># Create DataLoaders for the subsets</span></span>
+<span id="cb7-40"><a href="#cb7-40" tabindex="-1"></a>train_images <span class="op">=</span> np.array([train_dataset[i][<span class="dv">0</span>].numpy() <span class="cf">for</span> i <span class="kw">in</span> train_indices])</span>
+<span id="cb7-41"><a href="#cb7-41" tabindex="-1"></a>train_labels <span class="op">=</span> np.array([train_dataset[i][<span class="dv">1</span>] <span class="cf">for</span> i <span class="kw">in</span> train_indices])</span>
+<span id="cb7-42"><a href="#cb7-42" tabindex="-1"></a>val_images <span class="op">=</span> np.array([test_dataset[i][<span class="dv">0</span>].numpy() <span class="cf">for</span> i <span class="kw">in</span> val_indices])</span>
+<span id="cb7-43"><a href="#cb7-43" tabindex="-1"></a>val_labels <span class="op">=</span> np.array([test_dataset[i][<span class="dv">1</span>] <span class="cf">for</span> i <span class="kw">in</span> val_indices])</span>
+<span id="cb7-44"><a href="#cb7-44" tabindex="-1"></a>ood_images <span class="op">=</span> np.array([test_dataset[i][<span class="dv">0</span>].numpy() <span class="cf">for</span> i <span class="kw">in</span> ood_indices])</span>
+<span id="cb7-45"><a href="#cb7-45" tabindex="-1"></a>ood_labels <span class="op">=</span> np.array([test_dataset[i][<span class="dv">1</span>] <span class="cf">for</span> i <span class="kw">in</span> ood_indices])</span>
+<span id="cb7-46"><a href="#cb7-46" tabindex="-1"></a></span>
+<span id="cb7-47"><a href="#cb7-47" tabindex="-1"></a>train_loader <span class="op">=</span> DataLoader(PairDataset(train_images, train_labels), batch_size<span class="op">=</span><span class="dv">256</span>, shuffle<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb7-48"><a href="#cb7-48" tabindex="-1"></a>val_loader <span class="op">=</span> DataLoader(PairDataset(val_images, val_labels), batch_size<span class="op">=</span><span class="dv">256</span>, shuffle<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb7-49"><a href="#cb7-49" tabindex="-1"></a>ood_loader <span class="op">=</span> DataLoader(PairDataset(ood_images, ood_labels), batch_size<span class="op">=</span><span class="dv">256</span>, shuffle<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb7-50"><a href="#cb7-50" tabindex="-1"></a></span>
+<span id="cb7-51"><a href="#cb7-51" tabindex="-1"></a><span class="co"># Inspect the data loaders</span></span>
+<span id="cb7-52"><a href="#cb7-52" tabindex="-1"></a><span class="cf">for</span> batch_images1, batch_images2, batch_labels <span class="kw">in</span> train_loader:</span>
+<span id="cb7-53"><a href="#cb7-53" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"train_loader batch_images1 shape: </span><span class="sc">{</span>batch_images1<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb7-54"><a href="#cb7-54" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"train_loader batch_images2 shape: </span><span class="sc">{</span>batch_images2<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb7-55"><a href="#cb7-55" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"train_loader batch_labels shape: </span><span class="sc">{</span>batch_labels<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb7-56"><a href="#cb7-56" tabindex="-1"></a>    <span class="cf">break</span></span>
+<span id="cb7-57"><a href="#cb7-57" tabindex="-1"></a></span>
+<span id="cb7-58"><a href="#cb7-58" tabindex="-1"></a><span class="cf">for</span> batch_images1, batch_images2, batch_labels <span class="kw">in</span> val_loader:</span>
+<span id="cb7-59"><a href="#cb7-59" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"val_loader batch_images1 shape: </span><span class="sc">{</span>batch_images1<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb7-60"><a href="#cb7-60" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"val_loader batch_images2 shape: </span><span class="sc">{</span>batch_images2<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb7-61"><a href="#cb7-61" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"val_loader batch_labels shape: </span><span class="sc">{</span>batch_labels<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb7-62"><a href="#cb7-62" tabindex="-1"></a>    <span class="cf">break</span></span>
+<span id="cb7-63"><a href="#cb7-63" tabindex="-1"></a></span>
+<span id="cb7-64"><a href="#cb7-64" tabindex="-1"></a><span class="cf">for</span> batch_images1, batch_images2, batch_labels <span class="kw">in</span> ood_loader:</span>
+<span id="cb7-65"><a href="#cb7-65" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"ood_loader batch_images1 shape: </span><span class="sc">{</span>batch_images1<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb7-66"><a href="#cb7-66" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"ood_loader batch_images2 shape: </span><span class="sc">{</span>batch_images2<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb7-67"><a href="#cb7-67" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"ood_loader batch_labels shape: </span><span class="sc">{</span>batch_labels<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb7-68"><a href="#cb7-68" tabindex="-1"></a>    <span class="cf">break</span></span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb8">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="co"># Define a simple CNN model for contrastive learning</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="kw">class</span> ContrastiveModel(nn.Module):</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>        <span class="bu">super</span>(ContrastiveModel, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>        <span class="va">self</span>.conv1 <span class="op">=</span> nn.Conv2d(<span class="dv">1</span>, <span class="dv">32</span>, kernel_size<span class="op">=</span><span class="dv">3</span>, stride<span class="op">=</span><span class="dv">1</span>, padding<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>        <span class="va">self</span>.relu <span class="op">=</span> nn.ReLU()</span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>        <span class="va">self</span>.flatten <span class="op">=</span> nn.Flatten()</span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>        <span class="va">self</span>.fc1 <span class="op">=</span> nn.Linear(<span class="dv">32</span> <span class="op">*</span> <span class="dv">28</span> <span class="op">*</span> <span class="dv">28</span>, <span class="dv">128</span>)</span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>        <span class="va">self</span>.fc2 <span class="op">=</span> nn.Linear(<span class="dv">128</span>, <span class="dv">50</span>)  <span class="co"># Embedding size</span></span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, x):</span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a>        x <span class="op">=</span> <span class="va">self</span>.conv1(x)</span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a>        x <span class="op">=</span> <span class="va">self</span>.relu(x)</span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a>        x <span class="op">=</span> <span class="va">self</span>.flatten(x)</span>
+<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a>        x <span class="op">=</span> <span class="va">self</span>.fc1(x)</span>
+<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a>        x <span class="op">=</span> <span class="va">self</span>.relu(x)</span>
+<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a>        x <span class="op">=</span> <span class="va">self</span>.fc2(x)</span>
+<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a>        <span class="cf">return</span> x</span>
+<span id="cb8-19"><a href="#cb8-19" tabindex="-1"></a></span>
+<span id="cb8-20"><a href="#cb8-20" tabindex="-1"></a><span class="co"># Define contrastive loss function</span></span>
+<span id="cb8-21"><a href="#cb8-21" tabindex="-1"></a><span class="kw">def</span> contrastive_loss(z_i, z_j, temperature<span class="op">=</span><span class="fl">0.5</span>):</span>
+<span id="cb8-22"><a href="#cb8-22" tabindex="-1"></a>    z_i <span class="op">=</span> nn.functional.normalize(z_i, dim<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb8-23"><a href="#cb8-23" tabindex="-1"></a>    z_j <span class="op">=</span> nn.functional.normalize(z_j, dim<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb8-24"><a href="#cb8-24" tabindex="-1"></a>    batch_size <span class="op">=</span> z_i.size(<span class="dv">0</span>)</span>
+<span id="cb8-25"><a href="#cb8-25" tabindex="-1"></a>    z <span class="op">=</span> torch.cat([z_i, z_j], dim<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb8-26"><a href="#cb8-26" tabindex="-1"></a></span>
+<span id="cb8-27"><a href="#cb8-27" tabindex="-1"></a>    sim <span class="op">=</span> torch.mm(z, z.t()) <span class="op">/</span> temperature</span>
+<span id="cb8-28"><a href="#cb8-28" tabindex="-1"></a>    sim_i_j <span class="op">=</span> torch.diag(sim, batch_size)</span>
+<span id="cb8-29"><a href="#cb8-29" tabindex="-1"></a>    sim_j_i <span class="op">=</span> torch.diag(sim, <span class="op">-</span>batch_size)</span>
+<span id="cb8-30"><a href="#cb8-30" tabindex="-1"></a></span>
+<span id="cb8-31"><a href="#cb8-31" tabindex="-1"></a>    positives <span class="op">=</span> torch.cat([sim_i_j, sim_j_i], dim<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb8-32"><a href="#cb8-32" tabindex="-1"></a>    negatives_mask <span class="op">=</span> <span class="op">~</span>torch.eye(<span class="dv">2</span> <span class="op">*</span> batch_size, dtype<span class="op">=</span>torch.<span class="bu">bool</span>, device<span class="op">=</span>z.device)</span>
+<span id="cb8-33"><a href="#cb8-33" tabindex="-1"></a>    negatives <span class="op">=</span> sim[negatives_mask].view(<span class="dv">2</span> <span class="op">*</span> batch_size, <span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb8-34"><a href="#cb8-34" tabindex="-1"></a></span>
+<span id="cb8-35"><a href="#cb8-35" tabindex="-1"></a>    loss <span class="op">=</span> <span class="op">-</span>torch.mean(positives) <span class="op">+</span> torch.mean(negatives)</span>
+<span id="cb8-36"><a href="#cb8-36" tabindex="-1"></a>    <span class="cf">return</span> loss</span>
+<span id="cb8-37"><a href="#cb8-37" tabindex="-1"></a></span>
+<span id="cb8-38"><a href="#cb8-38" tabindex="-1"></a><span class="co"># Training loop for contrastive learning</span></span>
+<span id="cb8-39"><a href="#cb8-39" tabindex="-1"></a><span class="kw">def</span> train_contrastive_model(model, train_loader, optimizer, num_epochs<span class="op">=</span><span class="dv">10</span>):</span>
+<span id="cb8-40"><a href="#cb8-40" tabindex="-1"></a>    model.train()</span>
+<span id="cb8-41"><a href="#cb8-41" tabindex="-1"></a>    <span class="cf">for</span> epoch <span class="kw">in</span> <span class="bu">range</span>(num_epochs):</span>
+<span id="cb8-42"><a href="#cb8-42" tabindex="-1"></a>        total_loss <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb8-43"><a href="#cb8-43" tabindex="-1"></a>        <span class="cf">for</span> img1, img2, _ <span class="kw">in</span> train_loader:</span>
+<span id="cb8-44"><a href="#cb8-44" tabindex="-1"></a>            img1, img2 <span class="op">=</span> img1.to(device), img2.to(device)</span>
+<span id="cb8-45"><a href="#cb8-45" tabindex="-1"></a></span>
+<span id="cb8-46"><a href="#cb8-46" tabindex="-1"></a>            optimizer.zero_grad()</span>
+<span id="cb8-47"><a href="#cb8-47" tabindex="-1"></a></span>
+<span id="cb8-48"><a href="#cb8-48" tabindex="-1"></a>            z_i <span class="op">=</span> model(img1)</span>
+<span id="cb8-49"><a href="#cb8-49" tabindex="-1"></a>            z_j <span class="op">=</span> model(img2)</span>
+<span id="cb8-50"><a href="#cb8-50" tabindex="-1"></a></span>
+<span id="cb8-51"><a href="#cb8-51" tabindex="-1"></a>            loss <span class="op">=</span> contrastive_loss(z_i, z_j)</span>
+<span id="cb8-52"><a href="#cb8-52" tabindex="-1"></a>            loss.backward()</span>
+<span id="cb8-53"><a href="#cb8-53" tabindex="-1"></a>            optimizer.step()</span>
+<span id="cb8-54"><a href="#cb8-54" tabindex="-1"></a></span>
+<span id="cb8-55"><a href="#cb8-55" tabindex="-1"></a>            total_loss <span class="op">+=</span> loss.item()</span>
+<span id="cb8-56"><a href="#cb8-56" tabindex="-1"></a></span>
+<span id="cb8-57"><a href="#cb8-57" tabindex="-1"></a>        avg_loss <span class="op">=</span> total_loss <span class="op">/</span> <span class="bu">len</span>(train_loader)</span>
+<span id="cb8-58"><a href="#cb8-58" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Epoch [</span><span class="sc">{</span>epoch <span class="op">+</span> <span class="dv">1</span><span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>num_epochs<span class="sc">}</span><span class="ss">], Loss: </span><span class="sc">{</span>avg_loss<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb8-59"><a href="#cb8-59" tabindex="-1"></a></span>
+<span id="cb8-60"><a href="#cb8-60" tabindex="-1"></a><span class="co"># Instantiate the model, optimizer, and start training</span></span>
+<span id="cb8-61"><a href="#cb8-61" tabindex="-1"></a>device <span class="op">=</span> torch.device(<span class="st">'cuda'</span> <span class="cf">if</span> torch.cuda.is_available() <span class="cf">else</span> <span class="st">'cpu'</span>)</span>
+<span id="cb8-62"><a href="#cb8-62" tabindex="-1"></a>contrastive_model <span class="op">=</span> ContrastiveModel().to(device)</span>
+<span id="cb8-63"><a href="#cb8-63" tabindex="-1"></a>optimizer <span class="op">=</span> optim.Adam(contrastive_model.parameters(), lr<span class="op">=</span><span class="fl">0.001</span>)</span>
+<span id="cb8-64"><a href="#cb8-64" tabindex="-1"></a></span>
+<span id="cb8-65"><a href="#cb8-65" tabindex="-1"></a>train_contrastive_model(contrastive_model, train_loader, optimizer, num_epochs<span class="op">=</span>n_epochs)</span></code></pre>
+</div>
+</div>
+<div class="section level3">
+<h3 id="extracting-learned-features-1">2) Extracting learned features<a class="anchor" aria-label="anchor" href="#extracting-learned-features-1"></a>
+</h3>
+<ul>
+<li>After training, we set the models to evaluation mode to prevent
+updates to the model parameters.</li>
+<li>For each subset of the data (training, validation, and OOD), we pass
+the images through the entire network up to the first fully connected
+layer.</li>
+<li>The output of this layer, which captures high-level features and
+abstractions, is then used as a 1D feature vector.</li>
+<li>These feature vectors are detached from the computational graph and
+converted to NumPy arrays for further processing.</li>
+</ul>
+<div class="codewrapper sourceCode" id="cb9">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co"># Extract features using the trained contrastive model</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>contrastive_model.<span class="bu">eval</span>()</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>train_features <span class="op">=</span> []</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>train_labels_list <span class="op">=</span> []</span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="cf">for</span> img1, _, label1 <span class="kw">in</span> train_loader:</span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>    img1 <span class="op">=</span> img1.to(device)</span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>    features <span class="op">=</span> contrastive_model.fc1(contrastive_model.flatten(contrastive_model.conv1(img1)))</span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>    train_features.append(features.detach().cpu().numpy())</span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a>    train_labels_list.append(label1.numpy())</span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a>val_features <span class="op">=</span> []</span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a>val_labels_list <span class="op">=</span> []</span>
+<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="cf">for</span> img1, _, label1 <span class="kw">in</span> val_loader:</span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a>    img1 <span class="op">=</span> img1.to(device)</span>
+<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a>    features <span class="op">=</span> contrastive_model.fc1(contrastive_model.flatten(contrastive_model.conv1(img1)))</span>
+<span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a>    val_features.append(features.detach().cpu().numpy())</span>
+<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a>    val_labels_list.append(label1.numpy())</span>
+<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a></span>
+<span id="cb9-19"><a href="#cb9-19" tabindex="-1"></a>ood_features <span class="op">=</span> []</span>
+<span id="cb9-20"><a href="#cb9-20" tabindex="-1"></a>ood_labels_list <span class="op">=</span> []</span>
+<span id="cb9-21"><a href="#cb9-21" tabindex="-1"></a><span class="cf">for</span> img1, _, label1 <span class="kw">in</span> ood_loader:</span>
+<span id="cb9-22"><a href="#cb9-22" tabindex="-1"></a>    img1 <span class="op">=</span> img1.to(device)</span>
+<span id="cb9-23"><a href="#cb9-23" tabindex="-1"></a>    features <span class="op">=</span> contrastive_model.fc1(contrastive_model.flatten(contrastive_model.conv1(img1)))</span>
+<span id="cb9-24"><a href="#cb9-24" tabindex="-1"></a>    ood_features.append(features.detach().cpu().numpy())</span>
+<span id="cb9-25"><a href="#cb9-25" tabindex="-1"></a>    ood_labels_list.append(label1.numpy())</span>
+<span id="cb9-26"><a href="#cb9-26" tabindex="-1"></a></span>
+<span id="cb9-27"><a href="#cb9-27" tabindex="-1"></a>train_features <span class="op">=</span> np.concatenate(train_features)</span>
+<span id="cb9-28"><a href="#cb9-28" tabindex="-1"></a>train_labels <span class="op">=</span> np.concatenate(train_labels_list)</span>
+<span id="cb9-29"><a href="#cb9-29" tabindex="-1"></a>val_features <span class="op">=</span> np.concatenate(val_features)</span>
+<span id="cb9-30"><a href="#cb9-30" tabindex="-1"></a>val_labels <span class="op">=</span> np.concatenate(val_labels_list)</span>
+<span id="cb9-31"><a href="#cb9-31" tabindex="-1"></a>ood_features <span class="op">=</span> np.concatenate(ood_features)</span>
+<span id="cb9-32"><a href="#cb9-32" tabindex="-1"></a>ood_labels <span class="op">=</span> np.concatenate(ood_labels_list)</span>
+<span id="cb9-33"><a href="#cb9-33" tabindex="-1"></a></span>
+<span id="cb9-34"><a href="#cb9-34" tabindex="-1"></a><span class="co"># Diagnostic print statements</span></span>
+<span id="cb9-35"><a href="#cb9-35" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"train_features shape: </span><span class="sc">{</span>train_features<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-36"><a href="#cb9-36" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"train_labels shape: </span><span class="sc">{</span>train_labels<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-37"><a href="#cb9-37" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"val_features shape: </span><span class="sc">{</span>val_features<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-38"><a href="#cb9-38" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"val_labels shape: </span><span class="sc">{</span>val_labels<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-39"><a href="#cb9-39" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"ood_features shape: </span><span class="sc">{</span>ood_features<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-40"><a href="#cb9-40" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"ood_labels shape: </span><span class="sc">{</span>ood_labels<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span></code></pre>
+</div>
+</div>
+<div class="section level3">
+<h3 id="dimensionality-reduction-and-visualization-2">3) Dimensionality Reduction and Visualization:<a class="anchor" aria-label="anchor" href="#dimensionality-reduction-and-visualization-2"></a>
+</h3>
+<ul>
+<li>We combine the feature vectors from the training, validation, and
+OOD data into a single dataset.</li>
+<li>UMAP (Uniform Manifold Approximation and Projection) is used to
+reduce the dimensionality of the feature vectors from the
+high-dimensional space to 2D, making it possible to visualize the
+relationships between different data points.</li>
+<li>The reduced features are then plotted, with different colors
+representing the training data (T-shirts and Trousers), validation data
+(T-shirts and Trousers), and OOD data (Sandals).</li>
+</ul>
+<div class="codewrapper sourceCode" id="cb10">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="co"># Ensure the labels array for OOD matches the feature array length</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>combined_features <span class="op">=</span> np.vstack([train_features, val_features, ood_features])</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>combined_labels <span class="op">=</span> np.hstack([train_labels, val_labels, np.full(<span class="bu">len</span>(ood_features), <span class="dv">2</span>)])  <span class="co"># Use 2 for OOD class</span></span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>umap_reducer <span class="op">=</span> umap.UMAP(n_components<span class="op">=</span><span class="dv">2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>umap_results <span class="op">=</span> umap_reducer.fit_transform(combined_features)</span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a><span class="co"># Split the results back into train, val, and OOD data</span></span>
+<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a>umap_train_features <span class="op">=</span> umap_results[:<span class="bu">len</span>(train_features)]</span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a>umap_val_features <span class="op">=</span> umap_results[<span class="bu">len</span>(train_features):<span class="bu">len</span>(train_features) <span class="op">+</span> <span class="bu">len</span>(val_features)]</span>
+<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a>umap_ood_features <span class="op">=</span> umap_results[<span class="bu">len</span>(train_features) <span class="op">+</span> <span class="bu">len</span>(val_features):]</span>
+<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a><span class="co"># Plotting UMAP components for contrastive learning model</span></span>
+<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a><span class="co"># Plot train T-shirts</span></span>
+<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a>scatter1 <span class="op">=</span> plt.scatter(umap_train_features[train_labels <span class="op">==</span> <span class="dv">0</span>, <span class="dv">0</span>], umap_train_features[train_labels <span class="op">==</span> <span class="dv">0</span>, <span class="dv">1</span>], c<span class="op">=</span><span class="st">'blue'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, label<span class="op">=</span><span class="st">'Train T-shirts (ID)'</span>)</span>
+<span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a><span class="co"># Plot train Trousers</span></span>
+<span id="cb10-18"><a href="#cb10-18" tabindex="-1"></a>scatter2 <span class="op">=</span> plt.scatter(umap_train_features[train_labels <span class="op">==</span> <span class="dv">1</span>, <span class="dv">0</span>], umap_train_features[train_labels <span class="op">==</span> <span class="dv">1</span>, <span class="dv">1</span>], c<span class="op">=</span><span class="st">'red'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, label<span class="op">=</span><span class="st">'Train Trousers (ID)'</span>)</span>
+<span id="cb10-19"><a href="#cb10-19" tabindex="-1"></a><span class="co"># Plot val T-shirts</span></span>
+<span id="cb10-20"><a href="#cb10-20" tabindex="-1"></a>scatter3 <span class="op">=</span> plt.scatter(umap_val_features[val_labels <span class="op">==</span> <span class="dv">0</span>, <span class="dv">0</span>], umap_val_features[val_labels <span class="op">==</span> <span class="dv">0</span>, <span class="dv">1</span>], c<span class="op">=</span><span class="st">'blue'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, marker<span class="op">=</span><span class="st">'x'</span>, label<span class="op">=</span><span class="st">'Val T-shirts (ID)'</span>)</span>
+<span id="cb10-21"><a href="#cb10-21" tabindex="-1"></a><span class="co"># Plot val Trousers</span></span>
+<span id="cb10-22"><a href="#cb10-22" tabindex="-1"></a>scatter4 <span class="op">=</span> plt.scatter(umap_val_features[val_labels <span class="op">==</span> <span class="dv">1</span>, <span class="dv">0</span>], umap_val_features[val_labels <span class="op">==</span> <span class="dv">1</span>, <span class="dv">1</span>], c<span class="op">=</span><span class="st">'red'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, marker<span class="op">=</span><span class="st">'x'</span>, label<span class="op">=</span><span class="st">'Val Trousers (ID)'</span>)</span>
+<span id="cb10-23"><a href="#cb10-23" tabindex="-1"></a><span class="co"># Plot OOD Sandals</span></span>
+<span id="cb10-24"><a href="#cb10-24" tabindex="-1"></a>scatter5 <span class="op">=</span> plt.scatter(umap_ood_features[:, <span class="dv">0</span>], umap_ood_features[:, <span class="dv">1</span>], c<span class="op">=</span><span class="st">'green'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, marker<span class="op">=</span><span class="st">'o'</span>, label<span class="op">=</span><span class="st">'OOD Sandals'</span>)</span>
+<span id="cb10-25"><a href="#cb10-25" tabindex="-1"></a>plt.legend(handles<span class="op">=</span>[scatter1, scatter2, scatter3, scatter4, scatter5])</span>
+<span id="cb10-26"><a href="#cb10-26" tabindex="-1"></a>plt.xlabel(<span class="st">'First UMAP Component'</span>)</span>
+<span id="cb10-27"><a href="#cb10-27" tabindex="-1"></a>plt.ylabel(<span class="st">'Second UMAP Component'</span>)</span>
+<span id="cb10-28"><a href="#cb10-28" tabindex="-1"></a>plt.title(<span class="st">'UMAP of Contrastive Model Features'</span>)</span>
+<span id="cb10-29"><a href="#cb10-29" tabindex="-1"></a>plt.show()</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="section level1">
+<h1 id="limitations-of-threshold-based-ood-detection-methods">Limitations of Threshold-Based OOD Detection Methods<a class="anchor" aria-label="anchor" href="#limitations-of-threshold-based-ood-detection-methods"></a>
+</h1>
+<p>Threshold-based out-of-distribution (OOD) detection methods are
+widely used due to their simplicity and intuitive nature. However, they
+come with several significant limitations that need to be
+considered:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Dependence on OOD Data Choice</strong>:
+<ul>
+<li>
+<strong>Variety and Representation</strong>: The effectiveness of
+threshold-based methods heavily relies on the variety and
+representativeness of the OOD data used during threshold selection. If
+the chosen OOD samples do not adequately cover the possible range of OOD
+scenarios, the threshold may not generalize well to unseen OOD
+data.</li>
+<li>
+<strong>Threshold Determination</strong>: To determine a robust
+threshold, it is essential to include a diverse set of OOD samples. This
+helps in setting a threshold that can effectively distinguish between
+in-distribution and out-of-distribution data across various scenarios.
+Without a comprehensive OOD dataset, the threshold might either be too
+conservative, causing many ID samples to be misclassified as OOD, or too
+lenient, failing to detect OOD samples accurately.</li>
+</ul>
+</li>
+<li>
+<strong>Impact of High Thresholds</strong>:
+<ul>
+<li>
+<strong>False OOD Classification</strong>: High thresholds can lead
+to a significant number of ID samples being incorrectly classified as
+OOD. This false OOD classification results in the loss of potentially
+valuable data, reducing the efficiency and performance of the
+model.</li>
+<li>
+<strong>Data Efficiency</strong>: In applications where retaining as
+much ID data as possible is crucial, high thresholds can be particularly
+detrimental. It’s important to strike a balance between detecting OOD
+samples and retaining ID samples to ensure the model’s overall
+performance and data efficiency.</li>
+</ul>
+</li>
+<li>
+<strong>Sensitivity to Model Confidence</strong>:
+<ul>
+<li>
+<strong>Model Calibration</strong>: Threshold-based methods rely on
+the model’s confidence scores, which can be misleading if the model is
+poorly calibrated. Overconfident predictions for ID samples or
+underconfident predictions for OOD samples can result in suboptimal
+threshold settings.</li>
+<li>
+<strong>Confidence Variability</strong>: The variability in
+confidence scores across different models and architectures can make it
+challenging to set a universal threshold. Each model might require
+different threshold settings, complicating the deployment and
+maintenance of threshold-based OOD detection systems.</li>
+</ul>
+</li>
+<li>
+<strong>Lack of Discriminative Features</strong>:
+<ul>
+<li>
+<strong>Boundary-Based Detection</strong>: Threshold-based methods
+focus on class boundaries rather than learning discriminative features
+that can effectively separate ID and OOD samples. This approach can be
+less robust, particularly in complex or high-dimensional data spaces
+where class boundaries might be less clear.</li>
+<li>
+<strong>Feature Learning</strong>: By relying solely on confidence
+scores, these methods miss the opportunity to learn and leverage
+features that are inherently more discriminative. This limitation
+highlights the need for advanced techniques like contrastive learning,
+which focuses on learning features that distinguish between ID and OOD
+samples more effectively.</li>
+</ul>
+</li>
+</ol>
+<div class="section level3">
+<h3 id="conclusion">Conclusion<a class="anchor" aria-label="anchor" href="#conclusion"></a>
+</h3>
+<p>While threshold-based OOD detection methods offer a straightforward
+approach, their limitations underscore the importance of considering
+additional OOD samples for robust threshold determination and the
+potential pitfalls of high thresholds. Transitioning to methods that
+learn discriminative features rather than relying solely on class
+boundaries can address these limitations, paving the way for more
+effective OOD detection. This sets the stage for discussing contrastive
+learning, which provides a powerful framework for learning such
+discriminative features.</p>
+<!--
+Place links that you need to refer to multiple times across pages here. Delete
+any links that you are not going to use.
+ -->
+</div>
+</div></section><section id="aio-7c-OOD-detection-algo-design"><p>Content from <a href="7c-OOD-detection-algo-design.html">OOD Detection: Training-Time Regularization</a></p>
+<hr>
+<p>Last updated on 2024-07-31 |
+
+        <a href="https://github.com/carpentries-incubator/fair-explainable-ml/edit/main/episodes/7c-OOD-detection-algo-design.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+<p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 0 minutes</p>
+<div class="text-end">
+          <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
+        </div>
+<div class="overview card">
+<h2 class="card-header">Overview</h2>
+<div class="row g-0">
+<div class="col-md-4">
+<div class="card-body">
+<div class="inner">
+<h3 class="card-title">Questions</h3>
+<ul>
+<li>What are the key considerations when designing algorithms for OOD
+detection?</li>
+<li>How can OOD detection be incorporated into the loss functions of
+models?</li>
+<li>What are the challenges and best practices for training models with
+OOD detection capabilities?</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="col-md-8">
+<div class="card-body">
+<div class="inner bordered">
+<h3 class="card-title">Objectives</h3>
+<ul>
+<li>Understand the critical design considerations for creating effective
+OOD detection algorithms.</li>
+<li>Learn how to integrate OOD detection into the loss functions of
+machine learning models.</li>
+<li>Identify the challenges in training models with OOD detection and
+explore best practices to overcome these challenges.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section level1">
+<h1 id="training-time-regularization-for-ood-detection">Training-time regularization for OOD detection<a class="anchor" aria-label="anchor" href="#training-time-regularization-for-ood-detection"></a>
+</h1>
 <!--
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
