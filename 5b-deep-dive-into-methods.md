@@ -116,8 +116,8 @@ information to make the prediction.
 
 Now, it's time to try implementing these methods yourself! Pick one of the following problems to work on:
 
-- [Train your own linear probe to check if BERT stores the required knowledge for sentiment analysis.](../code/5b-probes.ipynb)
-- [Use GradCAM on a trained model to check if the model is using the right features to make predictions.](../code/5b-gradcam.ipynb)
+- [Train your own linear probe to check if BERT stores the required knowledge for sentiment analysis.](https://carpentries-incubator.github.io/fair-explainable-ml/5c-probes.html)
+- [Use GradCAM on a trained model to check if the model is using the right features to make predictions.](https://carpentries-incubator.github.io/fair-explainable-ml/5d-gradcam.html)
 
 It's time to get your hands dirty now. Good luck, and have fun!
 
