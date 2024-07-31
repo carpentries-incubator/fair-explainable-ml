@@ -483,7 +483,7 @@
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p>Inline instructor notes can help inform instructors of timing
 challenges associated with the lessons. They appear in the “Instructor
@@ -498,7 +498,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-1-preparing-to-train"><p>Content from <a href="1-preparing-to-train.html">Preparing to train a model</a></p>
 <hr>
-<p>Last updated on 2024-07-17 |
+<p>Last updated on 2024-07-31 |
 
         <a href="https://github.com/carpentries-incubator/fair-explainable-ml/edit/main/episodes/1-preparing-to-train.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 0 minutes</p>
@@ -610,13 +610,28 @@ discuss whether these uses of AI are appropriate.</p>
 a paper</a> that describes a model that can identify genetic disorders
 from a photograph of a patient’s face. The abstract of the paper is
 copied below:</p>
-<div class="codewrapper sourceCode" id="cb1">
-<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">Syndromic</span> genetic conditions, in aggregate, affect 8% of the population. Many syndromes have recognizable facial features that are highly informative to clinical geneticists. Recent studies show that facial analysis technologies measured up to the capabilities of expert clinicians in syndrome identification. However, these technologies identified only a few disease phenotypes, limiting their role in clinical settings, where hundreds of diagnoses must be considered. Here we present a facial image analysis framework, DeepGestalt, using computer vision and deep-learning algorithms, that quantifies similarities to hundreds of syndromes.</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="ex">DeepGestalt</span> outperformed clinicians in three initial experiments, two with the goal of distinguishing subjects with a target syndrome from other syndromes, and one of separating different genetic sub-types in Noonan syndrome. On the final experiment reflecting a real clinical setting problem, DeepGestalt achieved 91% top-10 accuracy in identifying the correct syndrome on 502 different images. The model was trained on a dataset of over 17,000 images representing more than 200 syndromes, curated through a community-driven phenotyping platform. DeepGestalt potentially adds considerable value to phenotypic evaluations in clinical genetics, genetic testing, research and precision medicine.</span></code></pre>
-</div>
+<blockquote>
+<p>Syndromic genetic conditions, in aggregate, affect 8% of the
+population. Many syndromes have recognizable facial features that are
+highly informative to clinical geneticists. Recent studies show that
+facial analysis technologies measured up to the capabilities of expert
+clinicians in syndrome identification. However, these technologies
+identified only a few disease phenotypes, limiting their role in
+clinical settings, where hundreds of diagnoses must be considered. Here
+we present a facial image analysis framework, DeepGestalt, using
+computer vision and deep-learning algorithms, that quantifies
+similarities to hundreds of syndromes.</p>
+<p>DeepGestalt outperformed clinicians in three initial experiments, two
+with the goal of distinguishing subjects with a target syndrome from
+other syndromes, and one of separating different genetic sub-types in
+Noonan syndrome. On the final experiment reflecting a real clinical
+setting problem, DeepGestalt achieved 91% top-10 accuracy in identifying
+the correct syndrome on 502 different images. The model was trained on a
+dataset of over 17,000 images representing more than 200 syndromes,
+curated through a community-driven phenotyping platform. DeepGestalt
+potentially adds considerable value to phenotypic evaluations in
+clinical genetics, genetic testing, research and precision medicine.</p>
+</blockquote>
 <ul>
 <li>What is the proposed value of the algorithm?</li>
 <li>What are the potential risks?</li>
@@ -638,13 +653,29 @@ trustworthness, criminality, and political and sexual orientation.</p>
 <p>In 2018, for example, researchers suggested that neural networks
 could be used to detect sexual orientation from facial images. The
 abstract is copied below:</p>
-<div class="codewrapper sourceCode" id="cb2">
-<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">We</span> show that faces contain much more information about sexual orientation than can be perceived and interpreted by the human brain. We used deep neural networks to extract features from 35,326 facial images. These features were entered into a logistic regression aimed at classifying sexual orientation. Given a single facial image, a classifier could correctly distinguish between gay and heterosexual men in 81% of cases, and in 74% of cases for women. Human judges achieved much lower accuracy: 61% for men and 54% for women. The accuracy of the algorithm increased to 91% and 83%, respectively, given five facial images per person.</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="ex">Facial</span> features employed by the classifier included both fixed <span class="er">(</span><span class="ex">e.g.,</span> nose shape<span class="kw">)</span> <span class="ex">and</span> transient facial features <span class="er">(</span><span class="ex">e.g.,</span> grooming style<span class="kw">)</span><span class="bu">.</span> Consistent with the prenatal hormone theory of sexual orientation, gay men and women tended to have gender-atypical facial morphology, expression, and grooming styles. Prediction models aimed at gender alone allowed for detecting gay males with 57% accuracy and gay females with 58% accuracy. Those findings advance our understanding of the origins of sexual orientation and the limits of human perception. Additionally, given that companies and governments are increasingly using computer vision algorithms to detect people’s intimate traits, our findings expose a threat to the privacy and safety of gay men and women.</span></code></pre>
-</div>
+<blockquote>
+<p>We show that faces contain much more information about sexual
+orientation than can be perceived and interpreted by the human brain. We
+used deep neural networks to extract features from 35,326 facial images.
+These features were entered into a logistic regression aimed at
+classifying sexual orientation. Given a single facial image, a
+classifier could correctly distinguish between gay and heterosexual men
+in 81% of cases, and in 74% of cases for women. Human judges achieved
+much lower accuracy: 61% for men and 54% for women. The accuracy of the
+algorithm increased to 91% and 83%, respectively, given five facial
+images per person.</p>
+<p>Facial features employed by the classifier included both fixed (e.g.,
+nose shape) and transient facial features (e.g., grooming style).
+Consistent with the prenatal hormone theory of sexual orientation, gay
+men and women tended to have gender-atypical facial morphology,
+expression, and grooming styles. Prediction models aimed at gender alone
+allowed for detecting gay males with 57% accuracy and gay females with
+58% accuracy. Those findings advance our understanding of the origins of
+sexual orientation and the limits of human perception. Additionally,
+given that companies and governments are increasingly using computer
+vision algorithms to detect people’s intimate traits, our findings
+expose a threat to the privacy and safety of gay men and women.</p>
+</blockquote>
 <ul>
 <li>What is the proposed value of the algorithm?</li>
 <li>What are the potential risks?</li>
@@ -655,11 +686,12 @@ Case Study 1?</li>
 <p>Media reports of this algorithm were largely negative, with a <a href="https://www.scientificamerican.com/blog/observations/can-we-read-a-persons-character-from-facial-images/" class="external-link">Scientific
 American article</a> highlighting the connections to physiognomy and
 raising concern over government use of these algorithms:</p>
-<div class="codewrapper sourceCode" id="cb3">
-<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">This</span> is precisely the kind of “scientific” claim that can motivate repressive governments to apply AI algorithms to images of their citizens. And what is it to stop them from “reading” intelligence, political orientation and criminal inclinations from these images<span class="pp">?</span></span></code></pre>
-</div>
+<blockquote>
+<p>This is precisely the kind of “scientific” claim that can motivate
+repressive governments to apply AI algorithms to images of their
+citizens. And what is it to stop them from “reading” intelligence,
+political orientation and criminal inclinations from these images?</p>
+</blockquote>
 </div>
 </section><section><h2 class="section-heading" id="choosing-the-outcome-variable">Choosing the outcome variable<a class="anchor" aria-label="anchor" href="#choosing-the-outcome-variable"></a>
 <a class="anchor" aria-label="anchor" href="#choosing-the-outcome-variable"></a>
@@ -1058,7 +1090,7 @@ and can have unpleasant side effects.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li><p>It is best if all patients who need the screening get it, and
@@ -1153,7 +1185,7 @@ same rate.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>A - 3, B - 2, C - 4, D - 1</p>
 </div>
@@ -1241,7 +1273,7 @@ uses of the LLM’s output.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <p>Most publicly-available LLM providers set up guardrails to avoid
 propagating biases present in their training data. For instance, as of
@@ -1295,7 +1327,7 @@ via social media</a>.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
 <p>While the picture is of Barack Obama, the upsampled image shows a
 white face. <img src="https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/e4-obama-upsampled.png" alt="Unblurred version of the pixelated picture of Obama. Instead of showing Obama, it shows a white man." class="figure"></p>
@@ -1402,7 +1434,7 @@ different settings?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution5" aria-expanded="false" aria-controls="collapseSolution5">
   <h4 class="accordion-header" id="headingSolution5"> Show me the solution </h4>
 </button>
-<div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
+<div id="collapseSolution5" class="accordion-collapse collapse" data-bs-parent="#accordionSolution5" aria-labelledby="headingSolution5">
 <div class="accordion-body">
 <p>A downside of oversampling is that it may violate statistical
 assumptions about independence of samples. A downside of undersampling
@@ -3031,7 +3063,7 @@ interpretability of the model?</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <table class="table">
 <colgroup>
@@ -4388,7 +4420,7 @@ to your experiences or projects?</em></p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <ul>
 <li>
@@ -4445,7 +4477,7 @@ reproducing ML workflows?</em></p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <ul>
 <li>
@@ -4757,7 +4789,7 @@ to your experiences or projects?</em></p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <ul>
 <li>Environment setup</li>
@@ -4813,7 +4845,7 @@ decision-making involving humans)</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
 <p>TODO</p>
 </div>
@@ -4872,8 +4904,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/fair-explainable-ml/instructor/aio.html",
   "identifier": "https://carpentries-incubator.github.io/fair-explainable-ml/instructor/aio.html",
   "dateCreated": "2023-12-05",
-  "dateModified": "2024-07-30",
-  "datePublished": "2024-07-30"
+  "dateModified": "2024-07-31",
+  "datePublished": "2024-07-31"
 }
 
   </script><script>
