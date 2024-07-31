@@ -12,15 +12,6 @@ def convert_ipynb_to_markdown(input_path, input_file_name):
     
     markdown_lines = []
 
-    # Extract metadata
-    metadata = nb.metadata
-    if 'title' in metadata:
-        markdown_lines.append(f"title: {metadata['title']}")
-    if 'teaching' in metadata and 'exercises' in metadata:
-        markdown_lines.append(f"teaching: {metadata['teaching']}")
-        markdown_lines.append(f"exercises: {metadata['exercises']}")
-    markdown_lines.append("---")
-
     for cell in nb.cells:
         cell_type = cell.cell_type
         if cell_type == 'markdown':
@@ -36,42 +27,50 @@ def convert_ipynb_to_markdown(input_path, input_file_name):
 def process_markdown_cell(cell):
     content = cell.source.split('\n')
     markdown_lines = []
+    in_objectives = False
+    in_questions = False
+    temp_objectives = []
+    temp_questions = []
 
-    # Extract metadata
-    objectives = extract_metadata(content, "objectives")
-    if objectives:
+    for line in content:
+        if re.match(r'^#+ Objectives', line, re.IGNORECASE):
+            in_objectives = True
+            in_questions = False
+            temp_objectives = []
+        elif re.match(r'^#+ Questions', line, re.IGNORECASE):
+            in_questions = True
+            in_objectives = False
+            temp_questions = []
+        elif in_objectives:
+            if re.match(r'^#', line):
+                in_objectives = False
+                # markdown_lines.append("::::::::::::::::::::::::::::::::::::::: objectives")
+                # markdown_lines.extend(temp_objectives)
+                # markdown_lines.append("::::::::::::::::::::::::::::::::::::::::::::::::::")
+                # markdown_lines.append(line)
+            else:
+                temp_objectives.append(line)
+        elif in_questions:
+            if re.match(r'^#', line):
+                in_questions = False
+                # markdown_lines.append(":::::::::::::::::::::::::::::::::::::::: questions")
+                # markdown_lines.extend(temp_questions)
+                # markdown_lines.append("::::::::::::::::::::::::::::::::::::::::::::::::::")
+                # markdown_lines.append(line)
+            else:
+                temp_questions.append(line)
+        else:
+            markdown_lines.append(line)
+    
+    # Append any remaining objectives or questions
+    if in_objectives:
         markdown_lines.append("::::::::::::::::::::::::::::::::::::::: objectives")
-        markdown_lines.extend(objectives)
+        markdown_lines.extend(temp_objectives)
         markdown_lines.append("::::::::::::::::::::::::::::::::::::::::::::::::::")
 
-    questions = extract_metadata(content, "questions")
-    if questions:
-        markdown_lines.append("::::::::::::::::::::::::::::::::::::::::::::::::::")
+    if in_questions:
         markdown_lines.append(":::::::::::::::::::::::::::::::::::::::: questions")
-        markdown_lines.extend(questions)
-        markdown_lines.append("::::::::::::::::::::::::::::::::::::::::::::::::::")
-
-    markdown_lines.extend(content)  # Include content from markdown cell
-
-    callouts = extract_metadata(content, "callout")
-    if callouts:
-        markdown_lines.append(":::::::::::::::::::::::::::::::::::::::::  callout")
-        markdown_lines.extend(callouts)
-        markdown_lines.append("::::::::::::::::::::::::::::::::::::::::::::::::::")
-
-    challenges = extract_metadata(content, "challenge")
-    if challenges:
-        markdown_lines.append(":::::::::::::::::::::::::::::::::::::::  challenge")
-        markdown_lines.extend(challenges)
-        markdown_lines.append(":::::::::::::::  solution")
-        solutions = extract_metadata(content, "solution")
-        markdown_lines.extend(solutions)
-        markdown_lines.append(":::::::::::::::::::::::::")
-
-    keypoints = extract_metadata(content, "keypoints")
-    if keypoints:
-        markdown_lines.append(":::::::::::::::::::::::::::::::::::::::: keypoints")
-        markdown_lines.extend(keypoints)
+        markdown_lines.extend(temp_questions)
         markdown_lines.append("::::::::::::::::::::::::::::::::::::::::::::::::::")
 
     return markdown_lines
@@ -86,20 +85,6 @@ def process_code_cell(cell):
     markdown_lines.append("```")
 
     return markdown_lines
-
-def extract_metadata(content, metadata_marker):
-    metadata = []
-    in_metadata = False
-
-    for line in content:
-        if re.match(f"^::+ {metadata_marker}", line):
-            in_metadata = True
-        elif in_metadata and re.match("^::+:?", line):
-            in_metadata = False
-        elif in_metadata:
-            metadata.append(line)
-
-    return metadata
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Convert Jupyter Notebook to Markdown")
