@@ -121,6 +121,7 @@ The authors blame the choice of proxy variable for the racial disparities.
 The authors go on to describe how, due to how health-care access is structured in the US, richer patients have more healthcare expenses, even if they are equally (un)healthy to a lower-income patient. The richer patients are also more likely to be white. 
 
 Consider the following:
+
 * How could the algorithm developers have caught this problem earlier? 
 * Is this a technical mistake or a process-based mistake? Why?
 
@@ -130,6 +131,7 @@ The algorithms that determine what to show are complex (and proprietary!) but a 
 For instance, this focus on engagement can create an "echo chamber" where individual users solely see content that aligns with their political ideology, thereby maximizing the positive engagement with each post. But the impact of social media feedback loops spreads beyond politics: [researchers have explored](https://arxiv.org/pdf/2305.11316) how similar feedback loops exist for mental health conditions such as eating disorders. If someone finds themselves in this area of social media, it's likely because they have, or have risk factors for, an eating disorder, and seeing pro-eating disorder content can drive engagement, but ultimately be very bad for mental health.
 
 Consider the following questions:
+
 * Why do social media companies optimize for engagement?
 * What would be an alternative optimization target? How would the outcomes differ, both for users and for the companies' profits?
 
