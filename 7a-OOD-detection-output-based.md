@@ -18,8 +18,9 @@ exercises: 0
 # Introduction to Out-of-Distribution (OOD) Data
 ## What is OOD data?
 Out-of-distribution (OOD) data refers to data that significantly differs from the training data on which a machine learning model was built. The difference can arise from either:
-* Semantic shift: OOD sample is drawn from a class that was not present during training
-* Covariate shift: OOD sample is drawn from a different domain; input feature distribution is drastically different than training data
+
+- Semantic shift: OOD sample is drawn from a class that was not present during training
+- Covariate shift: OOD sample is drawn from a different domain; input feature distribution is drastically different than training data
 
 When an ML model encounters OOD data, its performance can degrade significantly because the model is not equipped to handle these unfamiliar instances.
 
