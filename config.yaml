@@ -65,7 +65,7 @@ episodes:
 - 5c-probes.md
 - 5d-gradcam.md
 - 6-confidence-intervals.md
-- 7-distribution-shift-OOD-detection.md
+- 7a-OOD-detection-output-based.md
 - 8-releasing-a-model.md
 
 # Information for Learners

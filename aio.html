@@ -363,7 +363,7 @@
 <div class="accordion accordion-flush" id="accordionFlush12">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading12">
-        <a href="7-distribution-shift-OOD-detection.html">11. Distribution shift and OOD detection</a>
+        <a href="7a-OOD-detection-output-based.html">11. Distribution Shift and Out-of-Distribution (OOD) Detection: Output-Based Methods</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -552,7 +552,7 @@ Guiding Principles for Ethical Research</a>.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>A summary of the principles is listed below:</p>
 <ul>
@@ -2532,7 +2532,7 @@ making informed decisions.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>
@@ -2682,7 +2682,7 @@ in making informed decisions quickly.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>
@@ -4221,11 +4221,11 @@ any links that you are not going to use.
 </ul>
 </div>
 </div>
-</div></section><section id="aio-7-distribution-shift-OOD-detection"><p>Content from <a href="7-distribution-shift-OOD-detection.html">Distribution shift and OOD detection</a></p>
+</div></section><section id="aio-7a-OOD-detection-output-based"><p>Content from <a href="7a-OOD-detection-output-based.html">Distribution Shift and Out-of-Distribution (OOD) Detection: Output-Based Methods</a></p>
 <hr>
-<p>Last updated on 2024-06-19 |
+<p>Last updated on 2024-07-31 |
 
-        <a href="https://github.com/carpentries-incubator/fair-explainable-ml/edit/main/episodes/7-distribution-shift-OOD-detection.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+        <a href="https://github.com/carpentries-incubator/fair-explainable-ml/edit/main/episodes/7a-OOD-detection-output-based.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
           <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
         </div>
@@ -4237,12 +4237,11 @@ any links that you are not going to use.
 <div class="inner">
 <h3 class="card-title">Questions</h3>
 <ul>
-<li>What is distribution shift and what are its implications in machine
-learning models?</li>
-<li>How can AI systems be deployed while ensuring that they do not break
-when encountered with new data?</li>
-<li>What are some of the latest methods in detecting out-of-distribution
-data during inference?</li>
+<li>What are out-of-distribution (OOD) data and why is detecting them
+important in machine learning models?</li>
+<li>How do output-based methods like softmax, energy-based, and
+distance-based methods work for OOD detection?</li>
+<li>What are the limitations of output-based OOD detection methods?</li>
 </ul>
 </div>
 </div>
@@ -4252,86 +4251,669 @@ data during inference?</li>
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
 <ul>
-<li>Understand the concept of distribution shift in the context of
-machine learning.</li>
-<li>Identify the factors that can lead to distribution shift.</li>
-<li>Explain the implications of distribution shift on the performance
-and reliability of machine learning models.</li>
-<li>Discuss strategies for detecting and mitigating distribution shift
-in machine learning applications.</li>
-<li>Identify best practices for robust model deployment and
-monitoring.</li>
-<li>Examine the importance of detecting out-of-distribution data in
-machine learning applications.</li>
-<li>Explore the limitations of traditional methods for detecting
-out-of-distribution data.</li>
-<li>Investigate state-of-the-art techniques for out-of-distribution
-detection.</li>
+<li>Understand the concept of out-of-distribution data and its
+significance in building trustworthy machine learning models.</li>
+<li>Learn about different output-based methods for OOD detection,
+including softmax and energy-based methods</li>
+<li>Identify the strengths and limitations of output-based OOD detection
+techniques.</li>
 </ul>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div id="keypoints1" class="callout keypoints">
-<div class="callout-square">
-<i class="callout-icon" data-feather="key"></i>
+<div class="section level1">
+<h1 id="introduction-to-out-of-distribution-ood-data">Introduction to Out-of-Distribution (OOD) Data<a class="anchor" aria-label="anchor" href="#introduction-to-out-of-distribution-ood-data"></a>
+</h1>
+<div class="section level2">
+<h2 id="what-is-ood-data">What is OOD data?<a class="anchor" aria-label="anchor" href="#what-is-ood-data"></a>
+</h2>
+<p>Out-of-distribution (OOD) data refers to data that significantly
+differs from the training data on which a machine learning model was
+built. The difference can arise from either: * Semantic shift: OOD
+sample is drawn from a class that was not present during training *
+Covariate shift: OOD sample is drawn from a different domain; input
+feature distribution is drastically different than training data</p>
+<p>When an ML model encounters OOD data, its performance can degrade
+significantly because the model is not equipped to handle these
+unfamiliar instances.</p>
+<p><strong>TODO</strong>: Add closed/open-world image similar to Sharon
+Li’s tutorial at 4:28: <a href="https://www.youtube.com/watch?v=hgLC9_9ZCJI" class="external-link uri">https://www.youtube.com/watch?v=hgLC9_9ZCJI</a></p>
 </div>
-<div class="callout-inner">
-<h3 class="callout-title">Key Points<a class="anchor" aria-label="anchor" href="#keypoints1"></a>
+<div class="section level2">
+<h2 id="why-does-ood-data-matter">Why does OOD data matter?<a class="anchor" aria-label="anchor" href="#why-does-ood-data-matter"></a>
+</h2>
+<p>Model reliability: Models trained on a specific distribution might
+make incorrect predictions on OOD data, leading to unreliable outputs.
+In critical applications (e.g., healthcare, autonomous driving),
+encountering OOD data without proper handling can have severe
+consequences.</p>
+<div class="section level3">
+<h3 id="ex1-tesla-crashes-into-jet">Ex1: Tesla crashes into jet<a class="anchor" aria-label="anchor" href="#ex1-tesla-crashes-into-jet"></a>
 </h3>
-<div class="callout-content">
+<p>In April 2022, a <a href="https://www.newsweek.com/video-tesla-smart-summon-mode-ramming-3m-jet-viewed-34m-times-1700310" class="external-link">Tesla
+Model Y crashed into a $3.5 million private jet</a> at an aviation trade
+show in Spokane, Washington, while operating on the “Smart Summon”
+feature. The feature allows Tesla vehicles to autonomously navigate
+parking lots to their owners, but in this case, it resulted in a
+significant mishap. - The Tesla was summoned by its owner using the
+Tesla app, which requires holding down a button to keep the car moving.
+The car continued to move forward even after making contact with the
+jet, pushing the expensive aircraft and causing notable damage. - The
+crash highlighted several issues with Tesla’s Smart Summon feature,
+particularly its object detection capabilities. The system failed to
+recognize and appropriately react to the presence of the jet, a problem
+that has been observed in other scenarios where the car’s sensors
+struggle with objects that are lifted off the ground or have unusual
+shapes.</p>
+</div>
+<div class="section level3">
+<h3 id="ex2-ibm-watson-for-oncology">Ex2: IBM Watson for Oncology<a class="anchor" aria-label="anchor" href="#ex2-ibm-watson-for-oncology"></a>
+</h3>
+<p>IBM Watson for Oncology faced several issues due to OOD data. The
+system was primarily trained on data from Memorial Sloan Kettering
+Cancer Center (MSK), which did not generalize well to other healthcare
+settings. This led to the following problems: 1. Unsafe Recommendations:
+Watson for Oncology provided treatment recommendations that were not
+safe or aligned with standard care guidelines in many cases outside of
+MSK. This happened because the training data was not representative of
+the diverse medical practices and patient populations in different
+regions 2. Bias in Training Data: The system’s recommendations were
+biased towards the practices at MSK, failing to account for different
+treatment protocols and patient needs elsewhere. This bias is a classic
+example of an OOD issue, where the model encounters data (patients and
+treatments) during deployment that significantly differ from its
+training data</p>
+</div>
+<div class="section level3">
+<h3 id="ex3-doctors-using-gpt3">Ex3: Doctors using GPT3<a class="anchor" aria-label="anchor" href="#ex3-doctors-using-gpt3"></a>
+</h3>
+<div class="section level4">
+<h4 id="misdiagnosis-and-inaccurate-medical-advice">Misdiagnosis and Inaccurate Medical Advice<a class="anchor" aria-label="anchor" href="#misdiagnosis-and-inaccurate-medical-advice"></a>
+</h4>
+<p>In various studies and real-world applications, GPT-3 has been shown
+to generate inaccurate medical advice when faced with OOD data. This can
+be attributed to the fact that the training data, while extensive, does
+not cover all possible medical scenarios and nuances, leading to
+hallucinations or incorrect responses when encountering unfamiliar
+input.</p>
+<p>A <a href="https://hai.stanford.edu/news/generating-medical-errors-genai-and-erroneous-medical-references" class="external-link">study
+published by researchers at Stanford</a> found that GPT-3, even when
+using retrieval-augmented generation, provided unsupported medical
+advice in about 30% of its statements. For example, it suggested the use
+of a specific dosage for a defibrillator based on monophasic technology,
+while the cited source only discussed biphasic technology, which
+operates differently.</p>
+</div>
+<div class="section level4">
+<h4 id="fake-medical-literature-references">Fake Medical Literature References<a class="anchor" aria-label="anchor" href="#fake-medical-literature-references"></a>
+</h4>
+<p>Another critical OOD issue is the generation of fake or non-existent
+medical references by LLMs. When LLMs are prompted to provide citations
+for their responses, they sometimes generate references that sound
+plausible but do not actually exist. This can be particularly
+problematic in academic and medical contexts where accurate sourcing is
+crucial.</p>
+<p>In <a href="https://hai.stanford.edu/news/generating-medical-errors-genai-and-erroneous-medical-references" class="external-link">evaluations
+of GPT-3’s ability to generate medical literature references</a> , it
+was found that a significant portion of the references were either
+entirely fabricated or did not support the claims being made. This was
+especially true for complex medical inquiries that the model had not
+seen in its training data. # Detecting and Handling OOD Data Given the
+problems posed by OOD data, a reliable model should identify such
+instances, and then either: 1. Reject them during inference 2. Hand them
+off to a model trained on a more similar distribution (an
+in-distribution)</p>
+<p>How can we determine whether a given instance is OOD or ID? Over the
+past several years, there have been a wide assortment of new methods
+developed to tackle this task. In this episode, we will cover a few of
+the most common approaches and discuss advantages/disadvantages of
+each.</p>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="threshold-based-methods">Threshold-based methods<a class="anchor" aria-label="anchor" href="#threshold-based-methods"></a>
+</h2>
+<p>Threshold-based methods are one of the simplest and most intuitive
+approaches for detecting out-of-distribution (OOD) data. The central
+idea is to define a threshold on a certain score or confidence measure,
+beyond which the data point is considered out-of-distribution.
+Typically, these scores are derived from the model’s output
+probabilities or other statistical measures of uncertainty. Common
+approaches include:</p>
+<div class="section level3">
+<h3 id="output-based">Output-based<a class="anchor" aria-label="anchor" href="#output-based"></a>
+</h3>
 <ul>
-<li>TODO</li>
+<li>Softmax Scores: The softmax output of a neural network represents
+the predicted probabilities for each class. A common threshold-based
+method involves setting a confidence threshold, and if the maximum
+softmax score of an instance falls below this threshold, it is flagged
+as OOD.</li>
+<li>Energy: Energy measures the uncertainty in the predicted probability
+distribution. High Energy indicates high uncertainty. By setting a
+threshold on the Energy value, instances with Energy above the threshold
+can be classified as OOD.</li>
 </ul>
 </div>
+<div class="section level3">
+<h3 id="distance-based">Distance-based<a class="anchor" aria-label="anchor" href="#distance-based"></a>
+</h3>
+<ul>
+<li>Distance: This method calculates the distance of an instance from
+the distribution of training data features. If the distance is beyond a
+certain threshold, the instance is considered OOD. # Example 1: Softmax
+scores</li>
+</ul>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>n_epochs <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>verbose <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>alpha<span class="op">=</span><span class="fl">0.2</span></span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="im">from</span> keras.datasets <span class="im">import</span> fashion_mnist</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="co"># Load Fashion MNIST dataset</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>(train_images, train_labels), (test_images, test_labels) <span class="op">=</span> fashion_mnist.load_data()</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="co"># Define classes for simplicity</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>class_names <span class="op">=</span> [<span class="st">'T-shirt/top'</span>, <span class="st">'Trouser'</span>, <span class="st">'Pullover'</span>, <span class="st">'Dress'</span>, <span class="st">'Coat'</span>,</span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>               <span class="st">'Sandal'</span>, <span class="st">'Shirt'</span>, <span class="st">'Sneaker'</span>, <span class="st">'Bag'</span>, <span class="st">'Ankle boot'</span>]</span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="co"># Prepare OOD data - Sandals (5)</span></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>ood_data <span class="op">=</span> test_images[test_labels <span class="op">==</span> <span class="dv">5</span>]</span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>ood_labels <span class="op">=</span> test_labels[test_labels <span class="op">==</span> <span class="dv">5</span>]</span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'ood_data.shape=</span><span class="sc">{</span>ood_data<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a><span class="co"># Filter data for T-shirts (0) and Trousers (1) as in-distribution</span></span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a>train_filter <span class="op">=</span> np.isin(train_labels, [<span class="dv">0</span>, <span class="dv">1</span>])</span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>test_filter <span class="op">=</span> np.isin(test_labels, [<span class="dv">0</span>, <span class="dv">1</span>])</span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a>train_data <span class="op">=</span> train_images[train_filter]</span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a>train_labels <span class="op">=</span> train_labels[train_filter]</span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'train_data.shape=</span><span class="sc">{</span>train_data<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a>test_data <span class="op">=</span> test_images[test_filter]</span>
+<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a>test_labels <span class="op">=</span> test_labels[test_filter]</span>
+<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'test_data.shape=</span><span class="sc">{</span>test_data<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a></span>
+<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a><span class="co"># Display examples of in-distribution and OOD data</span></span>
+<span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>))</span>
+<span id="cb2-33"><a href="#cb2-33" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
+<span id="cb2-34"><a href="#cb2-34" tabindex="-1"></a>    plt.subplot(<span class="dv">2</span>, <span class="dv">5</span>, i <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb2-35"><a href="#cb2-35" tabindex="-1"></a>    plt.imshow(train_data[i], cmap<span class="op">=</span><span class="st">'gray'</span>)</span>
+<span id="cb2-36"><a href="#cb2-36" tabindex="-1"></a>    plt.title(<span class="st">"In-Dist"</span>)</span>
+<span id="cb2-37"><a href="#cb2-37" tabindex="-1"></a>    plt.axis(<span class="st">'off'</span>)</span>
+<span id="cb2-38"><a href="#cb2-38" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
+<span id="cb2-39"><a href="#cb2-39" tabindex="-1"></a>    plt.subplot(<span class="dv">2</span>, <span class="dv">5</span>, i <span class="op">+</span> <span class="dv">6</span>)</span>
+<span id="cb2-40"><a href="#cb2-40" tabindex="-1"></a>    plt.imshow(ood_data[i], cmap<span class="op">=</span><span class="st">'gray'</span>)</span>
+<span id="cb2-41"><a href="#cb2-41" tabindex="-1"></a>    plt.title(<span class="st">"OOD"</span>)</span>
+<span id="cb2-42"><a href="#cb2-42" tabindex="-1"></a>    plt.axis(<span class="st">'off'</span>)</span>
+<span id="cb2-43"><a href="#cb2-43" tabindex="-1"></a>plt.show()</span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>train_labels[<span class="dv">0</span>:<span class="dv">5</span>] <span class="co"># shirts are 0s, pants are 1s</span></span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb4">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># Flatten images for PCA and logistic regression</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>train_data_flat <span class="op">=</span> train_data.reshape((train_data.shape[<span class="dv">0</span>], <span class="op">-</span><span class="dv">1</span>))</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>test_data_flat <span class="op">=</span> test_data.reshape((test_data.shape[<span class="dv">0</span>], <span class="op">-</span><span class="dv">1</span>))</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>ood_data_flat <span class="op">=</span> ood_data.reshape((ood_data.shape[<span class="dv">0</span>], <span class="op">-</span><span class="dv">1</span>))</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'train_data_flat.shape=</span><span class="sc">{</span>train_data_flat<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'test_data_flat.shape=</span><span class="sc">{</span>test_data_flat<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'ood_data_flat.shape=</span><span class="sc">{</span>ood_data_flat<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">'</span>)</span></code></pre>
 </div>
 </div>
-<p>Lesson content is being drafted here: <a href="https://docs.google.com/document/d/1BpNwJK4jRhnNJCzZSFaueMOB7jKJJHupZ92bLmQlqYQ/edit?usp=sharing" class="external-link uri">https://docs.google.com/document/d/1BpNwJK4jRhnNJCzZSFaueMOB7jKJJHupZ92bLmQlqYQ/edit?usp=sharing</a></p>
-<section><h2 class="section-heading" id="distribution-shift-and-its-implications">Distribution shift and its implications<a class="anchor" aria-label="anchor" href="#distribution-shift-and-its-implications"></a>
-<a class="anchor" aria-label="anchor" href="#distribution-shift-and-its-implications"></a>
+</div>
+<div class="section level2">
+<h2 id="visualizing-ood-and-id-data">Visualizing OOD and ID data<a class="anchor" aria-label="anchor" href="#visualizing-ood-and-id-data"></a>
 </h2>
-<hr class="half-width"></section><section><h2 class="section-heading" id="overview-of-out-of-distribution-ood-detection-methods">Overview of out-of-distribution (OOD) detection methods<a class="anchor" aria-label="anchor" href="#overview-of-out-of-distribution-ood-detection-methods"></a>
-<a class="anchor" aria-label="anchor" href="#overview-of-out-of-distribution-ood-detection-methods"></a>
-</h2>
-<hr class="half-width"></section><section><h2 class="section-heading" id="glossary">Glossary<a class="anchor" aria-label="anchor" href="#glossary"></a>
-<a class="anchor" aria-label="anchor" href="#glossary"></a>
-</h2>
-<hr class="half-width">
+<div class="section level3">
+<h3 id="pca">PCA<a class="anchor" aria-label="anchor" href="#pca"></a>
+</h3>
+<p>PCA visualization can provide insights into how well a model is
+separating ID and OOD data. If the OOD data overlaps significantly with
+ID data in the PCA space, it might indicate that the model could
+struggle to correctly identify OOD samples.</p>
+<div class="codewrapper sourceCode" id="cb5">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co"># Perform PCA to visualize the first two principal components</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>pca <span class="op">=</span> PCA(n_components<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>train_data_pca <span class="op">=</span> pca.fit_transform(train_data_flat)</span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>test_data_pca <span class="op">=</span> pca.transform(test_data_flat)</span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>ood_data_pca <span class="op">=</span> pca.transform(ood_data_flat)</span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="co"># Plotting PCA components</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a>scatter1 <span class="op">=</span> plt.scatter(train_data_pca[train_labels <span class="op">==</span> <span class="dv">0</span>, <span class="dv">0</span>], train_data_pca[train_labels <span class="op">==</span> <span class="dv">0</span>, <span class="dv">1</span>], c<span class="op">=</span><span class="st">'blue'</span>, label<span class="op">=</span><span class="st">'T-shirts (ID)'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a>scatter2 <span class="op">=</span> plt.scatter(train_data_pca[train_labels <span class="op">==</span> <span class="dv">1</span>, <span class="dv">0</span>], train_data_pca[train_labels <span class="op">==</span> <span class="dv">1</span>, <span class="dv">1</span>], c<span class="op">=</span><span class="st">'red'</span>, label<span class="op">=</span><span class="st">'Trousers (ID)'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a>scatter3 <span class="op">=</span> plt.scatter(ood_data_pca[:, <span class="dv">0</span>], ood_data_pca[:, <span class="dv">1</span>], c<span class="op">=</span><span class="st">'green'</span>, label<span class="op">=</span><span class="st">'Sandals (OOD)'</span>, edgecolor<span class="op">=</span><span class="st">'k'</span>)</span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="co"># Create a single legend for all classes</span></span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a>plt.legend(handles<span class="op">=</span>[scatter1, scatter2, scatter3], loc<span class="op">=</span><span class="st">"upper right"</span>)</span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a>plt.xlabel(<span class="st">'First Principal Component'</span>)</span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a>plt.ylabel(<span class="st">'Second Principal Component'</span>)</span>
+<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a>plt.title(<span class="st">'PCA of In-Distribution and OOD Data'</span>)</span>
+<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a>plt.show()</span></code></pre>
+</div>
+</div>
+<div class="section level3">
+<h3 id="umap-or-similar">UMAP (or similar)<a class="anchor" aria-label="anchor" href="#umap-or-similar"></a>
+</h3>
+<p>However, PCA also has some limitations that might make other
+techniques, such as Uniform Manifold Approximation and Projection
+(UMAP), more suitable in certain scenarios:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Focus on Linear Relationships</strong>: PCA is a linear
+dimensionality reduction technique. It assumes that the directions of
+maximum variance in the data can be captured by linear combinations of
+the original features. This can be a limitation when the data has
+complex, non-linear relationships, as PCA may not capture the true
+structure of the data.</p></li>
+<li><p><strong>Overlooked Non-Linear Structures</strong>: OOD data might
+differ from ID data in non-linear ways that PCA cannot capture. For
+instance, if OOD data lies in a non-linear manifold that differs from
+the ID data manifold, PCA may not effectively separate them.</p></li>
+<li><p><strong>Global Structure vs. Local Structure</strong>: PCA
+emphasizes capturing the global variance in the data, which might not be
+ideal if the distinctions between ID and OOD data are subtle and local.
+In such cases, PCA might not highlight the differences
+effectively.</p></li>
+<li>
+<p><strong>Alternative Methods Like UMAP</strong>:</p>
 <ul>
-<li>ID/OOD: In-distribution, out-of-distribution. Generally, the OOD
-instances can be defined as instances (x, y) sampled from an underlying
-distribution other than the training distribution P(Xtrain, Ytrain),
-where Xtrain and Ytrain are the training corpus and training label set,
-respectively.</li>
-<li>OOD instances with semantic shift: OOD instances with semantic shift
-refer to instances that do not belong to y_train. More specifically,
-instances with semantic shift may come from unknown categories or
-irrelevant tasks.</li>
-<li>OOD instances with non-semantic shift: OOD instances with
-non-semantic shift refer to the instances that belong to Ytrain but are
-sampled from a distribution other than Xtrain, e.g., a different
-corpus.</li>
-<li>Closed-world assumption: an assumption that the training and test
-data are sampled from the same distribution. However, training data can
-rarely capture the entire distribution. In real-world scenarios,
-out-of-distribution (OOD) instances, which come from categories that are
-not known to the model, can often be present in inference phases</li>
-</ul></section><section><h2 class="section-heading" id="references-learn-more">References / Learn more<a class="anchor" aria-label="anchor" href="#references-learn-more"></a>
-<a class="anchor" aria-label="anchor" href="#references-learn-more"></a>
-</h2>
-<hr class="half-width">
-<ul>
-<li>Zhou et al., Contrastive Out-of-Distribution Detection for
-Pretrained Transformers, <a href="https://aclanthology.org/2021.emnlp-main.84.pdf" class="external-link uri">https://aclanthology.org/2021.emnlp-main.84.pdf</a>
+<li>
+<strong>UMAP</strong>: Uniform Manifold Approximation and Projection
+(UMAP) is a non-linear dimensionality reduction technique that preserves
+both the global structure and the local neighborhood relationships in
+the data. UMAP is often better at maintaining the continuity of data
+points that lie on non-linear manifolds.</li>
+<li>
+<strong>Better Clustering</strong>: UMAP tends to provide more
+meaningful visualizations for clustering tasks, making it easier to
+identify distinct clusters of ID and OOD data.</li>
+<li>
+<strong>Preservation of Local Distances</strong>: UMAP preserves
+local distances more effectively than PCA, which can be crucial for
+distinguishing between ID and OOD data that are close in the original
+high-dimensional space but separate in the underlying manifold.</li>
+</ul>
 </li>
-<li>Uppaal et al., Is Fine-tuning Needed? Pre-trained Language Models
-Are Near Perfect for Out-of-Domain Detection; <a href="https://aclanthology.org/2023.acl-long.717.pdf" class="external-link uri">https://aclanthology.org/2023.acl-long.717.pdf</a> <!--
+<li><p><strong>Visualization Clarity</strong>: UMAP often provides
+clearer and more interpretable visualizations for complex datasets. It
+can reveal patterns and structures that PCA might miss, making it a
+valuable tool for analyzing ID and OOD distributions.</p></li>
+</ol>
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="op">!</span>pip install umap<span class="op">-</span>learn</span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb7">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="im">import</span> umap</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="co"># Perform UMAP to visualize the data</span></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>umap_reducer <span class="op">=</span> umap.UMAP(n_components<span class="op">=</span><span class="dv">2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>combined_data <span class="op">=</span> np.vstack([train_data_flat, ood_data_flat])</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>combined_labels <span class="op">=</span> np.hstack([train_labels, np.full(ood_data_flat.shape[<span class="dv">0</span>], <span class="dv">2</span>)])  <span class="co"># Use 2 for OOD class</span></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>umap_results <span class="op">=</span> umap_reducer.fit_transform(combined_data)</span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a><span class="co"># Split the results back into in-distribution and OOD data</span></span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a>umap_in_dist <span class="op">=</span> umap_results[:<span class="bu">len</span>(train_data_flat)]</span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a>umap_ood <span class="op">=</span> umap_results[<span class="bu">len</span>(train_data_flat):]</span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb8">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="co"># Plotting UMAP components</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="co"># Plot in-distribution data</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>scatter1 <span class="op">=</span> plt.scatter(umap_in_dist[train_labels <span class="op">==</span> <span class="dv">0</span>, <span class="dv">0</span>], umap_in_dist[train_labels <span class="op">==</span> <span class="dv">0</span>, <span class="dv">1</span>], c<span class="op">=</span><span class="st">'blue'</span>, label<span class="op">=</span><span class="st">'T-shirts (ID)'</span>, alpha<span class="op">=</span>alpha)</span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>scatter2 <span class="op">=</span> plt.scatter(umap_in_dist[train_labels <span class="op">==</span> <span class="dv">1</span>, <span class="dv">0</span>], umap_in_dist[train_labels <span class="op">==</span> <span class="dv">1</span>, <span class="dv">1</span>], c<span class="op">=</span><span class="st">'red'</span>, label<span class="op">=</span><span class="st">'Trousers (ID)'</span>, alpha<span class="op">=</span>alpha)</span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="co"># Plot OOD data</span></span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>scatter3 <span class="op">=</span> plt.scatter(umap_ood[:, <span class="dv">0</span>], umap_ood[:, <span class="dv">1</span>], c<span class="op">=</span><span class="st">'green'</span>, label<span class="op">=</span><span class="st">'Sandals (OOD)'</span>, edgecolor<span class="op">=</span><span class="st">'k'</span>, alpha<span class="op">=</span>alpha)</span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="co"># Create a single legend for all classes</span></span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a>plt.legend(handles<span class="op">=</span>[scatter1, scatter2, scatter3], loc<span class="op">=</span><span class="st">"upper right"</span>)</span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a>plt.xlabel(<span class="st">'First UMAP Component'</span>)</span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a>plt.ylabel(<span class="st">'Second UMAP Component'</span>)</span>
+<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a>plt.title(<span class="st">'UMAP of In-Distribution and OOD Data'</span>)</span>
+<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a>plt.show()</span></code></pre>
+</div>
+<p>The warning message indicates that UMAP has overridden the n_jobs
+parameter to 1 due to the random_state being set. This behavior ensures
+reproducibility by using a single job. If you want to avoid the warning
+and still use parallelism, you can remove the random_state parameter.
+However, removing random_state will mean that the results might not be
+reproducible. ## Model-Dependent Visualization The choice of
+visualization technique can align with the nature of the model being
+used. Here’s how you might frame this idea:</p>
+<ul>
+<li><p>Linear Models and PCA: If you’re using a linear model, PCA can be
+more appropriate for visualizing in-distribution (ID) and
+out-of-distribution (OOD) data because both PCA and linear models
+operate under linear assumptions. PCA will effectively capture the main
+variance in the data as seen by the linear model, making it easier to
+understand the decision boundaries and how OOD data deviates from the ID
+data within those boundaries.</p></li>
+<li><p>Non-Linear Models and UMAP: For non-linear models, techniques
+like UMAP are more suitable because they preserve both local and global
+structures in a non-linear fashion, similar to how non-linear models
+capture complex relationships in the data. UMAP can provide a more
+accurate visualization of the data manifold, highlighting distinctions
+between ID and OOD data that may not be apparent with PCA.</p></li>
+</ul>
+<div class="codewrapper sourceCode" id="cb9">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co"># Train a logistic regression classifier</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>model <span class="op">=</span> LogisticRegression(max_iter<span class="op">=</span><span class="dv">10</span>, solver<span class="op">=</span><span class="st">'lbfgs'</span>, multi_class<span class="op">=</span><span class="st">'multinomial'</span>).fit(train_data_flat, train_labels)</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="co"># # Evaluate the model on in-distribution data</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="co"># in_dist_preds = model.predict(test_data_flat)</span></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="co"># in_dist_accuracy = accuracy_score(test_labels, in_dist_preds)</span></span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="co"># print(f'In-Distribution Accuracy: {in_dist_accuracy:.2f}')</span></span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb10">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="co"># Predict probabilities using the model on OOD data (Sandals)</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>ood_probs <span class="op">=</span> model.predict_proba(ood_data_flat)</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>avg_ood_prob <span class="op">=</span> np.mean(ood_probs, <span class="dv">0</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Avg. probability of sandal being T-shirt: </span><span class="sc">{</span>avg_ood_prob[<span class="dv">0</span>]<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Avg. probability of sandal being trousers: </span><span class="sc">{</span>avg_ood_prob[<span class="dv">1</span>]<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a>id_probs <span class="op">=</span> model.predict_proba(train_data_flat)</span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a>id_probs_shirts <span class="op">=</span> id_probs[train_labels<span class="op">==</span><span class="dv">0</span>,:]</span>
+<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a>id_probs_pants <span class="op">=</span> id_probs[train_labels<span class="op">==</span><span class="dv">1</span>,:]</span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb11">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="co"># Creating the figure and subplots</span></span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">4</span>), sharey<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a>bins<span class="op">=</span><span class="dv">60</span></span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="co"># Plotting the histogram of probabilities for OOD data (Sandals)</span></span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a>axes[<span class="dv">0</span>].hist(ood_probs[:, <span class="dv">0</span>], bins<span class="op">=</span>bins, alpha<span class="op">=</span><span class="fl">0.5</span>, label<span class="op">=</span><span class="st">'T-shirt probability'</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a>axes[<span class="dv">0</span>].set_xlabel(<span class="st">'Probability'</span>)</span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylabel(<span class="st">'Frequency'</span>)</span>
+<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">'OOD Data (Sandals)'</span>)</span>
+<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a>axes[<span class="dv">0</span>].legend()</span>
+<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a></span>
+<span id="cb11-13"><a href="#cb11-13" tabindex="-1"></a><span class="co"># Plotting the histogram of probabilities for ID data (T-shirt)</span></span>
+<span id="cb11-14"><a href="#cb11-14" tabindex="-1"></a>axes[<span class="dv">1</span>].hist(id_probs_shirts[:, <span class="dv">0</span>], bins<span class="op">=</span>bins, alpha<span class="op">=</span><span class="fl">0.5</span>, label<span class="op">=</span><span class="st">'T-shirt probability'</span>, color<span class="op">=</span><span class="st">'orange'</span>)</span>
+<span id="cb11-15"><a href="#cb11-15" tabindex="-1"></a>axes[<span class="dv">1</span>].set_xlabel(<span class="st">'Probability'</span>)</span>
+<span id="cb11-16"><a href="#cb11-16" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="st">'ID Data (T-shirt)'</span>)</span>
+<span id="cb11-17"><a href="#cb11-17" tabindex="-1"></a>axes[<span class="dv">1</span>].legend()</span>
+<span id="cb11-18"><a href="#cb11-18" tabindex="-1"></a></span>
+<span id="cb11-19"><a href="#cb11-19" tabindex="-1"></a><span class="co"># Plotting the histogram of probabilities for ID data (Pants)</span></span>
+<span id="cb11-20"><a href="#cb11-20" tabindex="-1"></a>axes[<span class="dv">2</span>].hist(id_probs_pants[:, <span class="dv">1</span>], bins<span class="op">=</span>bins, alpha<span class="op">=</span><span class="fl">0.5</span>, label<span class="op">=</span><span class="st">'Pants probability'</span>, color<span class="op">=</span><span class="st">'green'</span>)</span>
+<span id="cb11-21"><a href="#cb11-21" tabindex="-1"></a>axes[<span class="dv">2</span>].set_xlabel(<span class="st">'Probability'</span>)</span>
+<span id="cb11-22"><a href="#cb11-22" tabindex="-1"></a>axes[<span class="dv">2</span>].set_title(<span class="st">'ID Data (Pants)'</span>)</span>
+<span id="cb11-23"><a href="#cb11-23" tabindex="-1"></a>axes[<span class="dv">2</span>].legend()</span>
+<span id="cb11-24"><a href="#cb11-24" tabindex="-1"></a></span>
+<span id="cb11-25"><a href="#cb11-25" tabindex="-1"></a><span class="co"># Adjusting layout</span></span>
+<span id="cb11-26"><a href="#cb11-26" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb11-27"><a href="#cb11-27" tabindex="-1"></a></span>
+<span id="cb11-28"><a href="#cb11-28" tabindex="-1"></a><span class="co"># Displaying the plot</span></span>
+<span id="cb11-29"><a href="#cb11-29" tabindex="-1"></a>plt.show()</span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb12">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> gaussian_kde</span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a><span class="co"># Assuming id_probs_shirts and id_probs_pants are subsets of id_probs</span></span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a>id_probs_shirts <span class="op">=</span> id_probs[train_labels <span class="op">==</span> <span class="dv">0</span>]</span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a>id_probs_pants <span class="op">=</span> id_probs[train_labels <span class="op">==</span> <span class="dv">1</span>]</span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a><span class="co"># Create figure</span></span>
+<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a><span class="co"># Define bins</span></span>
+<span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.3</span></span>
+<span id="cb12-14"><a href="#cb12-14" tabindex="-1"></a></span>
+<span id="cb12-15"><a href="#cb12-15" tabindex="-1"></a><span class="co"># Plot PDF for ID T-shirt (T-shirt probability)</span></span>
+<span id="cb12-16"><a href="#cb12-16" tabindex="-1"></a>density_id_shirts <span class="op">=</span> gaussian_kde(id_probs_shirts[:, <span class="dv">0</span>])</span>
+<span id="cb12-17"><a href="#cb12-17" tabindex="-1"></a>x_id_shirts <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1000</span>)</span>
+<span id="cb12-18"><a href="#cb12-18" tabindex="-1"></a>plt.plot(x_id_shirts, density_id_shirts(x_id_shirts), label<span class="op">=</span><span class="st">'ID T-shirt (T-shirt probability)'</span>, color<span class="op">=</span><span class="st">'orange'</span>, alpha<span class="op">=</span>alpha)</span>
+<span id="cb12-19"><a href="#cb12-19" tabindex="-1"></a></span>
+<span id="cb12-20"><a href="#cb12-20" tabindex="-1"></a><span class="co"># Plot PDF for ID Pants (Pants probability)</span></span>
+<span id="cb12-21"><a href="#cb12-21" tabindex="-1"></a>density_id_pants <span class="op">=</span> gaussian_kde(id_probs_pants[:, <span class="dv">1</span>])</span>
+<span id="cb12-22"><a href="#cb12-22" tabindex="-1"></a>x_id_pants <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1000</span>)</span>
+<span id="cb12-23"><a href="#cb12-23" tabindex="-1"></a>plt.plot(x_id_pants, density_id_pants(x_id_pants), label<span class="op">=</span><span class="st">'ID Pants (Pants probability)'</span>, color<span class="op">=</span><span class="st">'green'</span>, alpha<span class="op">=</span>alpha)</span>
+<span id="cb12-24"><a href="#cb12-24" tabindex="-1"></a></span>
+<span id="cb12-25"><a href="#cb12-25" tabindex="-1"></a><span class="co"># Plot PDF for OOD (T-shirt probability)</span></span>
+<span id="cb12-26"><a href="#cb12-26" tabindex="-1"></a>density_ood <span class="op">=</span> gaussian_kde(ood_probs[:, <span class="dv">0</span>])</span>
+<span id="cb12-27"><a href="#cb12-27" tabindex="-1"></a>x_ood <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1000</span>)</span>
+<span id="cb12-28"><a href="#cb12-28" tabindex="-1"></a>plt.plot(x_ood, density_ood(x_ood), label<span class="op">=</span><span class="st">'OOD (T-shirt probability)'</span>, color<span class="op">=</span><span class="st">'blue'</span>, alpha<span class="op">=</span>alpha)</span>
+<span id="cb12-29"><a href="#cb12-29" tabindex="-1"></a></span>
+<span id="cb12-30"><a href="#cb12-30" tabindex="-1"></a><span class="co"># Adding labels and title</span></span>
+<span id="cb12-31"><a href="#cb12-31" tabindex="-1"></a>plt.xlabel(<span class="st">'Probability'</span>)</span>
+<span id="cb12-32"><a href="#cb12-32" tabindex="-1"></a>plt.ylabel(<span class="st">'Density'</span>)</span>
+<span id="cb12-33"><a href="#cb12-33" tabindex="-1"></a>plt.title(<span class="st">'Probability Density Distributions for OOD and ID Data'</span>)</span>
+<span id="cb12-34"><a href="#cb12-34" tabindex="-1"></a>plt.legend()</span>
+<span id="cb12-35"><a href="#cb12-35" tabindex="-1"></a></span>
+<span id="cb12-36"><a href="#cb12-36" tabindex="-1"></a><span class="co"># Displaying the plot</span></span>
+<span id="cb12-37"><a href="#cb12-37" tabindex="-1"></a>plt.show()</span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb13">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix, ConfusionMatrixDisplay</span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a><span class="co"># Assuming ood_probs, id_probs, and train_labels are defined</span></span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a><span class="co"># Threshold values</span></span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a>upper_threshold <span class="op">=</span> <span class="fl">0.9999</span></span>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a><span class="co"># Classifying OOD examples (sandals)</span></span>
+<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a>ood_classifications <span class="op">=</span> np.where(ood_probs[:, <span class="dv">1</span>] <span class="op">&gt;=</span> upper_threshold, <span class="dv">1</span>,  <span class="co"># classified as pants</span></span>
+<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a>                               np.where(ood_probs[:, <span class="dv">0</span>] <span class="op">&gt;=</span> upper_threshold, <span class="dv">0</span>,  <span class="co"># classified as shirts</span></span>
+<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a>                                        <span class="op">-</span><span class="dv">1</span>))  <span class="co"># classified as OOD</span></span>
+<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a>ood_classifications</span>
+<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a></span>
+<span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a>id_probs</span>
+<span id="cb13-16"><a href="#cb13-16" tabindex="-1"></a><span class="co"># Classifying ID examples (T-shirts and pants)</span></span>
+<span id="cb13-17"><a href="#cb13-17" tabindex="-1"></a>id_classifications <span class="op">=</span> np.where(id_probs[:, <span class="dv">1</span>] <span class="op">&gt;=</span> upper_threshold, <span class="dv">1</span>,  <span class="co"># classified as pants</span></span>
+<span id="cb13-18"><a href="#cb13-18" tabindex="-1"></a>                              np.where(id_probs[:, <span class="dv">0</span>] <span class="op">&gt;=</span> upper_threshold, <span class="dv">0</span>,  <span class="co"># classified as shirts</span></span>
+<span id="cb13-19"><a href="#cb13-19" tabindex="-1"></a>                                       <span class="op">-</span><span class="dv">1</span>))  <span class="co"># classified as OOD</span></span>
+<span id="cb13-20"><a href="#cb13-20" tabindex="-1"></a></span>
+<span id="cb13-21"><a href="#cb13-21" tabindex="-1"></a>id_classifications</span>
+<span id="cb13-22"><a href="#cb13-22" tabindex="-1"></a></span>
+<span id="cb13-23"><a href="#cb13-23" tabindex="-1"></a><span class="co"># Combine OOD and ID classifications and true labels</span></span>
+<span id="cb13-24"><a href="#cb13-24" tabindex="-1"></a>all_predictions <span class="op">=</span> np.concatenate([ood_classifications, id_classifications])</span>
+<span id="cb13-25"><a href="#cb13-25" tabindex="-1"></a>all_true_labels <span class="op">=</span> np.concatenate([<span class="op">-</span><span class="dv">1</span> <span class="op">*</span> np.ones(ood_classifications.shape), train_labels])</span>
+<span id="cb13-26"><a href="#cb13-26" tabindex="-1"></a></span>
+<span id="cb13-27"><a href="#cb13-27" tabindex="-1"></a><span class="co"># Confusion matrix</span></span>
+<span id="cb13-28"><a href="#cb13-28" tabindex="-1"></a>cm <span class="op">=</span> confusion_matrix(all_true_labels, all_predictions, labels<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>])</span>
+<span id="cb13-29"><a href="#cb13-29" tabindex="-1"></a></span>
+<span id="cb13-30"><a href="#cb13-30" tabindex="-1"></a><span class="co"># Plotting the confusion matrix</span></span>
+<span id="cb13-31"><a href="#cb13-31" tabindex="-1"></a>disp <span class="op">=</span> ConfusionMatrixDisplay(confusion_matrix<span class="op">=</span>cm, display_labels<span class="op">=</span>[<span class="st">"Shirt"</span>, <span class="st">"Pants"</span>, <span class="st">"OOD"</span>])</span>
+<span id="cb13-32"><a href="#cb13-32" tabindex="-1"></a>disp.plot(cmap<span class="op">=</span>plt.cm.Blues)</span>
+<span id="cb13-33"><a href="#cb13-33" tabindex="-1"></a>plt.title(<span class="st">'Confusion Matrix for OOD and ID Classification'</span>)</span>
+<span id="cb13-34"><a href="#cb13-34" tabindex="-1"></a>plt.show()</span></code></pre>
+</div>
+<p>With a very conservative threshold, we can make sure very few OOD
+samples are incorrectly classified as ID. However, the flip side is that
+conservative thresholds tend to incorrectly classify many ID samples as
+being OOD. In this case, we incorrectly assume almost 20% of shirts are
+OOD samples.</p>
+<p>Quick exercise: What threhsold is required to ensure that no OOD
+samples are incorrectly considered as IID? What percentage of ID samples
+are mistaken as OOD at this threshold? Answer: 0.9999,
+(3826+2414)/(3826+2414+2174+3586)=52% ## Iterative Threshold
+Determination (setup as exercise?)</p>
+<p>In practice, selecting an appropriate threshold is an iterative
+process that balances the trade-off between correctly identifying
+in-distribution (ID) data and accurately flagging out-of-distribution
+(OOD) data. Here’s how you can iteratively determine the threshold:</p>
+<ul>
+<li><p>Define Evaluation Metrics: Decide on the performance metrics you
+want to optimize, such as accuracy, precision, recall, or the F1 score
+for both ID and OOD detection.</p></li>
+<li><p>Evaluate Over a Range of Thresholds: Test different threshold
+values and evaluate the performance on a validation set containing both
+ID and OOD data.</p></li>
+<li><p>Select the Optimal Threshold: Choose the threshold that provides
+the best balance according to your chosen metrics.</p></li>
+</ul>
+<p><strong>Possible exercise (might not be our first priority since
+these methods aren’t as popular anymore)</strong>: Use the below code to
+determine what threshold should be set to ensure precision = 100%. What
+threshold is required for recall to be 100%? What threshold gives the
+highest F1 score?</p>
+<p>Note: F1 scores can be calculated per class, and then averaged in
+different ways (macro, micro, or weighted) when dealing with multiclass
+or multilabel classification problems. Here are the key types of
+averaging methods:</p>
+<ul>
+<li><p>Macro-Averaging: Calculates the F1 score for each class
+independently and then takes the average of these scores. This treats
+all classes equally, regardless of their support (number of true
+instances for each class).</p></li>
+<li><p>Micro-Averaging: Aggregates the contributions of all classes to
+compute the average F1 score. This is typically used for imbalanced
+datasets as it gives more weight to classes with more
+instances.</p></li>
+<li><p>Weighted-Averaging: Calculates the F1 score for each class
+independently and then takes the average, weighted by the number of true
+instances for each class. This accounts for class imbalance by giving
+more weight to classes with more instances.</p></li>
+</ul>
+<div class="codewrapper sourceCode" id="cb14">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> precision_recall_fscore_support, accuracy_score, confusion_matrix, ConfusionMatrixDisplay</span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a><span class="co"># Define thresholds to evaluate</span></span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a>thresholds <span class="op">=</span> np.linspace(<span class="fl">.5</span>, <span class="dv">1</span>, <span class="dv">50</span>)</span>
+<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a><span class="co"># Store evaluation metrics for each threshold</span></span>
+<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a>accuracies <span class="op">=</span> []</span>
+<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a>precisions <span class="op">=</span> []</span>
+<span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a>recalls <span class="op">=</span> []</span>
+<span id="cb14-12"><a href="#cb14-12" tabindex="-1"></a>f1_scores <span class="op">=</span> []</span>
+<span id="cb14-13"><a href="#cb14-13" tabindex="-1"></a></span>
+<span id="cb14-14"><a href="#cb14-14" tabindex="-1"></a><span class="cf">for</span> threshold <span class="kw">in</span> thresholds:</span>
+<span id="cb14-15"><a href="#cb14-15" tabindex="-1"></a></span>
+<span id="cb14-16"><a href="#cb14-16" tabindex="-1"></a>  <span class="co"># threshold = 1</span></span>
+<span id="cb14-17"><a href="#cb14-17" tabindex="-1"></a>  <span class="co"># Classify OOD examples</span></span>
+<span id="cb14-18"><a href="#cb14-18" tabindex="-1"></a>  ood_classifications <span class="op">=</span> np.where(ood_probs[:, <span class="dv">1</span>] <span class="op">&gt;=</span> threshold, <span class="dv">1</span>,  <span class="co"># classified as pants</span></span>
+<span id="cb14-19"><a href="#cb14-19" tabindex="-1"></a>                                  np.where(ood_probs[:, <span class="dv">0</span>] <span class="op">&gt;=</span> threshold, <span class="dv">0</span>,  <span class="co"># classified as shirts</span></span>
+<span id="cb14-20"><a href="#cb14-20" tabindex="-1"></a>                                          <span class="op">-</span><span class="dv">1</span>))  <span class="co"># classified as OOD</span></span>
+<span id="cb14-21"><a href="#cb14-21" tabindex="-1"></a></span>
+<span id="cb14-22"><a href="#cb14-22" tabindex="-1"></a>  <span class="co"># Classify ID examples</span></span>
+<span id="cb14-23"><a href="#cb14-23" tabindex="-1"></a>  id_classifications <span class="op">=</span> np.where(id_probs[:, <span class="dv">1</span>] <span class="op">&gt;=</span> threshold, <span class="dv">1</span>,  <span class="co"># classified as pants</span></span>
+<span id="cb14-24"><a href="#cb14-24" tabindex="-1"></a>                                np.where(id_probs[:, <span class="dv">0</span>] <span class="op">&gt;=</span> threshold, <span class="dv">0</span>,  <span class="co"># classified as shirts</span></span>
+<span id="cb14-25"><a href="#cb14-25" tabindex="-1"></a>                                          <span class="op">-</span><span class="dv">1</span>))  <span class="co"># classified as OOD</span></span>
+<span id="cb14-26"><a href="#cb14-26" tabindex="-1"></a></span>
+<span id="cb14-27"><a href="#cb14-27" tabindex="-1"></a>  <span class="co"># Combine OOD and ID classifications and true labels</span></span>
+<span id="cb14-28"><a href="#cb14-28" tabindex="-1"></a>  all_predictions <span class="op">=</span> np.concatenate([ood_classifications, id_classifications])</span>
+<span id="cb14-29"><a href="#cb14-29" tabindex="-1"></a>  all_true_labels <span class="op">=</span> np.concatenate([<span class="op">-</span><span class="dv">1</span> <span class="op">*</span> np.ones(ood_classifications.shape), train_labels])</span>
+<span id="cb14-30"><a href="#cb14-30" tabindex="-1"></a></span>
+<span id="cb14-31"><a href="#cb14-31" tabindex="-1"></a>  <span class="co"># Evaluate metrics</span></span>
+<span id="cb14-32"><a href="#cb14-32" tabindex="-1"></a>  precision, recall, f1, _ <span class="op">=</span> precision_recall_fscore_support(all_true_labels, all_predictions, labels<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">1</span>], average<span class="op">=</span><span class="st">'macro'</span>) <span class="co"># discuss macro vs micro .</span></span>
+<span id="cb14-33"><a href="#cb14-33" tabindex="-1"></a>  accuracy <span class="op">=</span> accuracy_score(all_true_labels, all_predictions)</span>
+<span id="cb14-34"><a href="#cb14-34" tabindex="-1"></a></span>
+<span id="cb14-35"><a href="#cb14-35" tabindex="-1"></a>  accuracies.append(accuracy)</span>
+<span id="cb14-36"><a href="#cb14-36" tabindex="-1"></a>  precisions.append(precision)</span>
+<span id="cb14-37"><a href="#cb14-37" tabindex="-1"></a>  recalls.append(recall)</span>
+<span id="cb14-38"><a href="#cb14-38" tabindex="-1"></a>  f1_scores.append(f1)</span>
+<span id="cb14-39"><a href="#cb14-39" tabindex="-1"></a></span>
+<span id="cb14-40"><a href="#cb14-40" tabindex="-1"></a><span class="co"># Find the best thresholds for each metric</span></span>
+<span id="cb14-41"><a href="#cb14-41" tabindex="-1"></a>best_f1_index <span class="op">=</span> np.argmax(f1_scores)</span>
+<span id="cb14-42"><a href="#cb14-42" tabindex="-1"></a>best_f1_threshold <span class="op">=</span> thresholds[best_f1_index]</span>
+<span id="cb14-43"><a href="#cb14-43" tabindex="-1"></a></span>
+<span id="cb14-44"><a href="#cb14-44" tabindex="-1"></a>best_precision_index <span class="op">=</span> np.argmax(precisions)</span>
+<span id="cb14-45"><a href="#cb14-45" tabindex="-1"></a>best_precision_threshold <span class="op">=</span> thresholds[best_precision_index]</span>
+<span id="cb14-46"><a href="#cb14-46" tabindex="-1"></a></span>
+<span id="cb14-47"><a href="#cb14-47" tabindex="-1"></a>best_recall_index <span class="op">=</span> np.argmax(recalls)</span>
+<span id="cb14-48"><a href="#cb14-48" tabindex="-1"></a>best_recall_threshold <span class="op">=</span> thresholds[best_recall_index]</span>
+<span id="cb14-49"><a href="#cb14-49" tabindex="-1"></a></span>
+<span id="cb14-50"><a href="#cb14-50" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Best F1 threshold: </span><span class="sc">{</span>best_f1_threshold<span class="sc">}</span><span class="ss">, F1 Score: </span><span class="sc">{</span>f1_scores[best_f1_index]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb14-51"><a href="#cb14-51" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Best Precision threshold: </span><span class="sc">{</span>best_precision_threshold<span class="sc">}</span><span class="ss">, Precision: </span><span class="sc">{</span>precisions[best_precision_index]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb14-52"><a href="#cb14-52" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Best Recall threshold: </span><span class="sc">{</span>best_recall_threshold<span class="sc">}</span><span class="ss">, Recall: </span><span class="sc">{</span>recalls[best_recall_index]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb14-53"><a href="#cb14-53" tabindex="-1"></a></span>
+<span id="cb14-54"><a href="#cb14-54" tabindex="-1"></a><span class="co"># Plot metrics as functions of the threshold</span></span>
+<span id="cb14-55"><a href="#cb14-55" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">8</span>))</span>
+<span id="cb14-56"><a href="#cb14-56" tabindex="-1"></a>plt.plot(thresholds, precisions, label<span class="op">=</span><span class="st">'Precision'</span>, color<span class="op">=</span><span class="st">'g'</span>)</span>
+<span id="cb14-57"><a href="#cb14-57" tabindex="-1"></a>plt.plot(thresholds, recalls, label<span class="op">=</span><span class="st">'Recall'</span>, color<span class="op">=</span><span class="st">'b'</span>)</span>
+<span id="cb14-58"><a href="#cb14-58" tabindex="-1"></a>plt.plot(thresholds, f1_scores, label<span class="op">=</span><span class="st">'F1 Score'</span>, color<span class="op">=</span><span class="st">'r'</span>)</span>
+<span id="cb14-59"><a href="#cb14-59" tabindex="-1"></a></span>
+<span id="cb14-60"><a href="#cb14-60" tabindex="-1"></a><span class="co"># Add best threshold indicators</span></span>
+<span id="cb14-61"><a href="#cb14-61" tabindex="-1"></a>plt.axvline(x<span class="op">=</span>best_f1_threshold, color<span class="op">=</span><span class="st">'r'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, label<span class="op">=</span><span class="ss">f'Best F1 Threshold: </span><span class="sc">{</span>best_f1_threshold<span class="sc">:.2f}</span><span class="ss">'</span>)</span>
+<span id="cb14-62"><a href="#cb14-62" tabindex="-1"></a>plt.axvline(x<span class="op">=</span>best_precision_threshold, color<span class="op">=</span><span class="st">'g'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, label<span class="op">=</span><span class="ss">f'Best Precision Threshold: </span><span class="sc">{</span>best_precision_threshold<span class="sc">:.2f}</span><span class="ss">'</span>)</span>
+<span id="cb14-63"><a href="#cb14-63" tabindex="-1"></a>plt.axvline(x<span class="op">=</span>best_recall_threshold, color<span class="op">=</span><span class="st">'b'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, label<span class="op">=</span><span class="ss">f'Best Recall Threshold: </span><span class="sc">{</span>best_recall_threshold<span class="sc">:.2f}</span><span class="ss">'</span>)</span>
+<span id="cb14-64"><a href="#cb14-64" tabindex="-1"></a></span>
+<span id="cb14-65"><a href="#cb14-65" tabindex="-1"></a>plt.xlabel(<span class="st">'Threshold'</span>)</span>
+<span id="cb14-66"><a href="#cb14-66" tabindex="-1"></a>plt.ylabel(<span class="st">'Metric Value'</span>)</span>
+<span id="cb14-67"><a href="#cb14-67" tabindex="-1"></a>plt.title(<span class="st">'Evaluation Metrics as Functions of Threshold'</span>)</span>
+<span id="cb14-68"><a href="#cb14-68" tabindex="-1"></a>plt.legend()</span>
+<span id="cb14-69"><a href="#cb14-69" tabindex="-1"></a>plt.show()</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="section level1">
+<h1 id="example-2-energy-based-ood-detection">Example 2: Energy-Based OOD Detection<a class="anchor" aria-label="anchor" href="#example-2-energy-based-ood-detection"></a>
+</h1>
+<p>Liu et al., Energy-based Out-of-distribution Detection, NeurIPS
+2020</p>
+<ul>
+<li><p>E(x, y) = energy value</p></li>
+<li><p>if x and y are “compatitble”, lower energy</p></li>
+<li>
+<p>Energy can be turned into probability through Gibbs
+distribution</p>
+<ul>
+<li>looks at integral over all possible y’s</li>
+</ul>
+</li>
+<li><p>With energy scores, ID and OOD distributions become much more
+separable</p></li>
+<li><p>Another “output-based” method like softmax # Conclusion</p></li>
+</ul>
+<div class="codewrapper sourceCode" id="cb15">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"></code></pre>
+</div>
+<!--
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
-</li>
-</ul></section></section><section id="aio-8-releasing-a-model"><p>Content from <a href="8-releasing-a-model.html">Documenting and releasing a model</a></p>
+</div></section><section id="aio-8-releasing-a-model"><p>Content from <a href="8-releasing-a-model.html">Documenting and releasing a model</a></p>
 <hr>
 <p>Last updated on 2024-07-16 |
 
@@ -4412,7 +4994,7 @@ to your experiences or projects?</em></p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <ul>
 <li>
@@ -4469,7 +5051,7 @@ reproducing ML workflows?</em></p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <ul>
 <li>
@@ -4781,7 +5363,7 @@ to your experiences or projects?</em></p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <ul>
 <li>Environment setup</li>
@@ -4837,7 +5419,7 @@ decision-making involving humans)</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
 <p>TODO</p>
 </div>
