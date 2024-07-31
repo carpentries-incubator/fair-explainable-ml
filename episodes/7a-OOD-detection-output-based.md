@@ -1,21 +1,20 @@
 ---
-# Distribution Shift and Out-of-Distribution (OOD) Detection
+title: "Distribution Shift and Out-of-Distribution (OOD) Detection: Output-Based Methods"
+teaching: 0
+exercises: 0
+---
+:::::::::::::::::::::::::::::::::::::::: questions
 
-### Questions
-- What is distribution shift and what are its implications in machine learning models?
-- How can AI systems be deployed while ensuring that they do not break when encountered with new data?
-- What are some of the latest methods in detecting out-of-distribution data during inference?
+- What are out-of-distribution (OOD) data and why is detecting them important in machine learning models?
+- How do output-based methods like softmax, energy-based, and distance-based methods work for OOD detection?
+- What are the limitations of output-based OOD detection methods?
+::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::: objectives
 
-### Objectives
-- Understand the concept of distribution shift in the context of machine learning.
-- Identify the factors that can lead to distribution shift.
-- Explain the implications of distribution shift on the performance and reliability of machine learning models.
-- Discuss strategies for detecting and mitigating distribution shift in machine learning applications.
-- Identify best practices for robust model deployment and monitoring.
-- Examine the importance of detecting out-of-distribution data in machine learning applications.
-- Explore the limitations of traditional methods for detecting out-of-distribution data.
-- Investigate state-of-the-art techniques for out-of-distribution detection.
-
+- Understand the concept of out-of-distribution data and its significance in building trustworthy machine learning models.
+- Learn about different output-based methods for OOD detection, including softmax and energy-based methods
+- Identify the strengths and limitations of output-based OOD detection techniques.
+::::::::::::::::::::::::::::::::::::::::::::::::::
 # Introduction to Out-of-Distribution (OOD) Data
 ## What is OOD data?
 Out-of-distribution (OOD) data refers to data that significantly differs from the training data on which a machine learning model was built. The difference can arise from either:
