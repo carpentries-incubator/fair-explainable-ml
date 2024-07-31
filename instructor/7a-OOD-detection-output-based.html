@@ -563,9 +563,13 @@ can be classified as OOD.</li>
 <h3 id="distance-based">Distance-based<a class="anchor" aria-label="anchor" href="#distance-based"></a></h3>
 <ul><li>Distance: This method calculates the distance of an instance from
 the distribution of training data features. If the distance is beyond a
-certain threshold, the instance is considered OOD. # Example 1: Softmax
-scores</li>
-</ul><div class="codewrapper sourceCode" id="cb1">
+certain threshold, the instance is considered OOD.</li>
+</ul></div>
+</div>
+</div>
+<div class="section level1">
+<h1 id="example-1-softmax-scores">Example 1: Softmax scores<a class="anchor" aria-label="anchor" href="#example-1-softmax-scores"></a></h1>
+<div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>n_epochs <span class="op">=</span> <span class="dv">10</span></span>
@@ -635,8 +639,6 @@ scores</li>
 <span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'train_data_flat.shape=</span><span class="sc">{</span>train_data_flat<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">'</span>)</span>
 <span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'test_data_flat.shape=</span><span class="sc">{</span>test_data_flat<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">'</span>)</span>
 <span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'ood_data_flat.shape=</span><span class="sc">{</span>ood_data_flat<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">'</span>)</span></code></pre>
-</div>
-</div>
 </div>
 <div class="section level2">
 <h2 id="visualizing-ood-and-id-data">Visualizing OOD and ID data<a class="anchor" aria-label="anchor" href="#visualizing-ood-and-id-data"></a></h2>
