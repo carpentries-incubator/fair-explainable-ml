@@ -561,56 +561,38 @@ default Python).</li>
 </div>
 </div>
 <div class="section level3">
-<h3 id="packages">Installing the required packages<a class="anchor" aria-label="anchor" href="#packages"></a></h3>
+<h3 id="installing-the-required-packages">Installing the required packages<a class="anchor" aria-label="anchor" href="#installing-the-required-packages"></a></h3>
 <p><a href="https://docs.conda.io/projects/conda/en/latest/" class="external-link">Conda</a>
 is the package management system associated with <a href="https://anaconda.org" class="external-link">Anaconda</a> and runs on Windows, macOS and
 Linux. Conda should already be available in your system once you
 installed Anaconda successfully. Conda thus works regardless of the
 operating system.</p>
 <ol style="list-style-type: decimal"><li><p>Make sure you have an up-to-date version of Conda running. See <a href="https://docs.anaconda.com/anaconda/install/update-version/" class="external-link">these
-instructions</a> for updating Conda if required. {: .callout}</p></li>
-<li><p>To create a conda environment called <code>trustworthy_ML</code>
-with the required packages, open a terminal (Mac/Linux) or Anaconda
-prompt (Windows) and type the command:</p></li>
-</ol><div class="codewrapper sourceCode" id="cb2">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">--name</span> trustworthy_ML python jupyter scikit-learn pandas</span></code></pre>
-</div>
-<ol start="3" style="list-style-type: decimal"><li>Activate the newly created environment:</li>
-</ol><pre><code>conda activate trustworthy_ML</code></pre>
-<ol start="4" style="list-style-type: decimal"><li>After activating your environment, install pytorch using pip
-(python’s package manager):</li>
-</ol><div class="codewrapper sourceCode" id="cb4">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="ex">pip</span> install torch torchvision</span></code></pre>
-</div>
-<div id="accordionSpoiler4" class="accordion spoiler-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button spoiler-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpoiler4" aria-expanded="false" aria-controls="collapseSpoiler4">
-  <h3 class="accordion-header" id="headingSpoiler4">
-  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="eye"></i></div>
-  Troubleshooting for Macs with Apple silicon chip
-  </h3>
-</button>
-<div id="collapseSpoiler4" class="accordion-collapse collapse" aria-labelledby="headingSpoiler4" data-bs-parent="#accordionSpoiler4">
-<div class="accordion-body">
-<p>Newer Macs (from 2020 onwards) often have a different kind of chip,
-manufactured by Apple instead of Intel. This can lead to problems
-installing Tensorflow. If you get errors running the installation
-command or conda hangs endlessly, you probably <a href="https://www.youtube.com/watch?v=BEUU-icPg78" class="external-link">need to change the
-version of Anaconda you have installed</a>.</p>
-<ol style="list-style-type: decimal"><li>Uninstall Anaconda</li>
-<li>[Download the version of Anaconda for Apple
-chips][anaconda-distribution] (i.e. the version with “(M1)” in the name)
-and install it with the default settings</li>
-<li>Follow the instructions above to install the required packages</li>
+instructions</a> for updating Conda if required.</p></li>
+<li><p>Create the Conda Environment: To create a conda environment
+called <code>trustworthy_ML</code> with the required packages, open a
+terminal (Mac/Linux) or Anaconda prompt (Windows) and type the below
+command. This command creates a new conda environment named
+<code>trustworthy_ML</code> and installs the necessary packages from the
+<code>conda-forge</code> and <code>pytorch</code> channels.
+<code>sh     conda create --name trustworthy_ML python=3.9 jupyter scikit-learn pandas umap-learn pytorch torchvision torchaudio -c conda-forge -c pytorch</code></p></li>
+<li><p>Activate the Conda Environment: After creating the environment,
+activate it using the following command.
+<code>sh     conda activate trustworthy_ML</code></p></li>
+<li><p>Install <code>pytorch-ood</code> Package: Install the
+<code>pytorch-ood</code> package using <code>pip</code> since it may not
+be available through conda.
+<code>sh     pip install pytorch-ood</code></p></li>
 </ol></div>
-</div>
-</div>
-</div>
-</div>
+<div class="section level3">
+<h3 id="notes">Notes:<a class="anchor" aria-label="anchor" href="#notes"></a></h3>
+<ul><li>conda-forge Channel:
+<ul><li>
+<code>conda-forge</code> is a community-driven conda channel that
+provides a wide array of up-to-date packages, ensuring better
+compatibility and a more extensive package library.</li>
+</ul></li>
+</ul></div>
 <div class="section level3">
 <h3 id="starting-jupyter-lab">Starting Jupyter Lab<a class="anchor" aria-label="anchor" href="#starting-jupyter-lab"></a></h3>
 <p>We will teach using Python in [Jupyter lab][jupyter], a programming
@@ -623,18 +605,10 @@ Python package manager pip (see the [Jupyter website][jupyter-install]
 for details.)</p>
 <p>To start jupyter lab, open a terminal (Mac/Linux) or Anaconda prompt
 (Windows) and type the command:</p>
-<div class="codewrapper sourceCode" id="cb5">
+<div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">jupyter</span> lab</span></code></pre>
-</div>
-<p>To start the Python interpreter without jupyter lab, open a terminal
-(Mac/Linux) or Anaconda prompt (Windows) or git bash and type the
-command:</p>
-<div class="codewrapper sourceCode" id="cb6">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="ex">python</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">jupyter</span> lab</span></code></pre>
 </div>
 </div>
 <div class="section level3">
@@ -642,17 +616,17 @@ command:</p>
 <p>To check whether all packages installed correctly, start a jupyter
 notebook in jupyter lab as explained above. Run the following lines of
 code:</p>
-<div class="codewrapper sourceCode" id="cb7">
+<div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="im">import</span> sklearn</span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'sklearn version: '</span>, sklearn.__version__)</span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="im">import</span> pandas</span>
-<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'pandas version: '</span>, pandas.__version__)</span>
-<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="im">import</span> torch</span>
-<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'torch version: '</span>, torch.__version__)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="im">import</span> sklearn</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'sklearn version: '</span>, sklearn.__version__)</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="im">import</span> pandas</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'pandas version: '</span>, pandas.__version__)</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'torch version: '</span>, torch.__version__)</span></code></pre>
 </div>
 <p>This should output the versions of all required packages without
 giving errors. Most versions will work fine with this lesson, but: - For
@@ -662,14 +636,9 @@ is 1.2.2</p>
 <div class="section level3">
 <h3 id="fallback-option-cloud-environment">Fallback option: cloud environment<a class="anchor" aria-label="anchor" href="#fallback-option-cloud-environment"></a></h3>
 <p>If a local installation does not work for you, it is also possible to
-run this lesson in <a href="https://mybinder.org/v2/gh/carpentries-incubator/deep-learning-intro/scaffolds" class="external-link">Binder
-Hub</a>. This should give you an environment with all the required
-software and data to run this lesson, nothing which is saved will be
-stored, please copy any files you want to keep. Note that if you are the
-first person to launch this in the last few days it can take several
-minutes to startup. The second person who loads it should find it loads
-in under a minute. Instructors who intend to use this option should
-start it themselves shortly before the workshop begins.</p>
+run this lesson in <a href="https://colab.research.google.com/" class="external-link">Google
+Colab</a>. Some packages may need to be installed on the fly within the
+notebook (TBD).</p>
 <!--
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
@@ -724,8 +693,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/fair-explainable-ml/index.html",
   "identifier": "https://carpentries-incubator.github.io/fair-explainable-ml/index.html",
   "dateCreated": "2023-12-05",
-  "dateModified": "2024-07-31",
-  "datePublished": "2024-07-31"
+  "dateModified": "2024-08-01",
+  "datePublished": "2024-08-01"
 }
 
   </script><script>
