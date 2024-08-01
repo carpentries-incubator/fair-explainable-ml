@@ -2,7 +2,7 @@
 site: sandpaper::sandpaper_site
 ---
 
-This lesson aims to teach responsible machine learning practices with a focus on fairness, explainability, and reproducibility.
+This lesson aims to teach responsible machine learning practices with a focus on fairness, explainability, reproducibility, and safety.
 
 :::::::::: prereq
 - Participants should have experience using Python. 
