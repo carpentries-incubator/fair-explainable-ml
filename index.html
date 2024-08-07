@@ -563,26 +563,44 @@ default Python).</li>
 <div class="section level3">
 <h3 id="installing-the-required-packages">Installing the required packages<a class="anchor" aria-label="anchor" href="#installing-the-required-packages"></a></h3>
 <p><a href="https://docs.conda.io/projects/conda/en/latest/" class="external-link">Conda</a>
-is the package management system associated with <a href="https://anaconda.org" class="external-link">Anaconda</a> and runs on Windows, macOS and
+is the package management system associated with <a href="https://anaconda.org" class="external-link">Anaconda</a> and runs on Windows, macOS, and
 Linux. Conda should already be available in your system once you
 installed Anaconda successfully. Conda thus works regardless of the
 operating system.</p>
 <ol style="list-style-type: decimal"><li><p>Make sure you have an up-to-date version of Conda running. See <a href="https://docs.anaconda.com/anaconda/install/update-version/" class="external-link">these
 instructions</a> for updating Conda if required.</p></li>
-<li><p>Create the Conda Environment: To create a conda environment
+<li>
+<p>Create the Conda Environment: To create a conda environment
 called <code>trustworthy_ML</code> with the required packages, open a
 terminal (Mac/Linux) or Anaconda prompt (Windows) and type the below
 command. This command creates a new conda environment named
 <code>trustworthy_ML</code> and installs the necessary packages from the
-<code>conda-forge</code> and <code>pytorch</code> channels.
-<code>sh     conda create --name trustworthy_ML python=3.9 jupyter scikit-learn pandas umap-learn pytorch torchvision torchaudio -c conda-forge -c pytorch</code></p></li>
-<li><p>Activate the Conda Environment: After creating the environment,
-activate it using the following command.
-<code>sh     conda activate trustworthy_ML</code></p></li>
-<li><p>Install <code>pytorch-ood</code> Package: Install the
+<code>conda-forge</code> and <code>pytorch</code> channels.</p>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">--name</span> trustworthy_ML python=3.9 jupyter scikit-learn pandas umap-learn pytorch torchvision torchaudio <span class="at">-c</span> conda-forge <span class="at">-c</span> pytorch</span></code></pre>
+</div>
+</li>
+<li>
+<p>Activate the Conda Environment: After creating the environment,
+activate it using the following command.</p>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">conda</span> activate trustworthy_ML</span></code></pre>
+</div>
+</li>
+<li>
+<p>Install <code>pytorch-ood</code> Package: Install the
 <code>pytorch-ood</code> package using <code>pip</code> since it may not
-be available through conda.
-<code>sh     pip install pytorch-ood</code></p></li>
+be available through conda.</p>
+<div class="codewrapper sourceCode" id="cb4">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="ex">pip</span> install pytorch-ood</span></code></pre>
+</div>
+</li>
 </ol></div>
 <div class="section level3">
 <h3 id="notes">Notes:<a class="anchor" aria-label="anchor" href="#notes"></a></h3>
@@ -605,10 +623,10 @@ Python package manager pip (see the [Jupyter website][jupyter-install]
 for details.)</p>
 <p>To start jupyter lab, open a terminal (Mac/Linux) or Anaconda prompt
 (Windows) and type the command:</p>
-<div class="codewrapper sourceCode" id="cb2">
+<div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">jupyter</span> lab</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">jupyter</span> lab</span></code></pre>
 </div>
 </div>
 <div class="section level3">
@@ -616,17 +634,17 @@ for details.)</p>
 <p>To check whether all packages installed correctly, start a jupyter
 notebook in jupyter lab as explained above. Run the following lines of
 code:</p>
-<div class="codewrapper sourceCode" id="cb3">
+<div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="im">import</span> sklearn</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'sklearn version: '</span>, sklearn.__version__)</span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="im">import</span> pandas</span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'pandas version: '</span>, pandas.__version__)</span>
-<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="im">import</span> torch</span>
-<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'torch version: '</span>, torch.__version__)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="im">import</span> sklearn</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'sklearn version: '</span>, sklearn.__version__)</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="im">import</span> pandas</span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'pandas version: '</span>, pandas.__version__)</span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'torch version: '</span>, torch.__version__)</span></code></pre>
 </div>
 <p>This should output the versions of all required packages without
 giving errors. Most versions will work fine with this lesson, but: - For
