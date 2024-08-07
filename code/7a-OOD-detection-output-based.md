@@ -78,6 +78,8 @@ Distance-based methods calculate the distance of an instance from the distributi
 We will focus on output-based methods (softmax and energy) in this episode and then do a deep dive into distance-based methods in the next episode.
 
 # Example 1: Softmax scores
+Softmax-based out-of-distribution (OOD) detection methods are a fundamental aspect of understanding how models differentiate between in-distribution and OOD data. Even though energy-based methods are becoming more popular, grasping softmax OOD detection methods provides essential scaffolding for learning more advanced techniques. Furthermore, softmax thresholding is still in use throughout ML literature, and learning more about this method will help you better assess results from others.
+
 In this first example, we will train a simple logistic regression model to classify images as T-shirts or pants. We will then evaluate how our model reacts to data outside of these two classes ("semantic shift").
 
 TODO: add brief reminder on where softmax comes into play for logistic regression and neural networks. 
