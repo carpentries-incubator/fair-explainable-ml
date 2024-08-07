@@ -1698,38 +1698,17 @@ reproducible.</p>
 can/should be obtained using a wider variety (more classes) and larger
 sample of OOD data. This is part of the challenge of OOD detection which
 is that space of OOD data is vast. <strong>Possible exercise</strong>:
-Redo thresholding using all remaining classes in dataset. ## References
-and supplemental resources</li>
-<li><a href="https://www.youtube.com/watch?v=hgLC9_9ZCJI" class="external-link uri">https://www.youtube.com/watch?v=hgLC9_9ZCJI</a></li>
-<li>Generalized Out-of-Distribution Detection: A Survey: <a href="https://arxiv.org/abs/2110.11334" class="external-link uri">https://arxiv.org/abs/2110.11334</a> # Glossary</li>
-<li>ID/OOD: In-distribution, out-of-distribution. Generally, the OOD
-instances can be defined as instances (x, y) sampled from an underlying
-distribution other than the training distribution P(Xtrain, Ytrain),
-where Xtrain and Ytrain are the training corpus and training label set,
-respectively.</li>
-<li>OOD instances with semantic shift: OOD instances with semantic shift
-refer to instances that do not belong to y_train. More specifically,
-instances with semantic shift may come from unknown categories or
-irrelevant tasks.</li>
-<li>OOD instances with covariate shift: OOD instances with non-semantic
-shift refer to the instances that belong to y_train but are sampled from
-a distribution other than x_train, e.g., a different
-domain/corpus/location.</li>
-<li>Closed-world assumption: an assumption that the training and test
-data are sampled from the same distribution. However, training data can
-rarely capture the entire distribution. In real-world scenarios,
-out-of-distribution (OOD) instances, which come from categories that are
-not known to the model, can often be present in inference phases.</li>
-<li>Inference-time OOD: After training, use some kind of scoring
-function to determine if test inputs are OOD or not.</li>
-<li>Output-based OOD: Output-based OOD detection methods leverage the
-model’s output distribution to identify OOD instances. These methods
-typically involve analyzing the softmax scores, confidence scores, or
-other output statistics to detect anomalies.</li>
-</ul><!--
+Redo thresholding using all remaining classes in dataset.</li>
+</ul><div class="section level2">
+<h2 id="references-and-supplemental-resources">References and supplemental resources<a class="anchor" aria-label="anchor" href="#references-and-supplemental-resources"></a></h2>
+<ul><li><a href="https://www.youtube.com/watch?v=hgLC9_9ZCJI" class="external-link uri">https://www.youtube.com/watch?v=hgLC9_9ZCJI</a></li>
+<li>Generalized Out-of-Distribution Detection: A Survey: <a href="https://arxiv.org/abs/2110.11334" class="external-link uri">https://arxiv.org/abs/2110.11334</a> <!--
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
- --></div>
+ -->
+</li>
+</ul></div>
+</div>
 
 
 
