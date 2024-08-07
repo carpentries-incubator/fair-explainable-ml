@@ -81,8 +81,6 @@ We will focus on output-based methods (softmax and energy) in this episode and t
 Softmax-based out-of-distribution (OOD) detection methods are a fundamental aspect of understanding how models differentiate between in-distribution and OOD data. Even though energy-based methods are becoming more popular, grasping softmax OOD detection methods provides essential scaffolding for learning more advanced techniques. Furthermore, softmax thresholding is still in use throughout ML literature, and learning more about this method will help you better assess results from others.
 
 In this first example, we will train a simple logistic regression model to classify images as T-shirts or pants. We will then evaluate how our model reacts to data outside of these two classes ("semantic shift").
-
-TODO: add brief reminder on where softmax comes into play for logistic regression and neural networks. 
 ```python
 # some settings I'm playing around with when designing this lesson
 verbose = False
@@ -101,47 +99,61 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
 from keras.datasets import fashion_mnist
 
-# Load Fashion MNIST dataset
-(train_images, train_labels), (test_images, test_labels) = fashion_mnist.load_data()
+def prep_ID_OOD_datasests(ID_class_labels, OOD_class_labels):
+    # Load Fashion MNIST dataset
+    (train_images, train_labels), (test_images, test_labels) = fashion_mnist.load_data()
+    
+    # Prepare OOD data: Sandals = 5
+    ood_filter = np.isin(test_labels, OOD_class_labels)
+    ood_data = test_images[ood_filter]
+    ood_labels = test_labels[ood_filter]
+    print(f'ood_data.shape={ood_data.shape}')
+    
+    # Filter data for T-shirts (0) and Trousers (1) as in-distribution
+    train_filter = np.isin(train_labels, ID_class_labels)
+    test_filter = np.isin(test_labels, ID_class_labels)
+    
+    train_data = train_images[train_filter]
+    train_labels = train_labels[train_filter]
+    print(f'train_data.shape={train_data.shape}')
+    
+    test_data = test_images[test_filter]
+    test_labels = test_labels[test_filter]
+    print(f'test_data.shape={test_data.shape}')
 
-# # Define classes for simplicity
-# class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat',
-#                'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle boot']
-
-# Prepare OOD data - Sandals (5)
-ood_data = test_images[test_labels == 5]
-ood_labels = test_labels[test_labels == 5]
-print(f'ood_data.shape={ood_data.shape}')
-
-# Filter data for T-shirts (0) and Trousers (1) as in-distribution
-train_filter = np.isin(train_labels, [0, 1])
-test_filter = np.isin(test_labels, [0, 1])
-
-train_data = train_images[train_filter]
-train_labels = train_labels[train_filter]
-print(f'train_data.shape={train_data.shape}')
-
-test_data = test_images[test_filter]
-test_labels = test_labels[test_filter]
-print(f'test_data.shape={test_data.shape}')
-
-# Display examples of in-distribution and OOD data
-plt.figure(figsize=(10, 4))
-for i in range(5):
-    plt.subplot(2, 5, i + 1)
-    plt.imshow(train_data[i], cmap='gray')
-    plt.title("In-Dist")
-    plt.axis('off')
-for i in range(5):
-    plt.subplot(2, 5, i + 6)
-    plt.imshow(ood_data[i], cmap='gray')
-    plt.title("OOD")
-    plt.axis('off')
-
-# Save the figure as a high-quality PNG file
-plt.savefig('../images/OOD-detection_image-data-preview.png', dpi=300, bbox_inches='tight')
+    return ood_data, train_data, test_data
 
 
+def plot_data_sample(train_data, ood_data):
+    """
+    Plots a sample of in-distribution and OOD data.
+
+    Parameters:
+    - train_data: np.array, array of in-distribution data images
+    - ood_data: np.array, array of out-of-distribution data images
+
+    Returns:
+    - fig: matplotlib.figure.Figure, the figure object containing the plots
+    """
+    fig = plt.figure(figsize=(10, 4))
+    for i in range(5):
+        plt.subplot(2, 5, i + 1)
+        plt.imshow(train_data[i], cmap='gray')
+        plt.title("In-Dist")
+        plt.axis('off')
+    for i in range(5):
+        plt.subplot(2, 5, i + 6)
+        plt.imshow(ood_data[i], cmap='gray')
+        plt.title("OOD")
+        plt.axis('off')
+    
+    return fig
+
+```
+```python
+ood_data, train_data, test_data = prep_ID_OOD_datasests([0,1], [5])
+fig = plot_data_sample(train_data, ood_data)
+fig.savefig('../images/OOD-detection_image-data-preview.png', dpi=300, bbox_inches='tight')
 plt.show()
 
 ```
@@ -237,8 +249,6 @@ print(f"Avg. probability of pants being pants: {avg_pants_prob[1]:.4f}")
 ```
 Based on the difference in averages here, it looks like softmax may provide at least a somewhat useful signal in separating ID and OOD data. Let's take a closer look by plotting histograms of all probability scores across our classes of interest (ID-Tshirt, ID-Pants, and OOD).
 ```python
-import matplotlib.pyplot as plt
-
 # Creating the figure and subplots
 fig, axes = plt.subplots(1, 3, figsize=(15, 4), sharey=False)
 bins=60
@@ -271,8 +281,6 @@ plt.show()
 ![Histograms of ID oand OOD data](https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/OOD-detection_histograms.png)
 Alternatively, for a better comparison across all three classes, we can use a probability density plot. This will allow for an easier comparison when the counts across classes lie on vastly different sclaes (i.e., max of 35 vs max of 5000).
 ```python
-import numpy as np
-import matplotlib.pyplot as plt
 from scipy.stats import gaussian_kde
 
 # Create figure
@@ -323,11 +331,7 @@ def softmax_thresh_classifications(probs, threshold):
     return classifications
 ```
 ```python
-import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 from sklearn.metrics import precision_recall_fscore_support
-
 
 # Assuming ood_probs, id_probs, and train_labels are defined
 # Threshold values
@@ -356,7 +360,6 @@ plt.savefig('../images/OOD-detection_ID-OOD-confusion-matrix1.png', dpi=300, bbo
 plt.show()
 
 # Looking at F1, precision, and recall
-
 precision, recall, f1, _ = precision_recall_fscore_support(all_true_labels, all_predictions, labels=[0, 1], average='macro') # discuss macro vs micro .
 
 print(f"F1: {f1}")
@@ -396,9 +399,7 @@ F1 scores can be calculated per class, and then averaged in different ways (macr
 ### Callout on including OOD data in F1 calculation
 
 ```python
-import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.metrics import precision_recall_fscore_support, accuracy_score
+# from sklearn.metrics import precision_recall_fscore_support, accuracy_score
 
 def eval_softmax_thresholds(thresholds, ood_probs, id_probs):
     # Store evaluation metrics for each threshold
@@ -433,9 +434,6 @@ thresholds = np.linspace(.5, 1, 50)
 precisions, recalls, f1_scores = eval_softmax_thresholds(thresholds, ood_probs, id_probs)
 ```
 ```python
-import numpy as np
-import matplotlib.pyplot as plt
-
 def plot_metrics_vs_thresholds(thresholds, f1_scores, precisions, recalls, OOD_signal):
     # Find the best thresholds for each metric
     best_f1_index = np.argmax(f1_scores)
@@ -478,11 +476,6 @@ fig.savefig('../images/OOD-detection_metrics_vs_softmax-thresholds.png', dpi=300
 ```
 ![OOD-detection_metrics_vs_softmax-thresholds](https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/OOD-detection_metrics_vs_softmax-thresholds.png)
 ```python
-import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
-
-# Assuming ood_probs, id_probs, and train_labels are defined
 # Threshold values
 upper_threshold = best_f1_threshold
 # upper_threshold = best_precision_threshold
@@ -512,6 +505,8 @@ plt.show()
 
 # Example 2: Energy-Based OOD Detection
 
+**TODO**: Provide background and intuiiton surrounding energy-based measure. Some notes below:
+
 Liu et al., Energy-based Out-of-distribution Detection, NeurIPS 2020; https://arxiv.org/pdf/2010.03759
 
 * E(x, y) = energy value
@@ -526,44 +521,84 @@ Liu et al., Energy-based Out-of-distribution Detection, NeurIPS 2020; https://ar
 
 * Another "output-based" method like softmax
 
-## PyTorch Out-of-Distribution Detection
-There's a Pytorch package for OOD detection! https://pytorch-ood.readthedocs.io/en/latest/info.html
+* I believe this measure is explicitly designed to work with neural nets, but may (?) work with other models
 
+## Introducing PyTorch OOD
+The PyTorch-OOD library provides methods for OOD detection and other closely related fields, such as anomoly detection or novelty detection. Visit the docs to learn more: [pytorch-ood.readthedocs.io/en/latest/info.html](https://pytorch-ood.readthedocs.io/en/latest/info.html)
+
+This library will provide a streamlined way to calculate both energy and softmax scores from a trained model. 
+### Setup example
+In this example, we will train a CNN model on the FashionMNIST dataset. We will then repeat a similar process as we did with softmax scores to evaluate how well the energy metric can separate ID and OOD data. 
+
+We'll start by fresh by loading our data again. This time, let's treat all remaining classes in the MNIST fashion dataset as OOD. This should yield a more robust model that is more reliable when presented with all kinds of data. 
 ```python
-!pip install pytorch-ood
+ood_data, train_data, test_data = prep_ID_OOD_datasests([0,1], list(range(2,10))) # use remaining 8 classes in dataset as OOD
+fig = plot_data_sample(train_data, ood_data)
+fig.savefig('../images/OOD-detection_image-data-preview.png', dpi=300, bbox_inches='tight')
+plt.show()
 ```
-### Energy-based is designed to work with neural nets... unpack this.
-Let's train a simple CNN model on the FashionMNIST dataset.
+
+## Visualizing OOD and ID data
+
+
+### UMAP (or similar)
+
+Recall in our previous example, we used PCA to visualize the ID and OOD data distributions. This was appropriate given that we were evaluating OOD/ID data in the context of a linear model. However, when working with nonlinear models such as CNNs, it makes more sense to investigate how the data is represented in a nonlinear space. Nonlinear embedding methods, such as Uniform Manifold Approximation and Projection (UMAP), are more suitable in such scenarios. 
+
+UMAP  is a non-linear dimensionality reduction technique that preserves both the global structure and the local neighborhood relationships in the data. UMAP is often better at maintaining the continuity of data points that lie on non-linear manifolds. It can reveal nonlinear patterns and structures that PCA might miss, making it a valuable tool for analyzing ID and OOD distributions.
+```python
+plot_umap = True # leave off for now to save time testing downstream materials
+if plot_umap:
+    import umap
+    # Flatten images for PCA and logistic regression
+    train_data_flat = train_data.reshape((train_data.shape[0], -1))
+    test_data_flat = test_data.reshape((test_data.shape[0], -1))
+    ood_data_flat = ood_data.reshape((ood_data.shape[0], -1))
+    
+    print(f'train_data_flat.shape={train_data_flat.shape}')
+    print(f'test_data_flat.shape={test_data_flat.shape}')
+    print(f'ood_data_flat.shape={ood_data_flat.shape}')
+    
+    # Perform UMAP to visualize the data
+    umap_reducer = umap.UMAP(n_components=2, random_state=42)
+    combined_data = np.vstack([train_data_flat, ood_data_flat])
+    combined_labels = np.hstack([train_labels, np.full(ood_data_flat.shape[0], 2)])  # Use 2 for OOD class
+    
+    umap_results = umap_reducer.fit_transform(combined_data)
+    
+    # Split the results back into in-distribution and OOD data
+    umap_in_dist = umap_results[:len(train_data_flat)]
+    umap_ood = umap_results[len(train_data_flat):]
+
+```
+```python
+if plot_umap:
+    umap_alpha = .02
+
+    # Plotting UMAP components
+    plt.figure(figsize=(10, 6))
+    
+    # Plot in-distribution data
+    scatter1 = plt.scatter(umap_in_dist[train_labels == 0, 0], umap_in_dist[train_labels == 0, 1], c='blue', label='T-shirts (ID)', alpha=umap_alpha)
+    scatter2 = plt.scatter(umap_in_dist[train_labels == 1, 0], umap_in_dist[train_labels == 1, 1], c='red', label='Trousers (ID)', alpha=umap_alpha)
+    
+    # Plot OOD data
+    scatter3 = plt.scatter(umap_ood[:, 0], umap_ood[:, 1], c='green', label='OOD', edgecolor='k', alpha=alpha)
+    
+    # Create a single legend for all classes
+    plt.legend(handles=[scatter1, scatter2, scatter3], loc="upper right")
+    plt.xlabel('First UMAP Component')
+    plt.ylabel('Second UMAP Component')
+    plt.title('UMAP of In-Distribution and OOD Data')
+    plt.show()
+```
+## Train CNN
 ```python
 import torch
 import torch.nn as nn
 import torch.optim as optim
 import torchvision.transforms as transforms
-from keras.datasets import fashion_mnist
 import torch.nn.functional as F
-import matplotlib.pyplot as plt
-import numpy as np
-
-# Load Fashion MNIST dataset
-(train_images, train_labels), (test_images, test_labels) = fashion_mnist.load_data()
-
-# Prepare OOD data - Sandals (5)
-ood_data = test_images[test_labels == 5]
-ood_labels = test_labels[test_labels == 5]
-print(f'ood_data.shape={ood_data.shape}')
-
-# Filter data for T-shirts (0) and Trousers (1) as in-distribution
-train_filter = np.isin(train_labels, [0, 1])
-test_filter = np.isin(test_labels, [0, 1])
-
-train_data = train_images[train_filter]
-train_labels = train_labels[train_filter]
-print(f'train_data.shape={train_data.shape}')
-
-test_data = test_images[test_filter]
-test_labels = test_labels[test_filter]
-print(f'test_data.shape={test_data.shape}')
-
 
 # Convert to PyTorch tensors and normalize
 train_data_tensor = torch.tensor(train_data, dtype=torch.float32).unsqueeze(1) / 255.0
@@ -619,66 +654,6 @@ def train_model(model, train_loader, criterion, optimizer, epochs=5):
 
 train_model(model, train_loader, criterion, optimizer)
 
-```
-### UMAP (or similar)
-
-However, PCA also has some limitations that might make other techniques, such as Uniform Manifold Approximation and Projection (UMAP), more suitable in certain scenarios:
-
-1. **Focus on Linear Relationships**: PCA is a linear dimensionality reduction technique. It assumes that the directions of maximum variance in the data can be captured by linear combinations of the original features. This can be a limitation when the data has complex, non-linear relationships, as PCA may not capture the true structure of the data.
-
-2. **Overlooked Non-Linear Structures**: OOD data might differ from ID data in non-linear ways that PCA cannot capture. For instance, if OOD data lies in a non-linear manifold that differs from the ID data manifold, PCA may not effectively separate them.
-
-3. **Global Structure vs. Local Structure**: PCA emphasizes capturing the global variance in the data, which might not be ideal if the distinctions between ID and OOD data are subtle and local. In such cases, PCA might not highlight the differences effectively.
-
-4. **Alternative Methods Like UMAP**:
-    - **UMAP**: Uniform Manifold Approximation and Projection (UMAP) is a non-linear dimensionality reduction technique that preserves both the global structure and the local neighborhood relationships in the data. UMAP is often better at maintaining the continuity of data points that lie on non-linear manifolds.
-    - **Better Clustering**: UMAP tends to provide more meaningful visualizations for clustering tasks, making it easier to identify distinct clusters of ID and OOD data.
-    - **Preservation of Local Distances**: UMAP preserves local distances more effectively than PCA, which can be crucial for distinguishing between ID and OOD data that are close in the original high-dimensional space but separate in the underlying manifold.
-
-5. **Visualization Clarity**: UMAP often provides clearer and more interpretable visualizations for complex datasets. It can reveal patterns and structures that PCA might miss, making it a valuable tool for analyzing ID and OOD distributions.
-
-
-## Model-Dependent Visualization
-The choice of visualization technique can align with the nature of the model being used. Here's how you might frame this idea:
-
-* Linear Models and PCA: If you're using a linear model, PCA can be more appropriate for visualizing in-distribution (ID) and out-of-distribution (OOD) data because both PCA and linear models operate under linear assumptions. PCA will effectively capture the main variance in the data as seen by the linear model, making it easier to understand the decision boundaries and how OOD data deviates from the ID data within those boundaries.
-
-* Non-Linear Models and UMAP: For non-linear models, techniques like UMAP are more suitable because they preserve both local and global structures in a non-linear fashion, similar to how non-linear models capture complex relationships in the data. UMAP can provide a more accurate visualization of the data manifold, highlighting distinctions between ID and OOD data that may not be apparent with PCA.
-```python
-!pip install umap-learn
-```
-```python
-plot_umap = False # leave off for now to save time testing downstream materials
-if plot_umap:
-  import umap
-
-  # Perform UMAP to visualize the data
-  umap_reducer = umap.UMAP(n_components=2, random_state=42)
-  combined_data = np.vstack([train_data_flat, ood_data_flat])
-  combined_labels = np.hstack([train_labels, np.full(ood_data_flat.shape[0], 2)])  # Use 2 for OOD class
-
-  umap_results = umap_reducer.fit_transform(combined_data)
-
-  # Split the results back into in-distribution and OOD data
-  umap_in_dist = umap_results[:len(train_data_flat)]
-  umap_ood = umap_results[len(train_data_flat):]
-
-  # Plotting UMAP components
-  plt.figure(figsize=(10, 6))
-
-  # Plot in-distribution data
-  scatter1 = plt.scatter(umap_in_dist[train_labels == 0, 0], umap_in_dist[train_labels == 0, 1], c='blue', label='T-shirts (ID)', alpha=alpha)
-  scatter2 = plt.scatter(umap_in_dist[train_labels == 1, 0], umap_in_dist[train_labels == 1, 1], c='red', label='Trousers (ID)', alpha=alpha)
-
-  # Plot OOD data
-  scatter3 = plt.scatter(umap_ood[:, 0], umap_ood[:, 1], c='green', label='Sandals (OOD)', edgecolor='k', alpha=alpha)
-
-  # Create a single legend for all classes
-  plt.legend(handles=[scatter1, scatter2, scatter3], loc="upper right")
-  plt.xlabel('First UMAP Component')
-  plt.ylabel('Second UMAP Component')
-  plt.title('UMAP of In-Distribution and OOD Data')
-  plt.show()
 ```
 The warning message indicates that UMAP has overridden the n_jobs parameter to 1 due to the random_state being set. This behavior ensures reproducibility by using a single job. If you want to avoid the warning and still use parallelism, you can remove the random_state parameter. However, removing random_state will mean that the results might not be reproducible.
 ```python
