@@ -942,7 +942,11 @@ mistaken as OOD at this threshold? Answer: 0.9999,
 samples are incorrectly classified as ID. However, the flip side is that
 conservative thresholds tend to incorrectly classify many ID samples as
 being OOD. In this case, we incorrectly assume almost 20% of shirts are
-OOD samples. ## Iterative Threshold Determination</p>
+OOD samples.</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="iterative-threshold-determination">Iterative Threshold Determination<a class="anchor" aria-label="anchor" href="#iterative-threshold-determination"></a></h2>
 <p>In practice, selecting an appropriate threshold is an iterative
 process that balances the trade-off between correctly identifying
 in-distribution (ID) data and accurately flagging out-of-distribution
@@ -962,7 +966,6 @@ metrics.</p></li>
 </ul><p>Use the below code to determine what threshold should be set to
 ensure precision = 100%. What threshold is required for recall to be
 100%? What threshold gives the highest F1 score?</p>
-</div>
 <div class="section level3">
 <h3 id="callout-on-averaging-schemes">Callout on averaging schemes<a class="anchor" aria-label="anchor" href="#callout-on-averaging-schemes"></a></h3>
 <p>F1 scores can be calculated per class, and then averaged in different
