@@ -128,8 +128,9 @@ Conda should already be available in your system once you installed Anaconda suc
     ```
 
 
-### Notes:
-- conda-forge Channel: The `conda-forge` is a community-driven conda channel that provides a wide array of up-to-date packages, ensuring better compatibility and a more extensive package library.
+#### Notes
+- The `conda-forge` is a community-driven conda channel that provides a wide array of up-to-date packages, ensuring better compatibility and a more extensive package library.
+
 
 ### Starting Jupyter Lab
 
