@@ -476,6 +476,7 @@ fig, best_f1_threshold, best_precision_threshold, best_recall_threshold = plot_m
 fig.savefig('../images/OOD-detection_metrics_vs_softmax-thresholds.png', dpi=300, bbox_inches='tight')
 
 ```
+![OOD-detection_metrics_vs_softmax-thresholds](https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/OOD-detection_metrics_vs_softmax-thresholds.png)
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
