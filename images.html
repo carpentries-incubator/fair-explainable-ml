@@ -537,8 +537,52 @@ et al.</a>)</div>
 <hr class="half-width"></section><section id="5c-probes"><h2 class="section-heading"><a href="5c-probes.html">Explainability methods: linear probe</a></h2>
 <hr class="half-width"></section><section id="5d-gradcam"><h2 class="section-heading"><a href="5d-gradcam.html">Explainability methods: GradCAM</a></h2>
 <hr class="half-width"></section><section id="6-confidence-intervals"><h2 class="section-heading"><a href="6-confidence-intervals.html">Estimating model uncertainty</a></h2>
-<hr class="half-width"></section><section id="7a-OOD-detection-output-based"><h2 class="section-heading"><a href="7a-OOD-detection-output-based.html">OOD Detection: Overview, Output-Based MethodsIntroduction to Out-of-Distribution (OOD) Data<a class="anchor" aria-label="anchor" href="#introduction-to-out-of-distribution-ood-data"></a>Detecting and Handling OOD Data<a class="anchor" aria-label="anchor" href="#detecting-and-handling-ood-data"></a>Example 2: Energy-Based OOD Detection<a class="anchor" aria-label="anchor" href="#example-2-energy-based-ood-detection"></a>Limitations of our approach thus far<a class="anchor" aria-label="anchor" href="#limitations-of-our-approach-thus-far"></a></a></h2>
-<hr class="half-width"></section><section id="7b-OOD-detection-distance-based"><h2 class="section-heading"><a href="7b-OOD-detection-distance-based.html">OOD Detection: Distance-Based and Contrastive LearningExample 3: Distance-Based Methods<a class="anchor" aria-label="anchor" href="#example-3-distance-based-methods"></a>Limitations of Threshold-Based OOD Detection Methods<a class="anchor" aria-label="anchor" href="#limitations-of-threshold-based-ood-detection-methods"></a></a></h2>
+<hr class="half-width"></section><section id="7a-OOD-detection-output-based"><h2 class="section-heading"><a href="7a-OOD-detection-output-based.html">OOD Detection: Overview, Output-Based MethodsIntroduction to Out-of-Distribution (OOD) Data<a class="anchor" aria-label="anchor" href="#introduction-to-out-of-distribution-ood-data"></a>Detecting and Handling OOD Data<a class="anchor" aria-label="anchor" href="#detecting-and-handling-ood-data"></a>Limitations of our approach thus far<a class="anchor" aria-label="anchor" href="#limitations-of-our-approach-thus-far"></a></a></h2>
+<hr class="half-width">
+<h3 id="7a-OOD-detection-output-based-figure-1">Figure 1</h3>
+<p aria-hidden="true">Image 1 of 1: ‘Preview of image dataset’</p>
+<p><img src="https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/OOD-detection_image-data-preview.png" alt="Preview of image dataset" class="figure"> ## Visualizing OOD and ID data</p>
+<hr>
+<h3 id="7a-OOD-detection-output-based-figure-2">Figure 2</h3>
+<p aria-hidden="true">Image 1 of 1: ‘PCA visualization’</p>
+<p><img src="https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/OOD-detection_PCA-image-dataset.png" alt="PCA visualization" class="figure"> From this plot, we see that sandals are more
+likely to be confused as T-shirts than pants. It also may be surprising
+to see that these data clouds overlap so much given their semantic
+differences. Why might this be?</p>
+<hr>
+<h3 id="7a-OOD-detection-output-based-figure-3">Figure 3</h3>
+<p aria-hidden="true">Image 1 of 1: ‘ID confusion matrix’</p>
+<p><img src="https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/OOD-detection_ID-confusion-matrix.png" alt="ID confusion matrix" class="figure"> ## How does our model view OOD data?</p>
+<hr>
+<h3 id="7a-OOD-detection-output-based-figure-4">Figure 4</h3>
+<p aria-hidden="true">Image 1 of 1: ‘Histograms of ID oand OOD data’</p>
+<p><img src="https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/OOD-detection_histograms.png" alt="Histograms of ID oand OOD data" class="figure"> Alternatively, for a better
+comparison across all three classes, we can use a probability density
+plot. This will allow for an easier comparison when the counts across
+classes lie on vastly different sclaes (i.e., max of 35 vs max of
+5000).</p>
+<hr>
+<h3 id="7a-OOD-detection-output-based-figure-5">Figure 5</h3>
+<p aria-hidden="true">Image 1 of 1: ‘Probability densities’</p>
+<p><img src="https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/OOD-detection_PSDs.png" alt="Probability densities" class="figure"> Unfortunately, we observe a significant
+amount of overlap between OOD data and high T-shirt probability.
+Furthermore, the blue line doesn’t seem to decrease much as you move
+from 0.9 to 1, suggesting that even a very high threshold is likely to
+lead to OOD contamination (while also tossing out a significant portion
+of ID data).</p>
+<hr>
+<h3 id="7a-OOD-detection-output-based-figure-6">Figure 6</h3>
+<p aria-hidden="true">Image 1 of 1: ‘Probability densities’</p>
+<p><img src="https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/OOD-detection_ID-OOD-confusion-matrix1.png" alt="Probability densities" class="figure"> Even with a high threshold of 0.9, we end
+up with nearly a couple hundred OOD samples classified as ID. In
+addition, over 800 ID samples had to be tossed out due to
+uncertainty.</p>
+<hr>
+<h3 id="7a-OOD-detection-output-based-figure-7">Figure 7</h3>
+<p aria-hidden="true">Image 1 of 1: ‘Optimized threshold confusion matrix’</p>
+<p><img src="https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/OOD-detection_ID-OOD-confusion-matrix2.png" alt="Optimized threshold confusion matrix" class="figure"> # Example 2: Energy-Based
+OOD Detection</p>
+<hr></section><section id="7b-OOD-detection-distance-based"><h2 class="section-heading"><a href="7b-OOD-detection-distance-based.html">OOD Detection: Distance-Based and Contrastive LearningExample 3: Distance-Based Methods<a class="anchor" aria-label="anchor" href="#example-3-distance-based-methods"></a>Limitations of Threshold-Based OOD Detection Methods<a class="anchor" aria-label="anchor" href="#limitations-of-threshold-based-ood-detection-methods"></a></a></h2>
 <hr class="half-width"></section><section id="7c-OOD-detection-algo-design"><h2 class="section-heading"><a href="7c-OOD-detection-algo-design.html">OOD Detection: Training-Time RegularizationTraining-time regularization for OOD detection<a class="anchor" aria-label="anchor" href="#training-time-regularization-for-ood-detection"></a></a></h2>
 <hr class="half-width"></section><section id="8-releasing-a-model"><h2 class="section-heading"><a href="8-releasing-a-model.html">Documenting and releasing a model</a></h2>
 <hr class="half-width"></section>
