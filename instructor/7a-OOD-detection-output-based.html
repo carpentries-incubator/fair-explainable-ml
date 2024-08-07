@@ -702,20 +702,23 @@ from the ID data within those boundaries.</p>
 <p>From this plot, we see that sandals are more likely to be confused as
 T-shirts than pants. It also may be surprising to see that these data
 clouds overlap so much given their semantic differences. Why might this
-be? * <strong>Over-reliance on linear relationships</strong>: Part of
-this has to do with the fact that we’re only looking at linear
-relationships and treating each pixel as its own input feature, which is
-usually never a great idea when working with image data. In our next
-example, we’ll switch to the more modern approach of CNNs. *
-<strong>Semantic gap != feature gap</strong>: Another factor of note is
-that images that have a wide semantic gap may not necessarily translate
-to a wide gap in terms of the data’s visual features (e.g., ankle boots
-and bags might both be small, have leather, and have zippers). Part of
-an effective OOD detection scheme involves thinking carefully about what
-sorts of data contanimations may be observed by the model, and assessing
-how similar these contaminations may be to your desired class labels. ##
-Train and evaluate model on ID data</p>
-<div class="codewrapper sourceCode" id="cb6">
+be?</p>
+<ul><li>
+<strong>Over-reliance on linear relationships</strong>: Part of this
+has to do with the fact that we’re only looking at linear relationships
+and treating each pixel as its own input feature, which is usually never
+a great idea when working with image data. In our next example, we’ll
+switch to the more modern approach of CNNs.</li>
+<li>
+<strong>Semantic gap != feature gap</strong>: Another factor of note
+is that images that have a wide semantic gap may not necessarily
+translate to a wide gap in terms of the data’s visual features (e.g.,
+ankle boots and bags might both be small, have leather, and have
+zippers). Part of an effective OOD detection scheme involves thinking
+carefully about what sorts of data contanimations may be observed by the
+model, and assessing how similar these contaminations may be to your
+desired class labels. ## Train and evaluate model on ID data</li>
+</ul><div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="co"># Train a logistic regression classifier</span></span>
