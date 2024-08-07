@@ -101,49 +101,32 @@ If you run into any difficulties, please request help before the workshop begins
 
 :::::::::::::::::::::::::
 
-### Installing the required packages{#packages}
+### Installing the required packages
 
 [Conda](https://docs.conda.io/projects/conda/en/latest/) is the package management system associated with [Anaconda](https://anaconda.org) and runs on Windows, macOS and Linux.
 Conda should already be available in your system once you installed Anaconda successfully. Conda thus works regardless of the operating system.
 
 1. Make sure you have an up-to-date version of Conda running.
 See [these instructions](https://docs.anaconda.com/anaconda/install/update-version/) for updating Conda if required.
-{: .callout}
 
-2. To create a conda environment called `trustworthy_ML` with the required packages, open a terminal (Mac/Linux) or Anaconda prompt (Windows) and type the command:
-```bash
-conda create --name trustworthy_ML python jupyter scikit-learn pandas
+2. Create the Conda Environment: To create a conda environment called `trustworthy_ML` with the required packages, open a terminal (Mac/Linux) or Anaconda prompt (Windows) and type the below command. This command creates a new conda environment named `trustworthy_ML` and installs the necessary packages from the `conda-forge` and `pytorch` channels.
+    ```sh
+    conda create --name trustworthy_ML python=3.9 jupyter scikit-learn pandas umap-learn pytorch torchvision torchaudio -c conda-forge -c pytorch
+    ```
+    
+3. Activate the Conda Environment: After creating the environment, activate it using the following command.
+    ```sh
+    conda activate trustworthy_ML
+    ```
 
-```
+4. Install `pytorch-ood` Package: Install the `pytorch-ood` package using `pip` since it may not be available through conda.
+    ```sh
+    pip install pytorch-ood
+    ```
 
-3. Activate the newly created environment:
-```
-conda activate trustworthy_ML
-```
-
-4. After activating your environment, install pytorch using pip (python's package manager):
-```bash
-pip install torch torchvision
-```
-
-
-
-
-
-::::::::::::::::::: spoiler
-
-### Troubleshooting for Macs with Apple silicon chip
-Newer Macs (from 2020 onwards) often have a different kind of chip, manufactured by Apple instead of Intel.
-This can lead to problems installing Tensorflow.
-If you get errors running the installation command or conda hangs endlessly,
-you probably [need to change the version of Anaconda you have installed](https://www.youtube.com/watch?v=BEUU-icPg78).
-
-1. Uninstall Anaconda
-2. [Download the version of Anaconda for Apple chips][anaconda-distribution] (i.e. the version with "(M1)" in the name)
-   and install it with the default settings
-3. Follow the instructions above to install the required packages
-
-::::::::::::::::::::::::::::
+### Notes:
+- conda-forge Channel:
+    - `conda-forge` is a community-driven conda channel that provides a wide array of up-to-date packages, ensuring better compatibility and a more extensive package library.
 
 ### Starting Jupyter Lab
 
@@ -159,13 +142,6 @@ To start jupyter lab, open a terminal (Mac/Linux) or Anaconda prompt (Windows) a
 
 ```bash
 jupyter lab
-```
-
-To start the Python interpreter without jupyter lab, open a terminal (Mac/Linux) or Anaconda prompt (Windows)
-or git bash and type the command:
-
-```bash
-python
 ```
 
 ### Check your software setup
@@ -188,17 +164,4 @@ Most versions will work fine with this lesson, but:
 - For sklearn, the minimum version is 1.2.2
 
 ### Fallback option: cloud environment
-If a local installation does not work for you, it is also possible to run this lesson in [Binder Hub](https://mybinder.org/v2/gh/carpentries-incubator/deep-learning-intro/scaffolds). This should give you an environment with all the required software and data to run this lesson, nothing which is saved will be stored, please copy any files you want to keep. Note that if you are the first person to launch this in the last few days it can take several minutes to startup. The second person who loads it should find it loads in under a minute. Instructors who intend to use this option should start it themselves shortly before the workshop begins.
-
-
-
-
-
-
-
-
-
-
-
-
-
+If a local installation does not work for you, it is also possible to run this lesson in [Google Colab](https://colab.research.google.com/). Some packages may need to be installed on the fly within the notebook (TBD).
