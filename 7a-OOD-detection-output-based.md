@@ -63,13 +63,15 @@ Threshold-based methods are one of the simplest and most intuitive approaches fo
 
 Output-based Out-of-Distribution (OOD) detection refers to methods that determine whether a given input is out-of-distribution based on the output of a trained model. These methods typically analyze the model's confidence scores, energy scores, or other output metrics to identify data points that are unlikely to belong to the distribution the model was trained on. The main approaches within output-based OOD detection include:
 
-- Softmax Scores: The softmax output of a neural network represents the predicted probabilities for each class. A common threshold-based method involves setting a confidence threshold, and if the maximum softmax score of an instance falls below this threshold, it is flagged as OOD.
-- Energy: Energy measures the uncertainty in the predicted probability distribution. High energy indicates high uncertainty. By setting a threshold on the energy value, instances with energy above the threshold can be classified as OOD.
-- Distance: This method calculates the distance of an instance from the distribution of training data features learned by the model. If the distance is beyond a certain threshold, the instance is considered OOD.
+- **Softmax scores**: The softmax output of a neural network represents the predicted probabilities for each class. A common threshold-based method involves setting a confidence threshold, and if the maximum softmax score of an instance falls below this threshold, it is flagged as OOD.
+- **Energy**: Energy measures the uncertainty in the predicted probability distribution. High energy indicates high uncertainty. By setting a threshold on the energy value, instances with energy above the threshold can be classified as OOD.
+- **Distance**: This method calculates the distance of an instance from the distribution of training data features learned by the model. If the distance is beyond a certain threshold, the instance is considered OOD.
 
 We will cover the first two methods (softmax and energy) in this episode and then do a deep dive into distance-based methods in the next episode.
 # Example 1: Softmax scores
-In this first example, we will train a simgle linear regression model to classify images as T-shirts or pants. We will then evaluate how our model reacts to data outside of these two classes ("semantic shift").
+In this first example, we will train a simple logistic regression model to classify images as T-shirts or pants. We will then evaluate how our model reacts to data outside of these two classes ("semantic shift").
+
+TODO: add brief reminder on where softmax comes into play for logistic regression and neural networks. 
 ```python
 # some settings I'm playing around with when designing this lesson
 verbose = False
@@ -126,7 +128,7 @@ for i in range(5):
     plt.axis('off')
 
 # Save the figure as a high-quality PNG file
-plt.savefig('../images/OOD-detection_preview-image-dataset.png', dpi=300, bbox_inches='tight')
+plt.savefig('../images/OOD-detection_image-data-preview.png', dpi=300, bbox_inches='tight')
 
 
 plt.show()
@@ -491,6 +493,7 @@ plt.show()
 
 ```
 ![Optimized threshold confusion matrix](https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/OOD-detection_ID-OOD-confusion-matrix2.png)
+
 # Example 2: Energy-Based OOD Detection
 
 Liu et al., Energy-based Out-of-distribution Detection, NeurIPS 2020; https://arxiv.org/pdf/2010.03759
@@ -1014,9 +1017,6 @@ plt.show()
 # Limitations of our approach thus far
 
 * Focus on single OOD class: More reliable/accurate thresholds can/should be obtained using a wider variety (more classes) and larger sample of OOD data. This is part of the challenge of OOD detection which is that space of OOD data is vast. **Possible exercise**: Redo thresholding using all remaining classes in dataset.
-```python
-
-```
 ## References and supplemental resources
 * https://www.youtube.com/watch?v=hgLC9_9ZCJI
 * Generalized Out-of-Distribution Detection: A Survey: https://arxiv.org/abs/2110.11334
