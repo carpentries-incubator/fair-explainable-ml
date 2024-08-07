@@ -871,10 +871,12 @@ lead to OOD contamination (while also tossing out a significant portion
 of ID data).</p>
 <p>For pants, the problem is much less severe. It looks like a low
 threshold (on this T-shirt probability scale) can separate nearly all
-OOD samples from being pants. ### Setting a threshold Let’s put our
-observations to the test and produce a confusion matrix that includes
-ID-pants, ID-Tshirts, and OOD class labels. We’ll start with a high
-threshold of 0.9 to see how that performs.</p>
+OOD samples from being pants.</p>
+<div class="section level3">
+<h3 id="setting-a-threshold">Setting a threshold<a class="anchor" aria-label="anchor" href="#setting-a-threshold"></a></h3>
+<p>Let’s put our observations to the test and produce a confusion matrix
+that includes ID-pants, ID-Tshirts, and OOD class labels. We’ll start
+with a high threshold of 0.9 to see how that performs.</p>
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -931,6 +933,7 @@ threshold of 0.9 to see how that performs.</p>
 up with nearly a couple hundred OOD samples classified as ID. In
 addition, over 800 ID samples had to be tossed out due to
 uncertainty.</p>
+</div>
 <div class="section level3">
 <h3 id="quick-exercise">Quick exercise<a class="anchor" aria-label="anchor" href="#quick-exercise"></a></h3>
 <p>What threhsold is required to ensure that no OOD samples are
