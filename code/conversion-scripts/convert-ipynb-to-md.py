@@ -44,18 +44,18 @@ def process_markdown_cell(cell):
         elif in_objectives:
             if re.match(r'^#', line):
                 in_objectives = False
-                markdown_lines.append("::::::::::::::::::::::::::::::::::::::: objectives")
-                markdown_lines.extend(temp_objectives)
-                markdown_lines.append("::::::::::::::::::::::::::::::::::::::::::::::::::")
+                # markdown_lines.append("::::::::::::::::::::::::::::::::::::::: objectives")
+                # markdown_lines.extend(temp_objectives)
+                # markdown_lines.append("::::::::::::::::::::::::::::::::::::::::::::::::::")
                 # markdown_lines.append(line)
             else:
                 temp_objectives.append(line)
         elif in_questions:
             if re.match(r'^#', line):
                 in_questions = False
-                markdown_lines.append(":::::::::::::::::::::::::::::::::::::::: questions")
-                markdown_lines.extend(temp_questions)
-                markdown_lines.append("::::::::::::::::::::::::::::::::::::::::::::::::::")
+                # markdown_lines.append(":::::::::::::::::::::::::::::::::::::::: questions")
+                # markdown_lines.extend(temp_questions)
+                # markdown_lines.append("::::::::::::::::::::::::::::::::::::::::::::::::::")
                 # markdown_lines.append(line)
             else:
                 temp_questions.append(line)
@@ -96,4 +96,4 @@ if __name__ == "__main__":
     convert_ipynb_to_markdown(args.input_path, args.input_file_name)
 
     # E.g., ...
-    # python convert_ipynb_to_markdown.py ../episodes 5b-probes
+    # python convert-ipynb-to-md.py ../ 7a-OOD-detection-output-based
