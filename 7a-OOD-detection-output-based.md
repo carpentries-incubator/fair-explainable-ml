@@ -1021,13 +1021,8 @@ plt.show()
 # Limitations of our approach thus far
 
 * Focus on single OOD class: More reliable/accurate thresholds can/should be obtained using a wider variety (more classes) and larger sample of OOD data. This is part of the challenge of OOD detection which is that space of OOD data is vast. **Possible exercise**: Redo thresholding using all remaining classes in dataset.
+
 ## References and supplemental resources
+
 * https://www.youtube.com/watch?v=hgLC9_9ZCJI
 * Generalized Out-of-Distribution Detection: A Survey: https://arxiv.org/abs/2110.11334
-# Glossary
-* ID/OOD: In-distribution, out-of-distribution. Generally, the OOD instances can be defined as instances (x, y) sampled from an underlying distribution other than the training distribution P(Xtrain, Ytrain), where Xtrain and Ytrain are the training corpus and training label set, respectively.
-* OOD instances with semantic shift: OOD instances with semantic shift refer to instances that do not belong to y_train. More specifically, instances with semantic shift may come from unknown categories or irrelevant tasks.
-* OOD instances with covariate shift: OOD instances with non-semantic shift refer to the instances that belong to y_train but are sampled from a distribution other than x_train, e.g., a different domain/corpus/location.
-* Closed-world assumption: an assumption that the training and test data are sampled from the same distribution. However, training data can rarely capture the entire distribution. In real-world scenarios, out-of-distribution (OOD) instances, which come from categories that are not known to the model, can often be present in inference phases.
-* Inference-time OOD: After training, use some kind of scoring function to determine if test inputs are OOD or not.
-* Output-based OOD: Output-based OOD detection methods leverage the model's output distribution to identify OOD instances. These methods typically involve analyzing the softmax scores, confidence scores, or other output statistics to detect anomalies.
