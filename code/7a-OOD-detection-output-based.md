@@ -135,6 +135,7 @@ plt.show()
 
 ```
 ![Preview of image dataset](https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/OOD-detection_image-data-preview.png)
+
 ## Visualizing OOD and ID data
 
 ### PCA
