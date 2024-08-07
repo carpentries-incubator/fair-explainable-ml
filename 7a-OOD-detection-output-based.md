@@ -124,12 +124,15 @@ for i in range(5):
     plt.imshow(ood_data[i], cmap='gray')
     plt.title("OOD")
     plt.axis('off')
+
+# Save the figure as a high-quality PNG file
+plt.savefig('../images/OOD-detection_preview-image-dataset.png', dpi=300, bbox_inches='tight')
+
+
 plt.show()
 
 ```
-```python
-train_labels[0:5] # shirts are 0s, pants are 1s
-```
+![Preview of image dataset](https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/OOD-detection_image-data-preview.png)
 ## Visualizing OOD and ID data
 
 ### PCA
@@ -166,8 +169,10 @@ plt.legend(handles=[scatter1, scatter2, scatter3], loc="upper right")
 plt.xlabel('First Principal Component')
 plt.ylabel('Second Principal Component')
 plt.title('PCA of In-Distribution and OOD Data')
+plt.savefig('../images/OOD-detection_PCA-image-dataset.png', dpi=300, bbox_inches='tight')
 plt.show()
 ```
+![PCA visualization](https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/OOD-detection_PCA-image-dataset.png)
 From this plot, we see that sandals are more likely to be confused as T-shirts than pants. It also may be surprising to see that these data clouds overlap so much given their semantic differences. Why might this be?
 
 * **Over-reliance on linear relationships**: Part of this has to do with the fact that we're only looking at linear relationships and treating each pixel as its own input feature, which is usually never a great idea when working with image data. In our next example, we'll switch to the more modern approach of CNNs.
@@ -191,8 +196,10 @@ from sklearn.metrics import accuracy_score, confusion_matrix, ConfusionMatrixDis
 cm = confusion_matrix(test_labels, in_dist_preds, labels=[0, 1])
 disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=['T-shirt/top', 'Pants'])
 disp.plot(cmap=plt.cm.Blues)
+plt.savefig('../images/OOD-detection_ID-confusion-matrix.png', dpi=300, bbox_inches='tight')
 plt.show()
 ```
+![ID confusion matrix](https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/OOD-detection_ID-confusion-matrix.png)
 ## How does our model view OOD data?
 
 A basic question we can start with is to ask, on average, how are OOD samples classified? Are they more likely to be Tshirts or pants? For this kind of question, we can calculate the probability scores for the OOD data, and compare this to the ID data.
@@ -241,11 +248,12 @@ axes[2].legend()
 
 # Adjusting layout
 plt.tight_layout()
-
+plt.savefig('../images/OOD-detection_histograms.png', dpi=300, bbox_inches='tight')
 # Displaying the plot
 plt.show()
 
 ```
+![Histograms of ID oand OOD data](https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/OOD-detection_histograms.png)
 Alternatively, for a better comparison across all three classes, we can use a probability density plot. This will allow for an easier comparison when the counts across classes lie on vastly different sclaes (i.e., max of 35 vs max of 5000).
 ```python
 import numpy as np
@@ -279,10 +287,13 @@ plt.ylabel('Density')
 plt.title('Probability Density Distributions for OOD and ID Data')
 plt.legend()
 
+plt.savefig('../images/OOD-detection_PSDs.png', dpi=300, bbox_inches='tight')
+
 # Displaying the plot
 plt.show()
 
 ```
+![Probability densities](https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/OOD-detection_PSDs.png)
 Unfortunately, we observe a significant amount of overlap between OOD data and high T-shirt probability. Furthermore, the blue line doesn't seem to decrease much as you move from 0.9 to 1, suggesting that even a very high threshold is likely to lead to OOD contamination (while also tossing out a significant portion of ID data).
 
 For pants, the problem is much less severe. It looks like a low threshold (on this T-shirt probability scale) can separate nearly all OOD samples from being pants.
@@ -290,10 +301,10 @@ For pants, the problem is much less severe. It looks like a low threshold (on th
 Let's put our observations to the test and produce a confusion matrix that includes ID-pants, ID-Tshirts, and OOD class labels. We'll start with a high threshold of 0.9 to see how that performs.
 ```python
 def softmax_thresh_classifications(probs, threshold):
-  classifications = np.where(probs[:, 1] >= threshold, 1,  # classified as pants
+    classifications = np.where(probs[:, 1] >= threshold, 1,  # classified as pants
                                np.where(probs[:, 0] >= threshold, 0,  # classified as shirts
                                         -1))  # classified as OOD
-  return classifications
+    return classifications
 ```
 ```python
 import numpy as np
@@ -323,6 +334,9 @@ cm = confusion_matrix(all_true_labels, all_predictions, labels=[0, 1, -1])
 disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["Shirt", "Pants", "OOD"])
 disp.plot(cmap=plt.cm.Blues)
 plt.title('Confusion Matrix for OOD and ID Classification')
+
+plt.savefig('../images/OOD-detection_ID-OOD-confusion-matrix1.png', dpi=300, bbox_inches='tight')
+
 plt.show()
 
 # Looking at F1, precision, and recall
@@ -334,6 +348,7 @@ print(f"Precision: {precision}")
 print(f"Recall: {recall}")
 
 ```
+![Probability densities](https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/OOD-detection_ID-OOD-confusion-matrix1.png)
 Even with a high threshold of 0.9, we end up with nearly a couple hundred OOD samples classified as ID. In addition, over 800 ID samples had to be tossed out due to uncertainty.
 
 ### Quick exercise
@@ -368,68 +383,81 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.metrics import precision_recall_fscore_support, accuracy_score
 
-def eval_softmax_thresholds(ood_probs, id_probs):
-  # Define thresholds to evaluate
-  thresholds = np.linspace(.5, 1, 50)
-
-  # Store evaluation metrics for each threshold
-  precisions = []
-  recalls = []
-  f1_scores = []
-
-  for threshold in thresholds:
-
-    # Classifying OOD examples (sandals)
-    ood_classifications = softmax_thresh_classifications(ood_probs, threshold)
-
-    # Classifying ID examples (T-shirts and pants)
-    id_classifications = softmax_thresh_classifications(id_probs, threshold)
-
-    # Combine OOD and ID classifications and true labels
-    all_predictions = np.concatenate([ood_classifications, id_classifications])
-    all_true_labels = np.concatenate([-1 * np.ones(ood_classifications.shape), train_labels])
-
-    # Evaluate metrics
-    precision, recall, f1, _ = precision_recall_fscore_support(all_true_labels, all_predictions, labels=[0, 1], average='macro') # discuss macro vs micro .
-    precisions.append(precision)
-    recalls.append(recall)
-    f1_scores.append(f1)
-
-  # Find the best thresholds for each metric
-  best_f1_index = np.argmax(f1_scores)
-  best_f1_threshold = thresholds[best_f1_index]
-
-  best_precision_index = np.argmax(precisions)
-  best_precision_threshold = thresholds[best_precision_index]
-
-  best_recall_index = np.argmax(recalls)
-  best_recall_threshold = thresholds[best_recall_index]
-
-  print(f"Best F1 threshold: {best_f1_threshold}, F1 Score: {f1_scores[best_f1_index]}")
-  print(f"Best Precision threshold: {best_precision_threshold}, Precision: {precisions[best_precision_index]}")
-  print(f"Best Recall threshold: {best_recall_threshold}, Recall: {recalls[best_recall_index]}")
-
-  # Plot metrics as functions of the threshold
-  plt.figure(figsize=(12, 8))
-  plt.plot(thresholds, precisions, label='Precision', color='g')
-  plt.plot(thresholds, recalls, label='Recall', color='b')
-  plt.plot(thresholds, f1_scores, label='F1 Score', color='r')
-
-  # Add best threshold indicators
-  plt.axvline(x=best_f1_threshold, color='r', linestyle='--', label=f'Best F1 Threshold: {best_f1_threshold:.2f}')
-  plt.axvline(x=best_precision_threshold, color='g', linestyle='--', label=f'Best Precision Threshold: {best_precision_threshold:.2f}')
-  plt.axvline(x=best_recall_threshold, color='b', linestyle='--', label=f'Best Recall Threshold: {best_recall_threshold:.2f}')
-
-  plt.xlabel('Threshold')
-  plt.ylabel('Metric Value')
-  plt.title('Evaluation Metrics as Functions of Threshold')
-  plt.legend()
-  plt.show()
-
-  return best_f1_threshold, best_precision_threshold, best_recall_threshold
+def eval_softmax_thresholds(thresholds, ood_probs, id_probs):
+    # Store evaluation metrics for each threshold
+    precisions = []
+    recalls = []
+    f1_scores = []
+    
+    for threshold in thresholds:
+        # Classifying OOD examples (sandals)
+        ood_classifications = softmax_thresh_classifications(ood_probs, threshold)
+        
+        # Classifying ID examples (T-shirts and pants)
+        id_classifications = softmax_thresh_classifications(id_probs, threshold)
+        
+        # Combine OOD and ID classifications and true labels
+        all_predictions = np.concatenate([ood_classifications, id_classifications])
+        all_true_labels = np.concatenate([-1 * np.ones(ood_classifications.shape), train_labels])
+        
+        # Evaluate metrics
+        precision, recall, f1, _ = precision_recall_fscore_support(all_true_labels, all_predictions, labels=[0, 1], average='macro') # discuss macro vs micro .
+        precisions.append(precision)
+        recalls.append(recall)
+        f1_scores.append(f1)
+        
+    return precisions, recalls, f1_scores
 ```
 ```python
-best_f1_threshold, best_precision_threshold, best_recall_threshold = eval_softmax_thresholds(ood_probs, id_probs)
+# Define thresholds to evaluate
+thresholds = np.linspace(.5, 1, 50)
+
+# Evaluate on all thresholds
+precisions, recalls, f1_scores = eval_softmax_thresholds(thresholds, ood_probs, id_probs)
+```
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+def plot_metrics_vs_thresholds(thresholds, f1_scores, precisions, recalls, OOD_signal):
+    # Find the best thresholds for each metric
+    best_f1_index = np.argmax(f1_scores)
+    best_f1_threshold = thresholds[best_f1_index]
+    
+    best_precision_index = np.argmax(precisions)
+    best_precision_threshold = thresholds[best_precision_index]
+    
+    best_recall_index = np.argmax(recalls)
+    best_recall_threshold = thresholds[best_recall_index]
+    
+    print(f"Best F1 threshold: {best_f1_threshold}, F1 Score: {f1_scores[best_f1_index]}")
+    print(f"Best Precision threshold: {best_precision_threshold}, Precision: {precisions[best_precision_index]}")
+    print(f"Best Recall threshold: {best_recall_threshold}, Recall: {recalls[best_recall_index]}")
+
+    # Create a new figure
+    fig, ax = plt.subplots(figsize=(12, 8))
+
+    # Plot metrics as functions of the threshold
+    ax.plot(thresholds, precisions, label='Precision', color='g')
+    ax.plot(thresholds, recalls, label='Recall', color='b')
+    ax.plot(thresholds, f1_scores, label='F1 Score', color='r')
+    
+    # Add best threshold indicators
+    ax.axvline(x=best_f1_threshold, color='r', linestyle='--', label=f'Best F1 Threshold: {best_f1_threshold:.2f}')
+    ax.axvline(x=best_precision_threshold, color='g', linestyle='--', label=f'Best Precision Threshold: {best_precision_threshold:.2f}')
+    ax.axvline(x=best_recall_threshold, color='b', linestyle='--', label=f'Best Recall Threshold: {best_recall_threshold:.2f}')
+    ax.set_xlabel(f'{OOD_signal} Threshold')
+    ax.set_ylabel('Metric Value')
+    ax.set_title('Evaluation Metrics as Functions of Threshold')
+    ax.legend()
+
+    return fig, best_f1_threshold, best_precision_threshold, best_recall_threshold
+
+```
+```python
+fig, best_f1_threshold, best_precision_threshold, best_recall_threshold = plot_metrics_vs_thresholds(thresholds, f1_scores, precisions, recalls, 'Softmax')
+fig.savefig('../images/OOD-detection_metrics_vs_softmax-thresholds.png', dpi=300, bbox_inches='tight')
+
 ```
 ```python
 import numpy as np
@@ -458,9 +486,11 @@ cm = confusion_matrix(all_true_labels, all_predictions, labels=[0, 1, -1])
 disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["Shirt", "Pants", "OOD"])
 disp.plot(cmap=plt.cm.Blues)
 plt.title('Confusion Matrix for OOD and ID Classification')
+plt.savefig('../images/OOD-detection_ID-OOD-confusion-matrix2.png', dpi=300, bbox_inches='tight')
 plt.show()
 
 ```
+![Optimized threshold confusion matrix](https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/OOD-detection_ID-OOD-confusion-matrix2.png)
 # Example 2: Energy-Based OOD Detection
 
 Liu et al., Energy-based Out-of-distribution Detection, NeurIPS 2020; https://arxiv.org/pdf/2010.03759
