@@ -529,9 +529,14 @@ seen in its training data.</p>
 <div class="section level1">
 <h1 id="detecting-and-handling-ood-data">Detecting and Handling OOD Data<a class="anchor" aria-label="anchor" href="#detecting-and-handling-ood-data"></a></h1>
 <p>Given the problems posed by OOD data, a reliable model should
-identify such instances, and then either: 1. Reject them during
-inference 2. Hand them off to a model trained on a more similar
-distribution (an in-distribution)</p>
+identify such instances, and then:</p>
+<ol style="list-style-type: decimal"><li>Reject them during inference</li>
+<li>Ideally, hand these OOD instances to a model trained on a more
+similar distribution (an in-distribution).</li>
+</ol><p>The second step is much more complicated/involved since it requires
+matching OOD data to essentially an infinite number of possible classes.
+For the current scope of this workshop, we will focus on just the first
+step.</p>
 <p>How can we determine whether a given instance is OOD or ID? Over the
 past several years, there have been a wide assortment of new methods
 developed to tackle this task. In this episode, we will cover a few of
@@ -544,8 +549,9 @@ approaches for detecting out-of-distribution (OOD) data. The central
 idea is to define a threshold on a certain score or confidence measure,
 beyond which the data point is considered out-of-distribution.
 Typically, these scores are derived from the model’s output
-probabilities or other statistical measures of uncertainty. Common
-approaches include:</p>
+probabilities or other statistical measures of uncertainty. There are
+two general classes of threshold-based methods: output-based and
+distance-based.</p>
 <div class="section level3">
 <h3 id="output-based-thresholds">Output-based thresholds<a class="anchor" aria-label="anchor" href="#output-based-thresholds"></a></h3>
 <p>Output-based Out-of-Distribution (OOD) detection refers to methods
@@ -562,21 +568,41 @@ threshold-based method involves setting a confidence threshold, and if
 the maximum softmax score of an instance falls below this threshold, it
 is flagged as OOD.</li>
 <li>
-<strong>Energy</strong>: Energy measures the uncertainty in the
-predicted probability distribution. High energy indicates high
-uncertainty. By setting a threshold on the energy value, instances with
-energy above the threshold can be classified as OOD.</li>
+<strong>Energy</strong>: The energy-based method also uses the
+network’s output but measures the uncertainty in a more nuanced way by
+calculating an energy score. The energy score typically captures the
+confidence more robustly, especially in high-dimensional spaces, and can
+be considered a more general and reliable approach than just using
+softmax probabilities.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="distance-based-thresholds">Distance-based thresholds<a class="anchor" aria-label="anchor" href="#distance-based-thresholds"></a></h3>
+<p>Distance-based methods calculate the distance of an instance from the
+distribution of training data features learned by the model. If the
+distance is beyond a certain threshold, the instance is considered OOD.
+Common distance-based approaches include:</p>
+<ul><li>
+<strong>Mahalanobis distance:</strong> This method calculates the
+Mahalanobis distance of a data point from the mean of the training data
+distribution. A high Mahalanobis distance indicates that the instance is
+likely OOD.</li>
 <li>
-<strong>Distance</strong>: This method calculates the distance of an
-instance from the distribution of training data features learned by the
-model. If the distance is beyond a certain threshold, the instance is
+<strong>K-nearest neighbors (KNN):</strong> This method involves
+computing the distance to the k-nearest neighbors in the training data.
+If the average distance to these neighbors is high, the instance is
 considered OOD.</li>
-</ul><p>We will cover the first two methods (softmax and energy) in this
+</ul><p>We will focus on output-based methods (softmax and energy) in this
 episode and then do a deep dive into distance-based methods in the next
-episode. # Example 1: Softmax scores In this first example, we will
-train a simple logistic regression model to classify images as T-shirts
-or pants. We will then evaluate how our model reacts to data outside of
-these two classes (“semantic shift”).</p>
+episode.</p>
+</div>
+</div>
+</div>
+<div class="section level1">
+<h1 id="example-1-softmax-scores">Example 1: Softmax scores<a class="anchor" aria-label="anchor" href="#example-1-softmax-scores"></a></h1>
+<p>In this first example, we will train a simple logistic regression
+model to classify images as T-shirts or pants. We will then evaluate how
+our model reacts to data outside of these two classes (“semantic
+shift”).</p>
 <p>TODO: add brief reminder on where softmax comes into play for
 logistic regression and neural networks.</p>
 <div class="codewrapper sourceCode" id="cb1">
@@ -587,7 +613,6 @@ logistic regression and neural networks.</p>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>alpha<span class="op">=</span><span class="fl">0.2</span></span>
 <span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>max_iter <span class="op">=</span> <span class="dv">10</span> <span class="co"># increase after testing phase</span></span>
 <span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>n_epochs <span class="op">=</span> <span class="dv">10</span> <span class="co"># increase after testing phase</span></span></code></pre>
-</div>
 </div>
 <div class="section level3">
 <h3 id="prepare-the-id-train-and-test-and-ood-data">Prepare the ID (train and test) and OOD data<a class="anchor" aria-label="anchor" href="#prepare-the-id-train-and-test-and-ood-data"></a></h3>
@@ -648,7 +673,6 @@ images of sandals as the OOD class.</li>
 </div>
 <figure><img src="https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/OOD-detection_image-data-preview.png" alt="Preview of image dataset" class="figure mx-auto d-block"><div class="figcaption">Preview of image dataset</div>
 </figure></div>
-</div>
 <div class="section level2">
 <h2 id="visualizing-ood-and-id-data">Visualizing OOD and ID data<a class="anchor" aria-label="anchor" href="#visualizing-ood-and-id-data"></a></h2>
 <div class="section level3">
