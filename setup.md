@@ -133,7 +133,7 @@ Conda should already be available in your system once you installed Anaconda suc
 
 ### Starting Jupyter Lab
 
-We will teach using Python in [Jupyter lab][jupyter], a
+We will teach using Python in Jupyter lab, a
 programming environment that runs in a web browser. Jupyter requires a reasonably
 up-to-date browser, preferably a current version of Chrome, Safari, or Firefox
 (note that Internet Explorer version 9 and below are *not* supported). If you
