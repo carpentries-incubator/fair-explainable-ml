@@ -203,6 +203,7 @@ plt.savefig('../images/OOD-detection_ID-confusion-matrix.png', dpi=300, bbox_inc
 plt.show()
 ```
 ![ID confusion matrix](https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/OOD-detection_ID-confusion-matrix.png)
+
 ## How does our model view OOD data?
 
 A basic question we can start with is to ask, on average, how are OOD samples classified? Are they more likely to be Tshirts or pants? For this kind of question, we can calculate the probability scores for the OOD data, and compare this to the ID data.
