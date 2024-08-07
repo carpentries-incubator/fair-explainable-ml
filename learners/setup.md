@@ -138,8 +138,8 @@ programming environment that runs in a web browser. Jupyter requires a reasonabl
 up-to-date browser, preferably a current version of Chrome, Safari, or Firefox
 (note that Internet Explorer version 9 and below are *not* supported). If you
 installed Python using Anaconda, Jupyter should already be on your system. If
-you did not use Anaconda, use the Python package manager pip
-(see the [Jupyter website][jupyter-install] for details.)
+you did not use Anaconda, use the Python package manager pip to acquire Jupyter
+(see the [Jupyter website](https://jupyter.org/install) for details.)
 
 To start jupyter lab, open a terminal (Mac/Linux) or Anaconda prompt (Windows) and type the command:
 
