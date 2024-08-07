@@ -103,26 +103,30 @@ If you run into any difficulties, please request help before the workshop begins
 
 ### Installing the required packages
 
-[Conda](https://docs.conda.io/projects/conda/en/latest/) is the package management system associated with [Anaconda](https://anaconda.org) and runs on Windows, macOS and Linux.
+[Conda](https://docs.conda.io/projects/conda/en/latest/) is the package management system associated with [Anaconda](https://anaconda.org) and runs on Windows, macOS, and Linux.
 Conda should already be available in your system once you installed Anaconda successfully. Conda thus works regardless of the operating system.
 
 1. Make sure you have an up-to-date version of Conda running.
-See [these instructions](https://docs.anaconda.com/anaconda/install/update-version/) for updating Conda if required.
+   See [these instructions](https://docs.anaconda.com/anaconda/install/update-version/) for updating Conda if required.
 
 2. Create the Conda Environment: To create a conda environment called `trustworthy_ML` with the required packages, open a terminal (Mac/Linux) or Anaconda prompt (Windows) and type the below command. This command creates a new conda environment named `trustworthy_ML` and installs the necessary packages from the `conda-forge` and `pytorch` channels.
+   
     ```sh
     conda create --name trustworthy_ML python=3.9 jupyter scikit-learn pandas umap-learn pytorch torchvision torchaudio -c conda-forge -c pytorch
     ```
-    
+
 3. Activate the Conda Environment: After creating the environment, activate it using the following command.
+   
     ```sh
     conda activate trustworthy_ML
     ```
 
 4. Install `pytorch-ood` Package: Install the `pytorch-ood` package using `pip` since it may not be available through conda.
+   
     ```sh
     pip install pytorch-ood
     ```
+
 
 ### Notes:
 - conda-forge Channel:
