@@ -2578,7 +2578,7 @@ making informed decisions.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>
@@ -2728,7 +2728,7 @@ in making informed decisions quickly.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>
@@ -3108,7 +3108,7 @@ interpretability of the model?</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <table class="table">
 <colgroup>
@@ -4450,26 +4450,31 @@ data points that are unlikely to belong to the distribution the model
 was trained on. The main approaches within output-based OOD detection
 include:</p>
 <ul>
-<li>Softmax Scores: The softmax output of a neural network represents
-the predicted probabilities for each class. A common threshold-based
-method involves setting a confidence threshold, and if the maximum
-softmax score of an instance falls below this threshold, it is flagged
-as OOD.</li>
-<li>Energy: Energy measures the uncertainty in the predicted probability
-distribution. High energy indicates high uncertainty. By setting a
-threshold on the energy value, instances with energy above the threshold
-can be classified as OOD.</li>
-<li>Distance: This method calculates the distance of an instance from
-the distribution of training data features learned by the model. If the
-distance is beyond a certain threshold, the instance is considered
-OOD.</li>
+<li>
+<strong>Softmax scores</strong>: The softmax output of a neural
+network represents the predicted probabilities for each class. A common
+threshold-based method involves setting a confidence threshold, and if
+the maximum softmax score of an instance falls below this threshold, it
+is flagged as OOD.</li>
+<li>
+<strong>Energy</strong>: Energy measures the uncertainty in the
+predicted probability distribution. High energy indicates high
+uncertainty. By setting a threshold on the energy value, instances with
+energy above the threshold can be classified as OOD.</li>
+<li>
+<strong>Distance</strong>: This method calculates the distance of an
+instance from the distribution of training data features learned by the
+model. If the distance is beyond a certain threshold, the instance is
+considered OOD.</li>
 </ul>
 <p>We will cover the first two methods (softmax and energy) in this
 episode and then do a deep dive into distance-based methods in the next
 episode. # Example 1: Softmax scores In this first example, we will
-train a simgle linear regression model to classify images as T-shirts or
-pants. We will then evaluate how our model reacts to data outside of
+train a simple logistic regression model to classify images as T-shirts
+or pants. We will then evaluate how our model reacts to data outside of
 these two classes (“semantic shift”).</p>
+<p>TODO: add brief reminder on where softmax comes into play for
+logistic regression and neural networks.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -4535,7 +4540,7 @@ images of sandals as the OOD class.</li>
 <span id="cb2-42"><a href="#cb2-42" tabindex="-1"></a>    plt.axis(<span class="st">'off'</span>)</span>
 <span id="cb2-43"><a href="#cb2-43" tabindex="-1"></a></span>
 <span id="cb2-44"><a href="#cb2-44" tabindex="-1"></a><span class="co"># Save the figure as a high-quality PNG file</span></span>
-<span id="cb2-45"><a href="#cb2-45" tabindex="-1"></a>plt.savefig(<span class="st">'../images/OOD-detection_preview-image-dataset.png'</span>, dpi<span class="op">=</span><span class="dv">300</span>, bbox_inches<span class="op">=</span><span class="st">'tight'</span>)</span>
+<span id="cb2-45"><a href="#cb2-45" tabindex="-1"></a>plt.savefig(<span class="st">'../images/OOD-detection_image-data-preview.png'</span>, dpi<span class="op">=</span><span class="dv">300</span>, bbox_inches<span class="op">=</span><span class="st">'tight'</span>)</span>
 <span id="cb2-46"><a href="#cb2-46" tabindex="-1"></a></span>
 <span id="cb2-47"><a href="#cb2-47" tabindex="-1"></a></span>
 <span id="cb2-48"><a href="#cb2-48" tabindex="-1"></a>plt.show()</span></code></pre>
@@ -5000,8 +5005,14 @@ more weight to classes with more instances.</p></li>
 <span id="cb17-27"><a href="#cb17-27" tabindex="-1"></a>plt.savefig(<span class="st">'../images/OOD-detection_ID-OOD-confusion-matrix2.png'</span>, dpi<span class="op">=</span><span class="dv">300</span>, bbox_inches<span class="op">=</span><span class="st">'tight'</span>)</span>
 <span id="cb17-28"><a href="#cb17-28" tabindex="-1"></a>plt.show()</span></code></pre>
 </div>
-<p><img src="https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/OOD-detection_ID-OOD-confusion-matrix2.png" alt="Optimized threshold confusion matrix" class="figure"> # Example 2: Energy-Based
-OOD Detection</p>
+<figure><img src="https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/OOD-detection_ID-OOD-confusion-matrix2.png" alt="Optimized threshold confusion matrix" class="figure mx-auto d-block"><div class="figcaption">Optimized threshold confusion matrix</div>
+</figure>
+</div>
+</div>
+</div>
+<div class="section level1">
+<h1 id="example-2-energy-based-ood-detection">Example 2: Energy-Based OOD Detection<a class="anchor" aria-label="anchor" href="#example-2-energy-based-ood-detection"></a>
+</h1>
 <p>Liu et al., Energy-based Out-of-distribution Detection, NeurIPS 2020;
 <a href="https://arxiv.org/pdf/2010.03759" class="external-link uri">https://arxiv.org/pdf/2010.03759</a></p>
 <ul>
@@ -5018,8 +5029,6 @@ distribution</p>
 separable</p></li>
 <li><p>Another “output-based” method like softmax</p></li>
 </ul>
-</div>
-</div>
 <div class="section level2">
 <h2 id="pytorch-out-of-distribution-detection">PyTorch Out-of-Distribution Detection<a class="anchor" aria-label="anchor" href="#pytorch-out-of-distribution-detection"></a>
 </h2>
@@ -5604,17 +5613,8 @@ reproducible.</p>
 can/should be obtained using a wider variety (more classes) and larger
 sample of OOD data. This is part of the challenge of OOD detection which
 is that space of OOD data is vast. <strong>Possible exercise</strong>:
-Redo thresholding using all remaining classes in dataset.</li>
-</ul>
-<div class="codewrapper sourceCode" id="cb29">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"></code></pre>
-</div>
-<div class="section level2">
-<h2 id="references-and-supplemental-resources">References and supplemental resources<a class="anchor" aria-label="anchor" href="#references-and-supplemental-resources"></a>
-</h2>
-<ul>
+Redo thresholding using all remaining classes in dataset. ## References
+and supplemental resources</li>
 <li><a href="https://www.youtube.com/watch?v=hgLC9_9ZCJI" class="external-link uri">https://www.youtube.com/watch?v=hgLC9_9ZCJI</a></li>
 <li>Generalized Out-of-Distribution Detection: A Survey: <a href="https://arxiv.org/abs/2110.11334" class="external-link uri">https://arxiv.org/abs/2110.11334</a> # Glossary</li>
 <li>ID/OOD: In-distribution, out-of-distribution. Generally, the OOD
@@ -5646,7 +5646,6 @@ other output statistics to detect anomalies.</li>
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
-</div>
 </div></section><section id="aio-7b-OOD-detection-distance-based"><p>Content from <a href="7b-OOD-detection-distance-based.html">OOD Detection: Distance-Based and Contrastive Learning</a></p>
 <hr>
 <p>Last updated on 2024-07-31 |
@@ -6729,7 +6728,7 @@ to your experiences or projects?</em></p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <ul>
 <li>
@@ -6786,7 +6785,7 @@ reproducing ML workflows?</em></p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <ul>
 <li>
@@ -7098,7 +7097,7 @@ to your experiences or projects?</em></p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <ul>
 <li>Environment setup</li>
@@ -7154,7 +7153,7 @@ decision-making involving humans)</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
 <p>TODO</p>
 </div>
