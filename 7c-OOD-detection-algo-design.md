@@ -1,5 +1,5 @@
 ---
-title: "OOD Detection: Training-Time Regularization"
+title: "OOD detection: training-time regularization"
 teaching: 0
 exercises: 0
 ---
