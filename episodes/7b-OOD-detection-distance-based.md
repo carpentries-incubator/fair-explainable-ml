@@ -1,5 +1,5 @@
 ---
-title: "OOD Detection: Distance-Based and Contrastive Learning"
+title: "OOD detection: distance-based and contrastive learning"
 teaching: 0
 exercises: 0
 ---

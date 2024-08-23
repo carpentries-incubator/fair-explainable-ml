@@ -1,5 +1,5 @@
 ---
-title: "OOD Detection: Overview, Output-Based Methods"
+title: "OOD detection: overview, output-based methods"
 teaching: 0
 exercises: 0
 ---
