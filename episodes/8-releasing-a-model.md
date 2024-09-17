@@ -108,7 +108,7 @@ config = {"num_channels": 3, "hidden_size": 32, "num_classes": 10}
 model = MyModel(config=config)
 ```
 
-We can then write a function to save out the model. We'll need both the model weights and the model's configuration (hyperparameter settings). We'll saving the configurations as a json since a key/value format is convenient here.
+We can then write a function to save out the model. We'll need both the model weights and the model's configuration (hyperparameter settings). We'll save the configurations as a json since a key/value format is convenient here.
 
 ```python
 import json
@@ -170,7 +170,7 @@ To login, you will need to retrieve your access token from the [Access Tokens se
 
 You might get a message saying you cannot authenticate through git-credential as no helper is defined on your machine. TODO: What does this warning mean?
 
-Once logged in, we will need to edit our model class defnition to include Hugging Face's "push_to_hub" attribe. To enable the push_to_hub functionality, you'll need to include the PyTorchModelHubMixin "mixin class" provided by the huggingface_hub library. A mixin class is a type of class used in object-oriented programming to "mix in" additional properties and methods into a class. The PyTorchModelHubMixin class adds methods to your PyTorch model to enable easy saving and loading from the Hugging Face Model Hub.
+Once logged in, we will need to edit our model class definition to include Hugging Face's "push_to_hub" attribute. To enable the push_to_hub functionality, you'll need to include the PyTorchModelHubMixin "mixin class" provided by the huggingface_hub library. A mixin class is a type of class used in object-oriented programming to "mix in" additional properties and methods into a class. The PyTorchModelHubMixin class adds methods to your PyTorch model to enable easy saving and loading from the Hugging Face Model Hub.
 
  Here's how you can adjust the code to incorporate both saving/loading locally and pushing the model to the Hugging Face Hub.
 
@@ -202,7 +202,7 @@ model.push_to_hub("my-awesome-model", config=config)
 
 ```
 
-**Verifying**: To check your work, head back over to your Hugging Face and click your profile icon in the top-right of the website. Click "Profile" from there to view all of your uploaded models. Alternatively, you can search for your username (or model name) from the [Model Hub](https://huggingface.co/models).
+**Verifying**: To check your work, head back over to your Hugging Face account and click your profile icon in the top-right of the website. Click "Profile" from there to view all of your uploaded models. Alternatively, you can search for your username (or model name) from the [Model Hub](https://huggingface.co/models).
 
 #### Loading the model from Hugging Face
 
@@ -214,6 +214,7 @@ model = MyModel.from_pretrained("your-username/my-awesome-model")
 ## Uploading transformer models to Hugging Face
 
 Key Differences
+
 * **Saving and Loading the Tokenizer**: Transformer models require a tokenizer that needs to be saved and loaded with the model. This is not necessary for custom PyTorch models that typically do not require a separate tokenizer.
 * **Using Pre-trained Classes**: Transformer models use classes like AutoModelForSequenceClassification and AutoTokenizer from the transformers library, which are pre-built and designed for specific tasks (e.g., sequence classification).
 * **Methods for Saving and Loading**: The transformers library provides save_pretrained and from_pretrained methods for both models and tokenizers, which handle the serialization and deserialization processes seamlessly.
@@ -255,7 +256,7 @@ print(hub_tokenizer)
 :::::::::::::::::::::::::::::::::::::: challenge
 
 ### What pieces must be well-documented to ensure reproducible and responsible model sharing?
-Discuss in small groups and report out: *Why do you believe it is or isn’t important to share ML models? How has model-sharing contributed to your experiences or projects?*
+Discuss in small groups and report out: *What type of information needs to be included in the documentation when sharing a model?*
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
