@@ -9,7 +9,6 @@ exercises: 0
 - Why is model sharing important in the context of reproducibility and responsible use?
 - What are the challenges, risks, and ethical considerations related to sharing models?
 - How can model-sharing best practices be applied using tools like model cards and the Hugging Face platform?
-- What is distribution shift and what are its implications in machine learning models?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
