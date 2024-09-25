@@ -64,7 +64,6 @@ Discuss in small groups and report out: *What are some potential challenges, ris
 ### Solution
 * **Privacy concerns**: Sharing models that were trained on sensitive or private data raises privacy concerns. The potential disclosure of personal information through the model poses a risk to individuals and can lead to unintended consequences.
 * **Informed consent**: If models involve user data, ensuring informed consent is crucial. Sharing models trained on user-generated content without clear consent may violate privacy norms and regulations.
-* **Data bias and fairness**: Models trained on biased datasets may perpetuate or exacerbate existing biases. Reproducing workflows without addressing bias in the data may result in unfair outcomes, particularly in applications like hiring or criminal justice.
 * **Intellectual property**: Models may be developed within organizations with proprietary data and methodologies. Sharing such models without proper consent or authorization may lead to intellectual property disputes and legal consequences.
 * **Model robustness and generalization**: Reproduced models may not generalize well to new datasets or real-world scenarios. Failure to account for the limitations of the original model can result in reduced performance and reliability in diverse settings.
 * **Lack of reproducibility**: Incomplete documentation, missing details, or changes in dependencies over time can hinder the reproducibility of ML workflows. This lack of reproducibility can impede scientific progress and validation of research findings.
@@ -73,10 +72,10 @@ Discuss in small groups and report out: *What are some potential challenges, ris
 :::::::::::::::::::::::::
 
 
-## Saving model locally
+## Saving the model locally
 Let's review the simplest method for sharing a model first — saving the model locally. When working with PyTorch, it's important to know how to save and load models efficiently. This process ensures that you can pause your work, share your models, or deploy them for inference without having to retrain them from scratch each time.
 
-### Define model
+### Defining the model
 As an example, we'll configure a simple perceptron (single hidden layer) in PyTorch. We'll define a bare bones class for this just so we can initialize the model.
 
 ```python
@@ -167,7 +166,7 @@ To login, you will need to retrieve your access token from the [Access Tokens se
 !huggingface-cli login
 ```
 
-You might get a message saying you cannot authenticate through git-credential as no helper is defined on your machine. TODO: What does this warning mean?
+You might get a message saying you cannot authenticate through git-credential as no helper is defined on your machine. This warning message should not stop you from being able to complete this episode, but it may mean that the token won't be stored on your machine for future use. 
 
 Once logged in, we will need to edit our model class definition to include Hugging Face's "push_to_hub" attribute. To enable the push_to_hub functionality, you'll need to include the PyTorchModelHubMixin "mixin class" provided by the huggingface_hub library. A mixin class is a type of class used in object-oriented programming to "mix in" additional properties and methods into a class. The PyTorchModelHubMixin class adds methods to your PyTorch model to enable easy saving and loading from the Hugging Face Model Hub.
 
@@ -287,14 +286,17 @@ Discuss in small groups and report out: *What type of information needs to be in
 :::::::::::::::::::::::::::::::::::::: challenge
 
 ### Document your model
-TODO
+For this challenge, you have two options:
+
+1. Start writing a model card for a model you have created for your research. The solution from the previous challenge or this [template](https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/templates/modelcard_template.md) from Hugging Face are good places to start, but note that not all fields may be relevant, depending on what your model does.
+
+2. Find a model on [HuggingFace](https://huggingface.co/) that has a model card, for example, you could search for models using terms like "sentiment classification" or "medical". Read the model card and evaluate whether the information is clear and complete. Would you be able to recreate the model based on the information presented? Do you feel that there is enough information to be able to evaluate you would be able to adapt this model for your purposes? You can refer to the previous challenge's solution for ideas of what information should be included, but note that not all sections are relevant to all models.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::: solution
 
 ### Solution
-TODO
-
+Pair up with a classmate and discuss what you wrote/read. Do model cards seem like a useful tool for you moving forwards?
 
 :::::::::::::::::::::::::
