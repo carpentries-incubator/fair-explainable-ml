@@ -6,6 +6,7 @@ exercises: 0
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
+- What are some common pitfalls in model evaluation?
 - How do we define fairness and bias in machine learning outcomes?
 - What types of bias and unfairness can occur in generative AI?
 - How can we improve the fairness of machine learning models? 
@@ -14,6 +15,7 @@ exercises: 0
 
 ::::::::::::::::::::::::::::::::::::: objectives
 - Reason about model performance through standard evaluation metrics.
+- Recall how underfitting, overfitting, and data leakage impact model performance.
 - Understand and distinguish between various notions of fairness in machine learning.
 - Describe and implement two different ways of modifying the machine learning modeling process to improve the fairness of a model.
 
@@ -75,6 +77,19 @@ Different accuracy metrics may be more relevant in different situations. Discuss
 2. Given the costs and side effects of the medicine, we do not want patients not at risk for the disease to take the medication. So, a high precision score is ideal.
 
 :::::::::::::::::::::::::
+
+## Model evaluation pitfalls
+
+### Overfitting and underfitting
+- Overfitting is characterized by worse performance on the test set than on the train set and can be fixed by switching to a simpler model architecture or by adding regularization.
+- Underfitting is characterized by poor performance on both the training and test datasets. It can be fixed by collecting more training data, switching to a more complex model architecture, or improving feature quality.
+
+TODO
+
+### Data Leakage
+Data leakage occurs when the model has access to the test data during training and results in overconfidence in the model's performance. 
+
+TODO
 
 
 ## How do we measure fairness?
