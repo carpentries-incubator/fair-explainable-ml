@@ -121,12 +121,19 @@ Conda should already be available in your system once you installed Anaconda suc
     conda activate trustworthy_ML
     ```
 
-4. Install `pytorch-ood` Package: Install the `pytorch-ood` package using `pip` since it may not be available through conda.
+4. Install the `pytorch-ood`, `aif360[Reductions]`, and `aif360[inFairness]` using pip. Make sure to do this AFTER activating the environment.
    
     ```sh
     pip install pytorch-ood
+    pip install 'aif360[Reductions]'
+    pip install 'aif360[inFairness]'
     ```
 
+5. Deactivating environment (complete at end of each day). Deactivating environments is part of good workflow hygiene. If you keep this environment active and then start working on another project, you may inadvertently use the wrong environment. This can lead to package conflicts or incorrect dependencies being used. To deactive your environment, use:
+
+    ```sh
+    conda deactivate
+    ```
 
 #### Notes
 - The `conda-forge` is a community-driven conda channel that provides a wide array of up-to-date packages, ensuring better compatibility and a more extensive package library.
