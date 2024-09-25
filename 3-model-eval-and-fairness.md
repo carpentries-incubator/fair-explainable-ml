@@ -316,6 +316,17 @@ privileged_groups = [{sens_attr: v} for v in
                      dataset_orig_panel19_train.privileged_protected_attributes[sens_ind]]
 
 ```
+
+Check object type.
+```python
+type(dataset_orig_panel19_train)
+```
+
+Preview data.
+```python
+dataset_orig_panel19_train.convert_to_dataframe()[0].head()
+```
+
 Show details about the data.
 ```python
 def describe(train=None, val=None, test=None):
