@@ -125,8 +125,8 @@ Conda should already be available in your system once you installed Anaconda suc
    
     ```sh
     pip install pytorch-ood
-    pip install 'aif360[Reductions]'
-    pip install 'aif360[inFairness]'
+    pip install aif360[Reductions]
+    pip install aif360[inFairness]
     ```
 
 5. Deactivating environment (complete at end of each day). Deactivating environments is part of good workflow hygiene. If you keep this environment active and then start working on another project, you may inadvertently use the wrong environment. This can lead to package conflicts or incorrect dependencies being used. To deactive your environment, use:
