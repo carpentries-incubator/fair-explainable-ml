@@ -651,7 +651,7 @@ the workshop begins.</p>
   Windows
   </h3>
 </button>
-<div id="collapseSpoiler1" class="accordion-collapse collapse" aria-labelledby="headingSpoiler1" data-bs-parent="#accordionSpoiler1">
+<div id="collapseSpoiler1" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler1" aria-labelledby="headingSpoiler1">
 <div class="accordion-body">
 <p>Checkout the [video tutorial][video-windows] or:</p>
 <ol style="list-style-type: decimal"><li>Open [<a href="https://www.anaconda.com/products/distribution" class="external-link uri">https://www.anaconda.com/products/distribution</a>][anaconda-distribution]
@@ -672,7 +672,7 @@ Anaconda the default Python</strong> option.</li>
   MacOS
   </h3>
 </button>
-<div id="collapseSpoiler2" class="accordion-collapse collapse" aria-labelledby="headingSpoiler2" data-bs-parent="#accordionSpoiler2">
+<div id="collapseSpoiler2" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler2" aria-labelledby="headingSpoiler2">
 <div class="accordion-body">
 <p>Checkout the [video tutorial][video-mac] or:</p>
 <ol style="list-style-type: decimal"><li>Open [<a href="https://www.anaconda.com/products/distribution" class="external-link uri">https://www.anaconda.com/products/distribution</a>][anaconda-distribution]
@@ -693,7 +693,7 @@ if yours is one of the more recent models containing Apple’s chip.</li>
   Linux
   </h3>
 </button>
-<div id="collapseSpoiler3" class="accordion-collapse collapse" aria-labelledby="headingSpoiler3" data-bs-parent="#accordionSpoiler3">
+<div id="collapseSpoiler3" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler3" aria-labelledby="headingSpoiler3">
 <div class="accordion-body">
 <p>Note that the following installation steps require you to work from
 the shell. If you run into any difficulties, please request help before
@@ -760,13 +760,28 @@ activate it using the following command.</p>
 </div>
 </li>
 <li>
-<p>Install <code>pytorch-ood</code> Package: Install the
-<code>pytorch-ood</code> package using <code>pip</code> since it may not
-be available through conda.</p>
+<p>Install the <code>pytorch-ood</code>,
+<code>aif360[Reductions]</code>, and <code>aif360[inFairness]</code>
+using pip. Make sure to do this AFTER activating the environment.</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="ex">pip</span> install pytorch-ood</span></code></pre>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="ex">pip</span> install pytorch-ood</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="ex">pip</span> install <span class="st">'aif360[Reductions]'</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="ex">pip</span> install <span class="st">'aif360[inFairness]'</span></span></code></pre>
+</div>
+</li>
+<li>
+<p>Deactivating environment (complete at end of each day).
+Deactivating environments is part of good workflow hygiene. If you keep
+this environment active and then start working on another project, you
+may inadvertently use the wrong environment. This can lead to package
+conflicts or incorrect dependencies being used. To deactive your
+environment, use:</p>
+<div class="codewrapper sourceCode" id="cb5">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code></pre>
 </div>
 </li>
 </ol><div class="section level4">
@@ -787,10 +802,10 @@ already be on your system. If you did not use Anaconda, use the Python
 package manager pip to acquire Jupyter (see the <a href="https://jupyter.org/install" class="external-link">Jupyter website</a> for details.)</p>
 <p>To start jupyter lab, open a terminal (Mac/Linux) or Anaconda prompt
 (Windows) and type the command:</p>
-<div class="codewrapper sourceCode" id="cb5">
+<div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">jupyter</span> lab</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="ex">jupyter</span> lab</span></code></pre>
 </div>
 </div>
 <div class="section level3">
@@ -798,17 +813,17 @@ package manager pip to acquire Jupyter (see the <a href="https://jupyter.org/ins
 <p>To check whether all packages installed correctly, start a jupyter
 notebook in jupyter lab as explained above. Run the following lines of
 code:</p>
-<div class="codewrapper sourceCode" id="cb6">
+<div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="im">import</span> sklearn</span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'sklearn version: '</span>, sklearn.__version__)</span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="im">import</span> pandas</span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'pandas version: '</span>, pandas.__version__)</span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="im">import</span> torch</span>
-<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'torch version: '</span>, torch.__version__)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="im">import</span> sklearn</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'sklearn version: '</span>, sklearn.__version__)</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="im">import</span> pandas</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'pandas version: '</span>, pandas.__version__)</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'torch version: '</span>, torch.__version__)</span></code></pre>
 </div>
 <p>This should output the versions of all required packages without
 giving errors. Most versions will work fine with this lesson, but: - For
