@@ -20,7 +20,10 @@ exercises: 1
 
 ## What is trustworthy AI? 
 
-TODO
+Artificial intelligence (AI) and machine learning (ML) are being used widely to improve upon human capabilities (either in speed/convenience/cost or accuracy) in a variety of domains: medicine, social media, news, marketing, policing, and more. 
+It is important that the decisions made by AI/ML models uphold values that we, as a society, care about. 
+
+Trustworthy AI is a large and growing sub-field of AI that aims to ensure that AI models are trained and deployed in ways that are ethical and responsible.
 
 ## The AI Bill of Rights
 In October 2022, the Biden administration released a [Blueprint for an AI Bill of Rights](https://www.whitehouse.gov/ostp/ai-bill-of-rights/), a non-binding document that outlines how automated systems and AI should behave in order to protect Americans' rights.
@@ -87,9 +90,9 @@ There are several areas of active research relating to data privacy.
 * [Federated learning](https://ieeexplore.ieee.org/abstract/document/9599369) trains models using decentralized data from a variety of sources. Since the data is not shared centrally, there is less risk of data breaches or unauthorized data usage.
 
 #### Generative AI risks
-We touch on fairness issues with generative AI in Episode 3. 
+We touch on fairness issues with generative AI in Episode 3. But generative AI poses other risks, too, many of which are just starting to be researched and understood given how new widely-available generative AI is. We discuss one such risk, disinformation, briefly here: 
 
-TODO finish this. maybe discuss deepfakes/misinformation, watermarking LLM content as a solution?
+* Disinformation: A major risk of generative AI is the creation of misleading or fake and malicious content, often known as [deep fakes](https://timreview.ca/article/1282). Deep fakes pose risks to individuals (e.g., creating content that harms an individual's reputation) and society (e.g., fake news articles or pictures that look real). 
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
