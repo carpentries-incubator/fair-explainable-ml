@@ -81,18 +81,28 @@ Different accuracy metrics may be more relevant in different situations. Discuss
 ## Model evaluation pitfalls
 
 ### Overfitting and underfitting
-- Overfitting is characterized by worse performance on the test set than on the train set and can be fixed by switching to a simpler model architecture or by adding regularization.
-- Underfitting is characterized by poor performance on both the training and test datasets. It can be fixed by collecting more training data, switching to a more complex model architecture, or improving feature quality.
 
-TODO
+**Overfitting** is characterized by worse performance on the test set than on the train set and can be fixed by switching to a simpler model architecture or by adding regularization.
+
+
+**Underfitting** is characterized by poor performance on both the training and test datasets. It can be fixed by collecting more training data, switching to a more complex model architecture, or improving feature quality.
+
+![Example of overfitting/underfitting](https://kharshit.github.io/img/overfitting.png){alt="graphs of overfitting and underfitting"}
+
+If you need a refresher on how to detect overfitting and underfitting in your models, [this article](https://towardsdatascience.com/learning-curve-to-identify-overfitting-underfitting-problems-133177f38df5) is a good resource.
 
 ### Data Leakage
 Data leakage occurs when the model has access to the test data during training and results in overconfidence in the model's performance. 
 
-TODO
+[Recent work](https://www.sciencedirect.com/science/article/pii/S2666389923001599) by Sayash Kapoor and Arvind Narayanan shows that data leakage is incredibly widespread in papers that use ML across several scientific fields. They define 8 common ways that data leakage occurs, including:
+
+1. No test set: there is no hold-out test-set, rather, the model is evaluated on a subset of the training data. This is the "obvious," canonical example of data leakage.
+2. Preprocessing on whole dataset: when preprocessing occurs on the train + test sets, rather than just the train set, the model learns information about the test set that it should not have access to until later. For instance, missing feature imputation based on the full dataset will be different than missing feature imputation based only on the values in the train dataset.
+3. Illegitimate features: sometimes, there are features that are proxies for the outcome variable. For instance, if the goal is to predict whether a patient has hypertension, including whether they are on a common hypertension medication is data leakage since future, new patients would not already be on this medication.
+4. Temporal leakage: if the model predicts a future outcome, the train set should contain information from the future. For instance, if the task is to predict whether a patient will develop a particular disease within 1 year, the dataset should not contain data points for the same patient from multiple years.
 
 
-## How do we measure fairness?
+## Measuring fairness
 
 What does it mean for a machine learning model to be fair or unbiased? There is no single definition of fairness, and we can talk about fairness at several levels (ranging from training data, to model internals, to how a model is deployed in practice). Similarly, bias is often used as a catch-all term for any behavior that we think is unfair. Even though there is no tidy definition of unfairness or bias, we can use aggregate model outputs to gain an overall understanding of how models behave with respect to different demographic groups -- an approach called group fairness. 
 
