@@ -454,7 +454,7 @@
         
 <section id="aio-0-introduction"><p>Content from <a href="0-introduction.html">Overview</a></p>
 <hr>
-<p>Last updated on 2024-06-19 |
+<p>Last updated on 2024-10-02 |
 
         <a href="https://github.com/carpentries-incubator/fair-explainable-ml/edit/main/episodes/0-introduction.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 31 minutes</p>
@@ -469,7 +469,9 @@
 <div class="inner">
 <h3 class="card-title">Questions</h3>
 <ul>
-<li>TODO</li>
+<li>What do we mean by “Trustworthy AI”?</li>
+<li>How is this workshop structured, and what content does it
+cover?</li>
 </ul>
 </div>
 </div>
@@ -479,16 +481,183 @@
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
 <ul>
-<li>TODO</li>
+<li>Define trustworthy AI and its various components.</li>
+<li>Be prepared to dive into the rest of the workshop.</li>
 </ul>
 </div>
 </div>
 </div>
 </div>
 </div>
-<section><h2 class="section-heading" id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+<section><h2 class="section-heading" id="what-is-trustworthy-ai">What is trustworthy AI?<a class="anchor" aria-label="anchor" href="#what-is-trustworthy-ai"></a>
 </h2>
 <hr class="half-width">
+<p>TODO</p>
+</section><section><h2 class="section-heading" id="the-ai-bill-of-rights">The AI Bill of Rights<a class="anchor" aria-label="anchor" href="#the-ai-bill-of-rights"></a>
+</h2>
+<hr class="half-width">
+<p>In October 2022, the Biden administration released a <a href="https://www.whitehouse.gov/ostp/ai-bill-of-rights/" class="external-link">Blueprint for
+an AI Bill of Rights</a>, a non-binding document that outlines how
+automated systems and AI should behave in order to protect Americans’
+rights.</p>
+<p>The blueprint is centered around five principles:</p>
+<ul>
+<li>Safe and Effective Systems – AI systems should work as expected, and
+should not cause harm</li>
+<li>Algorithmic Discrimination Protections – AI systems should not
+discriminate or produce inequitable outcomes</li>
+<li>Data Privacy – data collection should be limited to what is
+necessary for the system functionality, and you should have control over
+how and if your data is used</li>
+<li>Notice and Explanation – it should be transparent when an AI system
+is being used, and there should be an explanation of how particular
+decisions are reached</li>
+<li>Human Alternatives, Consideration, and Fallback – you should be able
+to opt out of engaging with AI systems, and a human should be available
+to remedy any issues</li>
+</ul></section><section><h2 class="section-heading" id="this-workshop">This workshop<a class="anchor" aria-label="anchor" href="#this-workshop"></a>
+</h2>
+<hr class="half-width">
+<p>This workshop centers around four principles that are important to
+trustworthy AI: <em>scientific validity</em>, <em>fairness</em>,
+<em>transparency</em>, and <em>accountability</em>. We summarize each
+principle here.</p>
+<div class="section level3">
+<h3 id="scientific-validity">Scientific validity<a class="anchor" aria-label="anchor" href="#scientific-validity"></a>
+</h3>
+<p>In order to be trustworthy, a model and its predictions need to be
+founded on good science. A model is not going to perform well if is not
+trained on the correct data, if it fits the underlying data poorly, or
+if it cannot recognize its own limitations. Scientific validity is
+closely linked to the AI Bill of Rights principle of “safe and effective
+systems”.</p>
+<p>In this workshop, we cover the following topics relating to
+scientific validity:</p>
+<ul>
+<li>Defining the problem (Episode 2)</li>
+<li>Training and evaluating a model, especially selecting an accuracy
+metric, avoiding over/underfitting, and preventing data leakage (Episode
+3)</li>
+<li>Estimating model uncertainty (Episode 9)</li>
+<li>Out-of-distribution detection (Episodes 10-12)</li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="fairness">Fairness<a class="anchor" aria-label="anchor" href="#fairness"></a>
+</h3>
+<p>As stated in the AI Bill of Rights, AI systems should not be
+discriminatory or produce inequitable outcomes. In <strong>Episode
+3</strong> we discuss various definitions of fairness in the context of
+AI, and overview how model developers try to make their models more
+fair.</p>
+</div>
+<div class="section level3">
+<h3 id="transparency">Transparency<a class="anchor" aria-label="anchor" href="#transparency"></a>
+</h3>
+<p>Transparency – i.e., insight into <em>how</em> a model makes its
+decisions – is important for trustworthy AI, as we want models that make
+the right decisions <em>for the right reasons</em>. Transparency can be
+achieved via <em>explanations</em> or by using inherently
+<em>interpretable</em> models. We discuss transparency in the follow
+episodes:</p>
+<ul>
+<li>Interpretability vs explainability (Episode 4)</li>
+<li>Overview of explainability methods (Episode 5)</li>
+<li>Example code for implementing two explainability methods, linear
+probes and Grad-CAM (Episodes 6-8)</li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="accountability">Accountability<a class="anchor" aria-label="anchor" href="#accountability"></a>
+</h3>
+<p>Accountability is important for trustworthy AI because, inevitably,
+models will make mistakes or cause harm. Accountability is multi-faceted
+and largely non-technical, which is not to say unimportant, but just
+that it falls partially out of scope of this technical workshop.</p>
+<p>We discuss two facets of accountability, model documentation and
+model sharing, in Episode 13.</p>
+<p>For those who are interested, we recommend these papers to learn more
+about different aspects of AI accountability:</p>
+<ol style="list-style-type: decimal">
+<li>
+<a href="https://arxiv.org/pdf/1711.01134" class="external-link">Accountability of AI
+Under the Law: The Role of Explanation</a> by Finale Doshi-Velez and
+colleagues. This paper discusses how explanations can be used in a legal
+context to determine accountability for harms caused by AI.</li>
+<li>
+<a href="https://dl.acm.org/doi/abs/10.1145/3351095.3372873" class="external-link">Closing
+the AI accountability gap: defining an end-to-end framework for internal
+algorithmic auditing</a> by Deborah Raji and colleagues proposes a
+framework for auditing algorithms. A key contribution of this paper is
+defining an auditing procedure over the whole model development and
+implementation pipeline, rather than narrowly focusing on the modeling
+stages.</li>
+<li>
+<a href="https://ieeexplore.ieee.org/abstract/document/10516659" class="external-link">AI
+auditing: The Broken Bus on the Road to AI Accountability</a> by Abeba
+Birhane and colleagues challenges previous work on AI accountability,
+arguing that most existing AI auditing systems are not effective. They
+propose necessary traits for effective AI audits, based on a review of
+existing practices.</li>
+</ol>
+</div>
+<div class="section level3">
+<h3 id="topics-we-do-not-cover">Topics we do not cover<a class="anchor" aria-label="anchor" href="#topics-we-do-not-cover"></a>
+</h3>
+<p>Trustworthy ML is a large, and growing, area of study. As of
+September 24, 2024, <strong>there are about 18,000 articles on Google
+Scholar that mention Trustworthy AI and were published in the first 9
+months of 2024</strong>.</p>
+<p>Many of the topics we do not cover are sub-topics of the broad
+categories – e.g., fairness, explainability, or OOD detection – of the
+workshop and are important for specific use cases, but less relevant for
+a general audience. But, there are a few major areas of research that we
+don’t have time to touch on. We summarize a few of them here:</p>
+<div class="section level4">
+<h4 id="data-privacy">Data Privacy<a class="anchor" aria-label="anchor" href="#data-privacy"></a>
+</h4>
+<p>In the US’s Blueprint for an AI Bill of Rights, one principle is data
+privacy, meaning that people should be aware how their data is being
+used, companies should not collect more data than they need, and people
+should be able to consent and/or opt out of data collection and
+usage.</p>
+<p>A lack of data privacy poses several risks: first, whenever data is
+collected, it can be subject to data breaches. This risk is unavoidable,
+but collecting only the data that is truly necessary mitigates this
+risk, as does implementing safeguards to how data is stored and and
+accessed. Second, when data is used to train ML models, that data can
+sometimes be identifying by attackers. For instance, large language
+models like ChatGPT are known to release private data that was part of
+the training corpus when prompted in clever ways (see this <a href="https://not-just-memorization.github.io/extracting-training-data-from-chatgpt.html" class="external-link">blog
+post</a> for more information).<br>
+Membership inference attacks, where an attacker determines whether a
+particular individual’s data was in the training corpus, are another
+vulnerability. These attacks may reveal things about a person directly
+(e.g., if the training dataset consisted of only people with a
+particular medical condition), or can be used to setup downstream
+attacks to gain more information.</p>
+<p>There are several areas of active research relating to data
+privacy.</p>
+<ul>
+<li>
+<a href="https://link.springer.com/chapter/10.1007/978-3-540-79228-4_1" class="external-link">Differential
+privacy</a> is a statistical technique that protects the privacy of
+individual data points. Models can be trained using differential privacy
+to provably prevent future attacks, but this currently comes at a high
+cost to accuracy.</li>
+<li>
+<a href="https://ieeexplore.ieee.org/abstract/document/9599369" class="external-link">Federated
+learning</a> trains models using decentralized data from a variety of
+sources. Since the data is not shared centrally, there is less risk of
+data breaches or unauthorized data usage.</li>
+</ul>
+</div>
+<div class="section level4">
+<h4 id="generative-ai-risks">Generative AI risks<a class="anchor" aria-label="anchor" href="#generative-ai-risks"></a>
+</h4>
+<p>We touch on fairness issues with generative AI in Episode 3.</p>
+<p>TODO finish this. maybe discuss deepfakes/misinformation,
+watermarking LLM content as a solution?</p>
 <div id="accordionInstructor1" class="accordion instructor-note accordion-flush">
 <div class="accordion-item">
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
@@ -507,6 +676,8 @@ View”</p>
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
+</div>
+</div>
 </section></section><section id="aio-1-preparing-to-train"><p>Content from <a href="1-preparing-to-train.html">Preparing to train a model</a></p>
 <hr>
 <p>Last updated on 2024-07-31 |
@@ -2552,7 +2723,7 @@ making informed decisions.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>
@@ -2702,7 +2873,7 @@ in making informed decisions quickly.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>
@@ -3077,7 +3248,7 @@ interpretability of the model?</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <table class="table">
 <colgroup>
@@ -6673,7 +6844,7 @@ to your experiences or projects?</em></p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <ul>
 <li>
@@ -6729,7 +6900,7 @@ reproducing ML workflows?</em></p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <ul>
 <li>
@@ -7039,7 +7210,7 @@ needs to be included in the documentation when sharing a model?</em></p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <ul>
 <li>Environment setup</li>
@@ -7110,7 +7281,7 @@ models.</p></li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
 <p>Pair up with a classmate and discuss what you wrote/read. Do model
 cards seem like a useful tool for you moving forwards?</p>
