@@ -177,3 +177,8 @@ Most versions will work fine with this lesson, but:
 
 ### Fallback option: cloud environment
 If a local installation does not work for you, it is also possible to run this lesson in [Google Colab](https://colab.research.google.com/). Some packages may need to be installed on the fly within the notebook (TBD).
+
+## Download the data
+[Download AI 360 Fairness Example Data: Medical Expenditure Panel Survey data](https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/data/h181.zip) and...
+
+
