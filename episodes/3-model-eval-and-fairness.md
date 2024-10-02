@@ -288,6 +288,7 @@ from collections import defaultdict
 This notebook is adapted from AIF360's [Medical Expenditure Tutorial](https://github.com/Trusted-AI/AIF360/blob/master/examples/tutorial_medical_expenditure.ipynb).
 
 The tutorial uses data from the [Medical Expenditure Panel Survey](https://meps.ahrq.gov/mepsweb/). We include a short description of the data below. For more details, especially on the preprocessing, please see the AIF360 tutorial. 
+
 ## Scenario and data
 
 The goal is to develop a healthcare utilization scoring model -- i.e., to predict which patients will have the highest utilization of healthcare resources. 
@@ -297,6 +298,7 @@ The original dataset contains information about various types of medical visits;
 The sensitive feature (that we will base fairness scores on) is defined as race. Other predictors include demographics, health assessment data, past diagnoses, and physical/mental limitations. 
 
 The data is divided into years (we follow the lead of AIF360's tutorial and use 2015), and further divided into Panels. We use Panel 19 (the first half of 2015).
+
 ### Loading the data
 
 First, the data needs to be moved into the correct location for the AIF360 library to find it. If you haven't yet, run `setup.sh` to complete that step. (Then, restart the kernel and re-load the packages at the top of this file.)
@@ -353,6 +355,7 @@ describe(dataset_orig_panel19_train, dataset_orig_panel19_val, dataset_orig_pane
 Next, we will look at whether the dataset contains bias; i.e., does the outcome 'UTILIZATION' take on a positive value more frequently for one racial group than another?
 
 The disparate impact score will be between 0 and 1, where 1 indicates *no bias*.
+**TODO**: Unpack/introduce BinaryLabelDatasetMetric and MetricTextExplainer. Also talk more about the disparate impact score and how to interpret it.
 ```python
 metric_orig_panel19_train = BinaryLabelDatasetMetric(
         dataset_orig_panel19_train,
@@ -361,11 +364,16 @@ metric_orig_panel19_train = BinaryLabelDatasetMetric(
 explainer_orig_panel19_train = MetricTextExplainer(metric_orig_panel19_train)
 
 print(explainer_orig_panel19_train.disparate_impact())
-
 ```
+
+```output
+Disparate impact (probability of favorable outcome for unprivileged instances / probability of favorable outcome for privileged instances): 0.5066881212510504
+```
+
 We see that the disparate impact is about 0.48, which means the privileged group has the favorable outcome at about 2x the rate as the unprivileged group does. 
 
 (In this case, the "favorable" outcome is label=1, i.e., high utilization)
+
 ## Train a model
 
 We will train a logistic regression classifier.
@@ -378,6 +386,10 @@ fit_params = {'logisticregression__sample_weight': dataset.instance_weights}
 lr_orig_panel19 = model.fit(dataset.features, dataset.labels.ravel(), **fit_params)
 ```
 ### Validate the model
+**TODO**: For the "Validate the model" section, let's preface the code with a a short summary of what we are doing here.
+* clarify that we trying to balance accuracy/generalizeability with various fairness metrics (whichever is most relevant to us)
+* maybe talk about a couple of the metrics in detail
+
 Recall that a logistic regression model can output probabilities (i.e., `model.predict(dataset).scores`) and we can determine our own threshold for predicting class 0 or 1. 
 
 The following function, `test`, computes performance on the logistic regression model based on a variety of thresholds, as indicated by `thresh_arr`, an array of threshold values. We will continue to focus on disparate impact, but all other metrics are described in the [AIF360 documentation](https://aif360.readthedocs.io/en/stable/modules/generated/aif360.metrics.ClassificationMetric.html#aif360.metrics.ClassificationMetric). 
@@ -459,9 +471,16 @@ plot(thresh_arr, 'Classification Thresholds',
      val_metrics['bal_acc'], 'Balanced Accuracy',
      disp_imp_err, '1 - DI')
 ```
+![Balancing Fairness and Accuracy)](https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/model-eval-and-fairness_balancing-fairness-accuracy.png)
+
+**TODO**: After genererating this plot, let's add a short exercise that tests their comprehension of the plot.
+
 If you like, you can plot other metrics, e.g., average odds difference.
 
 In the next cell, we write a function to print out a variety of other metrics. Since we look at 1 - disparate impact, **all of these metrics have a value of 0 if they are perfectly fair**. Again, you can learn more details about the various metrics in the [AIF360 documentation](https://aif360.readthedocs.io/en/stable/modules/generated/aif360.metrics.ClassificationMetric.html#aif360.metrics.ClassificationMetric).
+
+**TODO**: For this next code section, I'm a little confused by the 1-disparate impact equation. Why can't we just take the argmax of all of the metrics individually? Further elaboration may be needed. Also try to talk about why we should bother checking multiple metrics, and why these ones.
+
 ```python
 def describe_metrics(metrics, thresh_arr):
     best_ind = np.argmax(metrics['bal_acc'])
@@ -485,6 +504,8 @@ lr_metrics = test(dataset=dataset_orig_panel19_test,
 describe_metrics(lr_metrics, [thresh_arr[lr_orig_best_ind]])
 ```
 ## Mitigate bias with in-processing
+**Note**: CME will review this section and add TODO items by 10/2. Stay tuned.
+
 We will use reweighting as an in-processing step to try to increase fairness. AIF360 has a function that performs reweighting that we will use. If you're interested, you can look at details about how it works in [the documentation](https://aif360.readthedocs.io/en/latest/modules/generated/aif360.algorithms.preprocessing.Reweighing.html). 
 
 If you look at the documentation, you will see that AIF360 classifies reweighting as a preprocessing, not an in-processing intervention. Technically, AIF360's implementation modifies the dataset, not the learning algorithm so it is pre-processing. But, it is functionally equivalent to modifying the learning algorithm's loss function, so we follow the convention of the fair ML field and call it in-processing.
