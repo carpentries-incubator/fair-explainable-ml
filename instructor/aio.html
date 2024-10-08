@@ -1093,7 +1093,7 @@ any links that you are not going to use.
 </div>
 </section></section><section id="aio-3-model-eval-and-fairness"><p>Content from <a href="3-model-eval-and-fairness.html">Model evaluation and fairness</a></p>
 <hr>
-<p>Last updated on 2024-10-02 |
+<p>Last updated on 2024-10-08 |
 
         <a href="https://github.com/carpentries-incubator/fair-explainable-ml/edit/main/episodes/3-model-eval-and-fairness.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 0 minutes</p>
@@ -1781,10 +1781,19 @@ groups. (Recall, we focus on race as the sensitive feature.)</p>
 <p>Next, we will look at whether the dataset contains bias; i.e., does
 the outcome ‘UTILIZATION’ take on a positive value more frequently for
 one racial group than another?</p>
-<p>The disparate impact score will be between 0 and 1, where 1 indicates
-<em>no bias</em>. <strong>TODO</strong>: Unpack/introduce
-BinaryLabelDatasetMetric and MetricTextExplainer. Also talk more about
-the disparate impact score and how to interpret it.</p>
+<p>To check for biases, we will use the BinaryLabelDatasetMetric class
+from the AI Fairness 360 toolkit. This class creates an object that –
+given a dataset and user-defined sets of “privileged” and “unprivileged”
+groups – can compute various fairness scores. We will call the function
+MetricTextExplainer (also in AI Fairness 360) on the
+BinaryLabelDatasetMetric object to compute the disparate impact. The
+disparate impact score will be between 0 and 1, where 1 indicates <em>no
+bias</em> and 0 indicates extreme bias. In other words, we want a score
+that is close to 1, because this indicates that different demographic
+groups have similar outcomces under the model. A commonly used threshold
+for an “acceptable” disparate impact score is 0.8, because under U.S.
+law in various domains (e.g., employment and housing), the disparate
+impact between racial groups can be no larger than 80%.</p>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -1824,19 +1833,22 @@ utilization)</p>
 <div class="section level3">
 <h3 id="validate-the-model">Validate the model<a class="anchor" aria-label="anchor" href="#validate-the-model"></a>
 </h3>
-<p><strong>TODO</strong>: For the “Validate the model” section, let’s
-preface the code with a a short summary of what we are doing here. *
-clarify that we trying to balance accuracy/generalizeability with
-various fairness metrics (whichever is most relevant to us) * maybe talk
-about a couple of the metrics in detail</p>
+<p>We want to validate the model – that is, check that it has good
+accuracy and fairness when evaluated on the <em>validation</em> dataset.
+(By contrast, during training, we only optimize for accuracy and
+fairness on the training dataset.)</p>
 <p>Recall that a logistic regression model can output probabilities
 (i.e., <code>model.predict(dataset).scores</code>) and we can determine
-our own threshold for predicting class 0 or 1.</p>
+our own threshold for predicting class 0 or 1. One goal of the
+validation process is to select the <em>threshold</em> for the model,
+i.e., the value <em>v</em> so that if the model’s output is greater than
+<em>v</em>, we will predict the label 1.</p>
 <p>The following function, <code>test</code>, computes performance on
 the logistic regression model based on a variety of thresholds, as
-indicated by <code>thresh_arr</code>, an array of threshold values. We
-will continue to focus on disparate impact, but all other metrics are
-described in the <a href="https://aif360.readthedocs.io/en/stable/modules/generated/aif360.metrics.ClassificationMetric.html#aif360.metrics.ClassificationMetric" class="external-link">AIF360
+indicated by <code>thresh_arr</code>, an array of threshold values. The
+threshold values we test are determined through the function
+<code>np.linspace</code>. We will continue to focus on disparate impact,
+but all other metrics are described in the <a href="https://aif360.readthedocs.io/en/stable/modules/generated/aif360.metrics.ClassificationMetric.html#aif360.metrics.ClassificationMetric" class="external-link">AIF360
 documentation</a>.</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1927,20 +1939,64 @@ no bias.</p>
 <span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>     disp_imp_err, <span class="st">'1 - DI'</span>)</span></code></pre>
 </div>
 <figure><img src="https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/model-eval-and-fairness_balancing-fairness-accuracy.png" alt="Balancing Fairness and Accuracy)" class="figure mx-auto d-block"><div class="figcaption">Balancing Fairness and Accuracy)</div>
-</figure><p><strong>TODO</strong>: After genererating this plot, let’s add a
-short exercise that tests their comprehension of the plot.</p>
+</figure><div id="interpreting-the-plot" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div id="interpreting-the-plot" class="callout-inner">
+<h3 class="callout-title">Interpreting the plot</h3>
+<div class="callout-content">
+<p>Answer the following questions:</p>
+<ol style="list-style-type: decimal">
+<li>When the classification threshold is 0.1, what is the (approximate)
+accuracy and 1-DI score? What about when the classification threshold is
+0.5?</li>
+<li>If you were developing the model, what classification threshold
+would you choose based on this graph? Why?</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="accordionSolution6" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution6" aria-expanded="false" aria-controls="collapseSolution6">
+  <h4 class="accordion-header" id="headingSolution6"> Show me the solution </h4>
+</button>
+<div id="collapseSolution6" class="accordion-collapse collapse" data-bs-parent="#accordionSolution6" aria-labelledby="headingSolution6">
+<div class="accordion-body">
+<ol style="list-style-type: decimal">
+<li>Using a threshold of 0.1, the accuracy is about 0.71 and the 1-DI
+score is about 0.71. Using a threshold of 0.5, the accuracy is about
+0.69 and the 1-DI score is about 0.79.</li>
+<li>The optimal accuracy occurs with a threshold of 0.19 (indicated by
+the dotted vertical line). However, the disparate impact is quite bad at
+this threshold. Choosing a slightly smaller threshold, e.g., around
+0.15, yields similarly high-accuracy and is slightly fairer. However,
+there’s no “good” outcome here: whenever the accuracy is near-optimal,
+the 1-DI score is high. If you were the model developer, you might want
+to consider interventions to improve the accuracy/fairness tradeoff,
+some of which we discuss below.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
 <p>If you like, you can plot other metrics, e.g., average odds
 difference.</p>
 <p>In the next cell, we write a function to print out a variety of other
-metrics. Since we look at 1 - disparate impact, <strong>all of these
-metrics have a value of 0 if they are perfectly fair</strong>. Again,
-you can learn more details about the various metrics in the <a href="https://aif360.readthedocs.io/en/stable/modules/generated/aif360.metrics.ClassificationMetric.html#aif360.metrics.ClassificationMetric" class="external-link">AIF360
+metrics. Instead of considering disparate impact directly, we will
+consider 1 - disparate impact. Recall that a disparate impact of 0 is
+very bad, and 1 is perfect – thus, considering 1 - disparate impact
+means that 0 is perfect and 1 is very bad, similar to the other metrics
+we consider. <strong>I.e., all of these metrics have a value of 0 if
+they are perfectly fair</strong>.</p>
+<p>We print the value of several metrics here for illustrative purposes
+(i.e., to see that multiple metrics are not able to be optimized
+simultaneously). In practice, when evaluating a model it is typical ot
+choose a single fairness metric to use based on the details of the
+situation. You can learn more details about the various metrics in the
+<a href="https://aif360.readthedocs.io/en/stable/modules/generated/aif360.metrics.ClassificationMetric.html#aif360.metrics.ClassificationMetric" class="external-link">AIF360
 documentation</a>.</p>
-<p><strong>TODO</strong>: For this next code section, I’m a little
-confused by the 1-disparate impact equation. Why can’t we just take the
-argmax of all of the metrics individually? Further elaboration may be
-needed. Also try to talk about why we should bother checking multiple
-metrics, and why these ones.</p>
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -3290,7 +3346,7 @@ interpretability of the model?</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <table class="table">
 <colgroup>
@@ -6886,7 +6942,7 @@ to your experiences or projects?</em></p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <ul>
 <li>
@@ -6942,7 +6998,7 @@ reproducing ML workflows?</em></p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <ul>
 <li>
@@ -7252,7 +7308,7 @@ needs to be included in the documentation when sharing a model?</em></p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <ul>
 <li>Environment setup</li>
@@ -7323,7 +7379,7 @@ models.</p></li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <p>Pair up with a classmate and discuss what you wrote/read. Do model
 cards seem like a useful tool for you moving forwards?</p>
