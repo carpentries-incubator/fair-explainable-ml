@@ -364,8 +364,8 @@ describe(dataset_orig_panel19_train, dataset_orig_panel19_val, dataset_orig_pane
 ```
 Next, we will look at whether the dataset contains bias; i.e., does the outcome 'UTILIZATION' take on a positive value more frequently for one racial group than another?
 
-The disparate impact score will be between 0 and 1, where 1 indicates *no bias*.
-**TODO**: Unpack/introduce BinaryLabelDatasetMetric and MetricTextExplainer. Also talk more about the disparate impact score and how to interpret it.
+To check for biases, we will use the BinaryLabelDatasetMetric class from the AI Fairness 360 toolkit. This class creates an object that -- given a dataset and user-defined sets of "privileged" and "unprivileged" groups -- can compute various fairness scores. We will call the function MetricTextExplainer (also in AI Fairness 360) on the BinaryLabelDatasetMetric object to compute the disparate impact. The disparate impact score will be between 0 and 1, where 1 indicates *no bias* and 0 indicates extreme bias. In other words, we want a score that is close to 1, because this indicates that different demographic groups have similar outcomces under the model. A commonly used threshold for an "acceptable" disparate impact score is 0.8, because under U.S. law in various domains (e.g., employment and housing), the disparate impact between racial groups can be no larger than 80%. 
+
 ```python
 metric_orig_panel19_train = BinaryLabelDatasetMetric(
         dataset_orig_panel19_train,
@@ -396,13 +396,11 @@ fit_params = {'logisticregression__sample_weight': dataset.instance_weights}
 lr_orig_panel19 = model.fit(dataset.features, dataset.labels.ravel(), **fit_params)
 ```
 ### Validate the model
-**TODO**: For the "Validate the model" section, let's preface the code with a a short summary of what we are doing here.
-* clarify that we trying to balance accuracy/generalizeability with various fairness metrics (whichever is most relevant to us)
-* maybe talk about a couple of the metrics in detail
+We want to validate the model -- that is, check that it has good accuracy and fairness when evaluated on the *validation* dataset. (By contrast, during training, we only optimize for accuracy and fairness on the training dataset.) 
 
-Recall that a logistic regression model can output probabilities (i.e., `model.predict(dataset).scores`) and we can determine our own threshold for predicting class 0 or 1. 
+Recall that a logistic regression model can output probabilities (i.e., `model.predict(dataset).scores`) and we can determine our own threshold for predicting class 0 or 1. One goal of the validation process is to select the *threshold* for the model, i.e., the value *v* so that if the model's output is greater than *v*, we will predict the label 1. 
 
-The following function, `test`, computes performance on the logistic regression model based on a variety of thresholds, as indicated by `thresh_arr`, an array of threshold values. We will continue to focus on disparate impact, but all other metrics are described in the [AIF360 documentation](https://aif360.readthedocs.io/en/stable/modules/generated/aif360.metrics.ClassificationMetric.html#aif360.metrics.ClassificationMetric). 
+The following function, `test`, computes performance on the logistic regression model based on a variety of thresholds, as indicated by `thresh_arr`, an array of threshold values. The threshold values we test are determined through the function `np.linspace`. We will continue to focus on disparate impact, but all other metrics are described in the [AIF360 documentation](https://aif360.readthedocs.io/en/stable/modules/generated/aif360.metrics.ClassificationMetric.html#aif360.metrics.ClassificationMetric). 
 ```python
 def test(dataset, model, thresh_arr):
     try:
@@ -483,13 +481,30 @@ plot(thresh_arr, 'Classification Thresholds',
 ```
 ![Balancing Fairness and Accuracy)](https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/model-eval-and-fairness_balancing-fairness-accuracy.png)
 
-**TODO**: After genererating this plot, let's add a short exercise that tests their comprehension of the plot.
+:::::::::::::::::::::::::::::::::::::: challenge
+
+### Interpreting the plot
+
+Answer the following questions:
+
+1. When the classification threshold is 0.1, what is the (approximate) accuracy and 1-DI score? What about when the classification threshold is 0.5? 
+2. If you were developing the model, what classification threshold would you choose based on this graph? Why?
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::: solution
+
+### Solution
+
+1. Using a threshold of 0.1, the accuracy is about 0.71 and the 1-DI score is about 0.71. Using a threshold of 0.5, the accuracy is about 0.69 and the 1-DI score is about 0.79.
+2. The optimal accuracy occurs with a threshold of 0.19 (indicated by the dotted vertical line). However, the disparate impact is quite bad at this threshold. Choosing a slightly smaller threshold, e.g., around 0.15, yields similarly high-accuracy and is slightly fairer. However, there's no "good" outcome here: whenever the accuracy is near-optimal, the 1-DI score is high. If you were the model developer, you might want to consider interventions to improve the accuracy/fairness tradeoff, some of which we discuss below.
+:::::::::::::::::::::::::
 
 If you like, you can plot other metrics, e.g., average odds difference.
 
-In the next cell, we write a function to print out a variety of other metrics. Since we look at 1 - disparate impact, **all of these metrics have a value of 0 if they are perfectly fair**. Again, you can learn more details about the various metrics in the [AIF360 documentation](https://aif360.readthedocs.io/en/stable/modules/generated/aif360.metrics.ClassificationMetric.html#aif360.metrics.ClassificationMetric).
+In the next cell, we write a function to print out a variety of other metrics. Instead of considering disparate impact directly, we will consider 1 - disparate impact. Recall that a disparate impact of 0 is very bad, and 1 is perfect -- thus, considering 1 - disparate impact means that 0 is perfect and 1 is very bad, similar to the other metrics we consider. **I.e., all of these metrics have a value of 0 if they are perfectly fair**. 
 
-**TODO**: For this next code section, I'm a little confused by the 1-disparate impact equation. Why can't we just take the argmax of all of the metrics individually? Further elaboration may be needed. Also try to talk about why we should bother checking multiple metrics, and why these ones.
+We print the value of several metrics here for illustrative purposes (i.e., to see that multiple metrics are not able to be optimized simultaneously). In practice, when evaluating a model it is typical ot choose a single fairness metric to use based on the details of the situation. You can learn more details about the various metrics in the [AIF360 documentation](https://aif360.readthedocs.io/en/stable/modules/generated/aif360.metrics.ClassificationMetric.html#aif360.metrics.ClassificationMetric).
 
 ```python
 def describe_metrics(metrics, thresh_arr):
