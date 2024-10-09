@@ -159,11 +159,13 @@ If a local installation does not work for you, it is also possible to run this l
 
 ## 2) Download and move the data needed
 For the fairness evaluation episode, you will need access to the Medical Expenditure Panel Survey Dataset. Please complete these steps to ensure you have access:
+
 1. [Download AI 360 Fairness Example Data: Medical Expenditure Panel Survey data](https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/data/h181.zip) (zip file)
 2. Unzip h181.zip
 3. In the unzipped folder, find the h181.csv file. Move this file to the following location:
-       * Windows: `C:\Users\[Usernmae]\anaconda3\envs\trustworthy_ML\Lib\site-packages\aif360\data\raw\meps\h181.csv`
-       * Mac:  `/Users/[Username]/opt/anaconda3/envs/trustworthy_ML/lib/python3.9/site-packages/aif360/data/raw/meps/h181.csv`
+
+      * Windows: `C:\Users\[Usernmae]\anaconda3\envs\trustworthy_ML\Lib\site-packages\aif360\data\raw\meps\h181.csv`
+      * Mac:  `/Users/[Username]/opt/anaconda3/envs/trustworthy_ML/lib/python3.9/site-packages/aif360/data/raw/meps/h181.csv`
 
 ## 3) Create a Hugging Face account and access Token
 You will need a Hugging Face account for the workshop episode on model sharing. Hugging Face is a very popular machine learning (ML) platform and community that helps users build, deploy, share, and train machine learning models. 
