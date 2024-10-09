@@ -160,8 +160,8 @@ If a local installation does not work for you, it is also possible to run this l
 ## 2) Download and move the data needed
 For the fairness evaluation episode, you will need access to the Medical Expenditure Panel Survey Dataset. Please complete these steps to ensure you have access:
 
-1. [Download AI 360 Fairness Example Data: Medical Expenditure Panel Survey data](https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/data/h181.zip) (zip file)
-2. Unzip h181.zip
+1. Download AI 360 Fairness example data: [Medical Expenditure Panel Survey data](https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/data/h181.zip) (zip file)
+2. Unzip h181.zip (right-click and extract all on Windows; double-click zip file on Mac)
 3. In the unzipped folder, find the h181.csv file. Move this file to the following location:
 
       * Windows: `C:\Users\[Usernmae]\anaconda3\envs\trustworthy_ML\Lib\site-packages\aif360\data\raw\meps\h181.csv`
