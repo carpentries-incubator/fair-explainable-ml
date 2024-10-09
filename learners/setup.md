@@ -1,29 +1,8 @@
 ---
 title: Setup
 ---
-## Clone the git project
-<!--
-## Data Sets
-FIXME: place any data you want learners to use in `episodes/data` and then use
-       a relative link ( [data zip file](data/lesson-data.zip) ) to provide a
-       link to it, replacing the example.com link. Download the [data zip file](https://example.com/FIXME) and unzip it to your Desktop
--->
 
-There are a number of files we need to conduct the workshop. By cloning the git repository, you will be able to have a copy of all of the necessary files and functions required to run through the exercises.
-
-1. Click the link below to open the [Github](https://github.com/carpentries-incubator/fair-explainable-ml/tree/main) page.
-2. Click the green "Code <>" button.
-3. Click "Download as zip."
-4. Unzip the directory to your desktop or working directory.
-
-## Create a Hugging Face account and access Token
-You will need a Hugging Face account for the workshop episode on model sharing. Hugging Face is a very popular machine learning (ML) platform and community that helps users build, deploy, share, and train machine learning models. 
-
-**Create account**: To create an account on Hugging Face, visit: [huggingface.co/join](https://huggingface.co/join). Enter an email address and password, and follow the instructions provided via Hugging Face (you may need to verify your email address) to complete the process.
-
-**Setup access token**: Once you have your account created, you’ll need to generate an access token so that you can upload/share models to your Hugging Face account during the workshop. To generate a token, visit the [Access Tokens setting page](https://huggingface.co/settings/tokens) after logging in. Once there, click “New token” to generate an access token. We’ll use this token later to log in to Hugging Face via Python
-
-## Software setup
+## 1) Software setup
 
 ::::::::::::::::::::::::::::::::::::::: discussion
 
@@ -178,7 +157,21 @@ Most versions will work fine with this lesson, but:
 ### Fallback option: cloud environment
 If a local installation does not work for you, it is also possible to run this lesson in [Google Colab](https://colab.research.google.com/). Some packages may need to be installed on the fly within the notebook (TBD).
 
-## Download the data
-[Download AI 360 Fairness Example Data: Medical Expenditure Panel Survey data](https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/data/h181.zip) and...
+## 2) Download and move the data needed
+For the fairness evaluation episode, you will need access to the Medical Expenditure Panel Survey Dataset. Please complete these steps to ensure you have access:
+1. [Download AI 360 Fairness Example Data: Medical Expenditure Panel Survey data](https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/data/h181.zip) (zip file)
+2. Unzip h181.zip
+3. In the unzipped folder, find the h181.csv file. Move this file to the following location:
+       * Windows: `C:\Users\[Usernmae]\anaconda3\envs\trustworthy_ML\Lib\site-packages\aif360\data\raw\meps\h181.csv`
+       * Mac:  `/Users/[Username]/opt/anaconda3/envs/trustworthy_ML/lib/python3.9/site-packages/aif360/data/raw/meps/h181.csv`
+
+## 3) Create a Hugging Face account and access Token
+You will need a Hugging Face account for the workshop episode on model sharing. Hugging Face is a very popular machine learning (ML) platform and community that helps users build, deploy, share, and train machine learning models. 
+
+**Create account**: To create an account on Hugging Face, visit: [huggingface.co/join](https://huggingface.co/join). Enter an email address and password, and follow the instructions provided via Hugging Face (you may need to verify your email address) to complete the process.
+
+**Setup access token**: Once you have your account created, you’ll need to generate an access token so that you can upload/share models to your Hugging Face account during the workshop. To generate a token, visit the [Access Tokens setting page](https://huggingface.co/settings/tokens) after logging in. Once there, click “New token” to generate an access token. We’ll use this token later to log in to Hugging Face via Python
+
+
 
 
