@@ -590,39 +590,7 @@ any links that you are not going to use.
  --></tbody></table><p>
       The actual schedule may vary slightly depending on the topics and exercises chosen by the instructor.
       </p>
-      </section><section id="setup"><section><h2 class="section-heading" id="clone-the-git-project">Clone the git project<a class="anchor" aria-label="anchor" href="#clone-the-git-project"></a></h2>
-<hr class="half-width"><!--
-## Data Sets
-FIXME: place any data you want learners to use in `episodes/data` and then use
-       a relative link ( [data zip file](data/lesson-data.zip) ) to provide a
-       link to it, replacing the example.com link. Download the [data zip file](https://example.com/FIXME) and unzip it to your Desktop
---><p>There are a number of files we need to conduct the workshop. By
-cloning the git repository, you will be able to have a copy of all of
-the necessary files and functions required to run through the
-exercises.</p>
-<ol style="list-style-type: decimal"><li>Click the link below to open the <a href="https://github.com/carpentries-incubator/fair-explainable-ml/tree/main" class="external-link">Github</a>
-page.</li>
-<li>Click the green “Code &lt;&gt;” button.</li>
-<li>Click “Download as zip.”</li>
-<li>Unzip the directory to your desktop or working directory.</li>
-</ol></section><section><h2 class="section-heading" id="create-a-hugging-face-account-and-access-token">Create a Hugging Face account and access Token<a class="anchor" aria-label="anchor" href="#create-a-hugging-face-account-and-access-token"></a></h2>
-<hr class="half-width"><p>You will need a Hugging Face account for the workshop episode on
-model sharing. Hugging Face is a very popular machine learning (ML)
-platform and community that helps users build, deploy, share, and train
-machine learning models.</p>
-<p><strong>Create account</strong>: To create an account on Hugging
-Face, visit: <a href="https://huggingface.co/join" class="external-link">huggingface.co/join</a>. Enter an
-email address and password, and follow the instructions provided via
-Hugging Face (you may need to verify your email address) to complete the
-process.</p>
-<p><strong>Setup access token</strong>: Once you have your account
-created, you’ll need to generate an access token so that you can
-upload/share models to your Hugging Face account during the workshop. To
-generate a token, visit the <a href="https://huggingface.co/settings/tokens" class="external-link">Access Tokens setting
-page</a> after logging in. Once there, click “New token” to generate an
-access token. We’ll use this token later to log in to Hugging Face via
-Python</p>
-</section><section><h2 class="section-heading" id="software-setup">Software setup<a class="anchor" aria-label="anchor" href="#software-setup"></a></h2>
+      </section><section id="setup"><section><h2 class="section-heading" id="software-setup">1) Software setup<a class="anchor" aria-label="anchor" href="#software-setup"></a></h2>
 <hr class="half-width"><div id="installing-python-using-anaconda" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
@@ -839,10 +807,33 @@ run this lesson in <a href="https://colab.research.google.com/" class="external-
 Colab</a>. Some packages may need to be installed on the fly within the
 notebook (TBD).</p>
 </div>
-</section><section><h2 class="section-heading" id="download-the-data">Download the data<a class="anchor" aria-label="anchor" href="#download-the-data"></a></h2>
-<hr class="half-width"><p><a href="https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/data/h181.zip" class="external-link">Download
+</section><section><h2 class="section-heading" id="download-and-move-the-data-needed">2) Download and move the data needed<a class="anchor" aria-label="anchor" href="#download-and-move-the-data-needed"></a></h2>
+<hr class="half-width"><p>For the fairness evaluation episode, you will need access to the
+Medical Expenditure Panel Survey Dataset. Please complete these steps to
+ensure you have access: 1. <a href="https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/data/h181.zip" class="external-link">Download
 AI 360 Fairness Example Data: Medical Expenditure Panel Survey data</a>
-and…</p>
+(zip file) 2. Unzip h181.zip 3. In the unzipped folder, find the
+h181.csv file. Move this file to the following location: * Windows:
+<code>C:\Users\[Usernmae]\anaconda3\envs\trustworthy_ML\Lib\site-packages\aif360\data\raw\meps\h181.csv</code>
+* Mac:
+<code>/Users/[Username]/opt/anaconda3/envs/trustworthy_ML/lib/python3.9/site-packages/aif360/data/raw/meps/h181.csv</code></p>
+</section><section><h2 class="section-heading" id="create-a-hugging-face-account-and-access-token">3) Create a Hugging Face account and access Token<a class="anchor" aria-label="anchor" href="#create-a-hugging-face-account-and-access-token"></a></h2>
+<hr class="half-width"><p>You will need a Hugging Face account for the workshop episode on
+model sharing. Hugging Face is a very popular machine learning (ML)
+platform and community that helps users build, deploy, share, and train
+machine learning models.</p>
+<p><strong>Create account</strong>: To create an account on Hugging
+Face, visit: <a href="https://huggingface.co/join" class="external-link">huggingface.co/join</a>. Enter an
+email address and password, and follow the instructions provided via
+Hugging Face (you may need to verify your email address) to complete the
+process.</p>
+<p><strong>Setup access token</strong>: Once you have your account
+created, you’ll need to generate an access token so that you can
+upload/share models to your Hugging Face account during the workshop. To
+generate a token, visit the <a href="https://huggingface.co/settings/tokens" class="external-link">Access Tokens setting
+page</a> after logging in. Once there, click “New token” to generate an
+access token. We’ll use this token later to log in to Hugging Face via
+Python</p>
 <!--
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
@@ -896,8 +887,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/fair-explainable-ml/instructor/index.html",
   "identifier": "https://carpentries-incubator.github.io/fair-explainable-ml/instructor/index.html",
   "dateCreated": "2023-12-05",
-  "dateModified": "2024-10-08",
-  "datePublished": "2024-10-08"
+  "dateModified": "2024-10-09",
+  "datePublished": "2024-10-09"
 }
 
   </script><script>
