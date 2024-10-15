@@ -100,11 +100,12 @@ Conda should already be available in your system once you installed Anaconda suc
     conda activate trustworthy_ML
     ```
 
-4. Install the `pytorch-ood`, `aif360[Reductions]`, and `aif360[inFairness]` using pip. Make sure to do this AFTER activating the environment.
+4. Install `pytorch-ood`, `fairlearn`, `aif360[Reductions]`, and `aif360[inFairness]` using pip. Make sure to do this AFTER activating the environment.
    
     ```sh
     pip install torchaudio
     pip install pytorch-ood
+    pip install fairlearn
     pip install aif360[Reductions]
     pip install aif360[inFairness]
     ```
@@ -162,10 +163,18 @@ For the fairness evaluation episode, you will need access to the Medical Expendi
 
 1. Download AI 360 Fairness example data: [Medical Expenditure Panel Survey data](https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/data/h181.zip) (zip file)
 2. Unzip h181.zip (right-click and extract all on Windows; double-click zip file on Mac)
-3. In the unzipped folder, find the h181.csv file. Move this file to the following location:
+3. In the unzipped folder, find the h181.csv file. If you installed `conda` with Anaconda, i.e., as described earlier in this document, move this file to the following location:
 
       * Windows: `C:\Users\[Usernmae]\anaconda3\envs\trustworthy_ML\Lib\site-packages\aif360\data\raw\meps\h181.csv`
       * Mac:  `/Users/[Username]/opt/anaconda3/envs/trustworthy_ML/lib/python3.9/site-packages/aif360/data/raw/meps/h181.csv`
+
+    If you installed `conda` in a different way, or don't remember how you installed it, check the location of your `trustworthy_ML` environment (make sure this environment is active, first!):
+
+    * Windows: `where python3.9`
+    * Mac: `which python3.9`. 
+    
+    Follow the instructions above, but replace everything before `/trustworthy_ML` with the printed path to `/trustworthy_ML`.
+     
 
 ## 3) Create a Hugging Face account and access Token
 You will need a Hugging Face account for the workshop episode on model sharing. Hugging Face is a very popular machine learning (ML) platform and community that helps users build, deploy, share, and train machine learning models. 
