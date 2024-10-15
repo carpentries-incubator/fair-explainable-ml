@@ -6,7 +6,6 @@ exercises: 2
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- What are popular machine learning models? 
 - What are model intepretability and model explainability? Why are they important?
 - Which should you choose: interpretable models or explainable models?
 
@@ -14,9 +13,8 @@ exercises: 2
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Showcase machine learning models that are widely used in practice.
 - Understand and distinguish between explainable machine learning models and interpretable machine learning models.
-- Describe two reasons when deciding which model to choose.
+- Make informed model selection choices based on the goals of your model
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
