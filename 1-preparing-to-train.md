@@ -135,10 +135,14 @@ Consider the following questions:
 * Why do social media companies optimize for engagement?
 * What would be an alternative optimization target? How would the outcomes differ, both for users and for the companies' profits?
 
-## Understanding bias
-The term "bias" is overloaded, and can have the following definitions:
+**Recap - Choosing the right outcome variable**: Sometimes, choosing the outcome variable is straightforward, like predicting tomorrow's temperature. Other times, it gets tricky, especially when we can’t directly measure what we want to predict. It's important to choose the right outcome variable because this decision plays a crucial role in ensuring our models are trustworthy, "fair" (more on this later), and unbiased. A poor choice can lead to biased results and unintended consequences, making it harder for our models to be effective and reliable.
 
-* (Statistical) bias: the tendency of an algorithm to produce one solution over another, even though some alternatives may be just as good, or better. Statistical bias can have multiple sources, which we'll get into below. 
+## Understanding bias
+Now that we’ve covered the importance of the outcome variable, let’s talk about bias. Bias can show up in various ways during the modeling process, impacting our results and fairness. If we don’t consider bias from the beginning, we risk creating models that don’t work well for everyone or that reinforce existing inequalities. 
+
+So, what exactly do we mean by bias? The term is a little overloaded and can refer to different things depending on context. However, there are two general types/definitions of bias:
+
+* (Statistical) bias: This refers to the tendency of an algorithm to produce one solution over another, even when other options may be just as good or better. Statistical bias can arise from several sources (discussed below), including how data is collected and processed.
 * (Social) bias: outcomes are unfair to one or more social groups. Social bias can be the result of statistical bias (i.e., an algorithm giving preferential treatment to one social group over others), but can also occur outside of a machine learning context. 
 
 ### Sources of statistical bias
