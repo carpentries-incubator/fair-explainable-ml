@@ -41,6 +41,7 @@ In this lesson, we will explore the concepts of interpretability and explainabil
 In the context of machine learning, interpretability is the degree to which a human can understand the cause of a decision made by a model, crucial for verifying correctness and ensuring compliance. 
 
 **"Interpretable" models**: Generally refers to models that are inherently understandable, such as...
+
 - Linear regression: Examining the coefficients along with confidence intervals (CIs) helps understand the strength and direction of the relationship between features and predictions.
 - Decision trees: Visualizing decision trees allows users to see the rules that lead to specific predictions, clarifying how features interact in the decision-making process. 
 - Rule-based classifiers. These models provide clear insights into how input features influence predictions, making it easier for users to verify and trust the outcomes.
@@ -52,7 +53,8 @@ The extent to which the internal mechanics of a machine learning model can be ar
 
 **Explainable models**: Typical refers to more complex models, such as neural networks or ensemble methods, that may act as black boxes. While these models can deliver high accuracy, they require additional techniques (like LIME and SHAP) to explain their decisions.
 
-**Explainability methods preview:** Various explainability methods exist to help clarify how complex models work. For instance:
+**Explainability methods preview:** Various explainability methods exist to help clarify how complex models work. For instance...
+
 - **LIME (Local Interpretable Model-agnostic Explanations)** provides insights into individual predictions by approximating the model locally with a simpler, interpretable model.
 - **SHAP (SHapley Additive exPlanations)** assigns each feature an importance value for a particular prediction, helping understand the contribution of each feature.
 - **Saliency Maps** visually highlight which parts of an input (e.g., in images) are most influential for a model’s prediction.
