@@ -6,30 +6,62 @@ exercises: 2
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- What are model intepretability and model explainability? Why are they important?
-- Which should you choose: interpretable models or explainable models?
+- What are model interpretability and model explainability? Why are they important?
+- How do you choose between interpretable models and explainable models in different contexts?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
 - Understand and distinguish between explainable machine learning models and interpretable machine learning models.
-- Make informed model selection choices based on the goals of your model
+- Make informed model selection choices based on the goals of your model.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - **Model Explainability vs. Model Interpretability:**
-   - **Interpretability:** Refers to the degree to which a human can understand the cause of a decision made by a model. It is essential for verifying the correctness of the model, ensuring compliance with regulations, and enabling effective debugging.
-   - **Explainability:** Refers to the extent to which the internal mechanics of a machine learning model can be explained in human terms. It is crucial for understanding how models make decisions, ensuring transparency, and building trust with stakeholders.
-   
+   - **Interpretability:** The degree to which a human can understand the cause of a decision made by a model, crucial for verifying correctness and ensuring compliance.
+   - **Explainability:** The extent to which the internal mechanics of a machine learning model can be articulated in human terms, important for transparency and building trust.
 
 - **Choosing Between Explainable and Interpretable Models:**
-   - **When Transparency is Critical:** Opt for interpretable models (e.g., linear regression, decision trees) when it is essential to have a clear understanding of how decisions are made, such as in healthcare or finance.
-   - **When Performance is a Priority:** Choose explainable models (e.g., neural networks, gradient boosting machines) when predictive accuracy is the primary concern, and you can use explanation methods to understand model behavior.
+   - **When Transparency is Critical:** Use interpretable models when understanding how decisions are made is essential.
+   - **When Performance is a Priority:** Use explainable models when accuracy is more important, leveraging techniques like LIME and SHAP to clarify complex models.
+
+- **Accuracy vs. Complexity:**
+   - The relationship between model complexity and accuracy is not always linear. Increasing complexity can improve accuracy up to a point but may lead to overfitting, highlighting the gray area in model selection. This is illustrated by the accuracy vs. complexity plot, which shows different models on these axes.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
+
+### Introduction
+
+In this lesson, we will explore the concepts of interpretability and explainability in machine learning models. For applied scientists, choosing the right model for your research data is critical. Whether you’re working with patient data, environmental factors, or financial information, understanding how a model arrives at its predictions can significantly impact your work.
+
+#### Interpretability
+In the context of machine learning, interpretability is the degree to which a human can understand the cause of a decision made by a model, crucial for verifying correctness and ensuring compliance. 
+
+**"Interpretable" models**: Generally refers to models that are inherently understandable, such as linear regression, decision trees, and rule-based classifiers. These models provide clear insights into how input features influence predictions, making it easier for users to verify and trust the outcomes. However, as we scale up these models (e.g., high-dimensional regression models or complicated decision trees), the complexity can increase significantly, potentially making these models less interpretable than their simpler, lower-dimensional counterparts.
+
+#### Explainability
+The extent to which the internal mechanics of a machine learning model can be articulated in human terms, important for transparency and building trust.
+
+**Explainable models**: Typical refers to more complex models, such as neural networks or ensemble methods, that may act as black boxes. While these models can deliver high accuracy, they require additional techniques (like LIME and SHAP) to explain their decisions.
+
+As we discuss these concepts, it’s important to recognize the common clusters of models associated with each term. This context sets the stage for understanding how we can balance model complexity and performance.
+
+### Accuracy vs. Complexity
+
+Understanding the trade-off between model complexity and accuracy is crucial for effective model selection. As model complexity increases, accuracy typically improves, but this is not always the case. 
+
+Refer to the accuracy vs. complexity plot from the AAAI tutorial, which visually represents how different models balance these two factors:
+
+![Accuracy vs. Complexity Plot](URL_TO_AAAI_TUTORIAL_PLOT)
+
+**Discussion of the Plot:**
+- **X-Axis:** Represents model complexity, ranging from simple models (like linear regression) to complex models (like deep neural networks).
+- **Y-Axis:** Represents accuracy, demonstrating how well each model performs on a given task.
+
+This plot illustrates that while simpler models offer clarity and ease of understanding, they may not effectively capture complex relationships in the data. Conversely, while complex models can achieve higher accuracy, they may sacrifice interpretability, which can hinder trust in their predictions.
 
 :::::::::::::::::::::::::::::::::::::: exercise
 
