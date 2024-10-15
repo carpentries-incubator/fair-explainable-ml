@@ -691,7 +691,7 @@ real).</li>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p>Inline instructor notes can help inform instructors of timing
 challenges associated with the lessons. They appear in the “Instructor
@@ -708,7 +708,7 @@ any links that you are not going to use.
 </div>
 </section></section><section id="aio-1-preparing-to-train"><p>Content from <a href="1-preparing-to-train.html">Preparing to train a model</a></p>
 <hr>
-<p>Last updated on 2024-07-31 |
+<p>Last updated on 2024-10-15 |
 
         <a href="https://github.com/carpentries-incubator/fair-explainable-ml/edit/main/episodes/1-preparing-to-train.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 0 minutes</p>
@@ -992,17 +992,32 @@ engagement, but ultimately be very bad for mental health.</p>
 <li>What would be an alternative optimization target? How would the
 outcomes differ, both for users and for the companies’ profits?</li>
 </ul>
+<p><strong>Recap - Choosing the right outcome variable</strong>:
+Sometimes, choosing the outcome variable is straightforward, like
+predicting tomorrow’s temperature. Other times, it gets tricky,
+especially when we can’t directly measure what we want to predict. It’s
+important to choose the right outcome variable because this decision
+plays a crucial role in ensuring our models are trustworthy, “fair”
+(more on this later), and unbiased. A poor choice can lead to biased
+results and unintended consequences, making it harder for our models to
+be effective and reliable.</p>
 </div>
 </section><section><h2 class="section-heading" id="understanding-bias">Understanding bias<a class="anchor" aria-label="anchor" href="#understanding-bias"></a>
 </h2>
 <hr class="half-width">
-<p>The term “bias” is overloaded, and can have the following
-definitions:</p>
+<p>Now that we’ve covered the importance of the outcome variable, let’s
+talk about bias. Bias can show up in various ways during the modeling
+process, impacting our results and fairness. If we don’t consider bias
+from the beginning, we risk creating models that don’t work well for
+everyone or that reinforce existing inequalities.</p>
+<p>So, what exactly do we mean by bias? The term is a little overloaded
+and can refer to different things depending on context. However, there
+are two general types/definitions of bias:</p>
 <ul>
-<li>(Statistical) bias: the tendency of an algorithm to produce one
-solution over another, even though some alternatives may be just as
-good, or better. Statistical bias can have multiple sources, which we’ll
-get into below.</li>
+<li>(Statistical) bias: This refers to the tendency of an algorithm to
+produce one solution over another, even when other options may be just
+as good or better. Statistical bias can arise from several sources
+(discussed below), including how data is collected and processed.</li>
 <li>(Social) bias: outcomes are unfair to one or more social groups.
 Social bias can be the result of statistical bias (i.e., an algorithm
 giving preferential treatment to one social group over others), but can
@@ -2970,7 +2985,7 @@ making informed decisions.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>
@@ -3120,7 +3135,7 @@ in making informed decisions quickly.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>
@@ -3495,7 +3510,7 @@ interpretability of the model?</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <table class="table">
 <colgroup>
