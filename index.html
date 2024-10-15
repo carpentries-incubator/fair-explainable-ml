@@ -237,7 +237,7 @@
 <div class="accordion accordion-flush" id="accordionFlush4">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading4">
-        <a href="3-model-eval-and-fairness.html">3. Model evaluation and fairness</a>
+        <a href="2-model-eval-and-fairness.html">3. Model evaluation and fairness</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -246,7 +246,7 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="4-explainability-vs-interpretability.html">4. Interpretablility versus explainability</a>
+        <a href="3-model-fairness-deep-dive.html">4. Model fairness: hands-on</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -255,7 +255,7 @@
 <div class="accordion accordion-flush" id="accordionFlush6">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading6">
-        <a href="5a-explainable-AI-method-overview.html">5. Explainability methods overview</a>
+        <a href="4-explainability-vs-interpretability.html">5. Interpretablility versus explainability</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -264,7 +264,7 @@
 <div class="accordion accordion-flush" id="accordionFlush7">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading7">
-        <a href="5b-deep-dive-into-methods.html">6. Explainability methods: deep dive</a>
+        <a href="5a-explainable-AI-method-overview.html">6. Explainability methods overview</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -273,7 +273,7 @@
 <div class="accordion accordion-flush" id="accordionFlush8">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading8">
-        <a href="5c-probes.html">7. Explainability methods: linear probe</a>
+        <a href="5b-deep-dive-into-methods.html">7. Explainability methods: deep dive</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -282,7 +282,7 @@
 <div class="accordion accordion-flush" id="accordionFlush9">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading9">
-        <a href="5d-gradcam.html">8. Explainability methods: GradCAM</a>
+        <a href="5c-probes.html">8. Explainability methods: linear probe</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -291,7 +291,7 @@
 <div class="accordion accordion-flush" id="accordionFlush10">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading10">
-        <a href="6-confidence-intervals.html">9. Estimating model uncertainty</a>
+        <a href="5d-gradcam.html">9. Explainability methods: GradCAM</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -300,7 +300,7 @@
 <div class="accordion accordion-flush" id="accordionFlush11">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading11">
-        <a href="7a-OOD-detection-output-based.html">10. OOD detection: overview, output-based methods</a>
+        <a href="6-confidence-intervals.html">10. Estimating model uncertainty</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -309,7 +309,7 @@
 <div class="accordion accordion-flush" id="accordionFlush12">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading12">
-        <a href="7b-OOD-detection-distance-based.html">11. OOD detection: distance-based and contrastive learning</a>
+        <a href="7a-OOD-detection-output-based.html">11. OOD detection: overview, output-based methods</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -318,7 +318,7 @@
 <div class="accordion accordion-flush" id="accordionFlush13">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading13">
-        <a href="7c-OOD-detection-algo-design.html">12. OOD detection: training-time regularization</a>
+        <a href="7b-OOD-detection-distance-based.html">12. OOD detection: distance-based and contrastive learning</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -327,7 +327,16 @@
 <div class="accordion accordion-flush" id="accordionFlush14">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading14">
-        <a href="8-releasing-a-model.html">13. Documenting and releasing a model</a>
+        <a href="7c-OOD-detection-algo-design.html">13. OOD detection: training-time regularization</a>
+    </div><!--/div.accordion-header-->
+
+  </div><!--/div.accordion-item-->
+</div><!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush15">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading15">
+        <a href="8-releasing-a-model.html">14. Documenting and releasing a model</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -550,7 +559,7 @@ activate it using the following command.</p>
 </div>
 </li>
 <li>
-<p>Install the <code>pytorch-ood</code>,
+<p>Install <code>pytorch-ood</code>, <code>fairlearn</code>,
 <code>aif360[Reductions]</code>, and <code>aif360[inFairness]</code>
 using pip. Make sure to do this AFTER activating the environment.</p>
 <div class="codewrapper sourceCode" id="cb4">
@@ -558,8 +567,9 @@ using pip. Make sure to do this AFTER activating the environment.</p>
 </h3>
 <pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="ex">pip</span> install torchaudio</span>
 <span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="ex">pip</span> install pytorch-ood</span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="ex">pip</span> install aif360<span class="pp">[</span><span class="ss">Reductions</span><span class="pp">]</span></span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="ex">pip</span> install aif360<span class="pp">[</span><span class="ss">inFairness</span><span class="pp">]</span></span></code></pre>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="ex">pip</span> install fairlearn</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="ex">pip</span> install aif360<span class="pp">[</span><span class="ss">Reductions</span><span class="pp">]</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="ex">pip</span> install aif360<span class="pp">[</span><span class="ss">inFairness</span><span class="pp">]</span></span></code></pre>
 </div>
 </li>
 <li>
@@ -637,15 +647,26 @@ Expenditure Panel Survey data</a> (zip file)</p></li>
 <li><p>Unzip h181.zip (right-click and extract all on Windows;
 double-click zip file on Mac)</p></li>
 <li>
-<p>In the unzipped folder, find the h181.csv file. Move this file to
-the following location:</p>
+<p>In the unzipped folder, find the h181.csv file. If you installed
+<code>conda</code> with Anaconda, i.e., as described earlier in this
+document, move this file to the following location:</p>
 <ul><li>Windows:
 <code>C:\Users\[Usernmae]\anaconda3\envs\trustworthy_ML\Lib\site-packages\aif360\data\raw\meps\h181.csv</code>
 </li>
 <li>Mac:
 <code>/Users/[Username]/opt/anaconda3/envs/trustworthy_ML/lib/python3.9/site-packages/aif360/data/raw/meps/h181.csv</code>
 </li>
-</ul></li>
+</ul><p>If you installed <code>conda</code> in a different way, or don’t
+remember how you installed it, check the location of your
+<code>trustworthy_ML</code> environment (make sure this environment is
+active, first!):</p>
+<ul><li>Windows: <code>where python3.9</code>
+</li>
+<li>Mac: <code>which python3.9</code>.</li>
+</ul><p>Follow the instructions above, but replace everything before
+<code>/trustworthy_ML</code> with the printed path to
+<code>/trustworthy_ML</code>.</p>
+</li>
 </ol></section><section><h2 class="section-heading" id="create-a-hugging-face-account-and-access-token">3) Create a Hugging Face account and access Token<a class="anchor" aria-label="anchor" href="#create-a-hugging-face-account-and-access-token"></a></h2>
 <hr class="half-width"><p>You will need a Hugging Face account for the workshop episode on
 model sharing. Hugging Face is a very popular machine learning (ML)
@@ -694,7 +715,7 @@ any links that you are not going to use.
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.7" class="external-link">sandpaper (0.16.7)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.6" class="external-link">pegboard (0.7.6)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.4" class="external-link">varnish (1.0.4)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.9" class="external-link">sandpaper (0.16.9)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.6" class="external-link">pegboard (0.7.6)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.4" class="external-link">varnish (1.0.4)</a></p>
 			</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -716,8 +737,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/fair-explainable-ml/index.html",
   "identifier": "https://carpentries-incubator.github.io/fair-explainable-ml/index.html",
   "dateCreated": "2023-12-05",
-  "dateModified": "2024-10-09",
-  "datePublished": "2024-10-09"
+  "dateModified": "2024-10-15",
+  "datePublished": "2024-10-15"
 }
 
   </script><script>

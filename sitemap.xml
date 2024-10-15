@@ -7,6 +7,9 @@
     <loc>https://carpentries-incubator.github.io/fair-explainable-ml/1-preparing-to-train.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/fair-explainable-ml/2-model-eval-and-fairness.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/fair-explainable-ml/2-model-fitting.html</loc>
   </url>
   <url>
@@ -14,6 +17,9 @@
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/fair-explainable-ml/3-model-eval.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/fair-explainable-ml/3-model-fairness-deep-dive.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/fair-explainable-ml/4-explainability-vs-interpretability.html</loc>
@@ -97,6 +103,9 @@
     <loc>https://carpentries-incubator.github.io/fair-explainable-ml/instructor/1-preparing-to-train.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/fair-explainable-ml/instructor/2-model-eval-and-fairness.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/fair-explainable-ml/instructor/2-model-fitting.html</loc>
   </url>
   <url>
@@ -104,6 +113,9 @@
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/fair-explainable-ml/instructor/3-model-eval.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/fair-explainable-ml/instructor/3-model-fairness-deep-dive.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/fair-explainable-ml/instructor/4-explainability-vs-interpretability.html</loc>

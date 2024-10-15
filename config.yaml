@@ -57,7 +57,8 @@ contact: 'apmeyer4@wisc.edu'
 episodes:
 - 0-introduction.md
 - 1-preparing-to-train.md
-- 3-model-eval-and-fairness.md
+- 2-model-eval-and-fairness.md
+- 3-model-fairness-deep-dive.md
 - 4-explainability-vs-interpretability.md
 - 5a-explainable-AI-method-overview.md
 - 5b-deep-dive-into-methods.md
