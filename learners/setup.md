@@ -91,8 +91,9 @@ Conda should already be available in your system once you installed Anaconda suc
 2. Create the Conda Environment: To create a conda environment called `trustworthy_ML` with the required packages, open a terminal (Mac/Linux) or Anaconda prompt (Windows) and type the below command. This command creates a new conda environment named `trustworthy_ML` and installs the necessary packages from the `conda-forge` and `pytorch` channels. When prompted to Proceed ([y]/n) during environment setup, press y. It may take around 10-20 minutes to complete the full environment setup. Please reach out to the workshop organizers sooner rather than later to fix setup issues prior to the workshop. 
    
     ```sh
-    conda create --name trustworthy_ML python=3.9 jupyter scikit-learn pandas matplotlib keras tensorflow pytorch torchvision umap-learn aif360 -c conda-forge
+    conda create --name trustworthy_ML python=3.9 pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia 
     ```
+    To install other pytorch version based on your cuda version / more detailed instructions, you can checkout https://pytorch.org/get-started/locally/.
 
 3. Activate the Conda Environment: After creating the environment, activate it using the following command.
    
@@ -103,7 +104,7 @@ Conda should already be available in your system once you installed Anaconda suc
 4. Install `pytorch-ood`, `fairlearn`, `aif360[Reductions]`, and `aif360[inFairness]` using pip. Make sure to do this AFTER activating the environment.
    
     ```sh
-    pip install torchaudio
+    conda install jupyter scikit-learn pandas matplotlib keras tensorflow umap-learn aif360 -c conda-forge
     pip install pytorch-ood
     pip install fairlearn
     pip install aif360[Reductions]
