@@ -121,7 +121,7 @@ def prep_ID_OOD_datasests(ID_class_labels, OOD_class_labels):
     test_labels = test_labels[test_filter]
     print(f'test_data.shape={test_data.shape}')
 
-    return ood_data, train_data, test_data
+    return ood_data, train_data, test_data, train_labels, test_labels
 
 
 def plot_data_sample(train_data, ood_data):
@@ -151,7 +151,7 @@ def plot_data_sample(train_data, ood_data):
 
 ```
 ```python
-ood_data, train_data, test_data = prep_ID_OOD_datasests([0,1], [5])
+ood_data, train_data, test_data, train_labels, test_labels = prep_ID_OOD_datasests([0,1], [5])
 fig = plot_data_sample(train_data, ood_data)
 fig.savefig('../images/OOD-detection_image-data-preview.png', dpi=300, bbox_inches='tight')
 plt.show()
