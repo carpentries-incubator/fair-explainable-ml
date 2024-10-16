@@ -46,7 +46,7 @@ In the context of machine learning, interpretability is the degree to which a hu
 - Decision trees: Visualizing decision trees allows users to see the rules that lead to specific predictions, clarifying how features interact in the decision-making process. 
 - Rule-based classifiers. These models provide clear insights into how input features influence predictions, making it easier for users to verify and trust the outcomes.
 
-However, as we scale up these models (e.g., high-dimensional regression models or random forests), the complexity can increase significantly, potentially making these models less interpretable than their simpler counterparts.
+However, as we scale up these models (e.g., high-dimensional regression models or random forests), it is important to note that the complexity can increase significantly, potentially making these models less interpretable than their simpler counterparts.
 
 #### Explainability
 The extent to which the internal mechanics of a machine learning model can be articulated in human terms, important for transparency and building trust.
@@ -62,12 +62,15 @@ The extent to which the internal mechanics of a machine learning model can be ar
 These techniques, which we'll talk more about in a later episode, bridge the gap between complex models and user understanding, enhancing transparency while still leveraging powerful algorithms.
 
 ### Accuracy vs. Complexity
+The traditional idea that simple models (e.g., regression, decision trees) are inherently interpretable and complex models (neural nets) are truly black-box is increasingly inadequate. Modern interpretable models, such as high-dimensional regression or tree-based methods with hundreds of variables, can be as difficult to understand as neural networks. This leads to a more fluid spectrum of complexity versus accuracy.
 
-Understanding the trade-off between model complexity and accuracy is crucial for effective model selection. As model complexity increases, accuracy typically improves, but this is not always the case. 
+The accuracy vs. complexity plot from the AAAI tutorial helps to visualize the continuous relationship between model complexity, accuracy, and interpretability. It showcases that the trade-off is not always straightforward, and some models can achieve a balance between interpretability and strong performance.
 
-Refer to the accuracy vs. complexity plot from the AAAI tutorial, which visually represents how different models balance these two factors:
+This evolving landscape demonstrates that the old clusters of "interpretable" versus "black-box" models break down. Instead, we must evaluate models across the dimensions of complexity and accuracy.
 
-![Accuracy vs. Complexity Plot](URL_TO_AAAI_TUTORIAL_PLOT)
+Understanding the trade-off between model complexity and accuracy is crucial for effective model selection. As model complexity increases, accuracy typically improves. However, more complicated models become more difficult to interpret and explain.
+
+!Accuracy vs. Complexity Plot](https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/accuracy_vs_complexity.png)
 
 **Discussion of the Plot:**
 - **X-Axis:** Represents model complexity, ranging from simple models (like linear regression) to complex models (like deep neural networks).
