@@ -110,6 +110,8 @@ Conda should already be available in your system once you installed Anaconda suc
     pip install aif360[inFairness]
     ```
 
+    Depending on your AIF360 installation, the final two `pip install` commands may or may not work. If they do not work, then installing these sub-packages is not necessary -- you can continue on. 
+
 5. Deactivating environment (complete at end of each day). Deactivating environments is part of good workflow hygiene. If you keep this environment active and then start working on another project, you may inadvertently use the wrong environment. This can lead to package conflicts or incorrect dependencies being used. To deactive your environment, use:
 
     ```sh
