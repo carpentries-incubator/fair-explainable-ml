@@ -761,7 +761,7 @@ Guiding Principles for Ethical Research</a>.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>A summary of the principles is listed below:</p>
 <ul>
@@ -1680,7 +1680,7 @@ any links that you are not going to use.
  --></p>
 </section></section><section id="aio-3-model-fairness-deep-dive"><p>Content from <a href="3-model-fairness-deep-dive.html">Model fairness: hands-on</a></p>
 <hr>
-<p>Last updated on 2024-10-15 |
+<p>Last updated on 2024-10-17 |
 
         <a href="https://github.com/carpentries-incubator/fair-explainable-ml/edit/main/episodes/3-model-fairness-deep-dive.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -1806,7 +1806,7 @@ blocks sets up information about the privileged and unprivileged groups.
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="kw">def</span> describe(train<span class="op">=</span><span class="va">None</span>, val<span class="op">=</span><span class="va">None</span>, test<span class="op">=</span><span class="va">None</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="kw">def</span> describe(train:MEPSDataset19<span class="op">=</span><span class="va">None</span>, val:MEPSDataset19<span class="op">=</span><span class="va">None</span>, test:MEPSDataset19<span class="op">=</span><span class="va">None</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>    <span class="co">'''</span></span>
 <span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="co">        Print information about the test dataset (and train and validation dataset, if </span></span>
 <span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="co">        provided). Prints the dataset shape, favorable and unfavorable labels, </span></span>
@@ -1881,7 +1881,8 @@ class, and make_pipeline.</p>
 </h3>
 <pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
 <span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
-<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> make_pipeline <span class="co"># allows to stack modeling steps</span></span></code></pre>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> make_pipeline <span class="co"># allows to stack modeling steps</span></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline <span class="co"># allow us to reference the Pipeline object type</span></span></code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1925,7 +1926,7 @@ documentation</a>.</p>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="kw">def</span> test(dataset, model, thresh_arr: np.ndarray) <span class="op">-&gt;</span> <span class="bu">dict</span>: </span>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="kw">def</span> test(dataset: MEPSDataset19, model:Pipeline, thresh_arr: np.ndarray) <span class="op">-&gt;</span> <span class="bu">dict</span>: </span>
 <span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>    <span class="co">''' </span></span>
 <span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a><span class="co">        Given a dataset, model, and list of potential cutoff thresholds, compute various metrics</span></span>
 <span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a><span class="co">        for the model. Returns a dictionary of the metrics, including balanced accuracy, average odds</span></span>
@@ -2038,7 +2039,7 @@ would you choose based on this graph? Why?</p></li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li><p>Using a threshold of 0.1, the accuracy is about 0.71 and the 1-DI
@@ -2251,7 +2252,7 @@ results.</p>
 <div class="codewrapper sourceCode" id="cb28">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="kw">def</span> mini_test(dataset, preds:np.ndarray) <span class="op">-&gt;</span> <span class="bu">dict</span>:</span>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="kw">def</span> mini_test(dataset:MEPSDataset19, preds:np.ndarray) <span class="op">-&gt;</span> <span class="bu">dict</span>:</span>
 <span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a>    <span class="co">'''</span></span>
 <span id="cb28-3"><a href="#cb28-3" tabindex="-1"></a><span class="co">        Given a dataset and predictions, compute various metrics for the model. Returns a dictionary of the metrics,</span></span>
 <span id="cb28-4"><a href="#cb28-4" tabindex="-1"></a><span class="co">        including balanced accuracy, average odds difference, disparate impact, statistical parity difference, equal</span></span>
@@ -2353,7 +2354,7 @@ introducing randomization?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p><strong>Pros:</strong> Randomization can be effective at increasing
 fairness.</p>
@@ -3591,7 +3592,7 @@ interpretability of the model?</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <table class="table">
 <colgroup>
@@ -7179,7 +7180,7 @@ to your experiences or projects?</em></p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <ul>
 <li>
@@ -7235,7 +7236,7 @@ reproducing ML workflows?</em></p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <ul>
 <li>
@@ -7545,7 +7546,7 @@ needs to be included in the documentation when sharing a model?</em></p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <ul>
 <li>Environment setup</li>
@@ -7616,7 +7617,7 @@ models.</p></li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
 <p>Pair up with a classmate and discuss what you wrote/read. Do model
 cards seem like a useful tool for you moving forwards?</p>
@@ -7676,8 +7677,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/fair-explainable-ml/aio.html",
   "identifier": "https://carpentries-incubator.github.io/fair-explainable-ml/aio.html",
   "dateCreated": "2023-12-05",
-  "dateModified": "2024-10-16",
-  "datePublished": "2024-10-16"
+  "dateModified": "2024-10-17",
+  "datePublished": "2024-10-17"
 }
 
   </script><script>
