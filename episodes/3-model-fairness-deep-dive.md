@@ -91,7 +91,7 @@ dataset_orig_panel19_train.convert_to_dataframe()[0].head()
 Show details about the data.
 
 ```python
-def describe(train=None, val=None, test=None) -> None:
+def describe(train:MEPSDataset19=None, val:MEPSDataset19=None, test:MEPSDataset19=None) -> None:
     '''
         Print information about the test dataset (and train and validation dataset, if 
         provided). Prints the dataset shape, favorable and unfavorable labels, 
@@ -151,6 +151,7 @@ We will train a logistic regression classifier. To do so, we have to import vari
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import make_pipeline # allows to stack modeling steps
+from sklearn.pipeline import Pipeline # allow us to reference the Pipeline object type
 ```
 
 ```python
@@ -179,7 +180,7 @@ from aif360.metrics import ClassificationMetric
 ```
 
 ```python
-def test(dataset, model, thresh_arr: np.ndarray) -> dict: 
+def test(dataset: MEPSDataset19, model:Pipeline, thresh_arr: np.ndarray) -> dict: 
     ''' 
         Given a dataset, model, and list of potential cutoff thresholds, compute various metrics
         for the model. Returns a dictionary of the metrics, including balanced accuracy, average odds
@@ -440,7 +441,7 @@ Then, we'll create a helper function, `mini_test` to allow us to call the `descr
 After that, we call the ThresholdOptimizer's predict function on the validation and test data, and then compute metrics and print the results.
 
 ```python
-def mini_test(dataset, preds:np.ndarray) -> dict:
+def mini_test(dataset:MEPSDataset19, preds:np.ndarray) -> dict:
     '''
         Given a dataset and predictions, compute various metrics for the model. Returns a dictionary of the metrics,
         including balanced accuracy, average odds difference, disparate impact, statistical parity difference, equal
