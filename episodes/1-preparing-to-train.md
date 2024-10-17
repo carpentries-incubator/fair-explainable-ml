@@ -62,6 +62,16 @@ In 2019, Nature Medicine [published a paper](https://www.nature.com/articles/s41
 * Are you supportive of this kind of research?
 * What safeguards, if any, would you want to be used when developing and using this algorithm?
 
+:::::::::::::::::::::::::::::::::::: instructor
+
+#### Discussion points
+
+* The algorithm could help doctors figure out what rare disease a patient has.
+* First, if the algorithm is used in the wrong hands, it could be used to discriminate against people with diseases. Second, if the algorithm is not accurate (false positive or false negative), trusting its results could lead to improper medical care.
+* Safeguards could include: requiring extensive testing to ensure that the algorithm maintains similar accuracy across racial and gender groups, making sure the algorithm is only accessible to medical professionals, and requiring follow-up testing to confirm the algorithm's diagnosis. 
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
 Media reports about this paper were largely positive, e.g., [reporting that clinicians are excited about the new technology](https://www.genengnews.com/insights/a-i-gets-in-the-face-of-rare-genetic-diseases/). 
 
 ### Case study 2: 
@@ -74,10 +84,25 @@ In 2018, for example, researchers suggested that neural networks could be used t
 >
 >   Facial features employed by the classifier included both fixed (e.g., nose shape) and transient facial features (e.g., grooming style). Consistent with the prenatal hormone theory of sexual orientation, gay men and women tended to have gender-atypical facial morphology, expression, and grooming styles. Prediction models aimed at gender alone allowed for detecting gay males with 57% accuracy and gay females with 58% accuracy. Those findings advance our understanding of the origins of sexual orientation and the limits of human perception. Additionally, given that companies and governments are increasingly using computer vision algorithms to detect people’s intimate traits, our findings expose a threat to the privacy and safety of gay men and women.
 
+:::::::::::::::::::::::::::::::::::: discussion
+Discuss the following questions.
+
 * What is the proposed value of the algorithm?
 * What are the potential risks?
 * Are you supportive of this kind of research?
 * What distinguishes this use of AI from the use of AI described in Case Study 1?
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::: instructor
+
+#### Discussion points
+
+* The algorithm proposes detecting an individual's sexual orientation from images of their face. It is unclear why this is something that needs to be algorithmically detected by any entity.
+* If the algorithm is used by anti-LGBTQ entities, it could be used to harass members of the LGBTQ community (as well as non-LGBTQ people who are flagged as LGBTQ by the algorithm). If the algorithm is accurate, it could be used to "out" individuals who are gay but do not want to publicly share that information.
+* The first case study aims to detect disease. The implication of this research -- at least, as suggested by the linked article -- is that it can help doctors with diagnosis and give individuals affected by the disease access to treatment. Conversely, if there is a medical reason for knowing someone's sexual orientation, it is not necessary to use AI -- the doctor can just ask the patient. 
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 Media reports of this algorithm were largely negative, with a [Scientific American article](https://www.scientificamerican.com/blog/observations/can-we-read-a-persons-character-from-facial-images/) highlighting the connections to physiognomy and raising concern over government use of these algorithms: 
 
@@ -106,6 +131,17 @@ Discuss the following with a partner or small group:
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
+:::::::::::::::::::::::::::::::::::: instructor
+
+#### Discussion points
+1. The goal target variable is healthcare need.
+2. Patients' healthcare needs are unknown unless they have seen a doctor. Patients who have less access to medical care may have under-documented needs. There might also be differences between doctors or hospital systems in how health conditions are documented.
+3. In the US, there are standard ways that healthcare *billing* information needs to be documented (this information may be more standardized than medical conditions). There may be more complete data from acute medical emergencies (i.e., emergency room visits) than there is for chronic conditions. 
+4. In the US, healthcare access is often tied to employment, which means that wealthier people (who in the US, also tend to be white) have more access to healthcare. 
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
 The "challenge" scenario is not hypothetical:
 A well-known [study by Obermeyer et al.](https://escholarship.org/content/qt6h92v832/qt6h92v832.pdf) analyzed an algorithm that hospitals used to assign patients risk scores for various conditions. The algorithm had access to various patient data, such as demographics (e.g., age and sex), the number of chronic conditions, insurance type, diagnoses, and medical costs. The algorithm did not have access to the patient's race.
 The patient risk score determined the level of care the patient should receive, with higher-risk patients receiving additional care. 
@@ -125,6 +161,17 @@ Consider the following:
 * How could the algorithm developers have caught this problem earlier? 
 * Is this a technical mistake or a process-based mistake? Why?
 
+:::::::::::::::::::::::::::::::::::: instructor
+
+#### Discussion points
+
+* The algorithm developers could have tested specifically checked for racial bias in their solution.
+* Discussion about the choice of target variable, including implementing models with different targets and comparing the results, could have exposed the bias.
+* Possibly a more diverse development team -- e.g., including individuals who have firsthand experience with struggling to access healthcare -- would have spotted the issue. 
+* Note that it's easier to see the mistake in hindsight than in the moment.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
 ### Case study: Feedback loop
 Consider social media, like Instagram or TikTok's "for you page" or Facebook or Twitter's newsfeed. 
 The algorithms that determine what to show are complex (and proprietary!) but a large part of the algorithms' objective is engagement: the number of clicks, views, or re-posts. 
@@ -134,6 +181,15 @@ Consider the following questions:
 
 * Why do social media companies optimize for engagement?
 * What would be an alternative optimization target? How would the outcomes differ, both for users and for the companies' profits?
+
+:::::::::::::::::::::::::::::::::::: instructor
+
+#### Discussion points
+
+* Social media companies optimize for engagement to maximize profits: if users keep using the service, they can sell more ads and bring in more revenue.
+* It's hard to come up with an alternate optimization target that could be easily operationalized. Alternate goals could be *social connection*, *learning*, *broadening one's worldview*, or even *entertainment*. But how would any of these goals be measured?
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 **Recap - Choosing the right outcome variable**: Sometimes, choosing the outcome variable is straightforward, like predicting tomorrow's temperature. Other times, it gets tricky, especially when we can’t directly measure what we want to predict. It's important to choose the right outcome variable because this decision plays a crucial role in ensuring our models are trustworthy, "fair" (more on this later), and unbiased. A poor choice can lead to biased results and unintended consequences, making it harder for our models to be effective and reliable.
 
@@ -176,6 +232,15 @@ After the discussion, share with the whole workshop what you discussed.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
+:::::::::::::::::::::::::::::::::::: instructor
+
+#### Discussion points
+
+1. Policing data does not provide a complete picture of crime: it only contains data about crimes that are reported. Some neighborhoods (in the US, usually poor neighborhoods with predominantly Black and Brown residents) are over-policed relative to other neighborhoods. As a result, data will suggest that the over-policed neighborhoods have more crime, and then will send more officers to patrol those areas, resulting in a feedback loop. Using techniques to clean and balance the data could help, but the article's authors also point towards using non-technical solutions, such as algorithmic accountability and oversight frameworks. 
+2. Commercially-available facial recognition systems have much higher accuracies on white men than on darker-skinned women. This discrepancy is attributed to imbalances in the training data. This problem could have been avoided if development teams were more diverse: e.g., if someone thought to evaluate the model on darker-skinned people during the development process. Then, collecting more data from underrepresented groups could improve accuracy on those individuals.
+3. Amazon tried to automate the resume-screening part of its hiring process, relying on data (e.g., resumes) from existing employees. However, the AI learned to discriminate against women because Amazon's existing technical staff skewed heavily male. This could have been avoided in a couple ways: first, if Amazon did not have an existing gender skew, the data would have been cleaner. Second, given the gender skew in Amazon's employees, model developers could have built in safeguards, e.g., mechanisms to satisfy some notion of fairness, such as deciding to interview an equal proportion of male and female job applicants.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
