@@ -10,7 +10,7 @@ exercises: 1
 - How is this workshop structured, and what content does it cover?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
-
+ 
 ::::::::::::::::::::::::::::::::::::: objectives
 
 - Define trustworthy AI and its various components.
@@ -19,6 +19,19 @@ exercises: 1
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## What is trustworthy AI? 
+
+:::::::::::::::::::::::::::::::::::::: challenge
+
+Take a moment to brainstorm what keywords/concepts come to mind when we mention "Trustworthy AI". 
+Share your thoughts with the class.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::: solution
+
+The remainder of this episode discusses Trustworthy AI -- read on! 
+
+:::::::::::::::::::::::::
 
 Artificial intelligence (AI) and machine learning (ML) are being used widely to improve upon human capabilities (either in speed/convenience/cost or accuracy) in a variety of domains: medicine, social media, news, marketing, policing, and more. 
 It is important that the decisions made by AI/ML models uphold values that we, as a society, care about. 
@@ -47,25 +60,25 @@ In order to be trustworthy, a model and its predictions need to be founded on go
 
 In this workshop, we cover the following topics relating to scientific validity:
 
-* Defining the problem (Episode 2)
-* Training and evaluating a model, especially selecting an accuracy metric, avoiding over/underfitting, and preventing data leakage (Episode 3)
-* Estimating model uncertainty (Episode 9)
-* Out-of-distribution detection (Episodes 10-12)
+* Defining the problem (Preparing to Train a Model episode)
+* Training and evaluating a model, especially selecting an accuracy metric, avoiding over/underfitting, and preventing data leakage (Model Evaluation and Fairness episode)
+* Estimating model uncertainty (Estimating Model Uncertainty episode)
+* Out-of-distribution detection (OOD Detection episodes)
 
 ### Fairness
-As stated in the AI Bill of Rights, AI systems should not be discriminatory or produce inequitable outcomes. In **Episode 3** we discuss various definitions of fairness in the context of AI, and overview how model developers try to make their models more fair. 
+As stated in the AI Bill of Rights, AI systems should not be discriminatory or produce inequitable outcomes. In the Model Evaluation and Fairness episode we discuss various definitions of fairness in the context of AI, and overview how model developers try to make their models more fair. 
 
 ### Transparency
 Transparency -- i.e., insight into *how* a model makes its decisions -- is important for trustworthy AI, as we want models that make the right decisions *for the right reasons*. Transparency can be achieved via *explanations* or by using inherently *interpretable* models. We discuss transparency in the follow episodes:
 
-* Interpretability vs explainability (Episode 4)
-* Overview of explainability methods (Episode 5)
-* Example code for implementing two explainability methods, linear probes and Grad-CAM (Episodes 6-8) 
+* Interpretability vs Explainability
+* Explainability Methods Overview
+* Explainability Methods: Deep Dive, Linear Probe, and GradCAM episodes
 
 ### Accountability
 Accountability is important for trustworthy AI because, inevitably, models will make mistakes or cause harm. Accountability is multi-faceted and largely non-technical, which is not to say unimportant, but just that it falls partially out of scope of this technical workshop.
 
-We discuss two facets of accountability, model documentation and model sharing, in Episode 13. 
+We discuss two facets of accountability, model documentation and model sharing, in the Documenting and Releasing a Model episode. 
 
 For those who are interested, we recommend these papers to learn more about different aspects of AI accountability:
 
@@ -74,7 +87,9 @@ For those who are interested, we recommend these papers to learn more about diff
 3. [AI auditing: The Broken Bus on the Road to AI Accountability](https://ieeexplore.ieee.org/abstract/document/10516659) by Abeba Birhane and colleagues challenges previous work on AI accountability, arguing that most existing AI auditing systems are not effective. They propose necessary traits for effective AI audits, based on a review of existing practices. 
 
 ### Topics we do not cover
-Trustworthy ML is a large, and growing, area of study. As of September 24, 2024, **there are about 18,000 articles on Google Scholar that mention Trustworthy AI and were published in the first 9 months of 2024**. 
+Trustworthy AI is a large, and growing, area of study. As of September 24, 2024, **there are about 18,000 articles on Google Scholar that mention Trustworthy AI and were published in the first 9 months of 2024**. 
+
+There are different Trustworthy AI methods for different types of models -- e.g., decisions trees or linear models that are commonly used with tabular data, neural networks that are used with image data, or large multi-modal foundation models. In this workshop, we focus primarily on neural networks for the specific techniques we show in the technical implementations. That being said, much of the conceptual content is relevant to any model type. 
 
 Many of the topics we do not cover are sub-topics of the broad categories -- e.g., fairness, explainability, or OOD detection -- of the workshop and are important for specific use cases, but less relevant for a general audience. But, there are a few major areas of research that we don't have time to touch on. We summarize a few of them here:
 
@@ -90,7 +105,7 @@ There are several areas of active research relating to data privacy.
 * [Federated learning](https://ieeexplore.ieee.org/abstract/document/9599369) trains models using decentralized data from a variety of sources. Since the data is not shared centrally, there is less risk of data breaches or unauthorized data usage.
 
 #### Generative AI risks
-We touch on fairness issues with generative AI in Episode 3. But generative AI poses other risks, too, many of which are just starting to be researched and understood given how new widely-available generative AI is. We discuss one such risk, disinformation, briefly here: 
+We touch on fairness issues with generative AI in the Model Evaluation and Fairness episode. But generative AI poses other risks, too, many of which are just starting to be researched and understood given how new widely-available generative AI is. We discuss one such risk, disinformation, briefly here: 
 
 * Disinformation: A major risk of generative AI is the creation of misleading or fake and malicious content, often known as [deep fakes](https://timreview.ca/article/1282). Deep fakes pose risks to individuals (e.g., creating content that harms an individual's reputation) and society (e.g., fake news articles or pictures that look real). 
 
