@@ -20,18 +20,13 @@ exercises: 1
 
 ## What is trustworthy AI? 
 
-:::::::::::::::::::::::::::::::::::::: challenge
+:::::::::::::::::::::::::::::::::::::: discussion
 
 Take a moment to brainstorm what keywords/concepts come to mind when we mention "Trustworthy AI". 
 Share your thoughts with the class.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-:::::::::::::: solution
-
-The remainder of this episode discusses Trustworthy AI -- read on! 
-
-:::::::::::::::::::::::::
 
 Artificial intelligence (AI) and machine learning (ML) are being used widely to improve upon human capabilities (either in speed/convenience/cost or accuracy) in a variety of domains: medicine, social media, news, marketing, policing, and more. 
 It is important that the decisions made by AI/ML models uphold values that we, as a society, care about. 
