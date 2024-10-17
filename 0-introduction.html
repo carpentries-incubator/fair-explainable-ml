@@ -400,7 +400,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Overview</h1>
-        <p>Last updated on 2024-10-02 |
+        <p>Last updated on 2024-10-17 |
 
         <a href="https://github.com/carpentries-incubator/fair-explainable-ml/edit/main/episodes/0-introduction.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -437,7 +437,31 @@ cover?</li>
 </div>
 </div>
 <section><h2 class="section-heading" id="what-is-trustworthy-ai">What is trustworthy AI?<a class="anchor" aria-label="anchor" href="#what-is-trustworthy-ai"></a></h2>
-<hr class="half-width"><p>Artificial intelligence (AI) and machine learning (ML) are being used
+<hr class="half-width"><div id="discussion1" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Challenge</h3>
+<div class="callout-content">
+<p>Take a moment to brainstorm what keywords/concepts come to mind when
+we mention “Trustworthy AI”. Share your thoughts with the class.</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
+  <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
+</button>
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div class="accordion-body">
+<p>The remainder of this episode discusses Trustworthy AI – read on!</p>
+</div>
+</div>
+</div>
+</div>
+<p>Artificial intelligence (AI) and machine learning (ML) are being used
 widely to improve upon human capabilities (either in
 speed/convenience/cost or accuracy) in a variety of domains: medicine,
 social media, news, marketing, policing, and more. It is important that
@@ -480,20 +504,21 @@ closely linked to the AI Bill of Rights principle of “safe and effective
 systems”.</p>
 <p>In this workshop, we cover the following topics relating to
 scientific validity:</p>
-<ul><li>Defining the problem (Episode 2)</li>
+<ul><li>Defining the problem (Preparing to Train a Model episode)</li>
 <li>Training and evaluating a model, especially selecting an accuracy
-metric, avoiding over/underfitting, and preventing data leakage (Episode
-3)</li>
-<li>Estimating model uncertainty (Episode 9)</li>
-<li>Out-of-distribution detection (Episodes 10-12)</li>
+metric, avoiding over/underfitting, and preventing data leakage (Model
+Evaluation and Fairness episode)</li>
+<li>Estimating model uncertainty (Estimating Model Uncertainty
+episode)</li>
+<li>Out-of-distribution detection (OOD Detection episodes)</li>
 </ul></div>
 <div class="section level3">
 <h3 id="fairness">Fairness<a class="anchor" aria-label="anchor" href="#fairness"></a></h3>
 <p>As stated in the AI Bill of Rights, AI systems should not be
-discriminatory or produce inequitable outcomes. In <strong>Episode
-3</strong> we discuss various definitions of fairness in the context of
-AI, and overview how model developers try to make their models more
-fair.</p>
+discriminatory or produce inequitable outcomes. In the Model Evaluation
+and Fairness episode we discuss various definitions of fairness in the
+context of AI, and overview how model developers try to make their
+models more fair.</p>
 </div>
 <div class="section level3">
 <h3 id="transparency">Transparency<a class="anchor" aria-label="anchor" href="#transparency"></a></h3>
@@ -503,10 +528,10 @@ the right decisions <em>for the right reasons</em>. Transparency can be
 achieved via <em>explanations</em> or by using inherently
 <em>interpretable</em> models. We discuss transparency in the follow
 episodes:</p>
-<ul><li>Interpretability vs explainability (Episode 4)</li>
-<li>Overview of explainability methods (Episode 5)</li>
-<li>Example code for implementing two explainability methods, linear
-probes and Grad-CAM (Episodes 6-8)</li>
+<ul><li>Interpretability vs Explainability</li>
+<li>Explainability Methods Overview</li>
+<li>Explainability Methods: Deep Dive, Linear Probe, and GradCAM
+episodes</li>
 </ul></div>
 <div class="section level3">
 <h3 id="accountability">Accountability<a class="anchor" aria-label="anchor" href="#accountability"></a></h3>
@@ -515,7 +540,7 @@ models will make mistakes or cause harm. Accountability is multi-faceted
 and largely non-technical, which is not to say unimportant, but just
 that it falls partially out of scope of this technical workshop.</p>
 <p>We discuss two facets of accountability, model documentation and
-model sharing, in Episode 13.</p>
+model sharing, in the Documenting and Releasing a Model episode.</p>
 <p>For those who are interested, we recommend these papers to learn more
 about different aspects of AI accountability:</p>
 <ol style="list-style-type: decimal"><li>
@@ -541,10 +566,17 @@ existing practices.</li>
 </ol></div>
 <div class="section level3">
 <h3 id="topics-we-do-not-cover">Topics we do not cover<a class="anchor" aria-label="anchor" href="#topics-we-do-not-cover"></a></h3>
-<p>Trustworthy ML is a large, and growing, area of study. As of
+<p>Trustworthy AI is a large, and growing, area of study. As of
 September 24, 2024, <strong>there are about 18,000 articles on Google
 Scholar that mention Trustworthy AI and were published in the first 9
 months of 2024</strong>.</p>
+<p>There are different Trustworthy AI methods for different types of
+models – e.g., decisions trees or linear models that are commonly used
+with tabular data, neural networks that are used with image data, or
+large multi-modal foundation models. In this workshop, we focus
+primarily on neural networks for the specific techniques we show in the
+technical implementations. That being said, much of the conceptual
+content is relevant to any model type.</p>
 <p>Many of the topics we do not cover are sub-topics of the broad
 categories – e.g., fairness, explainability, or OOD detection – of the
 workshop and are important for specific use cases, but less relevant for
@@ -588,10 +620,11 @@ data breaches or unauthorized data usage.</li>
 </ul></div>
 <div class="section level4">
 <h4 id="generative-ai-risks">Generative AI risks<a class="anchor" aria-label="anchor" href="#generative-ai-risks"></a></h4>
-<p>We touch on fairness issues with generative AI in Episode 3. But
-generative AI poses other risks, too, many of which are just starting to
-be researched and understood given how new widely-available generative
-AI is. We discuss one such risk, disinformation, briefly here:</p>
+<p>We touch on fairness issues with generative AI in the Model
+Evaluation and Fairness episode. But generative AI poses other risks,
+too, many of which are just starting to be researched and understood
+given how new widely-available generative AI is. We discuss one such
+risk, disinformation, briefly here:</p>
 <ul><li>Disinformation: A major risk of generative AI is the creation of
 misleading or fake and malicious content, often known as <a href="https://timreview.ca/article/1282" class="external-link">deep fakes</a>. Deep fakes pose
 risks to individuals (e.g., creating content that harms an individual’s
@@ -660,7 +693,7 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/fair-explainable-ml/0-introduction.html",
   "identifier": "https://carpentries-incubator.github.io/fair-explainable-ml/0-introduction.html",
   "dateCreated": "2023-12-05",
-  "dateModified": "2024-10-02",
+  "dateModified": "2024-10-17",
   "datePublished": "2024-10-17"
 }
 
