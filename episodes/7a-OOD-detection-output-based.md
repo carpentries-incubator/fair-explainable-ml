@@ -121,7 +121,7 @@ def prep_ID_OOD_datasests(ID_class_labels, OOD_class_labels):
     test_labels = test_labels[test_filter]
     print(f'test_data.shape={test_data.shape}')
 
-    return ood_data, train_data, test_data, train_labels, test_labels
+    return train_data, test_data, ood_data, train_labels, test_labels, ood_labels
 
 
 def plot_data_sample(train_data, ood_data):
@@ -151,10 +151,11 @@ def plot_data_sample(train_data, ood_data):
 
 ```
 ```python
-ood_data, train_data, test_data, train_labels, test_labels = prep_ID_OOD_datasests([0,1], [5])
+train_data, test_data, ood_data, train_labels, test_labels, ood_labels = prep_ID_OOD_datasests([0,1], [5])
 fig = plot_data_sample(train_data, ood_data)
 fig.savefig('../images/OOD-detection_image-data-preview.png', dpi=300, bbox_inches='tight')
 plt.show()
+
 
 ```
 ![Preview of image dataset](https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/OOD-detection_image-data-preview.png)
@@ -532,7 +533,7 @@ In this example, we will train a CNN model on the FashionMNIST dataset. We will 
 
 We'll start by fresh by loading our data again. This time, let's treat all remaining classes in the MNIST fashion dataset as OOD. This should yield a more robust model that is more reliable when presented with all kinds of data. 
 ```python
-ood_data, train_data, test_data = prep_ID_OOD_datasests([0,1], list(range(2,10))) # use remaining 8 classes in dataset as OOD
+train_data, test_data, ood_data, train_labels, test_labels, ood_labels = prep_ID_OOD_datasests([0,1], list(range(2,10))) # use remaining 8 classes in dataset as OOD
 fig = plot_data_sample(train_data, ood_data)
 fig.savefig('../images/OOD-detection_image-data-preview.png', dpi=300, bbox_inches='tight')
 plt.show()
@@ -571,6 +572,7 @@ if plot_umap:
     umap_ood = umap_results[len(train_data_flat):]
 
 ```
+The warning message indicates that UMAP has overridden the n_jobs parameter to 1 due to the random_state being set. This behavior ensures reproducibility by using a single job. If you want to avoid the warning and still use parallelism, you can remove the random_state parameter. However, removing random_state will mean that the results might not be reproducible.
 ```python
 if plot_umap:
     umap_alpha = .02
@@ -655,7 +657,6 @@ def train_model(model, train_loader, criterion, optimizer, epochs=5):
 train_model(model, train_loader, criterion, optimizer)
 
 ```
-The warning message indicates that UMAP has overridden the n_jobs parameter to 1 due to the random_state being set. This behavior ensures reproducibility by using a single job. If you want to avoid the warning and still use parallelism, you can remove the random_state parameter. However, removing random_state will mean that the results might not be reproducible.
 ```python
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 
@@ -691,7 +692,7 @@ plot_confusion_matrix(test_labels, test_predictions, "Confusion Matrix for Test 
 
 # Evaluate on OOD data
 ood_labels, ood_predictions = evaluate_model(model, ood_loader, device)
-plot_confusion_matrix(ood_labels, ood_predictions, "Confusion Matrix for Test Data")
+plot_confusion_matrix(ood_labels, ood_predictions, "Confusion Matrix for OOD Data")
 
 ```
 ```python
@@ -840,6 +841,7 @@ plt.show()
 
 ```
 ```python
+
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.metrics import precision_recall_fscore_support, accuracy_score, confusion_matrix, ConfusionMatrixDisplay
@@ -877,7 +879,10 @@ def evaluate_ood_detection(id_scores, ood_scores, id_true_labels, id_predictions
     f1_scores = []
 
     # True labels for OOD data (since they are not part of the original labels)
-    ood_true_labels = np.full(len(ood_scores), -1)
+    if score_type == "energy":
+        ood_true_labels = np.full(len(ood_scores), -1)
+    else:
+        ood_true_labels = np.full(len(ood_scores[:,0]), -1)
 
     for threshold in thresholds:
         # Classify OOD examples based on scores
@@ -885,8 +890,8 @@ def evaluate_ood_detection(id_scores, ood_scores, id_true_labels, id_predictions
             ood_classifications = np.where(ood_scores >= threshold, -1, ood_predictions)
             id_classifications = np.where(id_scores >= threshold, -1, id_predictions)
         elif score_type == 'softmax':
-            ood_classifications = np.where(ood_scores <= threshold, -1, ood_predictions)
-            id_classifications = np.where(id_scores <= threshold, -1, id_predictions)
+            ood_classifications = np.where(ood_scores[:,0] <= threshold, -1, ood_predictions)
+            id_classifications = np.where(id_scores[:,0] <= threshold, -1, id_predictions)
         else:
             raise ValueError("Invalid score_type. Use 'energy' or 'softmax'.")
 
@@ -935,29 +940,31 @@ def evaluate_ood_detection(id_scores, ood_scores, id_true_labels, id_predictions
     plt.show()
 
     # plot confusion matrix
-
     # Threshold value for the energy score
     upper_threshold = best_f1_threshold  # Using the best F1 threshold from the previous calculation
-
-    # Classifying OOD examples based on energy scores
-    ood_classifications = np.where(ood_energy_scores >= upper_threshold, -1,  # classified as OOD
+    if score_type == 'energy':
+        # Classifying OOD examples based on energy scores
+        ood_classifications = np.where(ood_energy_scores >= upper_threshold, -1,  # classified as OOD
                                   np.where(ood_energy_scores < upper_threshold, 0, -1))  # classified as ID
-
-    # Classifying ID examples based on energy scores
-    id_classifications = np.where(id_energy_scores >= upper_threshold, -1,  # classified as OOD
+        # Classifying ID examples based on energy scores
+        id_classifications = np.where(id_energy_scores >= upper_threshold, -1,  # classified as OOD
                                   np.where(id_energy_scores < upper_threshold, id_true_labels, -1))  # classified as ID
+    elif score_type == 'softmax':
+        # Classifying OOD examples based on softmax scores
+        ood_classifications = softmax_thresh_classifications(ood_scores, upper_threshold)
 
+        # Classifying ID examples based on softmax scores
+        id_classifications = softmax_thresh_classifications(id_scores, upper_threshold)
     # Combine OOD and ID classifications and true labels
     all_predictions = np.concatenate([ood_classifications, id_classifications])
     all_true_labels = np.concatenate([ood_true_labels, id_true_labels])
-
     # Confusion matrix
     cm = confusion_matrix(all_true_labels, all_predictions, labels=[0, 1, -1])
 
     # Plotting the confusion matrix
     disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["Shirt", "Pants", "OOD"])
     disp.plot(cmap=plt.cm.Blues)
-    plt.title('Confusion Matrix for OOD and ID Classification (Energy-Based)')
+    plt.title(f'Confusion Matrix for OOD and ID Classification ({score_type.capitalize()}-Based)')
     plt.show()
 
 
@@ -965,44 +972,8 @@ def evaluate_ood_detection(id_scores, ood_scores, id_true_labels, id_predictions
 
 # Example usage
 # Assuming id_energy_scores, ood_energy_scores, id_true_labels, and test_labels are already defined
-best_f1_threshold, best_precision_threshold, best_recall_threshold = evaluate_ood_detection(id_energy_scores, ood_energy_scores, id_true_labels, test_labels, score_type='energy')
-best_f1_threshold, best_precision_threshold, best_recall_threshold = evaluate_ood_detection(id_softmax_scores[:,0], ood_softmax_scores[:,0], id_true_labels, test_labels, score_type='softmax')
-
-```
-```python
-ood_softmax_scores[:,0].shape
-```
-```python
-
-```
-```python
-import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
-
-# Threshold value for the energy score
-upper_threshold = best_f1_threshold  # Using the best F1 threshold from the previous calculation
-
-# Classifying OOD examples based on energy scores
-ood_classifications = np.where(ood_energy_scores >= upper_threshold, -1,  # classified as OOD
-                               np.where(ood_energy_scores < upper_threshold, 0, -1))  # classified as ID
-
-# Classifying ID examples based on energy scores
-id_classifications = np.where(id_energy_scores >= upper_threshold, -1,  # classified as OOD
-                              np.where(id_energy_scores < upper_threshold, id_true_labels, -1))  # classified as ID
-
-# Combine OOD and ID classifications and true labels
-all_predictions = np.concatenate([ood_classifications, id_classifications])
-all_true_labels = np.concatenate([ood_true_labels, id_true_labels])
-
-# Confusion matrix
-cm = confusion_matrix(all_true_labels, all_predictions, labels=[0, 1, -1])
-
-# Plotting the confusion matrix
-disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["Shirt", "Pants", "OOD"])
-disp.plot(cmap=plt.cm.Blues)
-plt.title('Confusion Matrix for OOD and ID Classification (Energy-Based)')
-plt.show()
+best_f1_threshold, best_precision_threshold, best_recall_threshold = evaluate_ood_detection(id_energy_scores, ood_energy_scores, test_labels, test_predictions, ood_predictions, score_type='energy')
+best_f1_threshold, best_precision_threshold, best_recall_threshold = evaluate_ood_detection(id_softmax_scores, ood_softmax_scores, test_labels, test_predictions, ood_predictions, score_type='softmax')
 
 ```
 # Limitations of our approach thus far
