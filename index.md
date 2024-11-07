@@ -2,7 +2,7 @@
 site: sandpaper::sandpaper_site
 ---
 
-This lesson aims to teach responsible machine learning practices with a focus on fairness, explainability, reproducibility, and safety.
+This lesson equips participants with responsible machine learning practices, emphasizing fairness, explainability, reproducibility, and accountability across three general data/model modalities: structured data (tabular), natural language processing (NLP), and computer vision. Participants will learn to evaluate and enhance the interpretability, fairness, and reproducibility of models in each modality. Additionally, they will explore how to integrate these principles into future models, bridging ethical practices with practical applications in their research.
 
 :::::::::: prereq
 - Participants should have experience using Python. 
