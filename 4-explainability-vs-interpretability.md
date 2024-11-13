@@ -35,7 +35,7 @@ exercises: 2
 
 ### Introduction
 
-In this lesson, we will explore the concepts of interpretability and explainability in machine learning models. For applied scientists, choosing the right model for your research data is critical. Whether you’re working with patient data, environmental factors, or financial information, understanding how a model arrives at its predictions can significantly impact your work.
+In this lesson, we will explore the concepts of interpretability and explainability in machine learning models. For applied scientists, choosing the right model for your research data is critical. Whether you're working with patient data, environmental factors, or financial information, understanding how a model arrives at its predictions can significantly impact your work.
 
 #### Interpretability
 In the context of machine learning, interpretability is the degree to which a human can understand the cause of a decision made by a model, crucial for verifying correctness and ensuring compliance. 
@@ -57,7 +57,7 @@ The extent to which the internal mechanics of a machine learning model can be ar
 
 - **LIME (Local Interpretable Model-agnostic Explanations)** provides insights into individual predictions by approximating the model locally with a simpler, interpretable model.
 - **SHAP (SHapley Additive exPlanations)** assigns each feature an importance value for a particular prediction, helping understand the contribution of each feature.
-- **Saliency Maps** visually highlight which parts of an input (e.g., in images) are most influential for a model’s prediction.
+- **Saliency Maps** visually highlight which parts of an input (e.g., in images) are most influential for a model's prediction.
 
 These techniques, which we'll talk more about in a later episode, bridge the gap between complex models and user understanding, enhancing transparency while still leveraging powerful algorithms.
 
@@ -78,7 +78,23 @@ Understanding the trade-off between model complexity and accuracy is crucial for
 
 This plot illustrates that while simpler models offer clarity and ease of understanding, they may not effectively capture complex relationships in the data. Conversely, while complex models can achieve higher accuracy, they may sacrifice interpretability, which can hinder trust in their predictions.
 
-:::::::::::::::::::::::::::::::::::::: exercise
+###  Exploring Model Choices
+
+We will analyze a few real-world scenarios and discuss the trade-offs between "*interpretable models*" (e.g., regression, decision trees, etc.) and "*explainable models*" (e.g., neural nets). 
+
+For each scenario, you'll consider key factors like accuracy, complexity, and transparency, and answer discussion questions to evaluate the strengths and limitations of each approach. 
+
+Here are some of the questions you'll reflect on during the exercises:
+
+- What are the advantages of using interpretable models versus explainable (black box) models in the given context?
+- What are the potential drawbacks of each approach?
+- How might the specific goals of the task influence your choice of model?
+- Are there situations where high accuracy justifies the use of less interpretable models?
+
+As you work through these exercises, keep in mind the broader implications of these decisions, especially in fields like healthcare, where model transparency can directly impact trust and outcomes.
+
+
+:::::::::::::::::::::::::::::::::::::: challenge
 
 ### Exercise 1: Model Selection for Predicting COVID-19 Progression, a study by [Giotta et al.](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9602523/)
 
@@ -175,45 +191,37 @@ During the pandemic, numerous studies and models were developed to aid in predic
 **Discussion Questions:**
 
 1. **Compare the Advantages:**
-   - What are the advantages of using explainable models such as decision trees in predicting COVID-19 outcomes?
+   - What are the advantages of using interpretable models such as decision trees in predicting COVID-19 outcomes?
    - What are the advantages of using black box models such as neural networks in this scenario?
 
 2. **Assess the Drawbacks:**
-   - What are the potential drawbacks of using explainable models like decision trees?
+   - What are the potential drawbacks of using interpretable models like decision trees?
    - What are the potential drawbacks of using black box models in healthcare settings?
 
 3. **Decision-Making Criteria:**
-   - In what situations might you prioritize an explainable model over a black box model, and why?
+   - In what situations might you prioritize an interpretable model over a black box model, and why?
    - Are there scenarios where the higher accuracy of black box models justifies their use despite their lack of transparency?
-
-4. **Practical Application:**
-   - Design a simple decision tree based on the provided biomarkers to predict bad outcomes.
-   - Evaluate how the decision tree can aid healthcare providers in making informed decisions.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: solution
 ### Solution
 1. **Compare the Advantages:**
-   - **Explainable Models:** Allow healthcare professionals to understand and trust the model's decisions, providing clear insights into which biomarkers contribute most to predicting bad outcomes. This transparency is crucial in critical fields such as healthcare, where understanding the decision-making process can inform treatment plans and improve patient outcomes.
+   - **Interpretable Models:** Allow healthcare professionals to understand and trust the model's decisions, providing clear insights into which biomarkers contribute most to predicting bad outcomes. This transparency is crucial in critical fields such as healthcare, where understanding the decision-making process can inform treatment plans and improve patient outcomes.
    - **Black Box Models:** Often provide higher predictive accuracy, which can be crucial for identifying patterns in complex datasets. They can capture non-linear relationships and interactions that simpler models might miss.
 
 2. **Assess the Drawbacks:**
-   - **Explainable Models:** May not capture complex relationships in the data as effectively as black box models, potentially leading to lower predictive accuracy in some cases.
+   - **Interpretable Models:** May not capture complex relationships in the data as effectively as black box models, potentially leading to lower predictive accuracy in some cases.
    - **Black Box Models:** Can be difficult to interpret, which hinders trust and adoption by medical professionals. Without understanding the model's reasoning, it becomes challenging to validate its correctness, ensure regulatory compliance, and effectively debug or refine the model.
 
 3. **Decision-Making Criteria:**
-   - **Prioritizing Explainable Models:** When transparency, trust, and regulatory compliance are critical, such as in healthcare settings where understanding and validating decisions is essential.
+   - **Prioritizing Interpretable Models:** When transparency, trust, and regulatory compliance are critical, such as in healthcare settings where understanding and validating decisions is essential.
    - **Using Black Box Models:** When the need for high predictive accuracy outweighs the need for transparency, and when supplementary methods for interpreting the model's output can be employed.
-
-4. **Practical Application:**
-   - **Design a Decision Tree:** Using the given biomarkers, create a simple decision tree. Identify key split points (e.g., high CRP levels, elevated LDH) and illustrate how these markers can be used to predict bad outcomes. Tools like scikit-learn or any decision tree visualization tool can be used.
-   - **Example Decision Tree:** Here is a [Decision Tree](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9602523/figure/ijerph-19-13016-f003/) found by Giotta et al.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-:::::::::::::::::::::::::::::::::::::: exercise
-### Exercise2: COVID-19 Diagnosis Using Chest X-Rays, a study by [Ucar and Korkmaz](https://www.sciencedirect.com/science/article/pii/S0306987720307702)
+:::::::::::::::::::::::::::::::::::::: challenge
+### Exercise 2: COVID-19 Diagnosis Using Chest X-Rays, a study by [Ucar and Korkmaz](https://www.sciencedirect.com/science/article/pii/S0306987720307702)
 
 **Objective:** Diagnose COVID-19 through chest X-rays.
 
@@ -246,10 +254,6 @@ The COVID-19 pandemic highlighted the urgent need for rapid and accurate diagnos
    - In what situations might you prioritize using deep neural networks over traditional methods, and why?
    - Are there scenarios where the rapid availability of X-ray results justifies the use of deep neural networks despite potential drawbacks?
 
-4. **Practical Application:**
-   - Design a simple deep neural network architecture for diagnosing COVID-19 from chest X-rays.
-   - Evaluate how this deep learning model can aid healthcare providers in making informed decisions quickly.
-
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: solution
@@ -266,11 +270,6 @@ The COVID-19 pandemic highlighted the urgent need for rapid and accurate diagnos
    - **Prioritizing Deep Neural Networks:** When rapid diagnosis is critical, and chest X-rays are readily available. Useful in large-scale screening scenarios where speed is more critical than the detailed understanding provided by genomic data.
    - **Using Traditional Methods:** When detailed and specific information about the virus is needed for treatment planning, and when the availability of genomic data and biomarkers is not a bottleneck.
 
-4. **Practical Application:**
-   - **Design a Neural Network:** Create a simple convolutional neural network (CNN) architecture using tools like TensorFlow or PyTorch. Use a dataset of labeled chest X-ray images to train and validate the model.
-   - **Example Model:** Here is a [model proposed by Ucar and Korkmaz](https://ars.els-cdn.com/content/image/1-s2.0-S0306987720307702-ga1.jpg)
-
-     - **Evaluate the Model:** Train the model on your dataset and evaluate its performance. Discuss how this model can help healthcare providers make quick and accurate diagnoses.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
