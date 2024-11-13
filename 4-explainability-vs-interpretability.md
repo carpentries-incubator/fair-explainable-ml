@@ -73,6 +73,7 @@ Understanding the trade-off between model complexity and accuracy is crucial for
 ![Accuracy vs. Complexity Plot](https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/accuracy_vs_complexity.png)
 
 **Discussion of the Plot:**
+
 - **X-Axis:** Represents model complexity, ranging from simple models (like linear regression) to complex models (like deep neural networks).
 - **Y-Axis:** Represents accuracy, demonstrating how well each model performs on a given task.
 
