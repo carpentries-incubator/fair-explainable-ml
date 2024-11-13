@@ -6,14 +6,20 @@ exercises: 0
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- TODO
+- What are the major categories of explainability methods, and how do they differ?
+- How do you determine which explainability method to use for a specific use case?
+- What are the trade-offs between black-box and white-box approaches to explainability?
+- How do post-hoc explanation methods compare to inherently interpretable models in terms of utility and reliability?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- TODO
-
+- Understand the key differences between black-box and white-box explanation methods.
+- Explore the trade-offs between post-hoc explainability and inherent interpretability in models.
+- Identify and categorize different explainability techniques based on their scope, model access, and approach.
+- Learn when to apply specific explainability techniques for various machine learning tasks.
+  
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Fantastic Explainability Methods and Where to Use Them
