@@ -592,316 +592,45 @@ COVID-19 Progression, a study by <a href="https://www.ncbi.nlm.nih.gov/pmc/artic
 al.</a>
 </h3>
 <div class="callout-content">
-<p><strong>Objective:</strong></p>
-<p>To predict bad outcomes (death or transfer to an intensive care unit)
-from COVID-19 patients using hematological, biochemical, and
-inflammatory biomarkers.</p>
-<p><strong>Motivation:</strong></p>
-<p>In the early days of the COVID-19 pandemic, healthcare professionals
-around the world faced unprecedented challenges. Predicting the
-progression of the disease and identifying patients at high risk of
-severe outcomes became crucial for effective treatment and resource
-allocation. One such study, published on the National Center for
-Biotechnology Information (NCBI) website, investigated the
-characteristics of patients who either succumbed to the disease or
-required intensive care compared to those who recovered.</p>
-<p>This study highlighted the critical role of various biomarkers, such
-as hematological, biochemical, and inflammatory markers, in
-understanding disease progression. However, simply identifying these
-markers was not enough. Clinicians needed tools that could not only
-predict outcomes with high accuracy but also provide clear,
-understandable reasons for their predictions.</p>
-<p><strong>Dataset Specification:</strong> Hematological biomarkers
-included white blood cells, neutrophils count, lymphocytes count,
-monocytes count, eosinophils count, platelet count, cluster of
-differentiation (CD)4, CD8 percentages, and hemoglobin. Biochemical
-markers were albumin, alanine aminotransferase, aspartate
-aminotransferase, total bilirubin, creatinine, creatinine kinase,
-lactate dehydrogenase (LDH), cardiac troponin I, myoglobin, and creatine
-kinase-MB. The coagulation markers were prothrombin time, activated
-partial thromboplastin time (APTT), and D-dimer. The inflammatory
-biomarkers were C-reactive protein (CRP), serum ferritin, procalcitonin
-(PCT), erythrocyte sedimentation rate, and interleukin and tumor
-necrosis factor-alpha (TNFα) levels.</p>
-<p><strong>Some statistics from the dataset:</strong></p>
-<p><strong>Table 1</strong>: Main characteristics of the patients
-included in the study at baseline and results of comparison of
-percentage between outcome using chi-square or Fisher exact test.</p>
-<table class="table"><colgroup><col width="24%"><col width="44%"><col width="23%"><col width="7%"></colgroup><thead><tr class="header"><th></th>
-<th>Death or Transferred to Intensive Care Unit (n = 32)</th>
-<th>Discharged Alive (n = 113)</th>
-<th>p-Value</th>
-</tr></thead><tbody><tr class="odd"><td></td>
-<td>N</td>
-<td>%</td>
-<td>N</td>
-</tr><tr class="even"><td><strong>Sex</strong></td>
-<td></td>
-<td></td>
-<td></td>
-</tr><tr class="odd"><td>Male</td>
-<td>18</td>
-<td>56.25%</td>
-<td>61</td>
-</tr><tr class="even"><td>Female</td>
-<td>14</td>
-<td>43.75%</td>
-<td>52</td>
-</tr><tr class="odd"><td><strong>Symptoms</strong></td>
-<td></td>
-<td></td>
-<td></td>
-</tr><tr class="even"><td>Dyspnea</td>
-<td>12</td>
-<td>37.50%</td>
-<td>52</td>
-</tr><tr class="odd"><td>Cough</td>
-<td>5</td>
-<td>15.63%</td>
-<td>35</td>
-</tr><tr class="even"><td>Fatigue</td>
-<td>7</td>
-<td>21.88%</td>
-<td>30</td>
-</tr><tr class="odd"><td>Headache</td>
-<td>2</td>
-<td>6.25%</td>
-<td>12</td>
-</tr><tr class="even"><td>Confusion</td>
-<td>1</td>
-<td>3.13%</td>
-<td>9</td>
-</tr><tr class="odd"><td>Nausea</td>
-<td>1</td>
-<td>3.13%</td>
-<td>8</td>
-</tr><tr class="even"><td>Sick</td>
-<td>1</td>
-<td>3.13%</td>
-<td>6</td>
-</tr><tr class="odd"><td>Pharyngitis</td>
-<td>1</td>
-<td>3.13%</td>
-<td>6</td>
-</tr><tr class="even"><td>Nasal congestion</td>
-<td>1</td>
-<td>3.13%</td>
-<td>3</td>
-</tr><tr class="odd"><td>Arthralgia</td>
-<td>0</td>
-<td>0.00%</td>
-<td>3</td>
-</tr><tr class="even"><td>Myalgia</td>
-<td>1</td>
-<td>3.13%</td>
-<td>2</td>
-</tr><tr class="odd"><td>Arrhythmia</td>
-<td>3</td>
-<td>9.38%</td>
-<td>12</td>
-</tr><tr class="even"><td><strong>Comorbidity</strong></td>
-<td></td>
-<td></td>
-<td></td>
-</tr><tr class="odd"><td>Hypertension</td>
-<td>12</td>
-<td>37.50%</td>
-<td>71</td>
-</tr><tr class="even"><td>Cardiovascular disease</td>
-<td>12</td>
-<td>37.50%</td>
-<td>43</td>
-</tr><tr class="odd"><td>Diabetes</td>
-<td>11</td>
-<td>34.38%</td>
-<td>35</td>
-</tr><tr class="even"><td>Cerebrovascular disease</td>
-<td>9</td>
-<td>28.13%</td>
-<td>19</td>
-</tr><tr class="odd"><td>Chronic kidney disease</td>
-<td>8</td>
-<td>25.00%</td>
-<td>14</td>
-</tr><tr class="even"><td>COPD</td>
-<td>5</td>
-<td>15.63%</td>
-<td>14</td>
-</tr><tr class="odd"><td>Tumors</td>
-<td>5</td>
-<td>15.63%</td>
-<td>11</td>
-</tr><tr class="even"><td>Hepatitis B</td>
-<td>0</td>
-<td>0.00%</td>
-<td>6</td>
-</tr><tr class="odd"><td>Immunopathological disease</td>
-<td>1</td>
-<td>3.13%</td>
-<td>5</td>
-</tr></tbody></table><p><strong>Table 2</strong>: Comparison of clinical characteristics and
-laboratory findings between patients who died or were transferred to ICU
-and those who were discharged alive.</p>
-<table class="table"><colgroup><col width="27%"><col width="42%"><col width="22%"><col width="7%"></colgroup><thead><tr class="header"><th></th>
-<th>Patients Deaths or Transferred to ICU (n = 32)</th>
-<th>Patients Alive (n = 113)</th>
-<th>p-Value</th>
-</tr></thead><tbody><tr class="odd"><td></td>
-<td>Median</td>
-<td>Q1</td>
-<td>Q3</td>
-</tr><tr class="even"><td><strong>Age (years)</strong></td>
-<td>78.0</td>
-<td>67.0</td>
-<td>85.75</td>
-</tr><tr class="odd"><td><strong>Temperature (°C)</strong></td>
-<td>36.5</td>
-<td>36.0</td>
-<td>36.9</td>
-</tr><tr class="even"><td><strong>Respiratory rate (rpm)</strong></td>
-<td>20.0</td>
-<td>18.0</td>
-<td>20.0</td>
-</tr><tr class="odd"><td><strong>Cardiac frequency (rpm)</strong></td>
-<td>79.0</td>
-<td>70.0</td>
-<td>90.0</td>
-</tr><tr class="even"><td><strong>Systolic blood pressure (mmHg)</strong></td>
-<td>137.5</td>
-<td>116.0</td>
-<td>150.0</td>
-</tr><tr class="odd"><td><strong>Diastolic blood pressure (mmHg)</strong></td>
-<td>77.5</td>
-<td>65.0</td>
-<td>83.0</td>
-</tr><tr class="even"><td><strong>Temperature at admission (°C)</strong></td>
-<td>36.0</td>
-<td>35.7</td>
-<td>36.4</td>
-</tr><tr class="odd"><td><strong>Percentage of O2 saturation</strong></td>
-<td>90.0</td>
-<td>87.0</td>
-<td>95.0</td>
-</tr><tr class="even"><td><strong>FiO2 (%)</strong></td>
-<td>100.0</td>
-<td>96.0</td>
-<td>100.0</td>
-</tr><tr class="odd"><td>**Neutrophil count (*10^3/µL)**</td>
-<td>7.98</td>
-<td>4.75</td>
-<td>10.5</td>
-</tr><tr class="even"><td>**Lymphocyte count (*10^3/µL)**</td>
-<td>1.34</td>
-<td>0.85</td>
-<td>1.98</td>
-</tr><tr class="odd"><td>**Platelet count (*10^3/µL)**</td>
-<td>202.00</td>
-<td>147.5</td>
-<td>272.25</td>
-</tr><tr class="even"><td><strong>Hemoglobin level (g/dL)</strong></td>
-<td>12.7</td>
-<td>11.8</td>
-<td>14.5</td>
-</tr><tr class="odd"><td><strong>Procalcitonin levels (ng/mL)</strong></td>
-<td>0.11</td>
-<td>0.07</td>
-<td>0.27</td>
-</tr><tr class="even"><td><strong>CRP (mg/dL)</strong></td>
-<td>8.06</td>
-<td>2.9</td>
-<td>16.1</td>
-</tr><tr class="odd"><td><strong>LDH (mg/dL)</strong></td>
-<td>307.0</td>
-<td>258.5</td>
-<td>386.0</td>
-</tr><tr class="even"><td><strong>Albumin (mg/dL)</strong></td>
-<td>27.0</td>
-<td>24.5</td>
-<td>32.5</td>
-</tr><tr class="odd"><td><strong>ALT (mg/dL)</strong></td>
-<td>23.0</td>
-<td>12.0</td>
-<td>47.5</td>
-</tr><tr class="even"><td><strong>AST (mg/dL)</strong></td>
-<td>30.0</td>
-<td>22.0</td>
-<td>52.5</td>
-</tr><tr class="odd"><td><strong>ALP (mg/dL)</strong></td>
-<td>70.0</td>
-<td>53.5</td>
-<td>88.0</td>
-</tr><tr class="even"><td><strong>Direct bilirubin (mg/dL)</strong></td>
-<td>0.15</td>
-<td>0.1</td>
-<td>0.27</td>
-</tr><tr class="odd"><td><strong>Indirect bilirubin (mg/dL)</strong></td>
-<td>0.15</td>
-<td>0.012</td>
-<td>0.002</td>
-</tr><tr class="even"><td><strong>Total bilirubin (mg/dL)</strong></td>
-<td>0.3</td>
-<td>0.2</td>
-<td>0.6</td>
-</tr><tr class="odd"><td><strong>Creatinine (mg/dL)</strong></td>
-<td>1.03</td>
-<td>0.6</td>
-<td>1.637</td>
-</tr><tr class="even"><td><strong>CPK (mg/dL)</strong></td>
-<td>79.0</td>
-<td>47.0</td>
-<td>194.0</td>
-</tr><tr class="odd"><td><strong>Sodium (mg/dL)</strong></td>
-<td>140.0</td>
-<td>137.0</td>
-<td>142.5</td>
-</tr><tr class="even"><td><strong>Potassium (mg/dL)</strong></td>
-<td>4.4</td>
-<td>4.0</td>
-<td>5.0</td>
-</tr><tr class="odd"><td><strong>INR</strong></td>
-<td>1.1</td>
-<td>1.0</td>
-<td>1.2</td>
-</tr><tr class="even"><td><strong>IL-6 (pg/mL)</strong></td>
-<td>88.8</td>
-<td>13.7</td>
-<td>119.7</td>
-</tr><tr class="odd"><td><strong>IgM (AU/mL)</strong></td>
-<td>3.4</td>
-<td>0.0</td>
-<td>8.1</td>
-</tr><tr class="even"><td><strong>IgG (AU/mL)</strong></td>
-<td>12.0</td>
-<td>5.7</td>
-<td>13.4</td>
-</tr><tr class="odd"><td><strong>Length of stay (days)</strong></td>
-<td>11.0</td>
-<td>5.75</td>
-<td>17.0</td>
-</tr></tbody></table><p><strong>Real-World Impact:</strong></p>
-<p>During the pandemic, numerous studies and models were developed to
-aid in predicting COVID-19 outcomes. The study from this paper serves as
-an excellent example of how detailed patient data can inform model
-development. By designing a suitable machine learning model, researchers
-and healthcare providers can not only achieve high predictive accuracy
-but also ensure that their findings are actionable and trustworthy.</p>
-<p><strong>Discussion Questions:</strong></p>
+<p><strong>Scenario:</strong><br>
+In the early days of the COVID-19 pandemic, healthcare professionals
+faced unprecedented challenges in predicting which patients were at
+higher risk of severe outcomes. Accurate predictions of death or the
+need for intensive care could guide resource allocation and improve
+patient care. A study explored the use of various biomarkers to build
+predictive models, highlighting the importance of both accuracy and
+transparency in such high-stakes settings.</p>
+<p><strong>Objective:</strong><br>
+Predict severe outcomes (death or transfer to intensive care) in
+COVID-19 patients using biomarkers.</p>
+<p><strong>Dataset features:</strong><br>
+The dataset includes biomarkers from three categories:<br>
+- <strong>Hematological markers:</strong> White blood cell count,
+neutrophils, lymphocytes, platelets, hemoglobin, etc.<br>
+- <strong>Biochemical markers:</strong> Albumin, bilirubin, creatinine,
+cardiac troponin, LDH, etc.<br>
+- <strong>Inflammatory markers:</strong> CRP, serum ferritin,
+interleukins, TNFα, etc.</p>
+<p>These features are critical for understanding disease progression and
+predicting outcomes.</p>
+<div class="section level3">
+<h3 id="discussion-questions">Discussion questions<a class="anchor" aria-label="anchor" href="#discussion-questions"></a></h3>
 <div class="section level4">
-<h4 id="compare-the-advantages">Compare the Advantages<a class="anchor" aria-label="anchor" href="#compare-the-advantages"></a></h4>
+<h4 id="compare-the-advantages">Compare the advantages<a class="anchor" aria-label="anchor" href="#compare-the-advantages"></a></h4>
 <ul><li>What are the advantages of using interpretable models such as
 decision trees in predicting COVID-19 outcomes?</li>
 <li>What are the advantages of using black box models such as neural
 networks in this scenario?</li>
 </ul></div>
 <div class="section level4">
-<h4 id="assess-the-drawbacks">Assess the Drawbacks<a class="anchor" aria-label="anchor" href="#assess-the-drawbacks"></a></h4>
+<h4 id="assess-the-drawbacks">Assess the drawbacks<a class="anchor" aria-label="anchor" href="#assess-the-drawbacks"></a></h4>
 <ul><li>What are the potential drawbacks of using interpretable models like
 decision trees?</li>
 <li>What are the potential drawbacks of using black box models in
 healthcare settings?</li>
 </ul></div>
 <div class="section level4">
-<h4 id="decision-making-criteria">Decision-Making Criteria<a class="anchor" aria-label="anchor" href="#decision-making-criteria"></a></h4>
+<h4 id="decision-making-criteria">Decision-making criteria<a class="anchor" aria-label="anchor" href="#decision-making-criteria"></a></h4>
 <ul><li>In what situations might you prioritize an interpretable model over
 a black box model, and why?</li>
 <li>Are there scenarios where the higher accuracy of black box models
@@ -910,55 +639,54 @@ justifies their use despite their lack of transparency?</li>
 </div>
 </div>
 </div>
+</div>
 <div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
-<ol style="list-style-type: decimal"><li>
-<strong>Compare the Advantages:</strong>
+<div class="section level4">
+<h4 id="compare-the-advantages-1">Compare the advantages<a class="anchor" aria-label="anchor" href="#compare-the-advantages-1"></a></h4>
 <ul><li>
-<strong>Interpretable Models:</strong> Allow healthcare
+<strong>Interpretable models:</strong> Allow healthcare
 professionals to understand and trust the model’s decisions, providing
 clear insights into which biomarkers contribute most to predicting bad
 outcomes. This transparency is crucial in critical fields such as
 healthcare, where understanding the decision-making process can inform
 treatment plans and improve patient outcomes.</li>
 <li>
-<strong>Black Box Models:</strong> Often provide higher predictive
+<strong>Black box models:</strong> Often provide higher predictive
 accuracy, which can be crucial for identifying patterns in complex
 datasets. They can capture non-linear relationships and interactions
 that simpler models might miss.</li>
-</ul></li>
-<li>
-<strong>Assess the Drawbacks:</strong>
+</ul></div>
+<div class="section level4">
+<h4 id="assess-the-drawbacks-1">Assess the drawbacks<a class="anchor" aria-label="anchor" href="#assess-the-drawbacks-1"></a></h4>
 <ul><li>
-<strong>Interpretable Models:</strong> May not capture complex
+<strong>Interpretable models:</strong> May not capture complex
 relationships in the data as effectively as black box models,
 potentially leading to lower predictive accuracy in some cases.</li>
 <li>
-<strong>Black Box Models:</strong> Can be difficult to interpret,
+<strong>Black box models:</strong> Can be difficult to interpret,
 which hinders trust and adoption by medical professionals. Without
 understanding the model’s reasoning, it becomes challenging to validate
 its correctness, ensure regulatory compliance, and effectively debug or
 refine the model.</li>
-</ul></li>
-<li>
-<strong>Decision-Making Criteria:</strong>
+</ul></div>
+<div class="section level4">
+<h4 id="decision-making-criteria-1">Decision-making criteria<a class="anchor" aria-label="anchor" href="#decision-making-criteria-1"></a></h4>
 <ul><li>
-<strong>Prioritizing Interpretable Models:</strong> When
-transparency, trust, and regulatory compliance are critical, such as in
-healthcare settings where understanding and validating decisions is
-essential.</li>
+<strong>Interpretable models:</strong> When transparency, trust, and
+regulatory compliance are critical, such as in healthcare settings where
+understanding and validating decisions is essential.</li>
 <li>
-<strong>Using Black Box Models:</strong> When the need for high
-predictive accuracy outweighs the need for transparency, and when
-supplementary methods for interpreting the model’s output can be
-employed.</li>
-</ul></li>
-</ol></div>
+<strong>Black box models:</strong> When the need for high predictive
+accuracy outweighs the need for transparency, and when supplementary
+methods for interpreting the model’s output can be employed.</li>
+</ul></div>
+</div>
 </div>
 </div>
 </div>
@@ -1034,7 +762,7 @@ drawbacks?</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <ol style="list-style-type: decimal"><li>
 <strong>Compare the Advantages:</strong>
