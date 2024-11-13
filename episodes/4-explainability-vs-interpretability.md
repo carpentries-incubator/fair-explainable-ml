@@ -98,125 +98,51 @@ As you work through these exercises, keep in mind the broader implications of th
 
 ### Exercise 1: Model Selection for Predicting COVID-19 Progression, a study by [Giotta et al.](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9602523/)
 
-**Objective:** 
+**Scenario:**  
+In the early days of the COVID-19 pandemic, healthcare professionals faced unprecedented challenges in predicting which patients were at higher risk of severe outcomes. Accurate predictions of death or the need for intensive care could guide resource allocation and improve patient care. A study explored the use of various biomarkers to build predictive models, highlighting the importance of both accuracy and transparency in such high-stakes settings.
 
-To predict bad outcomes (death or transfer to an intensive care unit) from COVID-19 patients using hematological, biochemical, and inflammatory biomarkers.
+**Objective:**  
+Predict severe outcomes (death or transfer to intensive care) in COVID-19 patients using biomarkers.
 
-**Motivation:** 
+**Dataset features:**  
+The dataset includes biomarkers from three categories:  
+- **Hematological markers:** White blood cell count, neutrophils, lymphocytes, platelets, hemoglobin, etc.  
+- **Biochemical markers:** Albumin, bilirubin, creatinine, cardiac troponin, LDH, etc.  
+- **Inflammatory markers:** CRP, serum ferritin, interleukins, TNFα, etc.  
 
-In the early days of the COVID-19 pandemic, healthcare professionals around the world faced unprecedented challenges. Predicting the progression of the disease and identifying patients at high risk of severe outcomes became crucial for effective treatment and resource allocation. One such study, published on the National Center for Biotechnology Information (NCBI) website, investigated the characteristics of patients who either succumbed to the disease or required intensive care compared to those who recovered.
+These features are critical for understanding disease progression and predicting outcomes.
 
-This study highlighted the critical role of various biomarkers, such as hematological, biochemical, and inflammatory markers, in understanding disease progression. However, simply identifying these markers was not enough. Clinicians needed tools that could not only predict outcomes with high accuracy but also provide clear, understandable reasons for their predictions. 
+### Discussion questions
 
-
-**Dataset Specification:**
-Hematological biomarkers included white blood cells, neutrophils count, lymphocytes count, monocytes count, eosinophils count, platelet count, cluster of differentiation (CD)4, CD8 percentages, and hemoglobin. Biochemical markers were albumin, alanine aminotransferase, aspartate aminotransferase, total bilirubin, creatinine, creatinine kinase, lactate dehydrogenase (LDH), cardiac troponin I, myoglobin, and creatine kinase-MB. The coagulation markers were prothrombin time, activated partial thromboplastin time (APTT), and D-dimer. The inflammatory biomarkers were C-reactive protein (CRP), serum ferritin, procalcitonin (PCT), erythrocyte sedimentation rate, and interleukin and tumor necrosis factor-alpha (TNFα) levels.
-
-**Some statistics from the dataset:**
-
-**Table 1**: Main characteristics of the patients included in the study at baseline and results of comparison of percentage between outcome using chi-square or Fisher exact test.
-
-|                              | Death or Transferred to Intensive Care Unit (n = 32) | Discharged Alive (n = 113) | p-Value |
-|------------------------------|------------------------------------------------------|----------------------------|---------|
-|                              | N    | %         | N  | %     |         |
-| **Sex**                      |      |           |    |       |         |
-| Male                         | 18   | 56.25%    | 61 | 53.98%| 1.00    |
-| Female                       | 14   | 43.75%    | 52 | 46.02%| 1.00    |
-| **Symptoms**                 |      |           |    |       |         |
-| Dyspnea                      | 12   | 37.50%    | 52 | 46.02%| 0.999   |
-| Cough                        | 5    | 15.63%    | 35 | 30.97%| 1.00    |
-| Fatigue                      | 7    | 21.88%    | 30 | 26.55%| 1.00    |
-| Headache                     | 2    | 6.25%     | 12 | 10.62%| 1.00    |
-| Confusion                    | 1    | 3.13%     | 9  | 7.96% | 1.00    |
-| Nausea                       | 1    | 3.13%     | 8  | 7.08% | 1.00    |
-| Sick                         | 1    | 3.13%     | 6  | 5.31% | 1.00    |
-| Pharyngitis                  | 1    | 3.13%     | 6  | 5.31% | 1.00    |
-| Nasal congestion             | 1    | 3.13%     | 3  | 2.65% | 0.999   |
-| Arthralgia                   | 0    | 0.00%     | 3  | 2.65% | 1.00    |
-| Myalgia                      | 1    | 3.13%     | 2  | 1.77% | 0.997   |
-| Arrhythmia                   | 3    | 9.38%     | 12 | 10.62%| 1.00    |
-| **Comorbidity**              |      |           |    |       |         |
-| Hypertension                 | 12   | 37.50%    | 71 | 62.83%| 0.356   |
-| Cardiovascular disease       | 12   | 37.50%    | 43 | 38.05%| 1.00    |
-| Diabetes                     | 11   | 34.38%    | 35 | 30.97%| 1.00    |
-| Cerebrovascular disease      | 9    | 28.13%    | 19 | 16.81%| 0.896   |
-| Chronic kidney disease       | 8    | 25.00%    | 14 | 12.39%| 0.585   |
-| COPD                         | 5    | 15.63%    | 14 | 12.39%| 0.999   |
-| Tumors                       | 5    | 15.63%    | 11 | 9.73% | 0.986   |
-| Hepatitis B                  | 0    | 0.00%     | 6  | 5.31% | 0.974   |
-| Immunopathological disease   | 1    | 3.13%     | 5  | 4.42% | 1.00    |
-
-**Table 2**: Comparison of clinical characteristics and laboratory findings between patients who died or were transferred to ICU and those who were discharged alive.
-
-|                               | Patients Deaths or Transferred to ICU (n = 32) | Patients Alive (n = 113) | p-Value |
-|-------------------------------|------------------------------------------------|--------------------------|---------|
-|                               | Median | Q1   | Q3   | Median | Q1   | Q3   |         |
-| **Age (years)**               | 78.0   | 67.0 | 85.75| 70.0   | 57.0 | 82.0 | 0.011   |
-| **Temperature (°C)**          | 36.5   | 36.0 | 36.9 | 36.4   | 36.2 | 36.7 | 0.715   |
-| **Respiratory rate (rpm)**    | 20.0   | 18.0 | 20.0 | 18.0   | 18.0 | 20.0 | 0.110   |
-| **Cardiac frequency (rpm)**   | 79.0   | 70.0 | 90.0 | 75.0   | 70.0 | 85.0 | 0.157   |
-| **Systolic blood pressure (mmHg)** | 137.5 | 116.0 | 150.0 | 130.0 | 110.0 | 150.0 | 0.647   |
-| **Diastolic blood pressure (mmHg)** | 77.5  | 65.0 | 83.0 | 75.0  | 70.0 | 90.0 | 0.943   |
-| **Temperature at admission (°C)** | 36.0 | 35.7 | 36.4 | 36.0 | 35.7 | 36.5 | 0.717   |
-| **Percentage of O2 saturation** | 90.0 | 87.0 | 95.0 | 92.0  | 88.0 | 95.0 | 0.415   |
-| **FiO2 (%)**                  | 100.0  | 96.0 | 100.0| 100.0  | 100.0| 100.0| 0.056   |
-| **Neutrophil count (*10^3/µL)** | 7.98  | 4.75 | 10.5 | 5.38  | 3.77 | 7.7  | 0.006   |
-| **Lymphocyte count (*10^3/µL)** | 1.34  | 0.85 | 1.98 | 1.43  | 1.04 | 2.1  | 0.201   |
-| **Platelet count (*10^3/µL)** | 202.00 | 147.5| 272.25 | 220.0 | 153.0 | 293.0 | 0.157 |
-| **Hemoglobin level (g/dL)**   | 12.7   | 11.8 | 14.5 | 13.5   | 12.0 | 15.0 | 0.017   |
-| **Procalcitonin levels (ng/mL)** | 0.11 | 0.07 | 0.27 | 0.07 | 0.05 | 0.1 | 0.063   |
-| **CRP (mg/dL)**               | 8.06   | 2.9  | 16.1 | 3.0    | 0.7  | 8.9  | 0.002   |
-| **LDH (mg/dL)**               | 307.0  | 258.5| 386.0| 280.0  | 207.0| 385.0| 0.094   |
-| **Albumin (mg/dL)**           | 27.0   | 24.5 | 32.5 | 34.0   | 28.0 | 37.0 | 0.000   |
-| **ALT (mg/dL)**               | 23.0   | 12.0 | 47.5 | 20.0   | 11.0 | 37.0 | 0.291   |
-| **AST (mg/dL)**               | 30.0   | 22.0 | 52.5 | 26.0   | 20.0 | 39.0 | 0.108   |
-| **ALP (mg/dL)**               | 70.0   | 53.5 | 88.0 | 71.0   | 54.0 | 94.0 | 0.554   |
-| **Direct bilirubin (mg/dL)**  | 0.15   | 0.1  | 0.27 | 0.1    | 0.0  | 0.2  | 0.036   |
-| **Indirect bilirubin (mg/dL)** | 0.15  | 0.012| 0.002| 0.1    | 0.0  | 0.2  | 0.376   |
-| **Total bilirubin (mg/dL)**   | 0.3    | 0.2  | 0.6  | 0.2    | 0.1  | 0.3  | 0.108   |
-| **Creatinine (mg/dL)**        | 1.03   | 0.6  | 1.637| 0.82   | 0.63 | 1.09 | 0.125   |
-| **CPK (mg/dL)**               | 79.0   | 47.0 | 194.0| 67.0   | 42.0 | 137.0| 0.330   |
-| **Sodium (mg/dL)**            | 140.0  | 137.0| 142.5| 138.0  | 135.0| 140.0| 0.057   |
-| **Potassium (mg/dL)**         | 4.4    | 4.0  | 5.0  | 4.0    | 3.6  | 4.3  | 0.029   |
-| **INR**                       | 1.1    | 1.0  | 1.2  | 1.0    | 1.0  | 1.1  | 0.049   |
-| **IL-6 (pg/mL)**              | 88.8   | 13.7 | 119.7| 9.9    | 7.8  | 40.9 | 0.009   |
-| **IgM (AU/mL)**               | 3.4    | 0.0  | 8.1  | 2.6    | 0.0  | 13.3 | 0.323   |
-| **IgG (AU/mL)**               | 12.0   | 5.7  | 13.4 | 10.1   | 4.8  | 13.3 | 0.502   |
-| **Length of stay (days)**     | 11.0   | 5.75 | 17.0 | 9.0    | 5.0  | 15.0 | 0.837   |
-
-**Real-World Impact:**
-
-During the pandemic, numerous studies and models were developed to aid in predicting COVID-19 outcomes. The study from this paper serves as an excellent example of how detailed patient data can inform model development. By designing a suitable machine learning model, researchers and healthcare providers can not only achieve high predictive accuracy but also ensure that their findings are actionable and trustworthy.
-
-**Discussion Questions:**
-
-#### Compare the Advantages
+#### Compare the advantages
 - What are the advantages of using interpretable models such as decision trees in predicting COVID-19 outcomes?
 - What are the advantages of using black box models such as neural networks in this scenario?
 
-####  Assess the Drawbacks
+#### Assess the drawbacks
 - What are the potential drawbacks of using interpretable models like decision trees?
 - What are the potential drawbacks of using black box models in healthcare settings?
 
-#### Decision-Making Criteria
+#### Decision-making criteria
 - In what situations might you prioritize an interpretable model over a black box model, and why?
 - Are there scenarios where the higher accuracy of black box models justifies their use despite their lack of transparency?
+
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: solution
 ### Solution
-1. **Compare the Advantages:**
-   - **Interpretable Models:** Allow healthcare professionals to understand and trust the model's decisions, providing clear insights into which biomarkers contribute most to predicting bad outcomes. This transparency is crucial in critical fields such as healthcare, where understanding the decision-making process can inform treatment plans and improve patient outcomes.
-   - **Black Box Models:** Often provide higher predictive accuracy, which can be crucial for identifying patterns in complex datasets. They can capture non-linear relationships and interactions that simpler models might miss.
 
-2. **Assess the Drawbacks:**
-   - **Interpretable Models:** May not capture complex relationships in the data as effectively as black box models, potentially leading to lower predictive accuracy in some cases.
-   - **Black Box Models:** Can be difficult to interpret, which hinders trust and adoption by medical professionals. Without understanding the model's reasoning, it becomes challenging to validate its correctness, ensure regulatory compliance, and effectively debug or refine the model.
+#### Compare the advantages
+- **Interpretable models:** Allow healthcare professionals to understand and trust the model's decisions, providing clear insights into which biomarkers contribute most to predicting bad outcomes. This transparency is crucial in critical fields such as healthcare, where understanding the decision-making process can inform treatment plans and improve patient outcomes.
+- **Black box models:** Often provide higher predictive accuracy, which can be crucial for identifying patterns in complex datasets. They can capture non-linear relationships and interactions that simpler models might miss.
 
-3. **Decision-Making Criteria:**
-   - **Prioritizing Interpretable Models:** When transparency, trust, and regulatory compliance are critical, such as in healthcare settings where understanding and validating decisions is essential.
-   - **Using Black Box Models:** When the need for high predictive accuracy outweighs the need for transparency, and when supplementary methods for interpreting the model's output can be employed.
+#### Assess the drawbacks
+- **Interpretable models:** May not capture complex relationships in the data as effectively as black box models, potentially leading to lower predictive accuracy in some cases.
+- **Black box models:** Can be difficult to interpret, which hinders trust and adoption by medical professionals. Without understanding the model's reasoning, it becomes challenging to validate its correctness, ensure regulatory compliance, and effectively debug or refine the model.
+
+#### Decision-making criteria
+- **Interpretable models:** When transparency, trust, and regulatory compliance are critical, such as in healthcare settings where understanding and validating decisions is essential.
+- **Black box models:** When the need for high predictive accuracy outweighs the need for transparency, and when supplementary methods for interpreting the model's output can be employed.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
