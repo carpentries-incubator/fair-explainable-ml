@@ -70,7 +70,7 @@ This evolving landscape demonstrates that the old clusters of "interpretable" ve
 
 Understanding the trade-off between model complexity and accuracy is crucial for effective model selection. As model complexity increases, accuracy typically improves. However, more complicated models become more difficult to interpret and explain.
 
-!Accuracy vs. Complexity Plot](https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/accuracy_vs_complexity.png)
+![Accuracy vs. Complexity Plot](https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/accuracy_vs_complexity.png)
 
 **Discussion of the Plot:**
 - **X-Axis:** Represents model complexity, ranging from simple models (like linear regression) to complex models (like deep neural networks).
