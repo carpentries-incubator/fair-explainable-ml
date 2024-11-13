@@ -190,17 +190,17 @@ During the pandemic, numerous studies and models were developed to aid in predic
 
 **Discussion Questions:**
 
-1. **Compare the Advantages:**
-   - What are the advantages of using interpretable models such as decision trees in predicting COVID-19 outcomes?
-   - What are the advantages of using black box models such as neural networks in this scenario?
+#### Compare the Advantages
+- What are the advantages of using interpretable models such as decision trees in predicting COVID-19 outcomes?
+- What are the advantages of using black box models such as neural networks in this scenario?
 
-2. **Assess the Drawbacks:**
-   - What are the potential drawbacks of using interpretable models like decision trees?
-   - What are the potential drawbacks of using black box models in healthcare settings?
+####  Assess the Drawbacks
+- What are the potential drawbacks of using interpretable models like decision trees?
+- What are the potential drawbacks of using black box models in healthcare settings?
 
-3. **Decision-Making Criteria:**
-   - In what situations might you prioritize an interpretable model over a black box model, and why?
-   - Are there scenarios where the higher accuracy of black box models justifies their use despite their lack of transparency?
+#### Decision-Making Criteria
+- In what situations might you prioritize an interpretable model over a black box model, and why?
+- Are there scenarios where the higher accuracy of black box models justifies their use despite their lack of transparency?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
