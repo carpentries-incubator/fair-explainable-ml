@@ -7,17 +7,16 @@ exercises: 0
 :::::::::::::::::::::::::::::::::::::::: questions
 
 - What are out-of-distribution (OOD) data and why is detecting them important in machine learning models?
-- How do output-based methods like softmax and energy-based methods work for OOD detection?
-- What are the limitations of output-based OOD detection methods?
-- 
+- What are the two broad classes of OOD detection methods: threshold-based and training-time regularization?
+
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::::: objectives
 
 - Understand the concept of out-of-distribution data and its significance in building trustworthy machine learning models.
-- Learn about different output-based methods for OOD detection, including softmax and energy-based methods
-- Identify the strengths and limitations of output-based OOD detection techniques.
-- 
+- Learn the two main approaches to OOD detection: threshold-based methods and training-time regularization.
+- Identify the strengths and limitations of these approaches at a high level.
+
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 # Introduction to Out-of-Distribution (OOD) Data
@@ -87,7 +86,7 @@ Distance-based methods calculate the distance of an instance from the distributi
 - **Mahalanobis distance:** This method calculates the Mahalanobis distance of a data point from the mean of the training data distribution. A high Mahalanobis distance indicates that the instance is likely OOD.
 - **K-nearest neighbors (KNN):** This method involves computing the distance to the k-nearest neighbors in the training data. If the average distance to these neighbors is high, the instance is considered OOD.
 
-We will focus on output-based methods (softmax and energy) in this episode and then do a deep dive into distance-based methods in the next episode.
+We will focus on output-based methods (softmax and energy) in the next episode and then do a deep dive into distance-based methods in a later next episode.
 
 # Example 1: Softmax scores
 Softmax-based out-of-distribution (OOD) detection methods are a fundamental aspect of understanding how models differentiate between in-distribution and OOD data. Even though energy-based methods are becoming more popular, grasping softmax OOD detection methods provides essential scaffolding for learning more advanced techniques. Furthermore, softmax thresholding is still in use throughout ML literature, and learning more about this method will help you better assess results from others.
