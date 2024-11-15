@@ -712,7 +712,7 @@ real).</li>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p>Inline instructor notes can help inform instructors of timing
 challenges associated with the lessons. They appear in the “Instructor
@@ -4902,6 +4902,8 @@ important in machine learning models?</li>
 <li>How do output-based methods like softmax and energy-based methods
 work for OOD detection?</li>
 <li>What are the limitations of output-based OOD detection methods?</li>
+<li>
+</li>
 </ul>
 </div>
 </div>
@@ -4917,6 +4919,8 @@ significance in building trustworthy machine learning models.</li>
 including softmax and energy-based methods</li>
 <li>Identify the strengths and limitations of output-based OOD detection
 techniques.</li>
+<li>
+</li>
 </ul>
 </div>
 </div>
@@ -4946,14 +4950,19 @@ This contrast highlights the challenges models face when they encounter
 data that significantly differs from their training distribution.</p>
 </div>
 <div class="section level2">
-<h2 id="when-does-ood-arise">When does OOD arise?<a class="anchor" aria-label="anchor" href="#when-does-ood-arise"></a>
+<h2 id="how-ood-data-manifests-in-ml-pipelines">How OOD data manifests in ML pipelines<a class="anchor" aria-label="anchor" href="#how-ood-data-manifests-in-ml-pipelines"></a>
 </h2>
 <p>The difference between in-distribution (ID) and OOD data can arise
-from: - <strong>Semantic shift</strong>: The OOD sample belongs to a
-class that was not present during training. - <strong>Covariate
-shift</strong>: The OOD sample comes from a domain where the input
-feature distribution is drastically different from the training
-data.</p>
+from:</p>
+<ul>
+<li>
+<strong>Semantic shift</strong>: The OOD sample belongs to a class
+that was not present during training.</li>
+<li>
+<strong>Covariate shift</strong>: The OOD sample comes from a domain
+where the input feature distribution is drastically different from the
+training data.</li>
+</ul>
 </div>
 <div class="section level2">
 <h2 id="why-does-ood-data-matter">Why does OOD data matter?<a class="anchor" aria-label="anchor" href="#why-does-ood-data-matter"></a>
