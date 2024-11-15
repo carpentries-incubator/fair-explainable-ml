@@ -351,7 +351,7 @@
 <div class="accordion accordion-flush" id="accordionFlush11">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading11">
-        <a href="6-confidence-intervals.html">10. Estimating model uncertainty</a>
+        <a href="6-confidence-intervals.html">10. Estimating model uncertainty: overview</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -782,7 +782,7 @@ Guiding Principles for Ethical Research</a>.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>A summary of the principles is listed below:</p>
 <ul>
@@ -2716,7 +2716,7 @@ justifies their use despite their lack of transparency?</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="section level4">
 <h4 id="compare-the-advantages-1">Compare the advantages<a class="anchor" aria-label="anchor" href="#compare-the-advantages-1"></a>
@@ -2850,7 +2850,7 @@ drawbacks?</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>
@@ -4353,7 +4353,7 @@ with other base images as well. Have fun! <!--
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  --></p>
-</div></section><section id="aio-6-confidence-intervals"><p>Content from <a href="6-confidence-intervals.html">Estimating model uncertainty</a></p>
+</div></section><section id="aio-6-confidence-intervals"><p>Content from <a href="6-confidence-intervals.html">Estimating model uncertainty: overview</a></p>
 <hr>
 <p>Last updated on 2024-11-15 |
 
@@ -4432,22 +4432,83 @@ knowledge about the data distribution, which can be reduced by using
 more data or improved models.</li>
 </ul>
 <div class="section level4">
-<h4 id="common-techniques-and-their-applications">Common techniques and their applications<a class="anchor" aria-label="anchor" href="#common-techniques-and-their-applications"></a>
+<h4 id="common-techniques-for-estimating-aleatoric-uncertainty">Common techniques for estimating aleatoric uncertainty<a class="anchor" aria-label="anchor" href="#common-techniques-for-estimating-aleatoric-uncertainty"></a>
 </h4>
-<table class="table">
+<p>Aleatoric uncertainty arises from the data itself. Methods to
+estimate it include: - <strong>Predictive variance in regression
+models</strong>: Outputs the variance of the predicted value, reflecting
+the noise in the data. For instance, in a regression task predicting
+house prices, predictive variance highlights how much randomness exists
+in the relationship between input features (like square footage) and
+price.<br>
+- <strong>Heteroscedastic models</strong>: Use specialized loss
+functions that allow the model to predict the noise level in the data
+directly. These models account for varying uncertainty levels across
+different inputs, such as distinguishing between noisier and cleaner
+data points in an image classification task.<br>
+- <strong>Data augmentation and perturbation analysis</strong>: Assess
+variability in predictions by adding noise to the input data and
+observing how much the model’s outputs change. A highly sensitive change
+in predictions may indicate underlying noise or instability in the
+data.</p>
+</div>
+<div class="section level4">
+<h4 id="common-techniques-for-estimating-epistemic-uncertainty">Common techniques for estimating epistemic uncertainty<a class="anchor" aria-label="anchor" href="#common-techniques-for-estimating-epistemic-uncertainty"></a>
+</h4>
+<p>Epistemic uncertainty arises from the model’s lack of knowledge about
+certain regions of the data space. Techniques to estimate it include: -
+<strong>Monte Carlo dropout</strong>: In this method, dropout (a
+regularization technique that randomly disables some neurons) is applied
+during inference, and multiple forward passes are performed for the same
+input. The variability in the outputs across these passes gives an
+estimate of uncertainty. Intuitively, each forward pass simulates a
+slightly different version of the model, akin to an ensemble. If the
+model consistently predicts similar outputs despite dropout, it is
+confident; if predictions vary widely, the model is uncertain about that
+input.</p>
+<ul>
+<li><p><strong>Bayesian neural networks</strong>: These networks
+incorporate probabilistic layers to model uncertainty directly in the
+weights of the network. Instead of having a single deterministic weight
+for each connection, the weights are distributions, reflecting the
+uncertainty about the model’s parameters. During inference, these
+distributions are sampled to generate predictions, which naturally
+include uncertainty estimates. While theoretically rigorous, Bayesian
+neural networks are computationally intensive and challenging to
+implement, making them less common in practice.</p></li>
+<li><p><strong>Ensemble models</strong>: These involve training multiple
+models on the same data, each starting with different initializations or
+random seeds. The ensemble’s predictions are aggregated, and the
+variance in their outputs reflects uncertainty. This approach works well
+because different models often capture different aspects of the data.
+For example, if all models agree, the prediction is confident; if they
+disagree, there is uncertainty. Ensembles are effective but
+computationally expensive, as they require training and evaluating
+multiple models.</p></li>
+<li><p><strong>Out-of-distribution detection</strong>: Identifies inputs
+that fall significantly outside the training distribution, flagging
+areas where the model’s predictions are unreliable. For instance, OOD
+methods may detect that a cat classifier is being applied to an image of
+a car, an input it has never seen before. Unlike other methods, OOD
+detection doesn’t provide fine-grained confidence scores but excels at
+rejecting anomalous inputs.</p></li>
+</ul>
+</div>
+<div class="section level4">
+<h4 id="summary-table">Summary table<a class="anchor" aria-label="anchor" href="#summary-table"></a>
+</h4>
+<table style="width:100%;" class="table">
 <colgroup>
-<col width="9%">
-<col width="8%">
-<col width="21%">
-<col width="20%">
-<col width="38%">
+<col width="15%">
+<col width="14%">
+<col width="35%">
+<col width="33%">
 </colgroup>
 <thead><tr class="header">
 <th><strong>Method</strong></th>
 <th><strong>Type of uncertainty</strong></th>
 <th><strong>Key strengths</strong></th>
 <th><strong>Key limitations</strong></th>
-<th><strong>Common use cases</strong></th>
 </tr></thead>
 <tbody>
 <tr class="odd">
@@ -4456,48 +4517,36 @@ more data or improved models.</li>
 <td>Simple, intuitive for regression tasks</td>
 <td>Limited to regression problems; doesn’t address epistemic
 uncertainty</td>
-<td>Predicting confidence intervals in regression (e.g., house price
-predictions).</td>
 </tr>
 <tr class="even">
 <td><strong>Heteroscedastic models</strong></td>
 <td>Aleatoric</td>
 <td>Models variable noise across inputs</td>
 <td>Requires specialized architectures or loss functions</td>
-<td>Tasks with varying noise levels across input types (e.g., object
-detection in noisy environments).</td>
 </tr>
 <tr class="odd">
 <td><strong>Monte Carlo dropout</strong></td>
 <td>Epistemic</td>
 <td>Easy to implement in existing neural networks</td>
 <td>Computationally expensive due to multiple forward passes</td>
-<td>Flagging low-confidence predictions for medical diagnosis
-models.</td>
 </tr>
 <tr class="even">
 <td><strong>Bayesian neural nets</strong></td>
 <td>Epistemic</td>
 <td>Rigorous probabilistic foundation</td>
 <td>Computationally prohibitive for large models/datasets</td>
-<td>Specialized research tasks requiring interpretable uncertainty
-measures.</td>
 </tr>
 <tr class="odd">
 <td><strong>Ensemble models</strong></td>
 <td>Epistemic</td>
 <td>Effective and robust; captures diverse uncertainties</td>
 <td>Resource-intensive; requires training multiple models</td>
-<td>Robust predictions in financial risk assessment or autonomous
-systems.</td>
 </tr>
 <tr class="even">
 <td><strong>OOD detection</strong></td>
 <td>Epistemic</td>
 <td>Efficient, scalable, excels at rejecting anomalous inputs</td>
 <td>Limited to identifying OOD inputs, not fine-grained uncertainty</td>
-<td>Flagging fraudulent transactions, detecting anomalies in vision or
-NLP pipelines.</td>
 </tr>
 </tbody>
 </table>
@@ -6939,7 +6988,7 @@ to your experiences or projects?</em></p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <ul>
 <li>
@@ -6995,7 +7044,7 @@ reproducing ML workflows?</em></p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <ul>
 <li>
@@ -7305,7 +7354,7 @@ needs to be included in the documentation when sharing a model?</em></p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <ul>
 <li>Environment setup</li>
@@ -7376,7 +7425,7 @@ models.</p></li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <p>Pair up with a classmate and discuss what you wrote/read. Do model
 cards seem like a useful tool for you moving forwards?</p>
