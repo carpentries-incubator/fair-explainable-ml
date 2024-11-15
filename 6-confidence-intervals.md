@@ -28,13 +28,15 @@ exercises: 0
 ### Estimating model uncertainty
 We currently provide a high-level overview of uncertainty estimation. Depending on demand, we may expand this section in the future to include specific techniques and their practical applications.
 
-Understanding **how confident a model is in its predictions** is a valuable tool for building **trustworthy AI systems**, especially in high-stakes settings like healthcare or autonomous vehicles. Model uncertainty estimation focuses on quantifying the model's confidence and is often used to identify predictions that require further review or caution.
+Understanding how confident a model is in its predictions is a valuable tool for building trustworthy AI systems, especially in high-stakes settings like healthcare or autonomous vehicles. Model uncertainty estimation focuses on quantifying the model's confidence and is often used to identify predictions that require further review or caution.
 
 Model uncertainty can be divided into two categories:
+
 - **Aleatoric uncertainty**: Inherent noise in the data (e.g., overlapping classes) that cannot be reduced, even with more data.
 - **Epistemic uncertainty**: Gaps in the model’s knowledge about the data distribution, which can be reduced by using more data or improved models.
 
-Common techniques for uncertainty estimation include **Monte Carlo dropout**, **Bayesian neural networks**, and **model ensembles**. While these methods provide valuable insights, they are often **computationally expensive**. For instance:
+Common techniques for uncertainty estimation include **Monte Carlo dropout**, **Bayesian neural networks**, and **model ensembles**. While these methods provide valuable insights, they are often computationally expensive. For instance:
+
 - Monte Carlo dropout requires performing multiple forward passes through the model for each prediction.
 - Ensembles require training and running multiple models, effectively multiplying the computational cost by the size of the ensemble.
 - Bayesian approaches, while theoretically sound, are computationally prohibitive for large datasets or complex models, making them challenging to scale.
@@ -48,17 +50,11 @@ As a result, OOD detection is becoming the preferred approach in many cases, par
 #### Weaknesses and use cases
 
 Uncertainty estimation methods have several limitations:
+
 - They require access to the model's internal structure (white-box methods), making them less applicable for black-box systems.
 - Their computational cost makes them impractical for applications requiring real-time predictions or working with large datasets.
 - They may struggle to distinguish between uncertainty due to **noisy data** and inputs that are truly **out of distribution**.
 - Despite their complexity, these methods often lack interpretability for stakeholders.
 
 Uncertainty estimation is still valuable in scenarios where detailed confidence levels are needed, such as calibrating predictions, improving model robustness, or combining it with OOD detection for better decision-making. However, for many modern use cases, OOD methods provide a more efficient and scalable alternative.
-
-
-::::::::::::::::::::::::::::::::::::: keypoints 
-
-- TODO
-
-::::::::::::::::::::::::::::::::::::::::::::::::
 
