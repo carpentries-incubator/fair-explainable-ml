@@ -59,6 +59,18 @@ Another critical OOD issue is the generation of fake or non-existent medical ref
 
 In [evaluations of GPT-3's ability to generate medical literature references](https://hai.stanford.edu/news/generating-medical-errors-genai-and-erroneous-medical-references) , it was found that a significant portion of the references were either entirely fabricated or did not support the claims being made. This was especially true for complex medical inquiries that the model had not seen in its training data.
 
+::::::::::::::::::::::::::::::: challenge
+
+### Recognizing OOD data in your work
+Think of a scenario from your field of work or study where encountering out-of-distribution (OOD) data would be problematic. Consider the following:
+
+- What would be the in-distribution (ID) data in that context?
+- What might constitute OOD data, and how could it impact the results or outputs of your system/model?
+
+Share your example with the group. Discuss any strategies currently used or that could be used to mitigate the challenges posed by OOD data in your example.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
 
 ## Detecting and handling OOD data
 Given the problems posed by OOD data, a reliable model should identify such instances, and then:
