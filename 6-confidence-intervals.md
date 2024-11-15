@@ -1,5 +1,5 @@
 ---
-title: "Estimating model uncertainty: overview"
+title: "Estimating model uncertainty"
 teaching: 15
 exercises: 0
 ---
