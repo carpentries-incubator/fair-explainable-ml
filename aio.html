@@ -363,7 +363,7 @@
 <div class="accordion accordion-flush" id="accordionFlush12">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading12">
-        <a href="7a-OOD-detection-output-based.html">11. OOD detection: overview, output-based methods</a>
+        <a href="7a-OOD-detection-overview.html">11. OOD detection: overview</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -375,7 +375,7 @@
 <div class="accordion accordion-flush" id="accordionFlush13">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading13">
-        <a href="7b-OOD-detection-distance-based.html">12. OOD detection: distance-based and contrastive learning</a>
+        <a href="7b-OOD-detection-output-based.html">12. OOD detection: output-based methods</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -387,7 +387,7 @@
 <div class="accordion accordion-flush" id="accordionFlush14">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading14">
-        <a href="7c-OOD-detection-algo-design.html">13. OOD detection: training-time regularization</a>
+        <a href="7c-OOD-detection-distance-based.html">13. OOD detection: distance-based and contrastive learning</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -399,7 +399,19 @@
 <div class="accordion accordion-flush" id="accordionFlush15">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading15">
-        <a href="8-releasing-a-model.html">14. Documenting and releasing a model</a>
+        <a href="7d-OOD-detection-algo-design.html">14. OOD detection: training-time regularization</a>
+    </div>
+<!--/div.accordion-header-->
+
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush16">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading16">
+        <a href="8-releasing-a-model.html">15. Documenting and releasing a model</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -2716,7 +2728,7 @@ justifies their use despite their lack of transparency?</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="section level4">
 <h4 id="compare-the-advantages-1">Compare the advantages<a class="anchor" aria-label="anchor" href="#compare-the-advantages-1"></a>
@@ -2850,7 +2862,7 @@ drawbacks?</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>
@@ -4695,11 +4707,11 @@ Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
 </div>
-</div></section><section id="aio-7a-OOD-detection-output-based"><p>Content from <a href="7a-OOD-detection-output-based.html">OOD detection: overview, output-based methods</a></p>
+</div></section><section id="aio-7a-OOD-detection-overview"><p>Content from <a href="7a-OOD-detection-overview.html">OOD detection: overview</a></p>
 <hr>
 <p>Last updated on 2024-11-15 |
 
-        <a href="https://github.com/carpentries-incubator/fair-explainable-ml/edit/main/episodes/7a-OOD-detection-output-based.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+        <a href="https://github.com/carpentries-incubator/fair-explainable-ml/edit/main/episodes/7a-OOD-detection-overview.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
           <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
         </div>
@@ -4943,6 +4955,182 @@ considered OOD.</li>
 <p>We will focus on output-based methods (softmax and energy) in the
 next episode and then do a deep dive into distance-based methods in a
 later next episode.</p>
+</div>
+</div>
+<div class="section level3">
+<h3 id="training-time-regularization-methods">Training-time regularization methods<a class="anchor" aria-label="anchor" href="#training-time-regularization-methods"></a>
+</h3>
+<p>Training-time regularization methods modify the training process to
+explicitly improve the model’s ability to detect out-of-distribution
+(OOD) data. These methods often involve enhancing the model’s
+generalization or robustness by incorporating OOD scenarios during
+training or optimizing the model’s feature representations.</p>
+<div class="section level4">
+<h4 id="outlier-exposure">Outlier exposure<a class="anchor" aria-label="anchor" href="#outlier-exposure"></a>
+</h4>
+<p>Outlier Exposure (OE) is a common technique where the model is
+trained with additional auxiliary datasets containing OOD samples. The
+goal is to teach the model to assign low confidence to OOD data while
+maintaining high confidence for in-distribution (ID) data.</p>
+<p><strong>How it works</strong>:</p>
+<ul>
+<li>Use a curated auxiliary dataset of OOD samples that differ from the
+training distribution.</li>
+<li>Augment the training loss function to penalize high confidence on
+these auxiliary samples.</li>
+<li>Resulting models are less likely to misclassify OOD inputs as
+ID.</li>
+</ul>
+<p><strong>Advantages</strong>:</p>
+<ul>
+<li>Simple to implement when auxiliary datasets are available.</li>
+<li>Significantly improves OOD detection performance without adding much
+computational overhead.</li>
+</ul>
+<p><strong>Limitations</strong>:</p>
+<ul>
+<li>Requires access to high-quality, diverse OOD datasets during
+training.</li>
+<li>Performance may degrade for OOD samples dissimilar to the auxiliary
+dataset.</li>
+</ul>
+</div>
+<div class="section level4">
+<h4 id="contrastive-learning">Contrastive learning<a class="anchor" aria-label="anchor" href="#contrastive-learning"></a>
+</h4>
+<p>Contrastive learning encourages the model to learn more
+discriminative feature representations, improving its ability to
+distinguish between ID and OOD data. By pushing apart embeddings of
+dissimilar samples and pulling together embeddings of similar ones,
+contrastive learning creates a representation space where OOD samples
+are less likely to overlap with ID data.</p>
+<p><strong>How it works</strong>:</p>
+<ul>
+<li>Define a contrastive loss that minimizes the distance between
+embeddings of similar samples (e.g., belonging to the same class).</li>
+<li>Simultaneously maximize the distance between embeddings of
+dissimilar samples (e.g., ID vs. synthetic or auxiliary OOD
+samples).</li>
+<li>Often uses data augmentation or self-supervised techniques to
+generate “positive” and “negative” pairs.</li>
+</ul>
+<p><strong>Advantages</strong>:</p>
+<ul>
+<li>Does not require labeled auxiliary OOD data, as augmentations or
+unsupervised data can be used.</li>
+<li>Improves the quality of learned representations, benefiting other
+downstream tasks.</li>
+</ul>
+<p><strong>Limitations</strong>:</p>
+<ul>
+<li>Computationally expensive, especially with large datasets.</li>
+<li>Requires careful tuning of the contrastive loss and data
+augmentation strategy.</li>
+</ul>
+</div>
+<div class="section level4">
+<h4 id="regularization-based-methods">Regularization-based methods<a class="anchor" aria-label="anchor" href="#regularization-based-methods"></a>
+</h4>
+<p>Some training-time regularization methods directly modify the loss
+function to penalize overconfidence or encourage robustness to data
+variations:</p>
+<ul>
+<li>
+<strong>Confidence penalties</strong>: Add regularization terms that
+penalize overconfidence in predictions, especially on ambiguous
+samples.</li>
+<li>
+<strong>Adversarial training</strong>: Generate adversarial examples
+(slightly perturbed ID samples) to improve robustness against small
+variations that could make ID samples appear OOD.</li>
+</ul>
+</div>
+<div class="section level4">
+<h4 id="summary-of-strengths-and-weaknesses">Summary of strengths and weaknesses<a class="anchor" aria-label="anchor" href="#summary-of-strengths-and-weaknesses"></a>
+</h4>
+<p><strong>Strengths</strong>:</p>
+<ul>
+<li>Incorporating OOD detection into training enhances performance
+without relying solely on post-hoc thresholds.</li>
+<li>Often leads to better generalization for both ID and OOD
+scenarios.</li>
+<li>
+<strong>Weaknesses</strong>:
+<ul>
+<li>Requires careful design of the training procedure.</li>
+<li>Computationally intensive and may require access to additional
+datasets or resources.</li>
+</ul>
+</li>
+</ul>
+<p>We will explore these techniques in detail in later episodes,
+focusing on implementation strategies and trade-offs.</p>
+<div id="keypoints1" class="callout keypoints">
+<div class="callout-square">
+<i class="callout-icon" data-feather="key"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Key Points</h3>
+<div class="callout-content">
+<ul>
+<li>Out-of-distribution (OOD) data significantly differs from training
+data and can lead to unreliable model predictions.</li>
+<li>Threshold-based methods use model outputs or distances in feature
+space to detect OOD instances by defining a score threshold.</li>
+<li>Training-time regularization enhances OOD detection by incorporating
+techniques like Outlier Exposure and Contrastive Learning during model
+training.</li>
+<li>Each method has trade-offs: threshold-based methods are simpler,
+while training-time regularization often improves robustness at higher
+computational cost.</li>
+</ul>
+</div>
+</div>
+</div>
+<!--
+Place links that you need to refer to multiple times across pages here. Delete
+any links that you are not going to use.
+ -->
+</div>
+</div>
+</div>
+</div></section><section id="aio-7b-OOD-detection-output-based"><p>Content from <a href="7b-OOD-detection-output-based.html">OOD detection: output-based methods</a></p>
+<hr>
+<p>Last updated on 2024-11-15 |
+
+        <a href="https://github.com/carpentries-incubator/fair-explainable-ml/edit/main/episodes/7b-OOD-detection-output-based.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+<div class="text-end">
+          <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
+        </div>
+<div class="overview card">
+<h2 class="card-header">Overview</h2>
+<div class="row g-0">
+<div class="col-md-4">
+<div class="card-body">
+<div class="inner">
+<h3 class="card-title">Questions</h3>
+<ul>
+<li>What are out-of-distribution (OOD) data and why is detecting them
+important in machine learning models?</li>
+<li>What are the two broad classes of OOD detection methods:
+threshold-based and training-time regularization?</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="col-md-8">
+<div class="card-body">
+<div class="inner bordered">
+<h3 class="card-title">Objectives</h3>
+<ul>
+<li>Understand the concept of out-of-distribution data and its
+significance in building trustworthy machine learning models.</li>
+<li>Learn the two main approaches to OOD detection: threshold-based
+methods and training-time regularization.</li>
+<li>Identify the strengths and limitations of these approaches at a high
+level.</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
@@ -6048,11 +6236,11 @@ Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
 </div>
-</div></section><section id="aio-7b-OOD-detection-distance-based"><p>Content from <a href="7b-OOD-detection-distance-based.html">OOD detection: distance-based and contrastive learning</a></p>
+</div></section><section id="aio-7c-OOD-detection-distance-based"><p>Content from <a href="7c-OOD-detection-distance-based.html">OOD detection: distance-based and contrastive learning</a></p>
 <hr>
-<p>Last updated on 2024-08-14 |
+<p>Last updated on 2024-11-15 |
 
-        <a href="https://github.com/carpentries-incubator/fair-explainable-ml/edit/main/episodes/7b-OOD-detection-distance-based.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+        <a href="https://github.com/carpentries-incubator/fair-explainable-ml/edit/main/episodes/7c-OOD-detection-distance-based.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
           <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
         </div>
@@ -6996,11 +7184,11 @@ Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
 </div>
-</div></section><section id="aio-7c-OOD-detection-algo-design"><p>Content from <a href="7c-OOD-detection-algo-design.html">OOD detection: training-time regularization</a></p>
+</div></section><section id="aio-7d-OOD-detection-algo-design"><p>Content from <a href="7d-OOD-detection-algo-design.html">OOD detection: training-time regularization</a></p>
 <hr>
-<p>Last updated on 2024-08-14 |
+<p>Last updated on 2024-11-15 |
 
-        <a href="https://github.com/carpentries-incubator/fair-explainable-ml/edit/main/episodes/7c-OOD-detection-algo-design.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+        <a href="https://github.com/carpentries-incubator/fair-explainable-ml/edit/main/episodes/7d-OOD-detection-algo-design.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
           <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
         </div>

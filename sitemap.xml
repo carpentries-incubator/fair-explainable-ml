@@ -67,10 +67,22 @@
     <loc>https://carpentries-incubator.github.io/fair-explainable-ml/7a-OOD-detection-output-based.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/fair-explainable-ml/7a-OOD-detection-overview.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/fair-explainable-ml/7b-OOD-detection-distance-based.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/fair-explainable-ml/7b-OOD-detection-output-based.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/fair-explainable-ml/7c-OOD-detection-algo-design.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/fair-explainable-ml/7c-OOD-detection-distance-based.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/fair-explainable-ml/7d-OOD-detection-algo-design.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/fair-explainable-ml/8-releasing-a-model.html</loc>
@@ -163,10 +175,22 @@
     <loc>https://carpentries-incubator.github.io/fair-explainable-ml/instructor/7a-OOD-detection-output-based.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/fair-explainable-ml/instructor/7a-OOD-detection-overview.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/fair-explainable-ml/instructor/7b-OOD-detection-distance-based.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/fair-explainable-ml/instructor/7b-OOD-detection-output-based.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/fair-explainable-ml/instructor/7c-OOD-detection-algo-design.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/fair-explainable-ml/instructor/7c-OOD-detection-distance-based.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/fair-explainable-ml/instructor/7d-OOD-detection-algo-design.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/fair-explainable-ml/instructor/8-releasing-a-model.html</loc>
