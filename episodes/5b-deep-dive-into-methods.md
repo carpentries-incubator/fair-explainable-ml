@@ -6,13 +6,20 @@ exercises: 0
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- TODO
+
+- How can we identify which parts of an input contribute most to a model’s prediction?  
+- What insights can saliency maps, GradCAM, and similar techniques provide about model behavior?  
+- What are the strengths and limitations of gradient-based explainability methods?  
+- How can probing classifiers help us understand what a model has learned?  
+- What are the limitations of probing classifiers, and how can they be addressed?  
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- TODO
+- Explain how saliency maps and GradCAM work and their applications in understanding model predictions.  
+- Introduce GradCAM as a method to visualize the important features used by a model.  
+- Understand the concept of probing classifiers and how they assess the representations learned by models.  
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
