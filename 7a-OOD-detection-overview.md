@@ -6,16 +6,15 @@ exercises: 0
 
 :::::::::::::::::::::::::::::::::::::::: questions
 
-- What are out-of-distribution (OOD) data and why is detecting them important in machine learning models?
-- What are the two broad classes of OOD detection methods: threshold-based and training-time regularization?
+- What are out-of-distribution (OOD) data, and why is detecting them important in machine learning models?
+- What are threshold-based methods, and how do they help detect OOD data?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::::: objectives
 
-- Understand the concept of out-of-distribution data and its significance in building trustworthy machine learning models.
-- Learn the two main approaches to OOD detection: threshold-based methods and training-time regularization.
-- Identify the strengths and limitations of these approaches at a high level.
+- Understand the concept of out-of-distribution data and its implications for machine learning models.
+- Learn the principles behind threshold-based OOD detection methods.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
