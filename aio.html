@@ -1283,7 +1283,7 @@ and can have unpleasant side effects.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li><p>It is best if all patients who need the screening get it, and
@@ -1426,7 +1426,7 @@ same rate.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>A - 3, B - 2, C - 4, D - 1</p>
 </div>
@@ -1512,7 +1512,7 @@ uses of the LLM’s output.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <p>Most publicly-available LLM providers set up guardrails to avoid
 propagating biases present in their training data. For instance, as of
@@ -1564,7 +1564,7 @@ via social media</a>.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <p>While the picture is of Barack Obama, the upsampled image shows a
 white face. <img src="https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/e4-obama-upsampled.png" alt="Unblurred version of the pixelated picture of Obama. Instead of showing Obama, it shows a white man." class="figure"></p>
@@ -1669,7 +1669,7 @@ different settings?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution5" aria-expanded="false" aria-controls="collapseSolution5">
   <h4 class="accordion-header" id="headingSolution5"> Show me the solution </h4>
 </button>
-<div id="collapseSolution5" class="accordion-collapse collapse" data-bs-parent="#accordionSolution5" aria-labelledby="headingSolution5">
+<div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
 <div class="accordion-body">
 <p>A downside of oversampling is that it may violate statistical
 assumptions about independence of samples. A downside of undersampling
@@ -2716,7 +2716,7 @@ justifies their use despite their lack of transparency?</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="section level4">
 <h4 id="compare-the-advantages-1">Compare the advantages<a class="anchor" aria-label="anchor" href="#compare-the-advantages-1"></a>
@@ -2850,7 +2850,7 @@ drawbacks?</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>
@@ -4361,6 +4361,9 @@ any links that you are not going to use.
 <div class="text-end">
           <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
         </div>
+<hr>
+<p>title: “Estimating model uncertainty” teaching: 15 exercises: 0</p>
+<hr>
 <div class="overview card">
 <h2 class="card-header">Overview</h2>
 <div class="row g-0">
@@ -4371,7 +4374,7 @@ any links that you are not going to use.
 <ul>
 <li>What is model uncertainty, and how can it be categorized?<br>
 </li>
-<li>How do uncertainty estimation methods differ from OOD detection
+<li>How do uncertainty estimation methods intersect with OOD detection
 methods?<br>
 </li>
 <li>What are the computational challenges of estimating model
@@ -4380,8 +4383,8 @@ uncertainty?<br>
 <li>When is uncertainty estimation useful, and what are its
 limitations?<br>
 </li>
-<li>Why is OOD detection often preferred over uncertainty estimation in
-modern applications?</li>
+<li>Why is OOD detection often preferred over traditional uncertainty
+estimation techniques in modern applications?</li>
 </ul>
 </div>
 </div>
@@ -4394,18 +4397,17 @@ modern applications?</li>
 <li>Define and distinguish between aleatoric and epistemic uncertainty
 in machine learning models.<br>
 </li>
-<li>Understand the methods used to estimate model uncertainty, including
-Monte Carlo dropout, Bayesian neural networks, and model
-ensembles.<br>
+<li>Explore common techniques for estimating aleatoric and epistemic
+uncertainty.<br>
+</li>
+<li>Understand why OOD detection has become a widely adopted approach in
+many real-world applications.<br>
 </li>
 <li>Compare and contrast the goals and computational costs of
 uncertainty estimation and OOD detection.<br>
 </li>
-<li>Explore the strengths and limitations of uncertainty estimation
-methods in real-world applications.<br>
-</li>
-<li>Recognize scenarios where uncertainty estimation may still be
-valuable despite its computational cost.</li>
+<li>Summarize when and where different uncertainty estimation methods
+are most useful.</li>
 </ul>
 </div>
 </div>
@@ -4415,9 +4417,6 @@ valuable despite its computational cost.</li>
 <div class="section level3">
 <h3 id="estimating-model-uncertainty">Estimating model uncertainty<a class="anchor" aria-label="anchor" href="#estimating-model-uncertainty"></a>
 </h3>
-<p>We currently provide a high-level overview of uncertainty estimation.
-Depending on demand, we may expand this section in the future to include
-specific techniques and their practical applications.</p>
 <p>Understanding how confident a model is in its predictions is a
 valuable tool for building trustworthy AI systems, especially in
 high-stakes settings like healthcare or autonomous vehicles. Model
@@ -4435,55 +4434,109 @@ data.</li>
 knowledge about the data distribution, which can be reduced by using
 more data or improved models.</li>
 </ul>
-<p>Common techniques for uncertainty estimation include <strong>Monte
-Carlo dropout</strong>, <strong>Bayesian neural networks</strong>, and
-<strong>model ensembles</strong>. While these methods provide valuable
-insights, they are often computationally expensive. For instance:</p>
-<ul>
-<li>Monte Carlo dropout requires performing multiple forward passes
-through the model for each prediction.</li>
-<li>Ensembles require training and running multiple models, effectively
-multiplying the computational cost by the size of the ensemble.</li>
-<li>Bayesian approaches, while theoretically sound, are computationally
-prohibitive for large datasets or complex models, making them
-challenging to scale.</li>
-</ul>
 <div class="section level4">
-<h4 id="how-does-this-compare-to-ood-detection">How does this compare to OOD detection?<a class="anchor" aria-label="anchor" href="#how-does-this-compare-to-ood-detection"></a>
+<h4 id="common-techniques-and-their-applications">Common techniques and their applications<a class="anchor" aria-label="anchor" href="#common-techniques-and-their-applications"></a>
 </h4>
-<p>While uncertainty estimation highlights <strong>low-confidence
-predictions</strong>, <strong>out-of-distribution (OOD)
-detection</strong> focuses on identifying inputs that differ
-significantly from the training data. These inputs are more likely to
-produce unreliable predictions because the model has never encountered
-similar data. In practice, OOD methods are often more computationally
-efficient and scalable compared to uncertainty estimation, as they
-typically involve a single evaluation pass rather than multiple
-computations.</p>
-<p>As a result, OOD detection is becoming the preferred approach in many
-cases, particularly for tasks requiring robust detection of anomalous
-inputs.</p>
+<table class="table">
+<colgroup>
+<col width="9%">
+<col width="8%">
+<col width="21%">
+<col width="20%">
+<col width="38%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>Method</strong></th>
+<th><strong>Type of uncertainty</strong></th>
+<th><strong>Key strengths</strong></th>
+<th><strong>Key limitations</strong></th>
+<th><strong>Common use cases</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><strong>Predictive variance</strong></td>
+<td>Aleatoric</td>
+<td>Simple, intuitive for regression tasks</td>
+<td>Limited to regression problems; doesn’t address epistemic
+uncertainty</td>
+<td>Predicting confidence intervals in regression (e.g., house price
+predictions).</td>
+</tr>
+<tr class="even">
+<td><strong>Heteroscedastic models</strong></td>
+<td>Aleatoric</td>
+<td>Models variable noise across inputs</td>
+<td>Requires specialized architectures or loss functions</td>
+<td>Tasks with varying noise levels across input types (e.g., object
+detection in noisy environments).</td>
+</tr>
+<tr class="odd">
+<td><strong>Monte Carlo dropout</strong></td>
+<td>Epistemic</td>
+<td>Easy to implement in existing neural networks</td>
+<td>Computationally expensive due to multiple forward passes</td>
+<td>Flagging low-confidence predictions for medical diagnosis
+models.</td>
+</tr>
+<tr class="even">
+<td><strong>Bayesian neural nets</strong></td>
+<td>Epistemic</td>
+<td>Rigorous probabilistic foundation</td>
+<td>Computationally prohibitive for large models/datasets</td>
+<td>Specialized research tasks requiring interpretable uncertainty
+measures.</td>
+</tr>
+<tr class="odd">
+<td><strong>Ensemble models</strong></td>
+<td>Epistemic</td>
+<td>Effective and robust; captures diverse uncertainties</td>
+<td>Resource-intensive; requires training multiple models</td>
+<td>Robust predictions in financial risk assessment or autonomous
+systems.</td>
+</tr>
+<tr class="even">
+<td><strong>OOD detection</strong></td>
+<td>Epistemic</td>
+<td>Efficient, scalable, excels at rejecting anomalous inputs</td>
+<td>Limited to identifying OOD inputs, not fine-grained uncertainty</td>
+<td>Flagging fraudulent transactions, detecting anomalies in vision or
+NLP pipelines.</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section level4">
-<h4 id="weaknesses-and-use-cases">Weaknesses and use cases<a class="anchor" aria-label="anchor" href="#weaknesses-and-use-cases"></a>
+<h4 id="why-is-ood-detection-widely-adopted">Why is OOD detection widely adopted?<a class="anchor" aria-label="anchor" href="#why-is-ood-detection-widely-adopted"></a>
 </h4>
-<p>Uncertainty estimation methods have several limitations:</p>
-<ul>
-<li>They require access to the model’s internal structure (white-box
-methods), making them less applicable for black-box systems.</li>
-<li>Their computational cost makes them impractical for applications
-requiring real-time predictions or working with large datasets.</li>
-<li>They may struggle to distinguish between uncertainty due to
-<strong>noisy data</strong> and inputs that are truly <strong>out of
-distribution</strong>.</li>
-<li>Despite their complexity, these methods often lack interpretability
-for stakeholders.</li>
-</ul>
-<p>Uncertainty estimation is still valuable in scenarios where detailed
-confidence levels are needed, such as calibrating predictions, improving
-model robustness, or combining it with OOD detection for better
-decision-making. However, for many modern use cases, OOD methods provide
-a more efficient and scalable alternative.</p>
+<p>Among epistemic uncertainty methods, <strong>OOD detection</strong>
+has become a widely adopted approach in real-world applications due to
+its ability to efficiently identify inputs that fall outside the
+training data distribution, where predictions are inherently unreliable.
+Compared to methods like Monte Carlo dropout or Bayesian neural
+networks, which require multiple forward passes or computationally
+expensive probabilistic frameworks, many OOD detection techniques are
+lightweight and scalable.</p>
+<p>For example, in autonomous vehicles, OOD detection can help flag
+unexpected scenarios (e.g., unusual objects on the road) in near
+real-time, enabling safer decision-making. Similarly, in NLP, OOD
+methods are used to identify queries or statements that deviate from a
+model’s training corpus, such as out-of-context questions in a chatbot
+system.</p>
+<p>While OOD detection excels at flagging anomalous inputs, it does not
+provide fine-grained uncertainty estimates for in-distribution data,
+making it best suited for tasks where the primary concern is identifying
+outliers or novel inputs.</p>
+</div>
+<div class="section level4">
+<h4 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
+</h4>
+<p>While uncertainty estimation provides a broad framework for
+understanding model confidence, different methods are suited for
+specific types of uncertainty and use cases. OOD detection stands out as
+the most practical approach for handling epistemic uncertainty in modern
+applications, thanks to its efficiency and ability to reject anomalous
+inputs. Together, these methods form a complementary toolkit for
+building trustworthy AI systems.</p>
 <!--
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
@@ -6889,7 +6942,7 @@ to your experiences or projects?</em></p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <ul>
 <li>
@@ -6945,7 +6998,7 @@ reproducing ML workflows?</em></p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <ul>
 <li>
@@ -7255,7 +7308,7 @@ needs to be included in the documentation when sharing a model?</em></p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <ul>
 <li>Environment setup</li>
@@ -7326,7 +7379,7 @@ models.</p></li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
 <p>Pair up with a classmate and discuss what you wrote/read. Do model
 cards seem like a useful tool for you moving forwards?</p>
