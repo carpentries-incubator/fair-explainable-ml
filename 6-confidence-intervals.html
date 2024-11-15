@@ -550,23 +550,36 @@ offering confidence estimates for predictions on ID inputs.</li>
 <p>To help guide method selection, here are rough definitions for
 <strong>model size</strong>, <strong>data size</strong>, and
 <strong>compute requirements</strong> used in the table:</p>
-<p><strong>Model size</strong> - <strong>Small</strong>: Fewer than 10M
-parameters (e.g., logistic regression, LeNet). -
+<p><strong>Model size</strong></p>
+<ul><li>
+<strong>Small</strong>: Fewer than 10M parameters (e.g., logistic
+regression, LeNet).</li>
+<li>
 <strong>Medium</strong>: 10M–100M parameters (e.g., ResNet-50,
-BERT-base). - <strong>Large</strong>: More than 100M parameters (e.g.,
-GPT-3, Vision Transformers).</p>
-<p><strong>Data size</strong> - <strong>Small</strong>: Fewer than
-10,000 samples (e.g., materials science datasets). -
-<strong>Medium</strong>: 10,000–1M samples (e.g., ImageNet). -
+BERT-base).</li>
+<li>
+<strong>Large</strong>: More than 100M parameters (e.g., GPT-3,
+Vision Transformers).</li>
+</ul><p><strong>Data size</strong></p>
+<ul><li>
+<strong>Small</strong>: Fewer than 10,000 samples (e.g., materials
+science datasets).</li>
+<li>
+<strong>Medium</strong>: 10,000–1M samples (e.g., ImageNet).</li>
+<li>
 <strong>Large</strong>: More than 1M samples (e.g., Common Crawl,
-LAION-5B).</p>
-<p><strong>Compute time</strong> (approximate) - <strong>Low</strong>:
-Suitable for standard CPU or single GPU, training/inference in minutes
-to an hour. - <strong>Medium</strong>: Requires a modern GPU,
-training/inference in hours to a day. - <strong>High</strong>: Requires
-multiple GPUs/TPUs or distributed setups, training/inference in days to
-weeks.</p>
-<table class="table"><colgroup><col width="6%"><col width="6%"><col width="15%"><col width="14%"><col width="27%"><col width="10%"><col width="10%"><col width="9%"></colgroup><thead><tr class="header"><th><strong>Method</strong></th>
+LAION-5B).</li>
+</ul><p><strong>Compute time</strong> (approximate)</p>
+<ul><li>
+<strong>Low</strong>: Suitable for standard CPU or single GPU,
+training/inference in minutes to an hour.</li>
+<li>
+<strong>Medium</strong>: Requires a modern GPU, training/inference
+in hours to a day.</li>
+<li>
+<strong>High</strong>: Requires multiple GPUs/TPUs or distributed
+setups, training/inference in days to weeks.</li>
+</ul><table class="table"><colgroup><col width="6%"><col width="6%"><col width="15%"><col width="14%"><col width="27%"><col width="10%"><col width="10%"><col width="9%"></colgroup><thead><tr class="header"><th><strong>Method</strong></th>
 <th><strong>Type of uncertainty</strong></th>
 <th><strong>Key strengths</strong></th>
 <th><strong>Key limitations</strong></th>
