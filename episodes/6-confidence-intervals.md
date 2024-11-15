@@ -37,6 +37,7 @@ Model uncertainty can be divided into two categories:
 #### Common techniques for estimating aleatoric uncertainty
 
 Aleatoric uncertainty arises from the data itself. Methods to estimate it include:
+
 - **Predictive variance in regression models**: Outputs the variance of the predicted value, reflecting the noise in the data. For instance, in a regression task predicting house prices, predictive variance highlights how much randomness exists in the relationship between input features (like square footage) and price.  
 - **Heteroscedastic models**: Use specialized loss functions that allow the model to predict the noise level in the data directly. These models account for varying uncertainty levels across different inputs, such as distinguishing between noisier and cleaner data points in an image classification task.  
 - **Data augmentation and perturbation analysis**: Assess variability in predictions by adding noise to the input data and observing how much the model’s outputs change. A highly sensitive change in predictions may indicate underlying noise or instability in the data.  
@@ -44,12 +45,10 @@ Aleatoric uncertainty arises from the data itself. Methods to estimate it includ
 #### Common techniques for estimating epistemic uncertainty
 
 Epistemic uncertainty arises from the model's lack of knowledge about certain regions of the data space. Techniques to estimate it include:
+
 - **Monte Carlo dropout**: In this method, dropout (a regularization technique that randomly disables some neurons) is applied during inference, and multiple forward passes are performed for the same input. The variability in the outputs across these passes gives an estimate of uncertainty. Intuitively, each forward pass simulates a slightly different version of the model, akin to an ensemble. If the model consistently predicts similar outputs despite dropout, it is confident; if predictions vary widely, the model is uncertain about that input.
-
 - **Bayesian neural networks**: These networks incorporate probabilistic layers to model uncertainty directly in the weights of the network. Instead of having a single deterministic weight for each connection, the weights are distributions, reflecting the uncertainty about the model's parameters. During inference, these distributions are sampled to generate predictions, which naturally include uncertainty estimates. While theoretically rigorous, Bayesian neural networks are computationally intensive and challenging to implement, making them less common in practice.
-
 - **Ensemble models**: These involve training multiple models on the same data, each starting with different initializations or random seeds. The ensemble’s predictions are aggregated, and the variance in their outputs reflects uncertainty. This approach works well because different models often capture different aspects of the data. For example, if all models agree, the prediction is confident; if they disagree, there is uncertainty. Ensembles are effective but computationally expensive, as they require training and evaluating multiple models.
-
 - **Out-of-distribution detection**: Identifies inputs that fall significantly outside the training distribution, flagging areas where the model’s predictions are unreliable. For instance, OOD methods may detect that a cat classifier is being applied to an image of a car, an input it has never seen before. Unlike other methods, OOD detection doesn’t provide fine-grained confidence scores but excels at rejecting anomalous inputs.
 
 #### Summary table
