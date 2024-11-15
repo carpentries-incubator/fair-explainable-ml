@@ -21,7 +21,7 @@ exercises: 0
 - Compare and contrast the goals and computational costs of uncertainty estimation and OOD detection.  
 - Explore the strengths and limitations of uncertainty estimation methods in real-world applications.  
 - Recognize scenarios where uncertainty estimation may still be valuable despite its computational cost.
-- 
+  
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 
