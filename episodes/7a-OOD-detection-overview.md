@@ -145,7 +145,6 @@ Other methods incorporate penalties directly into the training process to improv
 | Confidence Penalties              |  Overconfidence on ambiguous inputs.                                 | Improves robustness, generalizes well.          | Requires careful design, computationally intensive.                             |
 | Adversarial Training              |  High confidence on adversarial examples.                            | Enhances robustness to perturbed inputs.        | Computationally intensive, challenging to implement.                            |
 
-
 :::::::::::::::::::::::::::::::::::::::: keypoints
 
 - Out-of-distribution (OOD) data significantly differs from training data and can lead to unreliable model predictions.
