@@ -3,18 +3,23 @@ title: "OOD detection: overview, output-based methods"
 teaching: 0
 exercises: 0
 ---
+
 :::::::::::::::::::::::::::::::::::::::: questions
 
 - What are out-of-distribution (OOD) data and why is detecting them important in machine learning models?
 - How do output-based methods like softmax and energy-based methods work for OOD detection?
 - What are the limitations of output-based OOD detection methods?
+- 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
+
 ::::::::::::::::::::::::::::::::::::::: objectives
 
 - Understand the concept of out-of-distribution data and its significance in building trustworthy machine learning models.
 - Learn about different output-based methods for OOD detection, including softmax and energy-based methods
 - Identify the strengths and limitations of output-based OOD detection techniques.
+- 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
+
 # Introduction to Out-of-Distribution (OOD) Data
 ## What is OOD data?
 Out-of-distribution (OOD) data refers to data that significantly differs from the training data on which a machine learning model was built. For example, the image below compares the training data distribution of CIFAR-10, a popular dataset used for image classification, with the vastly broader and more diverse distribution of images found on the internet:
@@ -23,11 +28,11 @@ Out-of-distribution (OOD) data refers to data that significantly differs from th
 
 CIFAR-10 contains 60,000 images across 10 distinct classes (e.g., airplanes, dogs, trucks), with carefully curated examples for each class. However, the internet features an essentially infinite variety of images, many of which fall outside these predefined classes or include unseen variations (e.g., new breeds of dogs or novel vehicle designs). This contrast highlights the challenges models face when they encounter data that significantly differs from their training distribution.
 
-## When does OOD arise?
+## How OOD data manifests in ML pipelines
 The difference between in-distribution (ID) and OOD data can arise from:
+
 - **Semantic shift**: The OOD sample belongs to a class that was not present during training.
 - **Covariate shift**: The OOD sample comes from a domain where the input feature distribution is drastically different from the training data.
-
 
 ## Why does OOD data matter?
 Models trained on a specific distribution might make incorrect predictions on OOD data, leading to unreliable outputs. In critical applications (e.g., healthcare, autonomous driving), encountering OOD data without proper handling can have severe consequences.
@@ -36,7 +41,6 @@ Models trained on a specific distribution might make incorrect predictions on OO
 In April 2022, a [Tesla Model Y crashed into a $3.5 million private jet](https://www.newsweek.com/video-tesla-smart-summon-mode-ramming-3m-jet-viewed-34m-times-1700310 ) at an aviation trade show in Spokane, Washington, while operating on the "Smart Summon" feature. The feature allows Tesla vehicles to autonomously navigate parking lots to their owners, but in this case, it resulted in a significant mishap.
 - The Tesla was summoned by its owner using the Tesla app, which requires holding down a button to keep the car moving. The car continued to move forward even after making contact with the jet, pushing the expensive aircraft and causing notable damage.
 - The crash highlighted several issues with Tesla's Smart Summon feature, particularly its object detection capabilities. The system failed to recognize and appropriately react to the presence of the jet, a problem that has been observed in other scenarios where the car's sensors struggle with objects that are lifted off the ground or have unusual shapes.
-
 
 ### Ex2: IBM Watson for Oncology
 IBM Watson for Oncology faced several issues due to OOD data. The system was primarily trained on data from Memorial Sloan Kettering Cancer Center (MSK), which did not generalize well to other healthcare settings. This led to the following problems:
