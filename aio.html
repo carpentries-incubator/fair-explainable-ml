@@ -782,7 +782,7 @@ Guiding Principles for Ethical Research</a>.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>A summary of the principles is listed below:</p>
 <ul>
@@ -2716,7 +2716,7 @@ justifies their use despite their lack of transparency?</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="section level4">
 <h4 id="compare-the-advantages-1">Compare the advantages<a class="anchor" aria-label="anchor" href="#compare-the-advantages-1"></a>
@@ -2850,7 +2850,7 @@ drawbacks?</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>
@@ -4697,7 +4697,7 @@ any links that you are not going to use.
 </div>
 </div></section><section id="aio-7a-OOD-detection-output-based"><p>Content from <a href="7a-OOD-detection-output-based.html">OOD detection: overview, output-based methods</a></p>
 <hr>
-<p>Last updated on 2024-11-13 |
+<p>Last updated on 2024-11-15 |
 
         <a href="https://github.com/carpentries-incubator/fair-explainable-ml/edit/main/episodes/7a-OOD-detection-output-based.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -4745,15 +4745,29 @@ techniques.</li>
 </h2>
 <p>Out-of-distribution (OOD) data refers to data that significantly
 differs from the training data on which a machine learning model was
-built. The difference can arise from either:</p>
-<ul>
-<li>Semantic shift: OOD sample is drawn from a class that was not
-present during training</li>
-<li>Covariate shift: OOD sample is drawn from a different domain; input
-feature distribution is drastically different than training data</li>
-</ul>
-<p><strong>TODO</strong>: Add closed/open-world image similar to Sharon
-Li’s tutorial at 4:28: <a href="https://www.youtube.com/watch?v=hgLC9_9ZCJI" class="external-link uri">https://www.youtube.com/watch?v=hgLC9_9ZCJI</a></p>
+built. For example, the image below compares the training data
+distribution of CIFAR-10, a popular dataset used for image
+classification, with the vastly broader and more diverse distribution of
+images found on the internet:</p>
+<figure><img src="https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/OOD-internet-vs-CIFAR10.jpg" alt="OpenAI: CIFAR-10 training distribution vs. internet" class="figure mx-auto d-block"><div class="figcaption">OpenAI: CIFAR-10 training distribution
+vs. internet</div>
+</figure><p>CIFAR-10 contains 60,000 images across 10 distinct classes (e.g.,
+airplanes, dogs, trucks), with carefully curated examples for each
+class. However, the internet features an essentially infinite variety of
+images, many of which fall outside these predefined classes or include
+unseen variations (e.g., new breeds of dogs or novel vehicle designs).
+This contrast highlights the challenges models face when they encounter
+data that significantly differs from their training distribution.</p>
+</div>
+<div class="section level2">
+<h2 id="when-does-ood-arise">When does OOD arise?<a class="anchor" aria-label="anchor" href="#when-does-ood-arise"></a>
+</h2>
+<p>The difference between in-distribution (ID) and OOD data can arise
+from: - <strong>Semantic shift</strong>: The OOD sample belongs to a
+class that was not present during training. - <strong>Covariate
+shift</strong>: The OOD sample comes from a domain where the input
+feature distribution is drastically different from the training
+data.</p>
 </div>
 <div class="section level2">
 <h2 id="why-does-ood-data-matter">Why does OOD data matter?<a class="anchor" aria-label="anchor" href="#why-does-ood-data-matter"></a>
