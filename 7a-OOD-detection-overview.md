@@ -69,18 +69,16 @@ Given the problems posed by OOD data, a reliable model should identify such inst
   
 The second step is much more complicated/involved since it requires matching OOD data to essentially an infinite number of possible classes. For the current scope of this workshop, we will focus on just the first step.
 
-How can we determine whether a given instance is OOD or ID? Over the past several years, there have been a wide assortment of new methods developed to tackle this task. In this episode, we will cover a few of the most common approaches and discuss advantages/disadvantages of each. These methods can be grouped under two broad categores: **threshold-based** and and **training-time regularization**.
+### Threshold-based
+How can we ensure our models do not perform poorly in the presence of OOD? Over the past several years, there have been a wide assortment of new methods developed to tackle this task. The central idea behind all of these methods is to define a threshold on a certain score or confidence measure, beyond which the data point is considered out-of-distribution. Typically, these scores are derived from the model's output probabilities or other statistical measures of uncertainty. There are two general classes of threshold-based OOD detection methods: **output-based** and **distance-based**.
 
-### 1) Threshold-based methods
-Threshold-based methods are one of the simplest and most intuitive approaches for detecting out-of-distribution (OOD) data. The central idea is to define a threshold on a certain score or confidence measure, beyond which the data point is considered out-of-distribution. Typically, these scores are derived from the model's output probabilities or other statistical measures of uncertainty. There are two general classes of threshold-based methods: **output-based** and **distance-based**.
-
-#### 1a) Output-based thresholds
+#### 1) Output-based thresholds
 Output-based Out-of-Distribution (OOD) detection refers to methods that determine whether a given input is out-of-distribution based on the output of a trained model. These methods typically analyze the model’s confidence scores, energy scores, or other output metrics to identify data points that are unlikely to belong to the distribution the model was trained on. The main approaches within output-based OOD detection include:
 
 - **Softmax scores**: The softmax output of a neural network represents the predicted probabilities for each class. A common threshold-based method involves setting a confidence threshold, and if the maximum softmax score of an instance falls below this threshold, it is flagged as OOD.
 - **Energy**: The energy-based method also uses the network's output but measures the uncertainty in a more nuanced way by calculating an energy score. The energy score typically captures the confidence more robustly, especially in high-dimensional spaces, and can be considered a more general and reliable approach than just using softmax probabilities.
 
-#### 1b) Distance-based thresholds
+#### 2) Distance-based thresholds
 Distance-based methods calculate the distance of an instance from the distribution of training data features learned by the model. If the distance is beyond a certain threshold, the instance is considered OOD. Common distance-based approaches include:
 
 - **Mahalanobis distance:** This method calculates the Mahalanobis distance of a data point from the mean of the training data distribution. A high Mahalanobis distance indicates that the instance is likely OOD.
@@ -88,68 +86,10 @@ Distance-based methods calculate the distance of an instance from the distributi
 
 We will focus on output-based methods (softmax and energy) in the next episode and then do a deep dive into distance-based methods in a later next episode.
 
-### 2) Training-time regularization methods
-Training-time regularization methods improve OOD detection by incorporating penalties into the training process. These penalties encourage the model to handle OOD data effectively, either by:
-
-- Penalizing high confidence on OOD samples,
-- Optimizing feature representations to separate ID and OOD data,
-- Or enhancing robustness to adversarial or ambiguous inputs.
-
-The following methods apply these penalties in different ways: outlier exposure, contrastive learning, confidence penalties, and adversarial training.
-
-#### 2a) Outlier exposure
-Outlier Exposure (OE) penalizes high confidence on OOD samples by introducing auxiliary datasets during training. This method teaches the model to differentiate OOD data from ID data.
-
-**How it works**:
-
-- Use a curated auxiliary dataset of OOD samples that differ from the training distribution.
-- Augment the training loss function to penalize high confidence on these auxiliary samples.
-- Resulting models are less likely to misclassify OOD inputs as ID.
-
-| **Advantages**                     | **Limitations**                                                        |
-|------------------------------------|------------------------------------------------------------------------|
-| Simple to implement when auxiliary datasets are available. | Requires access to high-quality, diverse OOD datasets during training. |
-| Improves OOD detection performance without significant computational cost. | Performance may degrade for OOD samples dissimilar to the auxiliary dataset. |
-
-#### 2b) Contrastive learning
-Contrastive learning optimizes feature representations by applying penalties that control the similarity of embeddings. Positive pairs (similar samples) are brought closer together, while negative pairs (dissimilar samples) are pushed apart. This results in a feature space where OOD data is less likely to overlap with ID data.
-
-**How it works**:
-
-- Define a contrastive loss that minimizes the distance between embeddings of similar samples (e.g., belonging to the same class).
-- Simultaneously maximize the distance between embeddings of dissimilar samples (e.g., ID vs. synthetic or auxiliary OOD samples).
-- Often uses data augmentation or self-supervised techniques to generate "positive" and "negative" pairs.
-
-| **Advantages**                     | **Limitations**                                                        |
-|------------------------------------|------------------------------------------------------------------------|
-| Does not require labeled auxiliary OOD data, as augmentations or unsupervised data can be used. | Computationally expensive, especially with large datasets.              |
-| Improves the quality of learned representations, benefiting other tasks. | Requires careful tuning of the contrastive loss and data augmentation strategy. |
-
-#### 2c) Other regularization-based techniques
-Other methods incorporate penalties directly into the training process to improve robustness to OOD data:
-
-- **Confidence penalties**: Penalize overconfidence in predictions, especially on ambiguous samples.
-- **Adversarial training**: Generate adversarial examples (slightly perturbed ID samples) to penalize high confidence on these perturbed examples, improving robustness.
-
-| **Advantages**                     | **Limitations**                                                        |
-|------------------------------------|------------------------------------------------------------------------|
-| Enhances OOD detection performance by integrating it into the training process. | Requires careful design of the training procedure and loss function.   |
-| Leads to better generalization for both ID and OOD scenarios.           | Computationally intensive and may need access to additional datasets.  |
-
-#### Summary of Training-Time Regularization Methods
-
-| **Method**                        | **Penalty Applied**                                                             | **Advantages**                                   | **Limitations**                                                                 |
-|-----------------------------------|--------------------------------------------------------------------------------|-------------------------------------------------|---------------------------------------------------------------------------------|
-| Outlier Exposure                  |  High confidence on auxiliary OOD data.                              | Simple to implement, improves performance.      | Requires high-quality auxiliary datasets, may not generalize to unseen OOD data.|
-| Contrastive Learning              |  Embedding similarity for dissimilar samples (and vice versa) | Improves feature space quality, versatile.      | Computationally expensive, requires careful tuning.                             |
-| Confidence Penalties              |  Overconfidence on ambiguous inputs.                                 | Improves robustness, generalizes well.          | Requires careful design, computationally intensive.                             |
-| Adversarial Training              |  High confidence on adversarial examples.                            | Enhances robustness to perturbed inputs.        | Computationally intensive, challenging to implement.                            |
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 
 - Out-of-distribution (OOD) data significantly differs from training data and can lead to unreliable model predictions.
 - Threshold-based methods use model outputs or distances in feature space to detect OOD instances by defining a score threshold.
-- Training-time regularization enhances OOD detection by incorporating techniques like Outlier Exposure and Contrastive Learning during model training.
-- Each method has trade-offs: threshold-based methods are simpler, while training-time regularization often improves robustness at higher computational cost.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
