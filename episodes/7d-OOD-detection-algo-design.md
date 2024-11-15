@@ -73,9 +73,6 @@ Other methods incorporate penalties directly into the training process to improv
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 
-- Out-of-distribution (OOD) data significantly differs from training data and can lead to unreliable model predictions.
-- Threshold-based methods use model outputs or distances in feature space to detect OOD instances by defining a score threshold.
 - Training-time regularization enhances OOD detection by incorporating techniques like Outlier Exposure and Contrastive Learning during model training.
-- Each method has trade-offs: threshold-based methods are simpler, while training-time regularization often improves robustness at higher computational cost.
-
+  
 ::::::::::::::::::::::::::::::::::::::::::::::::::
