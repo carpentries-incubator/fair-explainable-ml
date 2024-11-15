@@ -17,12 +17,17 @@ exercises: 0
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 # Introduction to Out-of-Distribution (OOD) Data
 ## What is OOD data?
-Out-of-distribution (OOD) data refers to data that significantly differs from the training data on which a machine learning model was built. The difference can arise from either:
+Out-of-distribution (OOD) data refers to data that significantly differs from the training data on which a machine learning model was built. For example, the image below compares the training data distribution of CIFAR-10, a popular dataset used for image classification, with the vastly broader and more diverse distribution of images found on the internet:
 
-- Semantic shift: OOD sample is drawn from a class that was not present during training
-- Covariate shift: OOD sample is drawn from a different domain; input feature distribution is drastically different than training data
+![OpenAI: CIFAR-10 training distribution vs. internet](https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/OOD-internet-vs-CIFAR10.jpg)
 
-**TODO**: Add closed/open-world image similar to Sharon Li's tutorial at 4:28: https://www.youtube.com/watch?v=hgLC9_9ZCJI
+CIFAR-10 contains 60,000 images across 10 distinct classes (e.g., airplanes, dogs, trucks), with carefully curated examples for each class. However, the internet features an essentially infinite variety of images, many of which fall outside these predefined classes or include unseen variations (e.g., new breeds of dogs or novel vehicle designs). This contrast highlights the challenges models face when they encounter data that significantly differs from their training distribution.
+
+## When does OOD arise?
+The difference between in-distribution (ID) and OOD data can arise from:
+- **Semantic shift**: The OOD sample belongs to a class that was not present during training.
+- **Covariate shift**: The OOD sample comes from a domain where the input feature distribution is drastically different from the training data.
+
 
 ## Why does OOD data matter?
 Models trained on a specific distribution might make incorrect predictions on OOD data, leading to unreliable outputs. In critical applications (e.g., healthcare, autonomous driving), encountering OOD data without proper handling can have severe consequences.
