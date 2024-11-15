@@ -561,7 +561,19 @@ computational cost.</li>
 </ul></section><section id="7b-OOD-detection-output-based"><h2 class="section-heading"><a href="7b-OOD-detection-output-based.html">OOD detection: output-based methodsExample 1: Softmax scores<a class="anchor" aria-label="anchor" href="#example-1-softmax-scores"></a>Example 2: Energy-Based OOD Detection<a class="anchor" aria-label="anchor" href="#example-2-energy-based-ood-detection"></a>Limitations of our approach thus far<a class="anchor" aria-label="anchor" href="#limitations-of-our-approach-thus-far"></a></a></h2>
 <hr class="half-width"></section><section id="7c-OOD-detection-distance-based"><h2 class="section-heading"><a href="7c-OOD-detection-distance-based.html">OOD detection: distance-basedExample 3: Distance-Based Methods<a class="anchor" aria-label="anchor" href="#example-3-distance-based-methods"></a>Limitations of Threshold-Based OOD Detection Methods<a class="anchor" aria-label="anchor" href="#limitations-of-threshold-based-ood-detection-methods"></a></a></h2>
 <hr class="half-width"></section><section id="7d-OOD-detection-algo-design"><h2 class="section-heading"><a href="7d-OOD-detection-algo-design.html">OOD detection: training-time regularizationTraining-time regularization for OOD detection<a class="anchor" aria-label="anchor" href="#training-time-regularization-for-ood-detection"></a></a></h2>
-<hr class="half-width"></section><section id="8-releasing-a-model"><h2 class="section-heading"><a href="8-releasing-a-model.html">Documenting and releasing a model</a></h2>
+<hr class="half-width">
+<ul>
+<li>Out-of-distribution (OOD) data significantly differs from training
+data and can lead to unreliable model predictions.</li>
+<li>Threshold-based methods use model outputs or distances in feature
+space to detect OOD instances by defining a score threshold.</li>
+<li>Training-time regularization enhances OOD detection by incorporating
+techniques like Outlier Exposure and Contrastive Learning during model
+training.</li>
+<li>Each method has trade-offs: threshold-based methods are simpler,
+while training-time regularization often improves robustness at higher
+computational cost.</li>
+</ul></section><section id="8-releasing-a-model"><h2 class="section-heading"><a href="8-releasing-a-model.html">Documenting and releasing a model</a></h2>
 <hr class="half-width">
 <ul>
 <li>Model cards are the standard technique for communicating information
