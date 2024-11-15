@@ -495,25 +495,33 @@ shapes.</p>
 </div>
 <div class="section level3">
 <h3 id="ex2-ibm-watson-for-oncology">Ex2: IBM Watson for Oncology<a class="anchor" aria-label="anchor" href="#ex2-ibm-watson-for-oncology"></a></h3>
-<p>IBM Watson for Oncology faced several issues due to OOD data. The
-system was primarily trained on data from Memorial Sloan Kettering
-Cancer Center (MSK), which did not generalize well to other healthcare
-settings. This led to the following problems: 1. Unsafe Recommendations:
-Watson for Oncology provided treatment recommendations that were not
-safe or aligned with standard care guidelines in many cases outside of
-MSK. This happened because the training data was not representative of
-the diverse medical practices and patient populations in different
-regions 2. Bias in Training Data: The system’s recommendations were
-biased towards the practices at MSK, failing to account for different
-treatment protocols and patient needs elsewhere. This bias is a classic
-example of an OOD issue, where the model encounters data (patients and
-treatments) during deployment that significantly differ from its
-training data</p>
+<p>Around a decade ago, the excitement surrounding AI in healthcare
+often exceeded its actual capabilities. In 2016, IBM launched Watson for
+Oncology, an AI-powered platform for treatment recommendations, to much
+public enthusiasm. However, it soon became apparent that the system was
+both costly and unreliable, frequently generating flawed advice while
+operating as an opaque “black box. IBM Watson for Oncology faced several
+issues due to OOD data. The system was primarily trained on data from
+Memorial Sloan Kettering Cancer Center (MSK), which did not generalize
+well to other healthcare settings. This led to the following
+problems:</p>
+<ol style="list-style-type: decimal"><li>Unsafe Recommendations: Watson for Oncology provided treatment
+recommendations that were not safe or aligned with standard care
+guidelines in many cases outside of MSK. This happened because the
+training data was not representative of the diverse medical practices
+and patient populations in different regions</li>
+<li>Bias in Training Data: The system’s recommendations were biased
+towards the practices at MSK, failing to account for different treatment
+protocols and patient needs elsewhere. This bias is a classic example of
+an OOD issue, where the model encounters data (patients and treatments)
+during deployment that significantly differ from its training data</li>
+</ol><p>By 2022, IBM had taken Watson for Oncology offline, marking the end
+of its commercial use.</p>
 </div>
 <div class="section level3">
 <h3 id="ex3-doctors-using-gpt3">Ex3: Doctors using GPT3<a class="anchor" aria-label="anchor" href="#ex3-doctors-using-gpt3"></a></h3>
 <div class="section level4">
-<h4 id="misdiagnosis-and-inaccurate-medical-advice">Misdiagnosis and Inaccurate Medical Advice<a class="anchor" aria-label="anchor" href="#misdiagnosis-and-inaccurate-medical-advice"></a></h4>
+<h4 id="misdiagnosis-and-inaccurate-medical-advice">Misdiagnosis and inaccurate medical advice<a class="anchor" aria-label="anchor" href="#misdiagnosis-and-inaccurate-medical-advice"></a></h4>
 <p>In various studies and real-world applications, GPT-3 has been shown
 to generate inaccurate medical advice when faced with OOD data. This can
 be attributed to the fact that the training data, while extensive, does
@@ -529,7 +537,7 @@ while the cited source only discussed biphasic technology, which
 operates differently.</p>
 </div>
 <div class="section level4">
-<h4 id="fake-medical-literature-references">Fake Medical Literature References<a class="anchor" aria-label="anchor" href="#fake-medical-literature-references"></a></h4>
+<h4 id="fake-medical-literature-references">Fake medical literature references<a class="anchor" aria-label="anchor" href="#fake-medical-literature-references"></a></h4>
 <p>Another critical OOD issue is the generation of fake or non-existent
 medical references by LLMs. When LLMs are prompted to provide citations
 for their responses, they sometimes generate references that sound
@@ -547,7 +555,7 @@ seen in its training data.</p>
 </div>
 </div>
 <div class="section level1">
-<h1 id="detecting-and-handling-ood-data">Detecting and Handling OOD Data<a class="anchor" aria-label="anchor" href="#detecting-and-handling-ood-data"></a></h1>
+<h1 id="detecting-and-handling-ood-data">Detecting and handling OOD data<a class="anchor" aria-label="anchor" href="#detecting-and-handling-ood-data"></a></h1>
 <p>Given the problems posed by OOD data, a reliable model should
 identify such instances, and then:</p>
 <ol style="list-style-type: decimal"><li>Reject them during inference</li>
