@@ -21,7 +21,7 @@ exercises: 0
 
 # Introduction to Out-of-Distribution (OOD) Data
 ## What is OOD data?
-Out-of-distribution (OOD) data refers to data that significantly differs from the training data on which a machine learning model was built. For example, the image below compares the training data distribution of CIFAR-10, a popular dataset used for image classification, with the vastly broader and more diverse distribution of images found on the internet:
+Out-of-distribution (OOD) data refers to data that significantly differs from the training data on which a machine learning model was built, i.e., the in-distribution (ID). For example, the image below compares the training data distribution of CIFAR-10, a popular dataset used for image classification, with the vastly broader and more diverse distribution of images found on the internet:
 
 ![OpenAI: CIFAR-10 training distribution vs. internet](https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/OOD-internet-vs-CIFAR10.jpg)
 
