@@ -458,12 +458,60 @@ threshold tuning and generalizability to diverse OOD scenarios.</li>
 </div>
 <div class="section level1">
 <h1 id="example-2-energy-based-ood-detection">Example 2: Energy-Based OOD Detection<a class="anchor" aria-label="anchor" href="#example-2-energy-based-ood-detection"></a></h1>
-<p><strong>TODO</strong>: Provide background and intuiiton surrounding
-energy-based measure. Some notes below:</p>
-<p>Liu et al., Energy-based Out-of-distribution Detection, NeurIPS 2020;
-<a href="https://arxiv.org/pdf/2010.03759" class="external-link uri">https://arxiv.org/pdf/2010.03759</a></p>
-<ul><li><p>E(x, y) = energy value</p></li>
-<li><p>if x and y are “compatitble”, lower energy</p></li>
+<p>Traditional approaches, such as softmax-based methods, rely on output
+probabilities to flag OOD data. While simple and intuitive, these
+methods often struggle to distinguish OOD data effectively in complex
+scenarios, especially in high-dimensional spaces.</p>
+<p>Energy-based OOD detection offers a modern and robust alternative.
+This “output-based” approach leverages the <strong>energy
+score</strong>, a scalar value derived from a model’s output logits, to
+measure the compatibility between input data and the model’s learned
+distribution. The energy score directly ties to the Gibbs distribution,
+which allows for a nuanced interpretation of data compatibility. By
+computing energy scores and interpreting them probabilistically,
+energy-based methods enhance separability between in-distribution (ID)
+and OOD data. These techniques, particularly effective with neural
+networks, address some of the key limitations of softmax-based
+approaches.</p>
+<p>In this episode, we will explore the theoretical foundations of
+energy-based OOD detection, implement it using the PyTorch-OOD library,
+and compare its performance to softmax-based methods. Along the way, we
+will provide intuitive explanations of key concepts like the Gibbs
+distribution to ensure accessibility for ML practitioners. We will also
+discuss the challenges of energy-based methods, including threshold
+tuning and generalization to diverse OOD scenarios. This understanding
+will set the stage for hybrid and training-time regularization methods
+discussed in future episodes.</p>
+<div id="intuition-behind-the-gibbs-distribution-and-energy-scores" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div id="intuition-behind-the-gibbs-distribution-and-energy-scores" class="callout-inner">
+<h3 class="callout-title">intuition behind the Gibbs distribution and energy scores</h3>
+<div class="callout-content">
+<p>The Gibbs distribution is a probability distribution used to model
+systems in equilibrium, and it connects naturally to the concept of
+energy. In the context of machine learning:</p>
+<ul><li><p><strong>Energy as a compatibility measure</strong>: Think of
+energy as a score that measures how “compatible” a data point is with
+the model’s learned distribution. A <strong>lower energy score</strong>
+indicates higher compatibility (i.e., the model sees the input as likely
+to belong to the training distribution).</p></li>
+<li><p><strong>From energy to probability</strong>: The Gibbs
+distribution converts energy into probabilities. For an input <span class="math inline">\(x\)</span>, the probability of observing <span class="math inline">\(x\)</span> is proportional to <span class="math inline">\(e^{-\text{Energy}(x)}\)</span>. This exponential
+relationship means that even small differences in energy can lead to
+significant changes in probability, making energy scores sensitive and
+effective for OOD detection.</p></li>
+<li><p><strong>Why energy works for OOD detection</strong>: OOD data
+often results in higher energy scores because the model’s output logits
+are less aligned with any known class. By setting a threshold on energy
+scores, we can distinguish OOD data from ID data more effectively than
+with softmax probabilities alone.</p></li>
+</ul><p>For practitioners, the Gibbs distribution provides a bridge between
+abstract “energy” values and interpretable probabilities, helping us
+reason about uncertainty and compatibility in a model’s predictions. *
+E(x, y) = energy value</p>
+<ul><li><p>if x and y are “compatitble”, lower energy</p></li>
 <li>
 <p>Energy can be turned into probability through Gibbs
 distribution</p>
@@ -471,16 +519,12 @@ distribution</p>
 </ul></li>
 <li><p>With energy scores, ID and OOD distributions become much more
 separable</p></li>
-<li><p><strong>Output-based</strong>: Another “output-based” method like
-softmax</p></li>
-<li><p><strong>Neural nets:</strong> Energy-based methods for OOD
-detection are primarily designed for neural networks. The method relies
-on energy scores, which are computed based on the output logits of the
-model and relate to the Gibbs distribution. This connection between
-energy scores and the model’s output space assumes a certain degree of
-flexibility in capturing complex data distributions—a hallmark of neural
-networks.</p></li>
-</ul><div class="section level2">
+</ul><p><strong>Learn more</strong>: Liu et al., Energy-based
+Out-of-distribution Detection, NeurIPS 2020; <a href="https://arxiv.org/pdf/2010.03759" class="external-link uri">https://arxiv.org/pdf/2010.03759</a></p>
+</div>
+</div>
+</div>
+<div class="section level2">
 <h2 id="introducing-pytorch-ood">Introducing PyTorch OOD<a class="anchor" aria-label="anchor" href="#introducing-pytorch-ood"></a></h2>
 <p>The PyTorch-OOD library provides methods for OOD detection and other
 closely related fields, such as anomoly detection or novelty detection.
