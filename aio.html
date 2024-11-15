@@ -782,7 +782,7 @@ Guiding Principles for Ethical Research</a>.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>A summary of the principles is listed below:</p>
 <ul>
@@ -3224,7 +3224,7 @@ interpretability of the model?</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <table class="table">
 <colgroup>
@@ -4870,10 +4870,9 @@ seen in its training data.</p>
 </div>
 </div>
 </div>
-</div>
-<div class="section level1">
-<h1 id="detecting-and-handling-ood-data">Detecting and handling OOD data<a class="anchor" aria-label="anchor" href="#detecting-and-handling-ood-data"></a>
-</h1>
+<div class="section level2">
+<h2 id="detecting-and-handling-ood-data">Detecting and handling OOD data<a class="anchor" aria-label="anchor" href="#detecting-and-handling-ood-data"></a>
+</h2>
 <p>Given the problems posed by OOD data, a reliable model should
 identify such instances, and then:</p>
 <ol style="list-style-type: decimal">
@@ -4890,9 +4889,9 @@ past several years, there have been a wide assortment of new methods
 developed to tackle this task. In this episode, we will cover a few of
 the most common approaches and discuss advantages/disadvantages of
 each.</p>
-<div class="section level2">
-<h2 id="threshold-based-methods">Threshold-based methods<a class="anchor" aria-label="anchor" href="#threshold-based-methods"></a>
-</h2>
+<div class="section level3">
+<h3 id="threshold-based-methods">Threshold-based methods<a class="anchor" aria-label="anchor" href="#threshold-based-methods"></a>
+</h3>
 <p>Threshold-based methods are one of the simplest and most intuitive
 approaches for detecting out-of-distribution (OOD) data. The central
 idea is to define a threshold on a certain score or confidence measure,
@@ -4901,9 +4900,9 @@ Typically, these scores are derived from the model’s output
 probabilities or other statistical measures of uncertainty. There are
 two general classes of threshold-based methods: output-based and
 distance-based.</p>
-<div class="section level3">
-<h3 id="output-based-thresholds">Output-based thresholds<a class="anchor" aria-label="anchor" href="#output-based-thresholds"></a>
-</h3>
+<div class="section level4">
+<h4 id="output-based-thresholds">Output-based thresholds<a class="anchor" aria-label="anchor" href="#output-based-thresholds"></a>
+</h4>
 <p>Output-based Out-of-Distribution (OOD) detection refers to methods
 that determine whether a given input is out-of-distribution based on the
 output of a trained model. These methods typically analyze the model’s
@@ -4927,9 +4926,9 @@ be considered a more general and reliable approach than just using
 softmax probabilities.</li>
 </ul>
 </div>
-<div class="section level3">
-<h3 id="distance-based-thresholds">Distance-based thresholds<a class="anchor" aria-label="anchor" href="#distance-based-thresholds"></a>
-</h3>
+<div class="section level4">
+<h4 id="distance-based-thresholds">Distance-based thresholds<a class="anchor" aria-label="anchor" href="#distance-based-thresholds"></a>
+</h4>
 <p>Distance-based methods calculate the distance of an instance from the
 distribution of training data features learned by the model. If the
 distance is beyond a certain threshold, the instance is considered OOD.
@@ -4949,6 +4948,7 @@ considered OOD.</li>
 <p>We will focus on output-based methods (softmax and energy) in this
 episode and then do a deep dive into distance-based methods in the next
 episode.</p>
+</div>
 </div>
 </div>
 </div>
