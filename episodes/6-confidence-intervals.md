@@ -51,9 +51,6 @@ Epistemic uncertainty arises from the model's lack of knowledge about certain re
 - **Ensemble models**: These involve training multiple models on the same data, each starting with different initializations or random seeds. The ensemble's predictions are aggregated, and the variance in their outputs reflects uncertainty. This approach works well because different models often capture different aspects of the data. For example, if all models agree, the prediction is confident; if they disagree, there is uncertainty. Ensembles are effective but computationally expensive, as they require training and evaluating multiple models.
 - **Out-of-distribution detection**: Identifies inputs that fall significantly outside the training distribution, flagging areas where the model's predictions are unreliable. Many OOD methods produce continuous scores, such as Mahalanobis distance or energy-based scores, which measure how novel or dissimilar an input is from the training data. These scores can be interpreted as a form of epistemic uncertainty, providing insight into how unfamiliar an input is. However, OOD detection focuses on distinguishing ID from OOD inputs rather than offering confidence estimates for predictions on ID inputs.
 
-
-
-
 ### Method selection summary table
 
 #### Understanding size categories in table
@@ -61,16 +58,19 @@ Epistemic uncertainty arises from the model's lack of knowledge about certain re
 To help guide method selection, here are rough definitions for **model size**, **data size**, and **compute requirements** used in the table:
 
 **Model size**
+
 - **Small**: Fewer than 10M parameters (e.g., logistic regression, LeNet).
 - **Medium**: 10M–100M parameters (e.g., ResNet-50, BERT-base).
 - **Large**: More than 100M parameters (e.g., GPT-3, Vision Transformers).
 
 **Data size**
+
 - **Small**: Fewer than 10,000 samples (e.g., materials science datasets).
 - **Medium**: 10,000–1M samples (e.g., ImageNet).
 - **Large**: More than 1M samples (e.g., Common Crawl, LAION-5B).
 
 **Compute time** (approximate)
+
 - **Low**: Suitable for standard CPU or single GPU, training/inference in minutes to an hour.
 - **Medium**: Requires a modern GPU, training/inference in hours to a day.
 - **High**: Requires multiple GPUs/TPUs or distributed setups, training/inference in days to weeks.
