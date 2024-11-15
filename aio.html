@@ -2728,7 +2728,7 @@ justifies their use despite their lack of transparency?</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="section level4">
 <h4 id="compare-the-advantages-1">Compare the advantages<a class="anchor" aria-label="anchor" href="#compare-the-advantages-1"></a>
@@ -2862,7 +2862,7 @@ drawbacks?</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>
@@ -4894,10 +4894,12 @@ step.</p>
 <p>How can we determine whether a given instance is OOD or ID? Over the
 past several years, there have been a wide assortment of new methods
 developed to tackle this task. In this episode, we will cover a few of
-the most common approaches and discuss advantages/disadvantages of
-each.</p>
+the most common approaches and discuss advantages/disadvantages of each.
+These methods can be grouped under two broad categores:
+<strong>threshold-based</strong> and and <strong>training-time
+regularization</strong>.</p>
 <div class="section level3">
-<h3 id="threshold-based-methods">Threshold-based methods<a class="anchor" aria-label="anchor" href="#threshold-based-methods"></a>
+<h3 id="threshold-based-methods">1) Threshold-based methods<a class="anchor" aria-label="anchor" href="#threshold-based-methods"></a>
 </h3>
 <p>Threshold-based methods are one of the simplest and most intuitive
 approaches for detecting out-of-distribution (OOD) data. The central
@@ -4905,10 +4907,10 @@ idea is to define a threshold on a certain score or confidence measure,
 beyond which the data point is considered out-of-distribution.
 Typically, these scores are derived from the model’s output
 probabilities or other statistical measures of uncertainty. There are
-two general classes of threshold-based methods: output-based and
-distance-based.</p>
+two general classes of threshold-based methods:
+<strong>output-based</strong> and <strong>distance-based</strong>.</p>
 <div class="section level4">
-<h4 id="output-based-thresholds">Output-based thresholds<a class="anchor" aria-label="anchor" href="#output-based-thresholds"></a>
+<h4 id="a-output-based-thresholds">1a) Output-based thresholds<a class="anchor" aria-label="anchor" href="#a-output-based-thresholds"></a>
 </h4>
 <p>Output-based Out-of-Distribution (OOD) detection refers to methods
 that determine whether a given input is out-of-distribution based on the
@@ -4934,7 +4936,7 @@ softmax probabilities.</li>
 </ul>
 </div>
 <div class="section level4">
-<h4 id="distance-based-thresholds">Distance-based thresholds<a class="anchor" aria-label="anchor" href="#distance-based-thresholds"></a>
+<h4 id="b-distance-based-thresholds">1b) Distance-based thresholds<a class="anchor" aria-label="anchor" href="#b-distance-based-thresholds"></a>
 </h4>
 <p>Distance-based methods calculate the distance of an instance from the
 distribution of training data features learned by the model. If the
@@ -4958,20 +4960,25 @@ later next episode.</p>
 </div>
 </div>
 <div class="section level3">
-<h3 id="training-time-regularization-methods">Training-time regularization methods<a class="anchor" aria-label="anchor" href="#training-time-regularization-methods"></a>
+<h3 id="training-time-regularization-methods">2) Training-time regularization methods<a class="anchor" aria-label="anchor" href="#training-time-regularization-methods"></a>
 </h3>
-<p>Training-time regularization methods modify the training process to
-explicitly improve the model’s ability to detect out-of-distribution
-(OOD) data. These methods often involve enhancing the model’s
-generalization or robustness by incorporating OOD scenarios during
-training or optimizing the model’s feature representations.</p>
+<p>Training-time regularization methods improve OOD detection by
+incorporating penalties into the training process. These penalties
+encourage the model to handle OOD data effectively, either by:</p>
+<ul>
+<li>Penalizing high confidence on OOD samples,</li>
+<li>Optimizing feature representations to separate ID and OOD data,</li>
+<li>Or enhancing robustness to adversarial or ambiguous inputs.</li>
+</ul>
+<p>The following methods apply these penalties in different ways:
+outlier exposure, contrastive learning, confidence penalties, and
+adversarial training.</p>
 <div class="section level4">
-<h4 id="outlier-exposure">Outlier exposure<a class="anchor" aria-label="anchor" href="#outlier-exposure"></a>
+<h4 id="a-outlier-exposure">2a) Outlier exposure<a class="anchor" aria-label="anchor" href="#a-outlier-exposure"></a>
 </h4>
-<p>Outlier Exposure (OE) is a common technique where the model is
-trained with additional auxiliary datasets containing OOD samples. The
-goal is to teach the model to assign low confidence to OOD data while
-maintaining high confidence for in-distribution (ID) data.</p>
+<p>Outlier Exposure (OE) penalizes high confidence on OOD samples by
+introducing auxiliary datasets during training. This method teaches the
+model to differentiate OOD data from ID data.</p>
 <p><strong>How it works</strong>:</p>
 <ul>
 <li>Use a curated auxiliary dataset of OOD samples that differ from the
@@ -4981,29 +4988,38 @@ these auxiliary samples.</li>
 <li>Resulting models are less likely to misclassify OOD inputs as
 ID.</li>
 </ul>
-<p><strong>Advantages</strong>:</p>
-<ul>
-<li>Simple to implement when auxiliary datasets are available.</li>
-<li>Significantly improves OOD detection performance without adding much
-computational overhead.</li>
-</ul>
-<p><strong>Limitations</strong>:</p>
-<ul>
-<li>Requires access to high-quality, diverse OOD datasets during
-training.</li>
-<li>Performance may degrade for OOD samples dissimilar to the auxiliary
-dataset.</li>
-</ul>
+<table class="table">
+<colgroup>
+<col width="33%">
+<col width="66%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>Advantages</strong></th>
+<th><strong>Limitations</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Simple to implement when auxiliary datasets are available.</td>
+<td>Requires access to high-quality, diverse OOD datasets during
+training.</td>
+</tr>
+<tr class="even">
+<td>Improves OOD detection performance without significant computational
+cost.</td>
+<td>Performance may degrade for OOD samples dissimilar to the auxiliary
+dataset.</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section level4">
-<h4 id="contrastive-learning">Contrastive learning<a class="anchor" aria-label="anchor" href="#contrastive-learning"></a>
+<h4 id="b-contrastive-learning">2b) Contrastive learning<a class="anchor" aria-label="anchor" href="#b-contrastive-learning"></a>
 </h4>
-<p>Contrastive learning encourages the model to learn more
-discriminative feature representations, improving its ability to
-distinguish between ID and OOD data. By pushing apart embeddings of
-dissimilar samples and pulling together embeddings of similar ones,
-contrastive learning creates a representation space where OOD samples
-are less likely to overlap with ID data.</p>
+<p>Contrastive learning optimizes feature representations by applying
+penalties that control the similarity of embeddings. Positive pairs
+(similar samples) are brought closer together, while negative pairs
+(dissimilar samples) are pushed apart. This results in a feature space
+where OOD data is less likely to overlap with ID data.</p>
 <p><strong>How it works</strong>:</p>
 <ul>
 <li>Define a contrastive loss that minimizes the distance between
@@ -5014,57 +5030,112 @@ samples).</li>
 <li>Often uses data augmentation or self-supervised techniques to
 generate “positive” and “negative” pairs.</li>
 </ul>
-<p><strong>Advantages</strong>:</p>
-<ul>
-<li>Does not require labeled auxiliary OOD data, as augmentations or
-unsupervised data can be used.</li>
-<li>Improves the quality of learned representations, benefiting other
-downstream tasks.</li>
-</ul>
-<p><strong>Limitations</strong>:</p>
-<ul>
-<li>Computationally expensive, especially with large datasets.</li>
-<li>Requires careful tuning of the contrastive loss and data
-augmentation strategy.</li>
-</ul>
+<table class="table">
+<colgroup>
+<col width="33%">
+<col width="66%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>Advantages</strong></th>
+<th><strong>Limitations</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Does not require labeled auxiliary OOD data, as augmentations or
+unsupervised data can be used.</td>
+<td>Computationally expensive, especially with large datasets.</td>
+</tr>
+<tr class="even">
+<td>Improves the quality of learned representations, benefiting other
+tasks.</td>
+<td>Requires careful tuning of the contrastive loss and data
+augmentation strategy.</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section level4">
-<h4 id="regularization-based-methods">Regularization-based methods<a class="anchor" aria-label="anchor" href="#regularization-based-methods"></a>
+<h4 id="c-other-regularization-based-techniques">2c) Other regularization-based techniques<a class="anchor" aria-label="anchor" href="#c-other-regularization-based-techniques"></a>
 </h4>
-<p>Some training-time regularization methods directly modify the loss
-function to penalize overconfidence or encourage robustness to data
-variations:</p>
+<p>Other methods incorporate penalties directly into the training
+process to improve robustness to OOD data:</p>
 <ul>
 <li>
-<strong>Confidence penalties</strong>: Add regularization terms that
-penalize overconfidence in predictions, especially on ambiguous
-samples.</li>
+<strong>Confidence penalties</strong>: Penalize overconfidence in
+predictions, especially on ambiguous samples.</li>
 <li>
 <strong>Adversarial training</strong>: Generate adversarial examples
-(slightly perturbed ID samples) to improve robustness against small
-variations that could make ID samples appear OOD.</li>
+(slightly perturbed ID samples) to penalize high confidence on these
+perturbed examples, improving robustness.</li>
 </ul>
+<table class="table">
+<colgroup>
+<col width="33%">
+<col width="66%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>Advantages</strong></th>
+<th><strong>Limitations</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Enhances OOD detection performance by integrating it into the
+training process.</td>
+<td>Requires careful design of the training procedure and loss
+function.</td>
+</tr>
+<tr class="even">
+<td>Leads to better generalization for both ID and OOD scenarios.</td>
+<td>Computationally intensive and may need access to additional
+datasets.</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section level4">
-<h4 id="summary-of-strengths-and-weaknesses">Summary of strengths and weaknesses<a class="anchor" aria-label="anchor" href="#summary-of-strengths-and-weaknesses"></a>
+<h4 id="summary-of-training-time-regularization-methods">Summary of Training-Time Regularization Methods<a class="anchor" aria-label="anchor" href="#summary-of-training-time-regularization-methods"></a>
 </h4>
-<p><strong>Strengths</strong>:</p>
-<ul>
-<li>Incorporating OOD detection into training enhances performance
-without relying solely on post-hoc thresholds.</li>
-<li>Often leads to better generalization for both ID and OOD
-scenarios.</li>
-<li>
-<strong>Weaknesses</strong>:
-<ul>
-<li>Requires careful design of the training procedure.</li>
-<li>Computationally intensive and may require access to additional
-datasets or resources.</li>
-</ul>
-</li>
-</ul>
-<p>We will explore these techniques in detail in later episodes,
-focusing on implementation strategies and trade-offs.</p>
+<table class="table">
+<colgroup>
+<col width="14%">
+<col width="32%">
+<col width="20%">
+<col width="33%">
+</colgroup>
+<thead><tr class="header">
+<th><strong>Method</strong></th>
+<th><strong>Penalty Applied</strong></th>
+<th><strong>Advantages</strong></th>
+<th><strong>Limitations</strong></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Outlier Exposure</td>
+<td>High confidence on auxiliary OOD data.</td>
+<td>Simple to implement, improves performance.</td>
+<td>Requires high-quality auxiliary datasets, may not generalize to
+unseen OOD data.</td>
+</tr>
+<tr class="even">
+<td>Contrastive Learning</td>
+<td>Embedding similarity for dissimilar samples (and vice versa)</td>
+<td>Improves feature space quality, versatile.</td>
+<td>Computationally expensive, requires careful tuning.</td>
+</tr>
+<tr class="odd">
+<td>Confidence Penalties</td>
+<td>Overconfidence on ambiguous inputs.</td>
+<td>Improves robustness, generalizes well.</td>
+<td>Requires careful design, computationally intensive.</td>
+</tr>
+<tr class="even">
+<td>Adversarial Training</td>
+<td>High confidence on adversarial examples.</td>
+<td>Enhances robustness to perturbed inputs.</td>
+<td>Computationally intensive, challenging to implement.</td>
+</tr>
+</tbody>
+</table>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
