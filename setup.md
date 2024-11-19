@@ -1,7 +1,6 @@
 ---
 title: Setup
 ---
-
 ## 1) Software setup
 
 ::::::::::::::::::::::::::::::::::::::: discussion
@@ -138,23 +137,27 @@ Conda should already be available in your system once you installed Anaconda suc
 
     Depending on your AIF360 installation, the final two `pip install` commands may or may not work. If they do not work, then installing these sub-packages is not necessary -- you can continue on. 
 
-6. Deactivating environment (complete at end of each day). Deactivating environments is part of good workflow hygiene. If you keep this environment active and then start working on another project, you may inadvertently use the wrong environment. This can lead to package conflicts or incorrect dependencies being used. To deactive your environment, use:
 
-    ```sh
-    conda deactivate
-    ```
+### Create a folder on your Desktop for storing code later
+
+```sh
+mkdir Desktop/trustworthy_ML
+```
 
 ### Starting Jupyter Lab
+We want Jupyter Lab to have access to the enviornment we just built. Before launching a notebook, make sure the environment is activated:
 
-We will teach using Python in Jupyter lab, a
-programming environment that runs in a web browser. Jupyter requires a reasonably
-up-to-date browser, preferably a current version of Chrome, Safari, or Firefox
-(note that Internet Explorer version 9 and below are *not* supported). If you
-installed Python using Anaconda, Jupyter should already be on your system. If
-you did not use Anaconda, use the Python package manager pip to acquire Jupyter
-(see the [Jupyter website](https://jupyter.org/install) for details.)
+```sh
+conda activate trustworthy_ML
+```
 
-To start jupyter lab, open a terminal (Mac/Linux) or Anaconda prompt (Windows) and type the command:
+Change directory to your code folder before launching Jupyter. This will help us keep our code organized in one place.
+
+```sh
+cd Desktop/trustworthy_ML
+```
+
+To start jupyter lab, open a terminal (Mac/Linux) or Anaconda prompt (Windows) and type the command after activating your conda environment:
 
 ```bash
 jupyter lab
@@ -165,23 +168,28 @@ To check whether all packages installed correctly, start a jupyter notebook in j
 explained above. Run the following lines of code:
 ```python
 import sklearn
-print('sklearn version: ', sklearn.__version__)
+print('sklearn version: ', sklearn.__version__) # >= 1.5.2
 
 import pandas
-print('pandas version: ', pandas.__version__)
+print('pandas version: ', pandas.__version__) # >= 2.2.3
 
 import torch
-print('torch version: ', torch.__version__)
+print('torch version: ', torch.__version__) # >= 2.5.1
 ```
 
 This should output the versions of all required packages without giving errors.
-Most versions will work fine with this lesson, but:
-- For pytorch, the minimum version is 2.0
-- For sklearn, the minimum version is 1.2.2
+Most versions should work fine with this lesson, but we've only tested thoroughly with the versions commented above.
 
 ### Fallback option: cloud environment
 If a local installation does not work for you, it is also possible to run this lesson in [Google Colab](https://colab.research.google.com/). Some packages may need to be installed on the fly within the notebook (TBD).
 
+### Deactivating environment (complete at end of each day)
+Deactivating environments is part of good workflow hygiene. If you keep your conda environment active and then start working on another project, you may inadvertently use the wrong environment. This can lead to package conflicts or incorrect dependencies being used. To deactive your environment, you can either close out of your shell entirely or type:
+
+    ```sh
+    conda deactivate
+    ```
+    
 ## 2) Download and move the data needed
 For the fairness evaluation episode, you will need access to the Medical Expenditure Panel Survey Dataset. Please complete these steps to ensure you have access:
 
