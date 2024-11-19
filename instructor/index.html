@@ -811,17 +811,39 @@ activate it using the following command.</p>
 </div>
 </li>
 <li>
-<p>Install <code>pytorch-ood</code>, <code>fairlearn</code>,
-<code>aif360[Reductions]</code>, and <code>aif360[inFairness]</code>
-using pip. Make sure to do this AFTER activating the environment.</p>
+<p>Use conda to install core libraries</p>
+<p>Conda is used to install core libraries like pytorch, torchvision,
+and other popular libraries such as jupyter, scikit-learn, pandas,
+matplotlib, etc. These packages often include complex dependencies
+(e.g., CUDA binaries for GPU support) that Conda handles more robustly
+compared to pip.</p>
+<p>Make sure to do this AFTER activating the environment.</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="ex">conda</span> install jupyter scikit-learn pandas matplotlib keras tensorflow umap-learn aif360 <span class="at">-c</span> conda-forge</span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="ex">pip</span> install pytorch-ood</span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="ex">pip</span> install fairlearn</span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="ex">pip</span> install aif360<span class="pp">[</span><span class="ss">Reductions</span><span class="pp">]</span></span>
-<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="ex">pip</span> install aif360<span class="pp">[</span><span class="ss">inFairness</span><span class="pp">]</span></span></code></pre>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="ex">conda</span> install jupyter scikit-learn pandas matplotlib keras tensorflow umap-learn aif360 <span class="at">-c</span> conda-forge</span></code></pre>
+</div>
+</li>
+<li>
+<p>Install <code>pytorch-ood</code>, <code>fairlearn</code>,
+<code>aif360[Reductions]</code>, and <code>aif360[inFairness]</code>
+using pip. Some libraries, like pytorch-ood, fairlearn, and specific
+extras for aif360 ([Reductions] and [inFairness]), may not be available
+in Conda or may not be up-to-date in Conda repositories. In these cases,
+pip is used to fill the gap.</p>
+<p>Best practice is to first make sure pip is up-to-date.</p>
+<div class="codewrapper sourceCode" id="cb5">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> pip install <span class="at">--upgrade</span> pip</span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="ex">pip</span> install pytorch-ood</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="ex">pip</span> install fairlearn</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="ex">pip</span> install aif360<span class="pp">[</span><span class="ss">Reductions</span><span class="pp">]</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="ex">pip</span> install aif360<span class="pp">[</span><span class="ss">inFairness</span><span class="pp">]</span></span></code></pre>
 </div>
 <p>Depending on your AIF360 installation, the final two
 <code>pip install</code> commands may or may not work. If they do not
@@ -835,10 +857,10 @@ this environment active and then start working on another project, you
 may inadvertently use the wrong environment. This can lead to package
 conflicts or incorrect dependencies being used. To deactive your
 environment, use:</p>
-<div class="codewrapper sourceCode" id="cb5">
+<div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code></pre>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code></pre>
 </div>
 </li>
 </ol><div class="section level4">
@@ -859,10 +881,10 @@ already be on your system. If you did not use Anaconda, use the Python
 package manager pip to acquire Jupyter (see the <a href="https://jupyter.org/install" class="external-link">Jupyter website</a> for details.)</p>
 <p>To start jupyter lab, open a terminal (Mac/Linux) or Anaconda prompt
 (Windows) and type the command:</p>
-<div class="codewrapper sourceCode" id="cb6">
+<div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="ex">jupyter</span> lab</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="ex">jupyter</span> lab</span></code></pre>
 </div>
 </div>
 <div class="section level3">
@@ -870,17 +892,17 @@ package manager pip to acquire Jupyter (see the <a href="https://jupyter.org/ins
 <p>To check whether all packages installed correctly, start a jupyter
 notebook in jupyter lab as explained above. Run the following lines of
 code:</p>
-<div class="codewrapper sourceCode" id="cb7">
+<div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="im">import</span> sklearn</span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'sklearn version: '</span>, sklearn.__version__)</span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="im">import</span> pandas</span>
-<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'pandas version: '</span>, pandas.__version__)</span>
-<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="im">import</span> torch</span>
-<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'torch version: '</span>, torch.__version__)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="im">import</span> sklearn</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'sklearn version: '</span>, sklearn.__version__)</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="im">import</span> pandas</span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'pandas version: '</span>, pandas.__version__)</span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'torch version: '</span>, torch.__version__)</span></code></pre>
 </div>
 <p>This should output the versions of all required packages without
 giving errors. Most versions will work fine with this lesson, but: - For
