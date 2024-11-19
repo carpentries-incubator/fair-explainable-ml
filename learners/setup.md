@@ -88,30 +88,39 @@ Conda should already be available in your system once you installed Anaconda suc
 1. Make sure you have an up-to-date version of Conda running.
    See [these instructions](https://docs.anaconda.com/anaconda/install/update-version/) for updating Conda if required.
 
-2. Create the Conda Environment: To create a conda environment called `trustworthy_ML` with the required packages, open a terminal (Mac/Linux) or Anaconda prompt (Windows) and type the below command. This command creates a new conda environment named `trustworthy_ML` and installs the necessary packages from the `conda-forge` and `pytorch` channels. When prompted to Proceed ([y]/n) during environment setup, press y. It may take around 10-20 minutes to complete the full environment setup. Please reach out to the workshop organizers sooner rather than later to fix setup issues prior to the workshop. 
+2. Create the Conda Environment (CPU only)
+   We've chosen a CPU-only setup for this lesson to make the environment simpler and more accessible for everyone. By avoiding GPU-specific dependencies like CUDA, we reduce the storage requirements by 3-4 GB and eliminate potential compatibility issues related to GPU hardware. This streamlined approach ensures the environment is portable and works seamlessly across different systems, making it easier for learners to set up and focus on the lesson content without worrying about hardware constraints.
    
-    ```sh
-    conda create --name trustworthy_ML python=3.9 pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia 
-    ```
-    To install other pytorch version based on your cuda version / more detailed instructions, you can checkout https://pytorch.org/get-started/locally/.
+   To create a conda environment called `trustworthy_ML` with the required packages, open a terminal (Mac/Linux) or Anaconda prompt (Windows) and type the below command. This command creates a new conda environment named `trustworthy_ML` and installs the necessary packages from the `conda-forge` and `pytorch` channels. When prompted to Proceed ([y]/n) during environment setup, press y. It may take around 10-20 minutes to complete the full environment setup. Please reach out to the workshop organizers sooner rather than later to fix setup issues prior to the workshop. 
+
+   
+   ```sh
+   conda create --name trustworthy_ML python=3.9 pytorch torchvision torchaudio -c pytorch
+
+   # NOT RECOMMENDED for this workshop, but for future purposes, here is how you would setup the GPU verison
+   # To install other pytorch version based on your cuda version / more detailed instructions, you can checkout https://pytorch.org/get-started/locally/.
+   #conda create --name trustworthy_ML python=3.9 pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia
+   ```
 
 3. Activate the Conda Environment: After creating the environment, activate it using the following command.
    
-    ```sh
-    conda activate trustworthy_ML
-    ```
+   ```sh
+   conda activate trustworthy_ML
+   ```
 
 4. Use conda to install core libraries
 
    Conda is used to install core libraries like pytorch, torchvision, and other popular libraries such as jupyter, scikit-learn, pandas, matplotlib, etc.
-   These packages often include complex dependencies (e.g., CUDA binaries for GPU support) that Conda handles more robustly compared to pip.
+   These packages often include complex dependencies (e.g., CUDA binaries for GPU support) that Conda handles more robustly compared to pip. 
+
+   In this command, all packages are sourced from the conda-forge channel. The `-c conda-forge` is a community-driven conda channel that provides a wide array of up-to-date packages, ensuring better compatibility and a more extensive package library.
 
    Make sure to do this AFTER activating the environment.
    ```sh
    conda install jupyter scikit-learn pandas matplotlib keras tensorflow umap-learn aif360 -c conda-forge
    ```
    
-6. Install `pytorch-ood`, `fairlearn`, `aif360[Reductions]`, and `aif360[inFairness]` using pip. 
+5. Install `pytorch-ood`, `fairlearn`, `aif360[Reductions]`, and `aif360[inFairness]` using pip. 
    Some libraries, like pytorch-ood, fairlearn, and specific extras for aif360 ([Reductions] and [inFairness]), may not be available in Conda or may not be up-to-date in Conda repositories.
    In these cases, pip is used to fill the gap.
 
@@ -129,15 +138,11 @@ Conda should already be available in your system once you installed Anaconda suc
 
     Depending on your AIF360 installation, the final two `pip install` commands may or may not work. If they do not work, then installing these sub-packages is not necessary -- you can continue on. 
 
-7. Deactivating environment (complete at end of each day). Deactivating environments is part of good workflow hygiene. If you keep this environment active and then start working on another project, you may inadvertently use the wrong environment. This can lead to package conflicts or incorrect dependencies being used. To deactive your environment, use:
+6. Deactivating environment (complete at end of each day). Deactivating environments is part of good workflow hygiene. If you keep this environment active and then start working on another project, you may inadvertently use the wrong environment. This can lead to package conflicts or incorrect dependencies being used. To deactive your environment, use:
 
     ```sh
     conda deactivate
     ```
-
-#### Notes
-- The `conda-forge` is a community-driven conda channel that provides a wide array of up-to-date packages, ensuring better compatibility and a more extensive package library.
-
 
 ### Starting Jupyter Lab
 
@@ -200,7 +205,7 @@ You will need a Hugging Face account for the workshop episode on model sharing. 
 
 **Create account**: To create an account on Hugging Face, visit: [huggingface.co/join](https://huggingface.co/join). Enter an email address and password, and follow the instructions provided via Hugging Face (you may need to verify your email address) to complete the process.
 
-**Setup access token**: Once you have your account created, you’ll need to generate an access token so that you can upload/share models to your Hugging Face account during the workshop. To generate a token, visit the [Access Tokens setting page](https://huggingface.co/settings/tokens) after logging in. Once there, click “New token” to generate an access token. We’ll use this token later to log in to Hugging Face via Python
+**Setup access token**: Once you have your account created, you'll need to generate an access token so that you can upload/share models to your Hugging Face account during the workshop. To generate a token, visit the [Access Tokens setting page](https://huggingface.co/settings/tokens) after logging in. Once there, click “New token” to generate an access token. We'll use this token later to log in to Hugging Face via Python
 
 
 
