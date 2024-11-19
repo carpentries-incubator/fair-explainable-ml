@@ -101,10 +101,26 @@ Conda should already be available in your system once you installed Anaconda suc
     conda activate trustworthy_ML
     ```
 
-4. Install `pytorch-ood`, `fairlearn`, `aif360[Reductions]`, and `aif360[inFairness]` using pip. Make sure to do this AFTER activating the environment.
+4. Use conda to install core libraries
+
+   Conda is used to install core libraries like pytorch, torchvision, and other popular libraries such as jupyter, scikit-learn, pandas, matplotlib, etc.
+   These packages often include complex dependencies (e.g., CUDA binaries for GPU support) that Conda handles more robustly compared to pip.
+
+   Make sure to do this AFTER activating the environment.
+   ```sh
+   conda install jupyter scikit-learn pandas matplotlib keras tensorflow umap-learn aif360 -c conda-forge
+   ```
    
+6. Install `pytorch-ood`, `fairlearn`, `aif360[Reductions]`, and `aif360[inFairness]` using pip. 
+   Some libraries, like pytorch-ood, fairlearn, and specific extras for aif360 ([Reductions] and [inFairness]), may not be available in Conda or may not be up-to-date in Conda repositories.
+   In these cases, pip is used to fill the gap.
+
+   Best practice is to first make sure pip is up-to-date.
+   ```sh
+   python -m pip install --upgrade pip
+    ```
+
     ```sh
-    conda install jupyter scikit-learn pandas matplotlib keras tensorflow umap-learn aif360 -c conda-forge
     pip install pytorch-ood
     pip install fairlearn
     pip install aif360[Reductions]
@@ -113,7 +129,7 @@ Conda should already be available in your system once you installed Anaconda suc
 
     Depending on your AIF360 installation, the final two `pip install` commands may or may not work. If they do not work, then installing these sub-packages is not necessary -- you can continue on. 
 
-5. Deactivating environment (complete at end of each day). Deactivating environments is part of good workflow hygiene. If you keep this environment active and then start working on another project, you may inadvertently use the wrong environment. This can lead to package conflicts or incorrect dependencies being used. To deactive your environment, use:
+7. Deactivating environment (complete at end of each day). Deactivating environments is part of good workflow hygiene. If you keep this environment active and then start working on another project, you may inadvertently use the wrong environment. This can lead to package conflicts or incorrect dependencies being used. To deactive your environment, use:
 
     ```sh
     conda deactivate
