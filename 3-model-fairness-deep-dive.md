@@ -122,13 +122,24 @@ Next, we will look at whether the dataset contains bias; i.e., does the outcome 
 
 To check for biases, we will use the BinaryLabelDatasetMetric class from the AI Fairness 360 toolkit. This class creates an object that -- given a dataset and user-defined sets of "privileged" and "unprivileged" groups -- can compute various fairness scores. We will call the function MetricTextExplainer (also in AI Fairness 360) on the BinaryLabelDatasetMetric object to compute the disparate impact. The disparate impact score will be between 0 and 1, where 1 indicates *no bias* and 0 indicates extreme bias. In other words, we want a score that is close to 1, because this indicates that different demographic groups have similar outcomes under the model. A commonly used threshold for an "acceptable" disparate impact score is 0.8, because under U.S. law in various domains (e.g., employment and housing), the disparate impact between racial groups can be no larger than 80%. 
 
-```python
-# import BinaryLabelDatasetMetric (class of metrics)
-from aif360.metrics import BinaryLabelDatasetMetric
 
+```python
 # import MetricTextExplainer to be able to print descriptions of metrics
 from aif360.explainers import MetricTextExplainer 
 ```
+
+Some initial import error may occur since we're using the CPU-only version of torch. If you run the import statement twice it should correct itself. We've coded this as a try/except statement below.
+```python
+# import BinaryLabelDatasetMetric (class of metrics) 
+try:
+    from aif360.metrics import BinaryLabelDatasetMetric
+except OSError as e:
+    print(f"First import failed: {e}. Retrying...")
+    from aif360.metrics import BinaryLabelDatasetMetric
+
+print("Import successful!")
+```
+
 
 ```python
 metric_orig_panel19_train = BinaryLabelDatasetMetric(
