@@ -186,9 +186,9 @@ If a local installation does not work for you, it is also possible to run this l
 ### Deactivating environment (complete at end of each day)
 Deactivating environments is part of good workflow hygiene. If you keep your conda environment active and then start working on another project, you may inadvertently use the wrong environment. This can lead to package conflicts or incorrect dependencies being used. To deactive your environment, you can either close out of your shell entirely or type:
 
-    ```sh
-    conda deactivate
-    ```
+ ```sh
+ conda deactivate
+ ```
     
 ## 2) Download and move the data needed
 For the fairness evaluation episode, you will need access to the Medical Expenditure Panel Survey Dataset. Please complete these steps to ensure you have access:
