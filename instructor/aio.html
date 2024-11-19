@@ -736,7 +736,7 @@ real).</li>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
 <div class="accordion-body">
 <p>Inline instructor notes can help inform instructors of timing
 challenges associated with the lessons. They appear in the “Instructor
@@ -1485,7 +1485,7 @@ and can have unpleasant side effects.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li><p>It is best if all patients who need the screening get it, and
@@ -1628,7 +1628,7 @@ same rate.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>A - 3, B - 2, C - 4, D - 1</p>
 </div>
@@ -1714,7 +1714,7 @@ uses of the LLM’s output.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <p>Most publicly-available LLM providers set up guardrails to avoid
 propagating biases present in their training data. For instance, as of
@@ -1766,7 +1766,7 @@ via social media</a>.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <p>While the picture is of Barack Obama, the upsampled image shows a
 white face. <img src="https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/e4-obama-upsampled.png" alt="Unblurred version of the pixelated picture of Obama. Instead of showing Obama, it shows a white man." class="figure"></p>
@@ -1871,7 +1871,7 @@ different settings?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution5" aria-expanded="false" aria-controls="collapseSolution5">
   <h4 class="accordion-header" id="headingSolution5"> Show me the solution </h4>
 </button>
-<div id="collapseSolution5" class="accordion-collapse collapse" data-bs-parent="#accordionSolution5" aria-labelledby="headingSolution5">
+<div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
 <div class="accordion-body">
 <p>A downside of oversampling is that it may violate statistical
 assumptions about independence of samples. A downside of undersampling
@@ -1917,7 +1917,7 @@ any links that you are not going to use.
  --></p>
 </section></section><section id="aio-3-model-fairness-deep-dive"><p>Content from <a href="3-model-fairness-deep-dive.html">Model fairness: hands-on</a></p>
 <hr>
-<p>Last updated on 2024-10-17 |
+<p>Last updated on 2024-11-19 |
 
         <a href="https://github.com/carpentries-incubator/fair-explainable-ml/edit/main/episodes/3-model-fairness-deep-dive.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 0 minutes</p>
@@ -2089,22 +2089,34 @@ impact between racial groups can be no larger than 80%.</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># import BinaryLabelDatasetMetric (class of metrics)</span></span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="im">from</span> aif360.metrics <span class="im">import</span> BinaryLabelDatasetMetric</span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="co"># import MetricTextExplainer to be able to print descriptions of metrics</span></span>
-<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="im">from</span> aif360.explainers <span class="im">import</span> MetricTextExplainer </span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># import MetricTextExplainer to be able to print descriptions of metrics</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="im">from</span> aif360.explainers <span class="im">import</span> MetricTextExplainer </span></code></pre>
 </div>
+<p>Some initial import error may occur since we’re using the CPU-only
+version of torch. If you run the import statement twice it should
+correct itself. We’ve coded this as a try/except statement below.</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>metric_orig_panel19_train <span class="op">=</span> BinaryLabelDatasetMetric(</span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>        dataset_orig_panel19_train, <span class="co"># train data</span></span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>        unprivileged_groups<span class="op">=</span>unprivileged_groups, <span class="co"># pass in names of unprivileged and privileged groups</span></span>
-<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>        privileged_groups<span class="op">=</span>privileged_groups)</span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>explainer_orig_panel19_train <span class="op">=</span> MetricTextExplainer(metric_orig_panel19_train) <span class="co"># create a MetricTextExplainer object</span></span>
-<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a></span>
-<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="bu">print</span>(explainer_orig_panel19_train.disparate_impact()) <span class="co"># print disparate impact</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="co"># import BinaryLabelDatasetMetric (class of metrics) </span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>    <span class="im">from</span> aif360.metrics <span class="im">import</span> BinaryLabelDatasetMetric</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="cf">except</span> <span class="pp">OSError</span> <span class="im">as</span> e:</span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"First import failed: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">. Retrying..."</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>    <span class="im">from</span> aif360.metrics <span class="im">import</span> BinaryLabelDatasetMetric</span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Import successful!"</span>)</span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb9">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>metric_orig_panel19_train <span class="op">=</span> BinaryLabelDatasetMetric(</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>        dataset_orig_panel19_train, <span class="co"># train data</span></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>        unprivileged_groups<span class="op">=</span>unprivileged_groups, <span class="co"># pass in names of unprivileged and privileged groups</span></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>        privileged_groups<span class="op">=</span>privileged_groups)</span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>explainer_orig_panel19_train <span class="op">=</span> MetricTextExplainer(metric_orig_panel19_train) <span class="co"># create a MetricTextExplainer object</span></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="bu">print</span>(explainer_orig_panel19_train.disparate_impact()) <span class="co"># print disparate impact</span></span></code></pre>
 </div>
 <p>We see that the disparate impact is about 0.53, which means the
 privileged group has the favorable outcome at about 2x the rate as the
@@ -2114,25 +2126,25 @@ utilization) ## Train a model</p>
 <p>We will train a logistic regression classifier. To do so, we have to
 import various functions from sklearn: a scaler, the logistic regression
 class, and make_pipeline.</p>
-<div class="codewrapper sourceCode" id="cb9">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
-<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> make_pipeline <span class="co"># allows to stack modeling steps</span></span>
-<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline <span class="co"># allow us to reference the Pipeline object type</span></span></code></pre>
-</div>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>dataset <span class="op">=</span> dataset_orig_panel19_train <span class="co"># use the train dataset</span></span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>model <span class="op">=</span> make_pipeline(StandardScaler(), <span class="co"># scale the data to have mean 0 and variance 1</span></span>
-<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>                      LogisticRegression(solver<span class="op">=</span><span class="st">'liblinear'</span>, </span>
-<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>                                         random_state<span class="op">=</span><span class="dv">1</span>) <span class="co"># logistic regression model</span></span>
-<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>                    )</span>
-<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>fit_params <span class="op">=</span> {<span class="st">'logisticregression__sample_weight'</span>: dataset.instance_weights} <span class="co"># use the instance weights to fit the model</span></span>
-<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a></span>
-<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a>lr_orig_panel19 <span class="op">=</span> model.fit(dataset.features, dataset.labels.ravel(), <span class="op">**</span>fit_params) <span class="co"># fit the model</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> make_pipeline <span class="co"># allows to stack modeling steps</span></span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline <span class="co"># allow us to reference the Pipeline object type</span></span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb11">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>dataset <span class="op">=</span> dataset_orig_panel19_train <span class="co"># use the train dataset</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>model <span class="op">=</span> make_pipeline(StandardScaler(), <span class="co"># scale the data to have mean 0 and variance 1</span></span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>                      LogisticRegression(solver<span class="op">=</span><span class="st">'liblinear'</span>, </span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a>                                         random_state<span class="op">=</span><span class="dv">1</span>) <span class="co"># logistic regression model</span></span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a>                    )</span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a>fit_params <span class="op">=</span> {<span class="st">'logisticregression__sample_weight'</span>: dataset.instance_weights} <span class="co"># use the instance weights to fit the model</span></span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a>lr_orig_panel19 <span class="op">=</span> model.fit(dataset.features, dataset.labels.ravel(), <span class="op">**</span>fit_params) <span class="co"># fit the model</span></span></code></pre>
 </div>
 </div>
 <div class="section level3">
@@ -2155,64 +2167,64 @@ threshold values we test are determined through the function
 <code>np.linspace</code>. We will continue to focus on disparate impact,
 but all other metrics are described in the <a href="https://aif360.readthedocs.io/en/stable/modules/generated/aif360.metrics.ClassificationMetric.html#aif360.metrics.ClassificationMetric" class="external-link">AIF360
 documentation</a>.</p>
-<div class="codewrapper sourceCode" id="cb11">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="co"># Import the ClassificationMetric class to be able to compute metrics for the model</span></span>
-<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="im">from</span> aif360.metrics <span class="im">import</span> ClassificationMetric</span></code></pre>
-</div>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="kw">def</span> test(dataset: MEPSDataset19, model:Pipeline, thresh_arr: np.ndarray) <span class="op">-&gt;</span> <span class="bu">dict</span>: </span>
-<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>    <span class="co">''' </span></span>
-<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a><span class="co">        Given a dataset, model, and list of potential cutoff thresholds, compute various metrics</span></span>
-<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a><span class="co">        for the model. Returns a dictionary of the metrics, including balanced accuracy, average odds</span></span>
-<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a><span class="co">        difference, disparate impact, statistical parity difference, equal opportunity difference, and</span></span>
-<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a><span class="co">        theil index.</span></span>
-<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a><span class="co">    '''</span></span>
-<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a>    <span class="cf">try</span>:</span>
-<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a>        <span class="co"># sklearn classifier</span></span>
-<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a>        y_val_pred_prob <span class="op">=</span> model.predict_proba(dataset.features) <span class="co"># get the predicted probabilities</span></span>
-<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">AttributeError</span> <span class="im">as</span> e:</span>
-<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a>        <span class="bu">print</span>(e)</span>
-<span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a>        <span class="co"># aif360 inprocessing algorithm</span></span>
-<span id="cb12-14"><a href="#cb12-14" tabindex="-1"></a>        y_val_pred_prob <span class="op">=</span> model.predict(dataset).scores <span class="co"># get the predicted scores</span></span>
-<span id="cb12-15"><a href="#cb12-15" tabindex="-1"></a>        pos_ind <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb12-16"><a href="#cb12-16" tabindex="-1"></a>        </span>
-<span id="cb12-17"><a href="#cb12-17" tabindex="-1"></a>    pos_ind <span class="op">=</span> np.where(model.classes_ <span class="op">==</span> dataset.favorable_label)[<span class="dv">0</span>][<span class="dv">0</span>] <span class="co"># get the index corresponding to the positive class</span></span>
-<span id="cb12-18"><a href="#cb12-18" tabindex="-1"></a>    metric_arrs <span class="op">=</span> defaultdict(<span class="bu">list</span>) <span class="co"># create a dictionary to store the metrics</span></span>
-<span id="cb12-19"><a href="#cb12-19" tabindex="-1"></a>    </span>
-<span id="cb12-20"><a href="#cb12-20" tabindex="-1"></a>    <span class="co"># repeat the following for each potential cutoff threshold</span></span>
-<span id="cb12-21"><a href="#cb12-21" tabindex="-1"></a>    <span class="cf">for</span> thresh <span class="kw">in</span> thresh_arr:</span>
-<span id="cb12-22"><a href="#cb12-22" tabindex="-1"></a>        y_val_pred <span class="op">=</span> (y_val_pred_prob[:, pos_ind] <span class="op">&gt;</span> thresh).astype(np.float64) <span class="co"># get the predicted labels</span></span>
-<span id="cb12-23"><a href="#cb12-23" tabindex="-1"></a></span>
-<span id="cb12-24"><a href="#cb12-24" tabindex="-1"></a>        dataset_pred <span class="op">=</span> dataset.copy() <span class="co"># create a copy of the dataset</span></span>
-<span id="cb12-25"><a href="#cb12-25" tabindex="-1"></a>        dataset_pred.labels <span class="op">=</span> y_val_pred <span class="co"># assign the predicted labels to the new dataset</span></span>
-<span id="cb12-26"><a href="#cb12-26" tabindex="-1"></a>        metric <span class="op">=</span> ClassificationMetric( <span class="co"># create a ClassificationMetric object</span></span>
-<span id="cb12-27"><a href="#cb12-27" tabindex="-1"></a>                dataset, dataset_pred,</span>
-<span id="cb12-28"><a href="#cb12-28" tabindex="-1"></a>                unprivileged_groups<span class="op">=</span>unprivileged_groups,</span>
-<span id="cb12-29"><a href="#cb12-29" tabindex="-1"></a>                privileged_groups<span class="op">=</span>privileged_groups)</span>
-<span id="cb12-30"><a href="#cb12-30" tabindex="-1"></a></span>
-<span id="cb12-31"><a href="#cb12-31" tabindex="-1"></a>        <span class="co"># various metrics - can look up what they are on your own</span></span>
-<span id="cb12-32"><a href="#cb12-32" tabindex="-1"></a>        metric_arrs[<span class="st">'bal_acc'</span>].append((metric.true_positive_rate()</span>
-<span id="cb12-33"><a href="#cb12-33" tabindex="-1"></a>                                     <span class="op">+</span> metric.true_negative_rate()) <span class="op">/</span> <span class="dv">2</span>) <span class="co"># balanced accuracy</span></span>
-<span id="cb12-34"><a href="#cb12-34" tabindex="-1"></a>        metric_arrs[<span class="st">'avg_odds_diff'</span>].append(metric.average_odds_difference()) <span class="co"># average odds difference</span></span>
-<span id="cb12-35"><a href="#cb12-35" tabindex="-1"></a>        metric_arrs[<span class="st">'disp_imp'</span>].append(metric.disparate_impact()) <span class="co"># disparate impact</span></span>
-<span id="cb12-36"><a href="#cb12-36" tabindex="-1"></a>        metric_arrs[<span class="st">'stat_par_diff'</span>].append(metric.statistical_parity_difference()) <span class="co"># statistical parity difference</span></span>
-<span id="cb12-37"><a href="#cb12-37" tabindex="-1"></a>        metric_arrs[<span class="st">'eq_opp_diff'</span>].append(metric.equal_opportunity_difference()) <span class="co"># equal opportunity difference</span></span>
-<span id="cb12-38"><a href="#cb12-38" tabindex="-1"></a>        metric_arrs[<span class="st">'theil_ind'</span>].append(metric.theil_index()) <span class="co"># theil index</span></span>
-<span id="cb12-39"><a href="#cb12-39" tabindex="-1"></a>    </span>
-<span id="cb12-40"><a href="#cb12-40" tabindex="-1"></a>    <span class="cf">return</span> metric_arrs</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="co"># Import the ClassificationMetric class to be able to compute metrics for the model</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a><span class="im">from</span> aif360.metrics <span class="im">import</span> ClassificationMetric</span></code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>thresh_arr <span class="op">=</span> np.linspace(<span class="fl">0.01</span>, <span class="fl">0.5</span>, <span class="dv">50</span>) <span class="co"># create an array of 50 potential cutoff thresholds ranging from 0.01 to 0.5</span></span>
-<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>val_metrics <span class="op">=</span> test(dataset<span class="op">=</span>dataset_orig_panel19_val, </span>
-<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>                   model<span class="op">=</span>lr_orig_panel19,</span>
-<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>                   thresh_arr<span class="op">=</span>thresh_arr) <span class="co"># call our function "test" with the validation data and lr model</span></span>
-<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>lr_orig_best_ind <span class="op">=</span> np.argmax(val_metrics[<span class="st">'bal_acc'</span>]) <span class="co"># get the index of the best balanced accuracy</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="kw">def</span> test(dataset: MEPSDataset19, model:Pipeline, thresh_arr: np.ndarray) <span class="op">-&gt;</span> <span class="bu">dict</span>: </span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>    <span class="co">''' </span></span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a><span class="co">        Given a dataset, model, and list of potential cutoff thresholds, compute various metrics</span></span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a><span class="co">        for the model. Returns a dictionary of the metrics, including balanced accuracy, average odds</span></span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a><span class="co">        difference, disparate impact, statistical parity difference, equal opportunity difference, and</span></span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a><span class="co">        theil index.</span></span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a><span class="co">    '''</span></span>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a>        <span class="co"># sklearn classifier</span></span>
+<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a>        y_val_pred_prob <span class="op">=</span> model.predict_proba(dataset.features) <span class="co"># get the predicted probabilities</span></span>
+<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">AttributeError</span> <span class="im">as</span> e:</span>
+<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a>        <span class="bu">print</span>(e)</span>
+<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a>        <span class="co"># aif360 inprocessing algorithm</span></span>
+<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a>        y_val_pred_prob <span class="op">=</span> model.predict(dataset).scores <span class="co"># get the predicted scores</span></span>
+<span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a>        pos_ind <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb13-16"><a href="#cb13-16" tabindex="-1"></a>        </span>
+<span id="cb13-17"><a href="#cb13-17" tabindex="-1"></a>    pos_ind <span class="op">=</span> np.where(model.classes_ <span class="op">==</span> dataset.favorable_label)[<span class="dv">0</span>][<span class="dv">0</span>] <span class="co"># get the index corresponding to the positive class</span></span>
+<span id="cb13-18"><a href="#cb13-18" tabindex="-1"></a>    metric_arrs <span class="op">=</span> defaultdict(<span class="bu">list</span>) <span class="co"># create a dictionary to store the metrics</span></span>
+<span id="cb13-19"><a href="#cb13-19" tabindex="-1"></a>    </span>
+<span id="cb13-20"><a href="#cb13-20" tabindex="-1"></a>    <span class="co"># repeat the following for each potential cutoff threshold</span></span>
+<span id="cb13-21"><a href="#cb13-21" tabindex="-1"></a>    <span class="cf">for</span> thresh <span class="kw">in</span> thresh_arr:</span>
+<span id="cb13-22"><a href="#cb13-22" tabindex="-1"></a>        y_val_pred <span class="op">=</span> (y_val_pred_prob[:, pos_ind] <span class="op">&gt;</span> thresh).astype(np.float64) <span class="co"># get the predicted labels</span></span>
+<span id="cb13-23"><a href="#cb13-23" tabindex="-1"></a></span>
+<span id="cb13-24"><a href="#cb13-24" tabindex="-1"></a>        dataset_pred <span class="op">=</span> dataset.copy() <span class="co"># create a copy of the dataset</span></span>
+<span id="cb13-25"><a href="#cb13-25" tabindex="-1"></a>        dataset_pred.labels <span class="op">=</span> y_val_pred <span class="co"># assign the predicted labels to the new dataset</span></span>
+<span id="cb13-26"><a href="#cb13-26" tabindex="-1"></a>        metric <span class="op">=</span> ClassificationMetric( <span class="co"># create a ClassificationMetric object</span></span>
+<span id="cb13-27"><a href="#cb13-27" tabindex="-1"></a>                dataset, dataset_pred,</span>
+<span id="cb13-28"><a href="#cb13-28" tabindex="-1"></a>                unprivileged_groups<span class="op">=</span>unprivileged_groups,</span>
+<span id="cb13-29"><a href="#cb13-29" tabindex="-1"></a>                privileged_groups<span class="op">=</span>privileged_groups)</span>
+<span id="cb13-30"><a href="#cb13-30" tabindex="-1"></a></span>
+<span id="cb13-31"><a href="#cb13-31" tabindex="-1"></a>        <span class="co"># various metrics - can look up what they are on your own</span></span>
+<span id="cb13-32"><a href="#cb13-32" tabindex="-1"></a>        metric_arrs[<span class="st">'bal_acc'</span>].append((metric.true_positive_rate()</span>
+<span id="cb13-33"><a href="#cb13-33" tabindex="-1"></a>                                     <span class="op">+</span> metric.true_negative_rate()) <span class="op">/</span> <span class="dv">2</span>) <span class="co"># balanced accuracy</span></span>
+<span id="cb13-34"><a href="#cb13-34" tabindex="-1"></a>        metric_arrs[<span class="st">'avg_odds_diff'</span>].append(metric.average_odds_difference()) <span class="co"># average odds difference</span></span>
+<span id="cb13-35"><a href="#cb13-35" tabindex="-1"></a>        metric_arrs[<span class="st">'disp_imp'</span>].append(metric.disparate_impact()) <span class="co"># disparate impact</span></span>
+<span id="cb13-36"><a href="#cb13-36" tabindex="-1"></a>        metric_arrs[<span class="st">'stat_par_diff'</span>].append(metric.statistical_parity_difference()) <span class="co"># statistical parity difference</span></span>
+<span id="cb13-37"><a href="#cb13-37" tabindex="-1"></a>        metric_arrs[<span class="st">'eq_opp_diff'</span>].append(metric.equal_opportunity_difference()) <span class="co"># equal opportunity difference</span></span>
+<span id="cb13-38"><a href="#cb13-38" tabindex="-1"></a>        metric_arrs[<span class="st">'theil_ind'</span>].append(metric.theil_index()) <span class="co"># theil index</span></span>
+<span id="cb13-39"><a href="#cb13-39" tabindex="-1"></a>    </span>
+<span id="cb13-40"><a href="#cb13-40" tabindex="-1"></a>    <span class="cf">return</span> metric_arrs</span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb14">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>thresh_arr <span class="op">=</span> np.linspace(<span class="fl">0.01</span>, <span class="fl">0.5</span>, <span class="dv">50</span>) <span class="co"># create an array of 50 potential cutoff thresholds ranging from 0.01 to 0.5</span></span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>val_metrics <span class="op">=</span> test(dataset<span class="op">=</span>dataset_orig_panel19_val, </span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>                   model<span class="op">=</span>lr_orig_panel19,</span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>                   thresh_arr<span class="op">=</span>thresh_arr) <span class="co"># call our function "test" with the validation data and lr model</span></span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>lr_orig_best_ind <span class="op">=</span> np.argmax(val_metrics[<span class="st">'bal_acc'</span>]) <span class="co"># get the index of the best balanced accuracy</span></span></code></pre>
 </div>
 <p>We will plot <code>val_metrics</code>. The x-axis will be the
 threshold we use to output the label 1 (i.e., if the raw score is larger
@@ -2221,38 +2233,38 @@ than the threshold, we output 1).</p>
 impact (in red).</p>
 <p>Note that we plot 1 - Disparate Impact, so now a score of 0 indicates
 no bias.</p>
-<div class="codewrapper sourceCode" id="cb14">
+<div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="kw">def</span> plot(x:np.ndarray, x_name:<span class="bu">str</span>, y_left:np.ndarray, y_left_name:<span class="bu">str</span>, y_right:np.ndarray, y_right_name:<span class="bu">str</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
-<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>    <span class="co">'''</span></span>
-<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a><span class="co">        Create a matplotlib plot with two y-axes and a single x-axis. </span></span>
-<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a><span class="co">    '''</span></span>
-<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>    fig, ax1 <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">7</span>)) <span class="co"># create a figure and axis</span></span>
-<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a>    ax1.plot(x, y_left) <span class="co"># plot the left y-axis data</span></span>
-<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a>    ax1.set_xlabel(x_name, fontsize<span class="op">=</span><span class="dv">16</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>) <span class="co"># set the x-axis label</span></span>
-<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a>    ax1.set_ylabel(y_left_name, color<span class="op">=</span><span class="st">'b'</span>, fontsize<span class="op">=</span><span class="dv">16</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)  <span class="co"># set the left y-axis label</span></span>
-<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a>    ax1.xaxis.set_tick_params(labelsize<span class="op">=</span><span class="dv">14</span>) <span class="co"># set the x-axis tick label size</span></span>
-<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a>    ax1.yaxis.set_tick_params(labelsize<span class="op">=</span><span class="dv">14</span>) <span class="co"># set the left y-axis tick label size</span></span>
-<span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a>    ax1.set_ylim(<span class="fl">0.5</span>, <span class="fl">0.8</span>) <span class="co"># set the left y-axis limits</span></span>
-<span id="cb14-12"><a href="#cb14-12" tabindex="-1"></a></span>
-<span id="cb14-13"><a href="#cb14-13" tabindex="-1"></a>    ax2 <span class="op">=</span> ax1.twinx() <span class="co"># create a second y-axis that shares the same x-axis</span></span>
-<span id="cb14-14"><a href="#cb14-14" tabindex="-1"></a>    ax2.plot(x, y_right, color<span class="op">=</span><span class="st">'r'</span>) <span class="co"># plot the right y-axis data</span></span>
-<span id="cb14-15"><a href="#cb14-15" tabindex="-1"></a>    ax2.set_ylabel(y_right_name, color<span class="op">=</span><span class="st">'r'</span>, fontsize<span class="op">=</span><span class="dv">16</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>) <span class="co"># set the right y-axis label</span></span>
-<span id="cb14-16"><a href="#cb14-16" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">'DI'</span> <span class="kw">in</span> y_right_name: </span>
-<span id="cb14-17"><a href="#cb14-17" tabindex="-1"></a>        ax2.set_ylim(<span class="fl">0.</span>, <span class="fl">0.7</span>) <span class="co"># set the right y-axis limits  if we're plotting disparate impact</span></span>
-<span id="cb14-18"><a href="#cb14-18" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb14-19"><a href="#cb14-19" tabindex="-1"></a>        ax2.set_ylim(<span class="op">-</span><span class="fl">0.25</span>, <span class="fl">0.1</span>)  <span class="co"># set the right y-axis limits if we're plotting 1-DI</span></span>
-<span id="cb14-20"><a href="#cb14-20" tabindex="-1"></a></span>
-<span id="cb14-21"><a href="#cb14-21" tabindex="-1"></a>    best_ind <span class="op">=</span> np.argmax(y_left) <span class="co"># get the index of the best balanced accuracy</span></span>
-<span id="cb14-22"><a href="#cb14-22" tabindex="-1"></a>    ax2.axvline(np.array(x)[best_ind], color<span class="op">=</span><span class="st">'k'</span>, linestyle<span class="op">=</span><span class="st">':'</span>) <span class="co"># add a vertical line at the best balanced accuracy</span></span>
-<span id="cb14-23"><a href="#cb14-23" tabindex="-1"></a>    ax2.yaxis.set_tick_params(labelsize<span class="op">=</span><span class="dv">14</span>) <span class="co"># set the right y-axis tick label size</span></span>
-<span id="cb14-24"><a href="#cb14-24" tabindex="-1"></a>    ax2.grid(<span class="va">True</span>) <span class="co"># add a grid</span></span>
-<span id="cb14-25"><a href="#cb14-25" tabindex="-1"></a>disp_imp <span class="op">=</span> np.array(val_metrics[<span class="st">'disp_imp'</span>]) <span class="co"># disparate impact (DI)</span></span>
-<span id="cb14-26"><a href="#cb14-26" tabindex="-1"></a>disp_imp_err <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> disp_imp <span class="co"># calculate 1 - DI</span></span>
-<span id="cb14-27"><a href="#cb14-27" tabindex="-1"></a>plot(thresh_arr, <span class="st">'Classification Thresholds'</span>,</span>
-<span id="cb14-28"><a href="#cb14-28" tabindex="-1"></a>     val_metrics[<span class="st">'bal_acc'</span>], <span class="st">'Balanced Accuracy'</span>,</span>
-<span id="cb14-29"><a href="#cb14-29" tabindex="-1"></a>     disp_imp_err, <span class="st">'1 - DI'</span>) <span class="co"># Plot balanced accuracy and 1-DI against the classification thresholds</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="kw">def</span> plot(x:np.ndarray, x_name:<span class="bu">str</span>, y_left:np.ndarray, y_left_name:<span class="bu">str</span>, y_right:np.ndarray, y_right_name:<span class="bu">str</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>    <span class="co">'''</span></span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a><span class="co">        Create a matplotlib plot with two y-axes and a single x-axis. </span></span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a><span class="co">    '''</span></span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a>    fig, ax1 <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">7</span>)) <span class="co"># create a figure and axis</span></span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a>    ax1.plot(x, y_left) <span class="co"># plot the left y-axis data</span></span>
+<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a>    ax1.set_xlabel(x_name, fontsize<span class="op">=</span><span class="dv">16</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>) <span class="co"># set the x-axis label</span></span>
+<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a>    ax1.set_ylabel(y_left_name, color<span class="op">=</span><span class="st">'b'</span>, fontsize<span class="op">=</span><span class="dv">16</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)  <span class="co"># set the left y-axis label</span></span>
+<span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a>    ax1.xaxis.set_tick_params(labelsize<span class="op">=</span><span class="dv">14</span>) <span class="co"># set the x-axis tick label size</span></span>
+<span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a>    ax1.yaxis.set_tick_params(labelsize<span class="op">=</span><span class="dv">14</span>) <span class="co"># set the left y-axis tick label size</span></span>
+<span id="cb15-11"><a href="#cb15-11" tabindex="-1"></a>    ax1.set_ylim(<span class="fl">0.5</span>, <span class="fl">0.8</span>) <span class="co"># set the left y-axis limits</span></span>
+<span id="cb15-12"><a href="#cb15-12" tabindex="-1"></a></span>
+<span id="cb15-13"><a href="#cb15-13" tabindex="-1"></a>    ax2 <span class="op">=</span> ax1.twinx() <span class="co"># create a second y-axis that shares the same x-axis</span></span>
+<span id="cb15-14"><a href="#cb15-14" tabindex="-1"></a>    ax2.plot(x, y_right, color<span class="op">=</span><span class="st">'r'</span>) <span class="co"># plot the right y-axis data</span></span>
+<span id="cb15-15"><a href="#cb15-15" tabindex="-1"></a>    ax2.set_ylabel(y_right_name, color<span class="op">=</span><span class="st">'r'</span>, fontsize<span class="op">=</span><span class="dv">16</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>) <span class="co"># set the right y-axis label</span></span>
+<span id="cb15-16"><a href="#cb15-16" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">'DI'</span> <span class="kw">in</span> y_right_name: </span>
+<span id="cb15-17"><a href="#cb15-17" tabindex="-1"></a>        ax2.set_ylim(<span class="fl">0.</span>, <span class="fl">0.7</span>) <span class="co"># set the right y-axis limits  if we're plotting disparate impact</span></span>
+<span id="cb15-18"><a href="#cb15-18" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb15-19"><a href="#cb15-19" tabindex="-1"></a>        ax2.set_ylim(<span class="op">-</span><span class="fl">0.25</span>, <span class="fl">0.1</span>)  <span class="co"># set the right y-axis limits if we're plotting 1-DI</span></span>
+<span id="cb15-20"><a href="#cb15-20" tabindex="-1"></a></span>
+<span id="cb15-21"><a href="#cb15-21" tabindex="-1"></a>    best_ind <span class="op">=</span> np.argmax(y_left) <span class="co"># get the index of the best balanced accuracy</span></span>
+<span id="cb15-22"><a href="#cb15-22" tabindex="-1"></a>    ax2.axvline(np.array(x)[best_ind], color<span class="op">=</span><span class="st">'k'</span>, linestyle<span class="op">=</span><span class="st">':'</span>) <span class="co"># add a vertical line at the best balanced accuracy</span></span>
+<span id="cb15-23"><a href="#cb15-23" tabindex="-1"></a>    ax2.yaxis.set_tick_params(labelsize<span class="op">=</span><span class="dv">14</span>) <span class="co"># set the right y-axis tick label size</span></span>
+<span id="cb15-24"><a href="#cb15-24" tabindex="-1"></a>    ax2.grid(<span class="va">True</span>) <span class="co"># add a grid</span></span>
+<span id="cb15-25"><a href="#cb15-25" tabindex="-1"></a>disp_imp <span class="op">=</span> np.array(val_metrics[<span class="st">'disp_imp'</span>]) <span class="co"># disparate impact (DI)</span></span>
+<span id="cb15-26"><a href="#cb15-26" tabindex="-1"></a>disp_imp_err <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> disp_imp <span class="co"># calculate 1 - DI</span></span>
+<span id="cb15-27"><a href="#cb15-27" tabindex="-1"></a>plot(thresh_arr, <span class="st">'Classification Thresholds'</span>,</span>
+<span id="cb15-28"><a href="#cb15-28" tabindex="-1"></a>     val_metrics[<span class="st">'bal_acc'</span>], <span class="st">'Balanced Accuracy'</span>,</span>
+<span id="cb15-29"><a href="#cb15-29" tabindex="-1"></a>     disp_imp_err, <span class="st">'1 - DI'</span>) <span class="co"># Plot balanced accuracy and 1-DI against the classification thresholds</span></span></code></pre>
 </div>
 <div id="interpreting-the-plot" class="callout discussion">
 <div class="callout-square">
@@ -2277,7 +2289,7 @@ would you choose based on this graph? Why?</p></li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li><p>Using a threshold of 0.1, the accuracy is about 0.71 and the 1-DI
@@ -2312,26 +2324,26 @@ choose a single fairness metric to use based on the details of the
 situation. You can learn more details about the various metrics in the
 <a href="https://aif360.readthedocs.io/en/stable/modules/generated/aif360.metrics.ClassificationMetric.html#aif360.metrics.ClassificationMetric" class="external-link">AIF360
 documentation</a>.</p>
-<div class="codewrapper sourceCode" id="cb15">
+<div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="kw">def</span> describe_metrics(metrics: <span class="bu">dict</span>, thresh_arr: np.ndarray) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
-<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>    <span class="co">'''</span></span>
-<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a><span class="co">        Given a dictionary of metrics and a list of potential cutoff thresholds, print the best</span></span>
-<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a><span class="co">        threshold (based on 'bal_acc' balanced accuracy dictionary entry) and the corresponding</span></span>
-<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a><span class="co">        values of other metrics at the selected threshold.</span></span>
-<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a><span class="co">    '''</span></span>
-<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a>    best_ind <span class="op">=</span> np.argmax(metrics[<span class="st">'bal_acc'</span>]) <span class="co"># get the index of the best balanced accuracy</span></span>
-<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Threshold corresponding to Best balanced accuracy: </span><span class="sc">{:6.4f}</span><span class="st">"</span>.<span class="bu">format</span>(thresh_arr[best_ind]))</span>
-<span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Best balanced accuracy: </span><span class="sc">{:6.4f}</span><span class="st">"</span>.<span class="bu">format</span>(metrics[<span class="st">'bal_acc'</span>][best_ind]))</span>
-<span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a>    disp_imp_at_best_ind <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> metrics[<span class="st">'disp_imp'</span>][best_ind] <span class="co"># calculate 1 - DI at the best index</span></span>
-<span id="cb15-11"><a href="#cb15-11" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Corresponding 1-DI value: </span><span class="sc">{:6.4f}</span><span class="st">"</span>.<span class="bu">format</span>(disp_imp_at_best_ind))</span>
-<span id="cb15-12"><a href="#cb15-12" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Corresponding average odds difference value: </span><span class="sc">{:6.4f}</span><span class="st">"</span>.<span class="bu">format</span>(metrics[<span class="st">'avg_odds_diff'</span>][best_ind]))</span>
-<span id="cb15-13"><a href="#cb15-13" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Corresponding statistical parity difference value: </span><span class="sc">{:6.4f}</span><span class="st">"</span>.<span class="bu">format</span>(metrics[<span class="st">'stat_par_diff'</span>][best_ind]))</span>
-<span id="cb15-14"><a href="#cb15-14" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Corresponding equal opportunity difference value: </span><span class="sc">{:6.4f}</span><span class="st">"</span>.<span class="bu">format</span>(metrics[<span class="st">'eq_opp_diff'</span>][best_ind]))</span>
-<span id="cb15-15"><a href="#cb15-15" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Corresponding Theil index value: </span><span class="sc">{:6.4f}</span><span class="st">"</span>.<span class="bu">format</span>(metrics[<span class="st">'theil_ind'</span>][best_ind]))</span>
-<span id="cb15-16"><a href="#cb15-16" tabindex="-1"></a></span>
-<span id="cb15-17"><a href="#cb15-17" tabindex="-1"></a>describe_metrics(val_metrics, thresh_arr) <span class="co"># call the function</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="kw">def</span> describe_metrics(metrics: <span class="bu">dict</span>, thresh_arr: np.ndarray) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>    <span class="co">'''</span></span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a><span class="co">        Given a dictionary of metrics and a list of potential cutoff thresholds, print the best</span></span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a><span class="co">        threshold (based on 'bal_acc' balanced accuracy dictionary entry) and the corresponding</span></span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a><span class="co">        values of other metrics at the selected threshold.</span></span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a><span class="co">    '''</span></span>
+<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a>    best_ind <span class="op">=</span> np.argmax(metrics[<span class="st">'bal_acc'</span>]) <span class="co"># get the index of the best balanced accuracy</span></span>
+<span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Threshold corresponding to Best balanced accuracy: </span><span class="sc">{:6.4f}</span><span class="st">"</span>.<span class="bu">format</span>(thresh_arr[best_ind]))</span>
+<span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Best balanced accuracy: </span><span class="sc">{:6.4f}</span><span class="st">"</span>.<span class="bu">format</span>(metrics[<span class="st">'bal_acc'</span>][best_ind]))</span>
+<span id="cb16-10"><a href="#cb16-10" tabindex="-1"></a>    disp_imp_at_best_ind <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> metrics[<span class="st">'disp_imp'</span>][best_ind] <span class="co"># calculate 1 - DI at the best index</span></span>
+<span id="cb16-11"><a href="#cb16-11" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Corresponding 1-DI value: </span><span class="sc">{:6.4f}</span><span class="st">"</span>.<span class="bu">format</span>(disp_imp_at_best_ind))</span>
+<span id="cb16-12"><a href="#cb16-12" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Corresponding average odds difference value: </span><span class="sc">{:6.4f}</span><span class="st">"</span>.<span class="bu">format</span>(metrics[<span class="st">'avg_odds_diff'</span>][best_ind]))</span>
+<span id="cb16-13"><a href="#cb16-13" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Corresponding statistical parity difference value: </span><span class="sc">{:6.4f}</span><span class="st">"</span>.<span class="bu">format</span>(metrics[<span class="st">'stat_par_diff'</span>][best_ind]))</span>
+<span id="cb16-14"><a href="#cb16-14" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Corresponding equal opportunity difference value: </span><span class="sc">{:6.4f}</span><span class="st">"</span>.<span class="bu">format</span>(metrics[<span class="st">'eq_opp_diff'</span>][best_ind]))</span>
+<span id="cb16-15"><a href="#cb16-15" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Corresponding Theil index value: </span><span class="sc">{:6.4f}</span><span class="st">"</span>.<span class="bu">format</span>(metrics[<span class="st">'theil_ind'</span>][best_ind]))</span>
+<span id="cb16-16"><a href="#cb16-16" tabindex="-1"></a></span>
+<span id="cb16-17"><a href="#cb16-17" tabindex="-1"></a>describe_metrics(val_metrics, thresh_arr) <span class="co"># call the function</span></span></code></pre>
 </div>
 </div>
 <div class="section level3">
@@ -2339,13 +2351,13 @@ documentation</a>.</p>
 </h3>
 <p>Now that we have used the validation data to select the best
 threshold, we will evaluate the test the model on the test data.</p>
-<div class="codewrapper sourceCode" id="cb16">
+<div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>lr_metrics <span class="op">=</span> test(dataset<span class="op">=</span>dataset_orig_panel19_test,</span>
-<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>                       model<span class="op">=</span>lr_orig_panel19,</span>
-<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>                       thresh_arr<span class="op">=</span>[thresh_arr[lr_orig_best_ind]]) <span class="co"># call our function "test" with the test data and lr model</span></span>
-<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a>describe_metrics(lr_metrics, [thresh_arr[lr_orig_best_ind]]) <span class="co"># print the metrics for the test data</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>lr_metrics <span class="op">=</span> test(dataset<span class="op">=</span>dataset_orig_panel19_test,</span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a>                       model<span class="op">=</span>lr_orig_panel19,</span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a>                       thresh_arr<span class="op">=</span>[thresh_arr[lr_orig_best_ind]]) <span class="co"># call our function "test" with the test data and lr model</span></span>
+<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a>describe_metrics(lr_metrics, [thresh_arr[lr_orig_best_ind]]) <span class="co"># print the metrics for the test data</span></span></code></pre>
 </div>
 </div>
 </section><section><h2 class="section-heading" id="mitigate-bias-with-in-processing">Mitigate bias with in-processing<a class="anchor" aria-label="anchor" href="#mitigate-bias-with-in-processing"></a>
@@ -2363,83 +2375,83 @@ learning algorithm so it is pre-processing. But, it is functionally
 equivalent to modifying the learning algorithm’s loss function, so we
 follow the convention of the fair ML field and call it
 in-processing.</p>
-<div class="codewrapper sourceCode" id="cb17">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="im">from</span> aif360.algorithms.preprocessing <span class="im">import</span> Reweighing</span></code></pre>
-</div>
 <div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="co"># Reweighting is a AIF360 class to reweight the data </span></span>
-<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>RW <span class="op">=</span> Reweighing(unprivileged_groups<span class="op">=</span>unprivileged_groups,</span>
-<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a>                privileged_groups<span class="op">=</span>privileged_groups) <span class="co"># create a Reweighing object with the unprivileged and privileged groups</span></span>
-<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a>dataset_transf_panel19_train <span class="op">=</span> RW.fit_transform(dataset_orig_panel19_train) <span class="co"># reweight the training data</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="im">from</span> aif360.algorithms.preprocessing <span class="im">import</span> Reweighing</span></code></pre>
 </div>
-<p>We’ll also define metrics for the reweighted data and print out the
-disparate impact of the dataset.</p>
 <div class="codewrapper sourceCode" id="cb19">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>metric_transf_panel19_train <span class="op">=</span> BinaryLabelDatasetMetric(</span>
-<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>        dataset_transf_panel19_train, <span class="co"># use train data</span></span>
-<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a>        unprivileged_groups<span class="op">=</span>unprivileged_groups, <span class="co"># pass in unprivileged and privileged groups</span></span>
-<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a>        privileged_groups<span class="op">=</span>privileged_groups)</span>
-<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a>explainer_transf_panel19_train <span class="op">=</span> MetricTextExplainer(metric_transf_panel19_train) <span class="co"># create a MetricTextExplainer object</span></span>
-<span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a></span>
-<span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a><span class="bu">print</span>(explainer_transf_panel19_train.disparate_impact()) <span class="co"># print disparate impact</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="co"># Reweighting is a AIF360 class to reweight the data </span></span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>RW <span class="op">=</span> Reweighing(unprivileged_groups<span class="op">=</span>unprivileged_groups,</span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a>                privileged_groups<span class="op">=</span>privileged_groups) <span class="co"># create a Reweighing object with the unprivileged and privileged groups</span></span>
+<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a>dataset_transf_panel19_train <span class="op">=</span> RW.fit_transform(dataset_orig_panel19_train) <span class="co"># reweight the training data</span></span></code></pre>
 </div>
-<p>Then, we’ll train a model, validate it, and evaluate of the test
-data.</p>
+<p>We’ll also define metrics for the reweighted data and print out the
+disparate impact of the dataset.</p>
 <div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="co"># train</span></span>
-<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>dataset <span class="op">=</span> dataset_transf_panel19_train  <span class="co"># use the reweighted training data</span></span>
-<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a>model <span class="op">=</span> make_pipeline(StandardScaler(),</span>
-<span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a>                      LogisticRegression(solver<span class="op">=</span><span class="st">'liblinear'</span>, random_state<span class="op">=</span><span class="dv">1</span>)) <span class="co"># model pipeline</span></span>
-<span id="cb20-5"><a href="#cb20-5" tabindex="-1"></a>fit_params <span class="op">=</span> {<span class="st">'logisticregression__sample_weight'</span>: dataset.instance_weights}</span>
-<span id="cb20-6"><a href="#cb20-6" tabindex="-1"></a>lr_transf_panel19 <span class="op">=</span> model.fit(dataset.features, dataset.labels.ravel(), <span class="op">**</span>fit_params) <span class="co"># fit the model</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a>metric_transf_panel19_train <span class="op">=</span> BinaryLabelDatasetMetric(</span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>        dataset_transf_panel19_train, <span class="co"># use train data</span></span>
+<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a>        unprivileged_groups<span class="op">=</span>unprivileged_groups, <span class="co"># pass in unprivileged and privileged groups</span></span>
+<span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a>        privileged_groups<span class="op">=</span>privileged_groups)</span>
+<span id="cb20-5"><a href="#cb20-5" tabindex="-1"></a>explainer_transf_panel19_train <span class="op">=</span> MetricTextExplainer(metric_transf_panel19_train) <span class="co"># create a MetricTextExplainer object</span></span>
+<span id="cb20-6"><a href="#cb20-6" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" tabindex="-1"></a><span class="bu">print</span>(explainer_transf_panel19_train.disparate_impact()) <span class="co"># print disparate impact</span></span></code></pre>
 </div>
+<p>Then, we’ll train a model, validate it, and evaluate of the test
+data.</p>
 <div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="co"># validate</span></span>
-<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a>thresh_arr <span class="op">=</span> np.linspace(<span class="fl">0.01</span>, <span class="fl">0.5</span>, <span class="dv">50</span>) <span class="co"># check 50 thresholds between 0.01 and 0.5</span></span>
-<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a>val_metrics <span class="op">=</span> test(dataset<span class="op">=</span>dataset_orig_panel19_val,</span>
-<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a>                   model<span class="op">=</span>lr_transf_panel19,</span>
-<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a>                   thresh_arr<span class="op">=</span>thresh_arr) <span class="co"># call our function "test" with the validation data and lr model</span></span>
-<span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a>lr_transf_best_ind <span class="op">=</span> np.argmax(val_metrics[<span class="st">'bal_acc'</span>]) <span class="co"># get the index of the best balanced accuracy</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="co"># train</span></span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a>dataset <span class="op">=</span> dataset_transf_panel19_train  <span class="co"># use the reweighted training data</span></span>
+<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a>model <span class="op">=</span> make_pipeline(StandardScaler(),</span>
+<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a>                      LogisticRegression(solver<span class="op">=</span><span class="st">'liblinear'</span>, random_state<span class="op">=</span><span class="dv">1</span>)) <span class="co"># model pipeline</span></span>
+<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a>fit_params <span class="op">=</span> {<span class="st">'logisticregression__sample_weight'</span>: dataset.instance_weights}</span>
+<span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a>lr_transf_panel19 <span class="op">=</span> model.fit(dataset.features, dataset.labels.ravel(), <span class="op">**</span>fit_params) <span class="co"># fit the model</span></span></code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="co"># plot validation results</span></span>
-<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a>disp_imp <span class="op">=</span> np.array(val_metrics[<span class="st">'disp_imp'</span>]) <span class="co"># get the disparate impact values</span></span>
-<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a>disp_imp_err <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> np.minimum(disp_imp, <span class="dv">1</span><span class="op">/</span>disp_imp) <span class="co"># calculate 1 - min(DI, 1/DI)</span></span>
-<span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a>plot(thresh_arr, <span class="co"># use the classification thresholds as the x-axis</span></span>
-<span id="cb22-5"><a href="#cb22-5" tabindex="-1"></a>     <span class="st">'Classification Thresholds'</span>, </span>
-<span id="cb22-6"><a href="#cb22-6" tabindex="-1"></a>     val_metrics[<span class="st">'bal_acc'</span>],  <span class="co"># plot accuracy on the first y-axis</span></span>
-<span id="cb22-7"><a href="#cb22-7" tabindex="-1"></a>     <span class="st">'Balanced Accuracy'</span>, </span>
-<span id="cb22-8"><a href="#cb22-8" tabindex="-1"></a>     disp_imp_err, <span class="co"># plot 1 - min(DI, 1/DI) on the second y-axis</span></span>
-<span id="cb22-9"><a href="#cb22-9" tabindex="-1"></a>     <span class="st">'1 - min(DI, 1/DI)'</span></span>
-<span id="cb22-10"><a href="#cb22-10" tabindex="-1"></a>     )</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="co"># validate</span></span>
+<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a>thresh_arr <span class="op">=</span> np.linspace(<span class="fl">0.01</span>, <span class="fl">0.5</span>, <span class="dv">50</span>) <span class="co"># check 50 thresholds between 0.01 and 0.5</span></span>
+<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a>val_metrics <span class="op">=</span> test(dataset<span class="op">=</span>dataset_orig_panel19_val,</span>
+<span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a>                   model<span class="op">=</span>lr_transf_panel19,</span>
+<span id="cb22-5"><a href="#cb22-5" tabindex="-1"></a>                   thresh_arr<span class="op">=</span>thresh_arr) <span class="co"># call our function "test" with the validation data and lr model</span></span>
+<span id="cb22-6"><a href="#cb22-6" tabindex="-1"></a>lr_transf_best_ind <span class="op">=</span> np.argmax(val_metrics[<span class="st">'bal_acc'</span>]) <span class="co"># get the index of the best balanced accuracy</span></span></code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a>describe_metrics(val_metrics, thresh_arr) <span class="co"># describe validation results</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="co"># plot validation results</span></span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a>disp_imp <span class="op">=</span> np.array(val_metrics[<span class="st">'disp_imp'</span>]) <span class="co"># get the disparate impact values</span></span>
+<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a>disp_imp_err <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> np.minimum(disp_imp, <span class="dv">1</span><span class="op">/</span>disp_imp) <span class="co"># calculate 1 - min(DI, 1/DI)</span></span>
+<span id="cb23-4"><a href="#cb23-4" tabindex="-1"></a>plot(thresh_arr, <span class="co"># use the classification thresholds as the x-axis</span></span>
+<span id="cb23-5"><a href="#cb23-5" tabindex="-1"></a>     <span class="st">'Classification Thresholds'</span>, </span>
+<span id="cb23-6"><a href="#cb23-6" tabindex="-1"></a>     val_metrics[<span class="st">'bal_acc'</span>],  <span class="co"># plot accuracy on the first y-axis</span></span>
+<span id="cb23-7"><a href="#cb23-7" tabindex="-1"></a>     <span class="st">'Balanced Accuracy'</span>, </span>
+<span id="cb23-8"><a href="#cb23-8" tabindex="-1"></a>     disp_imp_err, <span class="co"># plot 1 - min(DI, 1/DI) on the second y-axis</span></span>
+<span id="cb23-9"><a href="#cb23-9" tabindex="-1"></a>     <span class="st">'1 - min(DI, 1/DI)'</span></span>
+<span id="cb23-10"><a href="#cb23-10" tabindex="-1"></a>     )</span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb24">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a>describe_metrics(val_metrics, thresh_arr) <span class="co"># describe validation results</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="test">Test<a class="anchor" aria-label="anchor" href="#test"></a>
 </h3>
-<div class="codewrapper sourceCode" id="cb24">
+<div class="codewrapper sourceCode" id="cb25">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a>lr_transf_metrics <span class="op">=</span> test(dataset<span class="op">=</span>dataset_orig_panel19_test,</span>
-<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a>                         model<span class="op">=</span>lr_transf_panel19,</span>
-<span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a>                         thresh_arr<span class="op">=</span>[thresh_arr[lr_transf_best_ind]]) <span class="co"># call our function "test" with the test data and lr model</span></span>
-<span id="cb24-4"><a href="#cb24-4" tabindex="-1"></a>describe_metrics(lr_transf_metrics, [thresh_arr[lr_transf_best_ind]]) <span class="co"># describe test results</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a>lr_transf_metrics <span class="op">=</span> test(dataset<span class="op">=</span>dataset_orig_panel19_test,</span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a>                         model<span class="op">=</span>lr_transf_panel19,</span>
+<span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a>                         thresh_arr<span class="op">=</span>[thresh_arr[lr_transf_best_ind]]) <span class="co"># call our function "test" with the test data and lr model</span></span>
+<span id="cb25-4"><a href="#cb25-4" tabindex="-1"></a>describe_metrics(lr_transf_metrics, [thresh_arr[lr_transf_best_ind]]) <span class="co"># describe test results</span></span></code></pre>
 </div>
 <p>We see that the disparate impact score on the test data is better
 after reweighting than it was originally.</p>
@@ -2459,27 +2471,27 @@ the demographic parity constraint, and indicate that we would like to
 optimize the balanced accuracy score (other options include accuracy,
 and true or false positive rate – see <a href="https://fairlearn.org/main/api_reference/generated/fairlearn.postprocessing.ThresholdOptimizer.html#fairlearn.postprocessing.ThresholdOptimizer" class="external-link">the
 documentation</a> for more details).</p>
-<div class="codewrapper sourceCode" id="cb25">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="im">from</span> fairlearn.postprocessing <span class="im">import</span> ThresholdOptimizer <span class="co"># import ThresholdOptimizer</span></span></code></pre>
-</div>
 <div class="codewrapper sourceCode" id="cb26">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="co"># create a ThresholdOptimizer object</span></span>
-<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a>to <span class="op">=</span> ThresholdOptimizer(estimator<span class="op">=</span>model, </span>
-<span id="cb26-3"><a href="#cb26-3" tabindex="-1"></a>                        constraints<span class="op">=</span><span class="st">"demographic_parity"</span>, <span class="co"># set the constraint to demographic parity</span></span>
-<span id="cb26-4"><a href="#cb26-4" tabindex="-1"></a>                        objective<span class="op">=</span><span class="st">"balanced_accuracy_score"</span>, <span class="co"># optimize for balanced accuracy</span></span>
-<span id="cb26-5"><a href="#cb26-5" tabindex="-1"></a>                        prefit<span class="op">=</span><span class="va">True</span>) </span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="im">from</span> fairlearn.postprocessing <span class="im">import</span> ThresholdOptimizer <span class="co"># import ThresholdOptimizer</span></span></code></pre>
 </div>
-<p>Next, we fit the ThresholdOptimizer object to the validation
-data.</p>
 <div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a>to.fit(dataset_orig_panel19_val.features, dataset_orig_panel19_val.labels, </span>
-<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a>       sensitive_features<span class="op">=</span>dataset_orig_panel19_val.protected_attributes[:,<span class="dv">0</span>]) <span class="co"># fit the ThresholdOptimizer object</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="co"># create a ThresholdOptimizer object</span></span>
+<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a>to <span class="op">=</span> ThresholdOptimizer(estimator<span class="op">=</span>model, </span>
+<span id="cb27-3"><a href="#cb27-3" tabindex="-1"></a>                        constraints<span class="op">=</span><span class="st">"demographic_parity"</span>, <span class="co"># set the constraint to demographic parity</span></span>
+<span id="cb27-4"><a href="#cb27-4" tabindex="-1"></a>                        objective<span class="op">=</span><span class="st">"balanced_accuracy_score"</span>, <span class="co"># optimize for balanced accuracy</span></span>
+<span id="cb27-5"><a href="#cb27-5" tabindex="-1"></a>                        prefit<span class="op">=</span><span class="va">True</span>) </span></code></pre>
+</div>
+<p>Next, we fit the ThresholdOptimizer object to the validation
+data.</p>
+<div class="codewrapper sourceCode" id="cb28">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a>to.fit(dataset_orig_panel19_val.features, dataset_orig_panel19_val.labels, </span>
+<span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a>       sensitive_features<span class="op">=</span>dataset_orig_panel19_val.protected_attributes[:,<span class="dv">0</span>]) <span class="co"># fit the ThresholdOptimizer object</span></span></code></pre>
 </div>
 <p>Then, we’ll create a helper function, <code>mini_test</code> to allow
 us to call the <code>describe_metrics</code> function even though we are
@@ -2487,63 +2499,63 @@ no longer evaluating our method as a variety of thresholds.</p>
 <p>After that, we call the ThresholdOptimizer’s predict function on the
 validation and test data, and then compute metrics and print the
 results.</p>
-<div class="codewrapper sourceCode" id="cb28">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="kw">def</span> mini_test(dataset:MEPSDataset19, preds:np.ndarray) <span class="op">-&gt;</span> <span class="bu">dict</span>:</span>
-<span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a>    <span class="co">'''</span></span>
-<span id="cb28-3"><a href="#cb28-3" tabindex="-1"></a><span class="co">        Given a dataset and predictions, compute various metrics for the model. Returns a dictionary of the metrics,</span></span>
-<span id="cb28-4"><a href="#cb28-4" tabindex="-1"></a><span class="co">        including balanced accuracy, average odds difference, disparate impact, statistical parity difference, equal</span></span>
-<span id="cb28-5"><a href="#cb28-5" tabindex="-1"></a><span class="co">        opportunity difference, and theil index.</span></span>
-<span id="cb28-6"><a href="#cb28-6" tabindex="-1"></a><span class="co">    '''</span></span>
-<span id="cb28-7"><a href="#cb28-7" tabindex="-1"></a>    metric_arrs <span class="op">=</span> defaultdict(<span class="bu">list</span>)</span>
-<span id="cb28-8"><a href="#cb28-8" tabindex="-1"></a>    dataset_pred <span class="op">=</span> dataset.copy()</span>
-<span id="cb28-9"><a href="#cb28-9" tabindex="-1"></a>    dataset_pred.labels <span class="op">=</span> preds</span>
-<span id="cb28-10"><a href="#cb28-10" tabindex="-1"></a>    metric <span class="op">=</span> ClassificationMetric(</span>
-<span id="cb28-11"><a href="#cb28-11" tabindex="-1"></a>            dataset, dataset_pred,</span>
-<span id="cb28-12"><a href="#cb28-12" tabindex="-1"></a>            unprivileged_groups<span class="op">=</span>unprivileged_groups,</span>
-<span id="cb28-13"><a href="#cb28-13" tabindex="-1"></a>            privileged_groups<span class="op">=</span>privileged_groups)</span>
-<span id="cb28-14"><a href="#cb28-14" tabindex="-1"></a></span>
-<span id="cb28-15"><a href="#cb28-15" tabindex="-1"></a>    <span class="co"># various metrics - can look up what they are on your own</span></span>
-<span id="cb28-16"><a href="#cb28-16" tabindex="-1"></a>    metric_arrs[<span class="st">'bal_acc'</span>].append((metric.true_positive_rate()</span>
-<span id="cb28-17"><a href="#cb28-17" tabindex="-1"></a>                                    <span class="op">+</span> metric.true_negative_rate()) <span class="op">/</span> <span class="dv">2</span>)</span>
-<span id="cb28-18"><a href="#cb28-18" tabindex="-1"></a>    metric_arrs[<span class="st">'avg_odds_diff'</span>].append(metric.average_odds_difference())</span>
-<span id="cb28-19"><a href="#cb28-19" tabindex="-1"></a>    metric_arrs[<span class="st">'disp_imp'</span>].append(metric.disparate_impact())</span>
-<span id="cb28-20"><a href="#cb28-20" tabindex="-1"></a>    metric_arrs[<span class="st">'stat_par_diff'</span>].append(metric.statistical_parity_difference())</span>
-<span id="cb28-21"><a href="#cb28-21" tabindex="-1"></a>    metric_arrs[<span class="st">'eq_opp_diff'</span>].append(metric.equal_opportunity_difference())</span>
-<span id="cb28-22"><a href="#cb28-22" tabindex="-1"></a>    metric_arrs[<span class="st">'theil_ind'</span>].append(metric.theil_index())</span>
-<span id="cb28-23"><a href="#cb28-23" tabindex="-1"></a>    </span>
-<span id="cb28-24"><a href="#cb28-24" tabindex="-1"></a>    <span class="cf">return</span> metric_arrs</span></code></pre>
-</div>
 <div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="co"># get predictions for validation dataset using the ThresholdOptimizer</span></span>
-<span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a>to_val_preds <span class="op">=</span> to.predict(dataset_orig_panel19_val.features, </span>
-<span id="cb29-3"><a href="#cb29-3" tabindex="-1"></a>                          sensitive_features<span class="op">=</span>dataset_orig_panel19_val.protected_attributes[:,<span class="dv">0</span>])</span>
-<span id="cb29-4"><a href="#cb29-4" tabindex="-1"></a></span>
-<span id="cb29-5"><a href="#cb29-5" tabindex="-1"></a><span class="co"># get predictions for test dataset using the ThresholdOptimizer</span></span>
-<span id="cb29-6"><a href="#cb29-6" tabindex="-1"></a>to_test_preds <span class="op">=</span> to.predict(dataset_orig_panel19_test.features, </span>
-<span id="cb29-7"><a href="#cb29-7" tabindex="-1"></a>                           sensitive_features<span class="op">=</span>dataset_orig_panel19_test.protected_attributes[:,<span class="dv">0</span>])</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="kw">def</span> mini_test(dataset:MEPSDataset19, preds:np.ndarray) <span class="op">-&gt;</span> <span class="bu">dict</span>:</span>
+<span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a>    <span class="co">'''</span></span>
+<span id="cb29-3"><a href="#cb29-3" tabindex="-1"></a><span class="co">        Given a dataset and predictions, compute various metrics for the model. Returns a dictionary of the metrics,</span></span>
+<span id="cb29-4"><a href="#cb29-4" tabindex="-1"></a><span class="co">        including balanced accuracy, average odds difference, disparate impact, statistical parity difference, equal</span></span>
+<span id="cb29-5"><a href="#cb29-5" tabindex="-1"></a><span class="co">        opportunity difference, and theil index.</span></span>
+<span id="cb29-6"><a href="#cb29-6" tabindex="-1"></a><span class="co">    '''</span></span>
+<span id="cb29-7"><a href="#cb29-7" tabindex="-1"></a>    metric_arrs <span class="op">=</span> defaultdict(<span class="bu">list</span>)</span>
+<span id="cb29-8"><a href="#cb29-8" tabindex="-1"></a>    dataset_pred <span class="op">=</span> dataset.copy()</span>
+<span id="cb29-9"><a href="#cb29-9" tabindex="-1"></a>    dataset_pred.labels <span class="op">=</span> preds</span>
+<span id="cb29-10"><a href="#cb29-10" tabindex="-1"></a>    metric <span class="op">=</span> ClassificationMetric(</span>
+<span id="cb29-11"><a href="#cb29-11" tabindex="-1"></a>            dataset, dataset_pred,</span>
+<span id="cb29-12"><a href="#cb29-12" tabindex="-1"></a>            unprivileged_groups<span class="op">=</span>unprivileged_groups,</span>
+<span id="cb29-13"><a href="#cb29-13" tabindex="-1"></a>            privileged_groups<span class="op">=</span>privileged_groups)</span>
+<span id="cb29-14"><a href="#cb29-14" tabindex="-1"></a></span>
+<span id="cb29-15"><a href="#cb29-15" tabindex="-1"></a>    <span class="co"># various metrics - can look up what they are on your own</span></span>
+<span id="cb29-16"><a href="#cb29-16" tabindex="-1"></a>    metric_arrs[<span class="st">'bal_acc'</span>].append((metric.true_positive_rate()</span>
+<span id="cb29-17"><a href="#cb29-17" tabindex="-1"></a>                                    <span class="op">+</span> metric.true_negative_rate()) <span class="op">/</span> <span class="dv">2</span>)</span>
+<span id="cb29-18"><a href="#cb29-18" tabindex="-1"></a>    metric_arrs[<span class="st">'avg_odds_diff'</span>].append(metric.average_odds_difference())</span>
+<span id="cb29-19"><a href="#cb29-19" tabindex="-1"></a>    metric_arrs[<span class="st">'disp_imp'</span>].append(metric.disparate_impact())</span>
+<span id="cb29-20"><a href="#cb29-20" tabindex="-1"></a>    metric_arrs[<span class="st">'stat_par_diff'</span>].append(metric.statistical_parity_difference())</span>
+<span id="cb29-21"><a href="#cb29-21" tabindex="-1"></a>    metric_arrs[<span class="st">'eq_opp_diff'</span>].append(metric.equal_opportunity_difference())</span>
+<span id="cb29-22"><a href="#cb29-22" tabindex="-1"></a>    metric_arrs[<span class="st">'theil_ind'</span>].append(metric.theil_index())</span>
+<span id="cb29-23"><a href="#cb29-23" tabindex="-1"></a>    </span>
+<span id="cb29-24"><a href="#cb29-24" tabindex="-1"></a>    <span class="cf">return</span> metric_arrs</span></code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb30">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a>to_val_metrics <span class="op">=</span> mini_test(dataset_orig_panel19_val, to_val_preds) <span class="co"># compute metrics for the validation set</span></span>
-<span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a>to_test_metrics <span class="op">=</span> mini_test(dataset_orig_panel19_test, to_test_preds) <span class="co"># compute metrics for the test set</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a><span class="co"># get predictions for validation dataset using the ThresholdOptimizer</span></span>
+<span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a>to_val_preds <span class="op">=</span> to.predict(dataset_orig_panel19_val.features, </span>
+<span id="cb30-3"><a href="#cb30-3" tabindex="-1"></a>                          sensitive_features<span class="op">=</span>dataset_orig_panel19_val.protected_attributes[:,<span class="dv">0</span>])</span>
+<span id="cb30-4"><a href="#cb30-4" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="#cb30-5" tabindex="-1"></a><span class="co"># get predictions for test dataset using the ThresholdOptimizer</span></span>
+<span id="cb30-6"><a href="#cb30-6" tabindex="-1"></a>to_test_preds <span class="op">=</span> to.predict(dataset_orig_panel19_test.features, </span>
+<span id="cb30-7"><a href="#cb30-7" tabindex="-1"></a>                           sensitive_features<span class="op">=</span>dataset_orig_panel19_test.protected_attributes[:,<span class="dv">0</span>])</span></code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb31">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Remember, `Threshold corresponding to Best balanced accuracy` is just a placeholder here."</span>)</span>
-<span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a>describe_metrics(to_val_metrics, [<span class="dv">0</span>]) <span class="co"># check accuracy (ignore other metrics for now)</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a>to_val_metrics <span class="op">=</span> mini_test(dataset_orig_panel19_val, to_val_preds) <span class="co"># compute metrics for the validation set</span></span>
+<span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a>to_test_metrics <span class="op">=</span> mini_test(dataset_orig_panel19_test, to_test_preds) <span class="co"># compute metrics for the test set</span></span></code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb32">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Remember, `Threshold corresponding to Best balanced accuracy` is just a placeholder here."</span>)</span>
-<span id="cb32-2"><a href="#cb32-2" tabindex="-1"></a></span>
-<span id="cb32-3"><a href="#cb32-3" tabindex="-1"></a>describe_metrics(to_test_metrics, [<span class="dv">0</span>]) <span class="co"># check accuracy (ignore other metrics for now)</span></span></code></pre>
+<span id="cb32-2"><a href="#cb32-2" tabindex="-1"></a>describe_metrics(to_val_metrics, [<span class="dv">0</span>]) <span class="co"># check accuracy (ignore other metrics for now)</span></span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb33">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Remember, `Threshold corresponding to Best balanced accuracy` is just a placeholder here."</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="#cb33-3" tabindex="-1"></a>describe_metrics(to_test_metrics, [<span class="dv">0</span>]) <span class="co"># check accuracy (ignore other metrics for now)</span></span></code></pre>
 </div>
 <p>Scroll up and see how these results compare with the original
 classifier and with the in-processing technique.</p>
@@ -2554,11 +2566,11 @@ between the accuracy sacrifice and increased levels of fairness.</p>
 group by examining the
 <code>interpolated_thresholder_.interpretation_dict</code> property of
 the ThresholdOptimzer.</p>
-<div class="codewrapper sourceCode" id="cb33">
+<div class="codewrapper sourceCode" id="cb34">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a>threshold_rules_by_group <span class="op">=</span> to.interpolated_thresholder_.interpolation_dict <span class="co"># get the threshold rules by group</span></span>
-<span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a>threshold_rules_by_group <span class="co"># print the threshold rules by group</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a>threshold_rules_by_group <span class="op">=</span> to.interpolated_thresholder_.interpolation_dict <span class="co"># get the threshold rules by group</span></span>
+<span id="cb34-2"><a href="#cb34-2" tabindex="-1"></a>threshold_rules_by_group <span class="co"># print the threshold rules by group</span></span></code></pre>
 </div>
 <p>Recall that a value of 1 in the Race column corresponds to White
 people, while a value of 0 corresponds to non-White people.</p>
@@ -2592,7 +2604,7 @@ introducing randomization?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p><strong>Pros:</strong> Randomization can be effective at increasing
 fairness.</p>
@@ -2920,7 +2932,7 @@ justifies their use despite their lack of transparency?</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="section level4">
 <h4 id="compare-the-advantages-1">Compare the advantages<a class="anchor" aria-label="anchor" href="#compare-the-advantages-1"></a>
@@ -3054,7 +3066,7 @@ drawbacks?</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>
