@@ -36,10 +36,7 @@ Now, let's set the random seed to ensure reproducibility. Setting random seeds i
 # Set random seeds for reproducibility - pick any number of your choice to set the seed. We use 42, since that is the answer to everything, after all.
 torch.manual_seed(42)
 ```
-```python
-# Set the GPU to use
-os.environ['CUDA_VISIBLE_DEVICES'] = '0'  
-```
+
 ##### Loading the Dataset
 Let's load our data: the IMDB Movie Review dataset. The dataset contains text reviews and their corresponding sentiment labels (positive or negative). 
 The label 1 corresponds to a positive review, and 0 corresponds to a negative review.
@@ -69,7 +66,7 @@ train_dataset, dev_dataset, test_dataset = load_imdb_dataset(keep_samples=50)
 ##### Loading the Model
 
 We will load a model from huggingface, and use this model to get the embeddings for the probe.
-We use BERT for this example, but feel free to explore other models from huggingface after the exercise.
+We use distilBERT for this example, but feel free to explore other models from huggingface after the exercise.
 
 BERT is a transformer-based model, and is known to perform well on a variety of NLP tasks.
 The model is pre-trained on a large corpus of text, and can be fine-tuned for specific tasks.
@@ -91,8 +88,9 @@ def load_model(model_name: str) -> Tuple[AutoModel, AutoTokenizer]:
 ```
 ```python
 # To play around with other models, find a list of models and their model_ids at: https://huggingface.co/models
-model, tokenizer = load_model('bert-base-uncased')
+model, tokenizer = load_model('distilbert-base-uncased') #'bert-base-uncased' has 12 layers and may take a while to process. We'll investigate distilbert instead.
 ```
+
 Let's see what the model's architecture looks like. How many layers does it have?
 ```python
 print(model)
