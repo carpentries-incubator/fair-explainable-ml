@@ -863,35 +863,38 @@ pip is used to fill the gap.</p>
 work, then installing these sub-packages is not necessary – you can
 continue on.</p>
 </li>
-<li>
-<p>Deactivating environment (complete at end of each day).
-Deactivating environments is part of good workflow hygiene. If you keep
-this environment active and then start working on another project, you
-may inadvertently use the wrong environment. This can lead to package
-conflicts or incorrect dependencies being used. To deactive your
-environment, use:</p>
+</ol></div>
+<div class="section level3">
+<h3 id="create-a-folder-on-your-desktop-for-storing-code-later">Create a folder on your Desktop for storing code later<a class="anchor" aria-label="anchor" href="#create-a-folder-on-your-desktop-for-storing-code-later"></a></h3>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code></pre>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">mkdir</span> Desktop/trustworthy_ML</span></code></pre>
 </div>
-</li>
-</ol></div>
+</div>
 <div class="section level3">
 <h3 id="starting-jupyter-lab">Starting Jupyter Lab<a class="anchor" aria-label="anchor" href="#starting-jupyter-lab"></a></h3>
-<p>We will teach using Python in Jupyter lab, a programming environment
-that runs in a web browser. Jupyter requires a reasonably up-to-date
-browser, preferably a current version of Chrome, Safari, or Firefox
-(note that Internet Explorer version 9 and below are <em>not</em>
-supported). If you installed Python using Anaconda, Jupyter should
-already be on your system. If you did not use Anaconda, use the Python
-package manager pip to acquire Jupyter (see the <a href="https://jupyter.org/install" class="external-link">Jupyter website</a> for details.)</p>
-<p>To start jupyter lab, open a terminal (Mac/Linux) or Anaconda prompt
-(Windows) and type the command:</p>
+<p>We want Jupyter Lab to have access to the enviornment we just built.
+Before launching a notebook, make sure the environment is activated:</p>
 <div class="codewrapper sourceCode" id="cb8">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="ex">conda</span> activate trustworthy_ML</span></code></pre>
+</div>
+<p>Change directory to your code folder before launching Jupyter. This
+will help us keep our code organized in one place.</p>
+<div class="codewrapper sourceCode" id="cb9">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="bu">cd</span> Desktop/trustworthy_ML</span></code></pre>
+</div>
+<p>To start jupyter lab, open a terminal (Mac/Linux) or Anaconda prompt
+(Windows) and type the command after activating your conda
+environment:</p>
+<div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="ex">jupyter</span> lab</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="ex">jupyter</span> lab</span></code></pre>
 </div>
 </div>
 <div class="section level3">
@@ -899,22 +902,21 @@ package manager pip to acquire Jupyter (see the <a href="https://jupyter.org/ins
 <p>To check whether all packages installed correctly, start a jupyter
 notebook in jupyter lab as explained above. Run the following lines of
 code:</p>
-<div class="codewrapper sourceCode" id="cb9">
+<div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="im">import</span> sklearn</span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'sklearn version: '</span>, sklearn.__version__)</span>
-<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="im">import</span> pandas</span>
-<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'pandas version: '</span>, pandas.__version__)</span>
-<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="im">import</span> torch</span>
-<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'torch version: '</span>, torch.__version__)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="im">import</span> sklearn</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'sklearn version: '</span>, sklearn.__version__) <span class="co"># &gt;= 1.5.2</span></span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="im">import</span> pandas</span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'pandas version: '</span>, pandas.__version__) <span class="co"># &gt;= 2.2.3</span></span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'torch version: '</span>, torch.__version__) <span class="co"># &gt;= 2.5.1</span></span></code></pre>
 </div>
 <p>This should output the versions of all required packages without
-giving errors. Most versions will work fine with this lesson, but: - For
-pytorch, the minimum version is 2.0 - For sklearn, the minimum version
-is 1.2.2</p>
+giving errors. Most versions should work fine with this lesson, but
+we’ve only tested thoroughly with the versions commented above.</p>
 </div>
 <div class="section level3">
 <h3 id="fallback-option-cloud-environment">Fallback option: cloud environment<a class="anchor" aria-label="anchor" href="#fallback-option-cloud-environment"></a></h3>
@@ -922,6 +924,22 @@ is 1.2.2</p>
 run this lesson in <a href="https://colab.research.google.com/" class="external-link">Google
 Colab</a>. Some packages may need to be installed on the fly within the
 notebook (TBD).</p>
+</div>
+<div class="section level3">
+<h3 id="deactivating-environment-complete-at-end-of-each-day">Deactivating environment (complete at end of each day)<a class="anchor" aria-label="anchor" href="#deactivating-environment-complete-at-end-of-each-day"></a></h3>
+<p>Deactivating environments is part of good workflow hygiene. If you
+keep your conda environment active and then start working on another
+project, you may inadvertently use the wrong environment. This can lead
+to package conflicts or incorrect dependencies being used. To deactive
+your environment, you can either close out of your shell entirely or
+type:</p>
+<div class="codewrapper sourceCode" id="cb12">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="kw">```</span><span class="fu">sh</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a><span class="ex">conda</span> deactivate</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a><span class="kw">```</span></span></code></pre>
+</div>
 </div>
 </section><section><h2 class="section-heading" id="download-and-move-the-data-needed">2) Download and move the data needed<a class="anchor" aria-label="anchor" href="#download-and-move-the-data-needed"></a></h2>
 <hr class="half-width"><p>For the fairness evaluation episode, you will need access to the
