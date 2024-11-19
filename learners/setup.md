@@ -131,6 +131,7 @@ Conda should already be available in your system once you installed Anaconda suc
     ```sh
     pip install datasets
     pip install pytorch-ood
+    pip install transformers
     pip install fairlearn
     pip install aif360[Reductions]
     pip install aif360[inFairness]
