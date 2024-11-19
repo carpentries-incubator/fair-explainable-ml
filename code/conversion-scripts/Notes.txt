@@ -1,0 +1,17 @@
+.md -> Notebook
+
+
+METHOD1: Jupytext. This gives a quick result, but fails to separate code and markdown cells.
+
+1) I used jupytext for this. After materials become stable enough on git, run :
+
+jupytext --to notebook "notebook.md"
+
+
+
+2) To convert all md files in folder, use:
+
+for file in *.md; do jupytext --to notebook "$file"; done # bash / git bash
+
+FOR %f IN (*.md) DO jupytext --to notebook "%f" # anaconda prompt / windows
+
