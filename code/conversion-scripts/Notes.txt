@@ -1,7 +1,7 @@
 .md -> Notebook
 
 
-METHOD1: Jupytext. This gives a quick result, but fails to separate code and markdown cells. See METHOD2 for best.
+METHOD1: Jupytext. This gives a quick result, but fails to separate code and markdown cells. See METHOD2a/METHOD2b for best.
 
 1) I used jupytext for this. After materials become stable enough on git, run :
 
@@ -16,7 +16,12 @@ FOR %f IN (*.md) DO jupytext --to notebook "%f" # anaconda prompt / windows
 
 
 
-METHOD2: Use custom script found in code/conversion-scripst.
+METHOD2a: Use custom script found in code/conversion-scripts. This works well for converting single files.
 
 (base) C:\Users\Endemann\Documents\GitHub\fair-explainable-ml\code\conversion-scripts>python convert-md-to-ipynb.py ../../episodes ../code https://github.com/carpentries-incubator/fair-explainable-ml/raw/main/images 8-releasing-a-model.md
+
+METHOD2b: To convert all md files (except those excluded explicitly in batch script), run the following:
+
+(base) C:\Users\Endemann\Documents\GitHub\fair-explainable-ml\code\conversion-scripts>python batch_convert_md_to_ipynb.py
+
 
