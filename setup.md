@@ -136,10 +136,10 @@ import fairlearn
 import umap
 
 # Tested versions in this workshop:
-print("Torch version:", torch.__version__)  # >= 2.5.1
+print("Torch version:", torch.__version__)  # >= 2.2
 print("Pandas version:", pd.__version__)  # >= 2.2.3
 print("Scikit-learn version:", sklearn.__version__)  # >= 1.5.2
-print("TensorFlow version:", tf.__version__)  # >= 2.18.0
+print("TensorFlow version:", tf.__version__)  # >= 2.16
 print("Transformers version:", transformers.__version__)  # >= 4.46.3
 print("PyTorch-OOD version:", pytorch_ood.__version__)  # >= 0.2.0
 print("Fairlearn version:", fairlearn.__version__)  # >= 0.11.0
