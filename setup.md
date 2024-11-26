@@ -26,7 +26,7 @@ python --version # windows
 ### 3) Create a workshop folder on your Desktop called "trustworthy_ML"
 We'll use this folder to store code throughput the workshop. We'll also add our virtual environment to this folder.
 
-In terminal (Mac/Linux) or Git Bash, create fodler using.
+In terminal (Mac/Linux) or Git Bash, create folder using.
 ```sh
 mkdir Desktop/trustworthy_ML # create folder
 cd Desktop/trustworthy_ML # change directory to folder
