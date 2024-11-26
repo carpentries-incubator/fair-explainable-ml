@@ -29,8 +29,47 @@ CIFAR-10 contains 60,000 images across 10 distinct classes (e.g., airplanes, dog
 ## How OOD data manifests in ML pipelines
 The difference between in-distribution (ID) and OOD data can arise from:
 
-- **Semantic shift**: The OOD sample belongs to a class that was not present during training.
-- **Covariate shift**: The OOD sample comes from a domain where the input feature distribution is drastically different from the training data.
+- **Semantic shift**: The OOD sample belongs to a class that was not present during training (classification). With continuous prediction/regression, semantic shift occurs when the underlying relationship between X and Y changes. 
+- **Covariate shift**: The OOD sample comes from a domain where the input feature distribution is drastically different from the training data. The input feature distribution changes, but the underlying relationship between X and Y stays the same.
+
+Semantic shift often co-occurs with covariate shift.
+
+:::::::::::::::::::::::::::::::::::::: challenge
+
+###  Distinguishing Semantic Shift vs. Covariate Shift
+
+You trained a model using the CIFAR-10 dataset to classify images into 10 classes (e.g., airplanes, dogs, trucks). Now, you deploy the model to classify images found on the internet. Consider the following scenarios and classify each as **Semantic Shift**, **Covariate Shift**, or **Both**. Provide reasoning for your choice.
+
+1. **Scenario A**: The internet dataset contains images of drones, which were not present in the CIFAR-10 dataset. The model struggles to classify them.
+   
+2. **Scenario B**: The internet dataset has dog images, but these dogs are primarily captured in outdoor settings with unfamiliar backgrounds and lighting conditions compared to the training data.
+   
+3. **Scenario C**: The internet dataset contains images of hybrid animals (e.g., "wolf-dogs") that do not belong to any CIFAR-10 class. The model predicts incorrectly.
+
+4. **Scenario D**: The internet dataset includes high-resolution images of airplanes, while the CIFAR-10 dataset contains only low-resolution airplane images. The model performs poorly on these new airplane images.
+
+5. **Scenario E**: A researcher retrains the CIFAR-10 model using an updated dataset where labels for "trucks" are now redefined to include pickup trucks, which were previously excluded. The new labels confuse the original model.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::: solution
+
+1. **Scenario A**: **Semantic Shift**  
+   - Drones represent a new class not seen during training, so the model encounters a semantic shift.
+
+2. **Scenario B**: **Covariate Shift**  
+   - The distribution of input features (e.g., lighting, background) changes, but the semantic relationship (e.g., dogs are still dogs) remains intact.
+
+3. **Scenario C**: **Both**  
+   - Hybrid animals represent a semantic shift (new class), and unfamiliar feature distributions (e.g., traits of wolves and dogs combined) also introduce covariate shift.
+
+4. **Scenario D**: **Covariate Shift**  
+   - The resolution of the images (input features) changes, but the semantic class of airplanes remains consistent.
+
+5. **Scenario E**: **Semantic Shift**  
+   - The relationship between input features and class labels has changed, as the definition of the "truck" class has been altered.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Why does OOD data matter?
 Models trained on a specific distribution might make incorrect predictions on OOD data, leading to unreliable outputs. In critical applications (e.g., healthcare, autonomous driving), encountering OOD data without proper handling can have severe consequences.
