@@ -12,7 +12,8 @@ You will need a terminal (or Git Bash recommended for Windows), Python 3.11.9, a
 ### 1) Installing Git Bash (Windows only)
 We will be launching Jupyter Lab (IDE) from a terminal (Mac/Linux) or Git Bash (Windows) during this workshop. If you will be using a Windows machine for this workshop, please [install Git Bash ("Git for Windows")](https://git-scm.com/downloads/win).
 
-**How to open Git Bash (Windows):**
+**How to open Git Bash (Windows)**
+
 1. After installation, search for "Git Bash" in the Start Menu.
 2. Click on the "Git Bash" application to open it.
 3. A terminal window will appear where you can type commands.
