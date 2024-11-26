@@ -24,10 +24,10 @@ exercises: 0
 import requests
 
 # Packages to view and process images
+import matplotlib.pyplot as plt
 import cv2
 import numpy as np
 from PIL import Image
-from google.colab.patches import cv2_imshow
 
 # Packages to load the model
 import torch
@@ -39,7 +39,7 @@ from pytorch_grad_cam.utils.model_targets import ClassifierOutputTarget
 from pytorch_grad_cam.utils.image import show_cam_on_image, preprocess_image
 ```
 ```python
-device = 'gpu' if torch.cuda.is_available() else 'cpu'
+device = 'cpu' # we're using the CPU only version of this workshop 
 ```
 ##### Load Model
 
@@ -112,22 +112,23 @@ visualized_class_id = 245
 ```python
 def viz_gradcam(model, target_layers, class_id):
 
-  if class_id is None:
-    targets = None
-  else:
-    targets = [ClassifierOutputTarget(class_id)]
+    if class_id is None:
+        targets = None
+    else:
+        targets = [ClassifierOutputTarget(class_id)]
 
-  cam_algorithm = GradCAM
-  with cam_algorithm(model=model, target_layers=target_layers) as cam:
-      grayscale_cam = cam(input_tensor=input_tensor,
-                          targets=targets)
+    cam_algorithm = GradCAM
+    with cam_algorithm(model=model, target_layers=target_layers) as cam:
+        grayscale_cam = cam(input_tensor=input_tensor, targets=targets)
 
-      grayscale_cam = grayscale_cam[0, :]
+        grayscale_cam = grayscale_cam[0, :]
 
-      cam_image = show_cam_on_image(rgb_image, grayscale_cam, use_rgb=True)
-      cam_image = cv2.cvtColor(cam_image, cv2.COLOR_RGB2BGR)
+        cam_image = show_cam_on_image(rgb_image, grayscale_cam, use_rgb=True)
+        cam_image = cv2.cvtColor(cam_image, cv2.COLOR_RGB2BGR)
 
-  cv2_imshow(cam_image)
+    plt.imshow(cam_image)
+    plt.axis("off")
+    plt.show()
 ```
 Finally, we can start visualizing! Let's begin by seeing what parts of the image the model looks at to make its most confident prediction.
 ```python
