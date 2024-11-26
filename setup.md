@@ -19,14 +19,16 @@ We will be launching Jupyter Lab (IDE) from a terminal (Mac/Linux) or Git Bash (
 3. A terminal window will appear where you can type commands.
 
 ### 2) Installing Python 3.11.9 
-Install python 3.11.9 by scrolling towards the bottom of this page and clicking the proper OS-specific link: [https://www.python.org/downloads/release/python-3119/](https://www.python.org/downloads/release/python-3119/)
-If prompted, make sure to check the box for **"Add Python to PATH"** during the setup process.
 
-1. Open Terminal (Mac/Linux) or Git Bash (Windows).
-   - On Mac/Linux: Open the "Terminal" application, which can usually be found using Spotlight (Cmd + Space) or under Applications > Utilities.
-   - On Windows: Open Git Bash as described above.
+1. The below download links can be found at [https://www.python.org/downloads/release/python-3119/](https://www.python.org/downloads/release/python-3119/). Download the version for your OS. If prompted, make sure to check the box for **"Add Python to PATH"** during the setup process.
+   - Mac: [macOS 64-bit universal2 installer](https://www.python.org/ftp/python/3.11.9/python-3.11.9-macos11.pkg)
+   - Windows: [Windows installer (64-bit)](https://www.python.org/ftp/python/3.11.9/python-3.11.9-amd64.exe)
+
+2. Open Terminal (Mac/Linux) or Git Bash (Windows).
+   - Mac/Linux: Open the "Terminal" application, which can usually be found using Spotlight (Cmd + Space) or under Applications > Utilities.
+   - Windows: Open Git Bash as described above.
      
-2. Type one of the following commands to check your Python version:
+3. Type one of the following commands to check your Python version:
 ```sh
 python3 --version # mac
 python --version # windows
