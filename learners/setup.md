@@ -12,12 +12,21 @@ You will need a terminal (or Git Bash recommended for Windows), Python 3.8+, and
 ### 1) Installing Git Bash (Windows only)
 We will be launching Jupyter Lab (IDE) from a terminal (Mac/Linux) or Git Bash (Windows) during this workshop. If you will be using a Windows machine for this workshop, please [install Git Bash ("Git for Windows")](https://git-scm.com/downloads/win).
 
+**How to open Git Bash (Windows):**
+1. After installation, search for "Git Bash" in the Start Menu.
+2. Click on the "Git Bash" application to open it.
+3. A terminal window will appear where you can type commands.
+
 ### 2) Installing Python 
 To install Python, follow the [Beginner's Guide](https://wiki.python.org/moin/BeginnersGuide/Download) or head straight to the [download page](https://www.python.org/downloads/).
 If you encounter problems with the installation procedure, ask your workshop organizers via e-mail for assistance so you are ready to go as soon as the workshop begins.
 
-To verify installation, open terminal / Git Bash and run...
 
+1. Open Terminal (Mac/Linux) or Git Bash (Windows).
+   - On Mac/Linux: Open the "Terminal" application, which can usually be found using Spotlight (Cmd + Space) or under Applications > Utilities.
+   - On Windows: Open Git Bash as described above.
+     
+2. Type one of the following commands to check your Python version:
 ```sh
 python3 --version # mac
 python --version # windows
@@ -52,7 +61,7 @@ If you run `ls` (list files), you should see a new `venv/`` folder in your trust
 ls
 ```
 
-> If you're on Linux and this doesn't work, you may need to install venv first. Try running `sudo apt-get install python3-venv` first, then `python3 -m venv intro_ml`
+> If you're on Linux and this doesn't work, you may need to install venv first. Try running `sudo apt-get install python3-venv` first, then `python3 -m venv venv`
 
 ### 5) Activating the environment
 To activate the environment, run the following OS-specific commands in Terminal (Mac/Linux) or Git Bash (Windows):
@@ -69,7 +78,8 @@ Once the virtual environment is activated, install the prerequisites by running 
 First, make sure you have the latest version of pip by running:
 
 ```sh
-python.exe -m pip install --upgrade pip
+python -m pip install --upgrade pip # windows
+python3 -m pip install --upgrade pip # mac
 ```
 
 Then, install the required libraries. We've chosen a CPU-only (no GPUs enabled) setup for this lesson to make the environment simpler and more accessible for everyone. By avoiding GPU-specific dependencies like CUDA, we reduce the storage requirements by 3-4 GB and eliminate potential compatibility issues related to GPU hardware.
