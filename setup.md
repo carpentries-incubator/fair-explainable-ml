@@ -135,8 +135,10 @@ import transformers
 import pytorch_ood
 import fairlearn
 import umap
+import sys
 
 # Tested versions in this workshop:
+print(f"Python version: {sys.version_info[0]}.{sys.version_info[1]}.{sys.version_info[2]}") # 3.11.9
 print("Torch version:", torch.__version__)  # >= 2.2
 print("Pandas version:", pd.__version__)  # >= 2.2.3
 print("Scikit-learn version:", sklearn.__version__)  # >= 1.5.2
