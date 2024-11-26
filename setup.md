@@ -7,7 +7,7 @@ title: Setup
 The full workshop setup includes (1) software installation, (2) downloading the data, and (3) setting up a HuggingFace account & access token. If you have any trouble with the steps outlined below, please contact the workshop organizers ASAP to make sure you have everything completed before the workshop starts. 
 
 ## Software setup
-You will need a terminal (or Git Bash recommended for Windows), Python 3.9+, and the ability to create Python virtual environments. You will also need to install a variety of packages within your virtual environment. 
+You will need a terminal (or Git Bash recommended for Windows), Python 3.11.9, and the ability to create Python virtual environments. You will also need to install a variety of packages within your virtual environment. 
 
 ### 1) Installing Git Bash (Windows only)
 We will be launching Jupyter Lab (IDE) from a terminal (Mac/Linux) or Git Bash (Windows) during this workshop. If you will be using a Windows machine for this workshop, please [install Git Bash ("Git for Windows")](https://git-scm.com/downloads/win).
@@ -17,9 +17,9 @@ We will be launching Jupyter Lab (IDE) from a terminal (Mac/Linux) or Git Bash (
 2. Click on the "Git Bash" application to open it.
 3. A terminal window will appear where you can type commands.
 
-### 2) Installing Python 3.9.x (or higher)
-To install Python, follow the [Beginner's Guide](https://wiki.python.org/moin/BeginnersGuide/Download) or head straight to the [download page](https://www.python.org/downloads/).
-Please ensure you have a more modern version of Python — 3.9 or higher. If you encounter problems with the installation procedure, ask your workshop organizers via e-mail for assistance so you are ready to go as soon as the workshop begins.
+### 2) Installing Python 3.11.9 
+Install python 3.11.9 by scrolling towards the bottom of this page and clicking the proper OS-specific link: [https://www.python.org/downloads/release/python-3119/](https://www.python.org/downloads/release/python-3119/)
+If prompted, make sure to check the box for **"Add Python to PATH"** during the setup process.
 
 1. Open Terminal (Mac/Linux) or Git Bash (Windows).
    - On Mac/Linux: Open the "Terminal" application, which can usually be found using Spotlight (Cmd + Space) or under Applications > Utilities.
@@ -30,6 +30,7 @@ Please ensure you have a more modern version of Python — 3.9 or higher. If you
 python3 --version # mac
 python --version # windows
 ```
+   Python 3.11.9
 
 ### 3) Create a workshop folder on your Desktop called "trustworthy_ML"
 We'll use this folder to store code throughput the workshop. We'll also add our virtual environment to this folder.
@@ -51,7 +52,7 @@ Make sure you are already CD'd into your workshop folder, `Desktop/trustworthy_M
 cd Desktop/trustworthy_ML # if you're not already in this folder, CD to it (adjust path, if necesssary)
 
 # Run one of the below options (OS-specific)
-python3 -m venv venv # mac/linux
+python3.11 -m venv venv # mac/linux
 python -m venv venv # windows
 ```
 
@@ -101,8 +102,7 @@ pip install ipykernel
 
 2. Add the virtual environment as a Jupyter kernel:
 ```sh
-python -m ipykernel install --user --name=venv --display-name "trustworthy_ML" # windows
-python3 -m ipykernel install --user --name=venv --display-name "trustworthy_ML" # mac
+python -m ipykernel install --user --name=venv --display-name "trustworthy_ML" 
 ```
 
 3. When you launch JupyterLab, select the `trustworthy_ML` kernel to ensure your code runs in the correct environment.
