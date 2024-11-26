@@ -806,7 +806,7 @@ Guiding Principles for Ethical Research</a>.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>A summary of the principles is listed below:</p>
 <ul>
@@ -2110,7 +2110,7 @@ would you choose based on this graph? Why?</p></li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li><p>Using a threshold of 0.1, the accuracy is about 0.71 and the 1-DI
@@ -2425,7 +2425,7 @@ introducing randomization?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p><strong>Pros:</strong> Randomization can be effective at increasing
 fairness.</p>
@@ -2752,7 +2752,7 @@ justifies their use despite their lack of transparency?</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="section level4">
 <h4 id="compare-the-advantages-1">Compare the advantages<a class="anchor" aria-label="anchor" href="#compare-the-advantages-1"></a>
@@ -2886,7 +2886,7 @@ drawbacks?</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>
@@ -3260,7 +3260,7 @@ interpretability of the model?</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <table class="table">
 <colgroup>
@@ -5231,7 +5231,7 @@ from the ID data within those boundaries.</p>
 <span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a>plt.xlabel(<span class="st">'First Principal Component'</span>)</span>
 <span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a>plt.ylabel(<span class="st">'Second Principal Component'</span>)</span>
 <span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a>plt.title(<span class="st">'PCA of In-Distribution and OOD Data'</span>)</span>
-<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a>plt.savefig(<span class="st">'../images/OOD-detection_PCA-image-dataset.png'</span>, dpi<span class="op">=</span><span class="dv">300</span>, bbox_inches<span class="op">=</span><span class="st">'tight'</span>)</span>
+<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a><span class="co">#plt.savefig('../images/OOD-detection_PCA-image-dataset.png', dpi=300, bbox_inches='tight')</span></span>
 <span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a>plt.show()</span></code></pre>
 </div>
 <p><img src="https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/OOD-detection_PCA-image-dataset.png" alt="PCA visualization" class="figure"> From this plot, we see that sandals are more
@@ -5280,7 +5280,7 @@ we have a reasonably accurate model for the ID data.</p>
 <span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>cm <span class="op">=</span> confusion_matrix(test_labels, in_dist_preds, labels<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">1</span>])</span>
 <span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>disp <span class="op">=</span> ConfusionMatrixDisplay(confusion_matrix<span class="op">=</span>cm, display_labels<span class="op">=</span>[<span class="st">'T-shirt/top'</span>, <span class="st">'Pants'</span>])</span>
 <span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>disp.plot(cmap<span class="op">=</span>plt.cm.Blues)</span>
-<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>plt.savefig(<span class="st">'../images/OOD-detection_ID-confusion-matrix.png'</span>, dpi<span class="op">=</span><span class="dv">300</span>, bbox_inches<span class="op">=</span><span class="st">'tight'</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="co">#plt.savefig('../images/OOD-detection_ID-confusion-matrix.png', dpi=300, bbox_inches='tight')</span></span>
 <span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>plt.show()</span></code></pre>
 </div>
 <figure><img src="https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/OOD-detection_ID-confusion-matrix.png" alt="ID confusion matrix" class="figure mx-auto d-block"><div class="figcaption">ID confusion matrix</div>
@@ -5345,7 +5345,7 @@ OOD).</p>
 <span id="cb10-22"><a href="#cb10-22" tabindex="-1"></a></span>
 <span id="cb10-23"><a href="#cb10-23" tabindex="-1"></a><span class="co"># Adjusting layout</span></span>
 <span id="cb10-24"><a href="#cb10-24" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb10-25"><a href="#cb10-25" tabindex="-1"></a>plt.savefig(<span class="st">'../images/OOD-detection_histograms.png'</span>, dpi<span class="op">=</span><span class="dv">300</span>, bbox_inches<span class="op">=</span><span class="st">'tight'</span>)</span>
+<span id="cb10-25"><a href="#cb10-25" tabindex="-1"></a><span class="co">#plt.savefig('../images/OOD-detection_histograms.png', dpi=300, bbox_inches='tight')</span></span>
 <span id="cb10-26"><a href="#cb10-26" tabindex="-1"></a><span class="co"># Displaying the plot</span></span>
 <span id="cb10-27"><a href="#cb10-27" tabindex="-1"></a>plt.show()</span></code></pre>
 </div>
@@ -5386,7 +5386,7 @@ classes lie on vastly different sclaes (i.e., max of 35 vs max of
 <span id="cb11-27"><a href="#cb11-27" tabindex="-1"></a>plt.title(<span class="st">'Probability Density Distributions for OOD and ID Data'</span>)</span>
 <span id="cb11-28"><a href="#cb11-28" tabindex="-1"></a>plt.legend()</span>
 <span id="cb11-29"><a href="#cb11-29" tabindex="-1"></a></span>
-<span id="cb11-30"><a href="#cb11-30" tabindex="-1"></a>plt.savefig(<span class="st">'../images/OOD-detection_PSDs.png'</span>, dpi<span class="op">=</span><span class="dv">300</span>, bbox_inches<span class="op">=</span><span class="st">'tight'</span>)</span>
+<span id="cb11-30"><a href="#cb11-30" tabindex="-1"></a><span class="co">#plt.savefig('../images/OOD-detection_PSDs.png', dpi=300, bbox_inches='tight')</span></span>
 <span id="cb11-31"><a href="#cb11-31" tabindex="-1"></a></span>
 <span id="cb11-32"><a href="#cb11-32" tabindex="-1"></a><span class="co"># Displaying the plot</span></span>
 <span id="cb11-33"><a href="#cb11-33" tabindex="-1"></a>plt.show()</span></code></pre>
@@ -5442,7 +5442,7 @@ with a high threshold of 0.9 to see how that performs.</p>
 <span id="cb13-22"><a href="#cb13-22" tabindex="-1"></a>disp.plot(cmap<span class="op">=</span>plt.cm.Blues)</span>
 <span id="cb13-23"><a href="#cb13-23" tabindex="-1"></a>plt.title(<span class="st">'Confusion Matrix for OOD and ID Classification'</span>)</span>
 <span id="cb13-24"><a href="#cb13-24" tabindex="-1"></a></span>
-<span id="cb13-25"><a href="#cb13-25" tabindex="-1"></a>plt.savefig(<span class="st">'../images/OOD-detection_ID-OOD-confusion-matrix1.png'</span>, dpi<span class="op">=</span><span class="dv">300</span>, bbox_inches<span class="op">=</span><span class="st">'tight'</span>)</span>
+<span id="cb13-25"><a href="#cb13-25" tabindex="-1"></a><span class="co">#plt.savefig('../images/OOD-detection_ID-OOD-confusion-matrix1.png', dpi=300, bbox_inches='tight')</span></span>
 <span id="cb13-26"><a href="#cb13-26" tabindex="-1"></a></span>
 <span id="cb13-27"><a href="#cb13-27" tabindex="-1"></a>plt.show()</span>
 <span id="cb13-28"><a href="#cb13-28" tabindex="-1"></a></span>
@@ -5628,7 +5628,7 @@ more weight to classes with more instances.</p></li>
 <span id="cb18-19"><a href="#cb18-19" tabindex="-1"></a>disp <span class="op">=</span> ConfusionMatrixDisplay(confusion_matrix<span class="op">=</span>cm, display_labels<span class="op">=</span>[<span class="st">"Shirt"</span>, <span class="st">"Pants"</span>, <span class="st">"OOD"</span>])</span>
 <span id="cb18-20"><a href="#cb18-20" tabindex="-1"></a>disp.plot(cmap<span class="op">=</span>plt.cm.Blues)</span>
 <span id="cb18-21"><a href="#cb18-21" tabindex="-1"></a>plt.title(<span class="st">'Confusion Matrix for OOD and ID Classification'</span>)</span>
-<span id="cb18-22"><a href="#cb18-22" tabindex="-1"></a>plt.savefig(<span class="st">'../images/OOD-detection_ID-OOD-confusion-matrix2.png'</span>, dpi<span class="op">=</span><span class="dv">300</span>, bbox_inches<span class="op">=</span><span class="st">'tight'</span>)</span>
+<span id="cb18-22"><a href="#cb18-22" tabindex="-1"></a><span class="co">#plt.savefig('../images/OOD-detection_ID-OOD-confusion-matrix2.png', dpi=300, bbox_inches='tight')</span></span>
 <span id="cb18-23"><a href="#cb18-23" tabindex="-1"></a>plt.show()</span></code></pre>
 </div>
 <figure><img src="https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/OOD-detection_ID-OOD-confusion-matrix2.png" alt="Optimized threshold confusion matrix" class="figure mx-auto d-block"><div class="figcaption">Optimized threshold confusion matrix</div>
