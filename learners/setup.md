@@ -174,7 +174,7 @@ For the fairness evaluation episode, you will need access to the Medical Expendi
        ```
      - **Mac/Linux**:  
        ```
-       [path-to-venv]/lib/python3.x/site-packages/aif360/data/raw/meps/h181.csv
+       Desktop/trustworthy_ML/venv/lib/python3.x/site-packages/aif360/data/raw/meps/h181.csv
        ```
      
 
