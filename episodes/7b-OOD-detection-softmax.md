@@ -148,7 +148,7 @@ plt.legend(handles=[scatter1, scatter2, scatter3], loc="upper right")
 plt.xlabel('First Principal Component')
 plt.ylabel('Second Principal Component')
 plt.title('PCA of In-Distribution and OOD Data')
-plt.savefig('../images/OOD-detection_PCA-image-dataset.png', dpi=300, bbox_inches='tight')
+#plt.savefig('../images/OOD-detection_PCA-image-dataset.png', dpi=300, bbox_inches='tight')
 plt.show()
 ```
 ![PCA visualization](https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/OOD-detection_PCA-image-dataset.png)
@@ -175,7 +175,7 @@ from sklearn.metrics import accuracy_score, confusion_matrix, ConfusionMatrixDis
 cm = confusion_matrix(test_labels, in_dist_preds, labels=[0, 1])
 disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=['T-shirt/top', 'Pants'])
 disp.plot(cmap=plt.cm.Blues)
-plt.savefig('../images/OOD-detection_ID-confusion-matrix.png', dpi=300, bbox_inches='tight')
+#plt.savefig('../images/OOD-detection_ID-confusion-matrix.png', dpi=300, bbox_inches='tight')
 plt.show()
 ```
 ![ID confusion matrix](https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/OOD-detection_ID-confusion-matrix.png)
@@ -226,7 +226,7 @@ axes[2].legend()
 
 # Adjusting layout
 plt.tight_layout()
-plt.savefig('../images/OOD-detection_histograms.png', dpi=300, bbox_inches='tight')
+#plt.savefig('../images/OOD-detection_histograms.png', dpi=300, bbox_inches='tight')
 # Displaying the plot
 plt.show()
 
@@ -263,7 +263,7 @@ plt.ylabel('Density')
 plt.title('Probability Density Distributions for OOD and ID Data')
 plt.legend()
 
-plt.savefig('../images/OOD-detection_PSDs.png', dpi=300, bbox_inches='tight')
+#plt.savefig('../images/OOD-detection_PSDs.png', dpi=300, bbox_inches='tight')
 
 # Displaying the plot
 plt.show()
@@ -308,7 +308,7 @@ disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["Shirt", "Pan
 disp.plot(cmap=plt.cm.Blues)
 plt.title('Confusion Matrix for OOD and ID Classification')
 
-plt.savefig('../images/OOD-detection_ID-OOD-confusion-matrix1.png', dpi=300, bbox_inches='tight')
+#plt.savefig('../images/OOD-detection_ID-OOD-confusion-matrix1.png', dpi=300, bbox_inches='tight')
 
 plt.show()
 
@@ -450,7 +450,7 @@ cm = confusion_matrix(all_true_labels, all_predictions, labels=[0, 1, -1])
 disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["Shirt", "Pants", "OOD"])
 disp.plot(cmap=plt.cm.Blues)
 plt.title('Confusion Matrix for OOD and ID Classification')
-plt.savefig('../images/OOD-detection_ID-OOD-confusion-matrix2.png', dpi=300, bbox_inches='tight')
+#plt.savefig('../images/OOD-detection_ID-OOD-confusion-matrix2.png', dpi=300, bbox_inches='tight')
 plt.show()
 
 ```
