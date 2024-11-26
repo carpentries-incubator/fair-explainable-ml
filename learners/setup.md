@@ -7,7 +7,7 @@ title: Setup
 The full workshop setup includes (1) software installation, (2) downloading the data, and (3) setting up a HuggingFace account & access token. If you have any trouble with the steps outlined below, please contact the workshop organizers ASAP to make sure you have everything completed before the workshop starts. 
 
 ## Software setup
-You will need a terminal (or Git Bash recommended for Windows), Python 3.8+, and the ability to create Python virtual environments. You will also need to install a variety of packages within your virtual environment. 
+You will need a terminal (or Git Bash recommended for Windows), Python 3.9+, and the ability to create Python virtual environments. You will also need to install a variety of packages within your virtual environment. 
 
 ### 1) Installing Git Bash (Windows only)
 We will be launching Jupyter Lab (IDE) from a terminal (Mac/Linux) or Git Bash (Windows) during this workshop. If you will be using a Windows machine for this workshop, please [install Git Bash ("Git for Windows")](https://git-scm.com/downloads/win).
@@ -17,10 +17,9 @@ We will be launching Jupyter Lab (IDE) from a terminal (Mac/Linux) or Git Bash (
 2. Click on the "Git Bash" application to open it.
 3. A terminal window will appear where you can type commands.
 
-### 2) Installing Python 
+### 2) Installing Python 3.9.x (or higher)
 To install Python, follow the [Beginner's Guide](https://wiki.python.org/moin/BeginnersGuide/Download) or head straight to the [download page](https://www.python.org/downloads/).
-If you encounter problems with the installation procedure, ask your workshop organizers via e-mail for assistance so you are ready to go as soon as the workshop begins.
-
+Please ensure you have a more modern version of Python — 3.9 or higher. If you encounter problems with the installation procedure, ask your workshop organizers via e-mail for assistance so you are ready to go as soon as the workshop begins.
 
 1. Open Terminal (Mac/Linux) or Git Bash (Windows).
    - On Mac/Linux: Open the "Terminal" application, which can usually be found using Spotlight (Cmd + Space) or under Applications > Utilities.
