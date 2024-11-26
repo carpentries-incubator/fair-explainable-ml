@@ -689,6 +689,10 @@ environment.</p>
 Git Bash (Windows) during this workshop. If you will be using a Windows
 machine for this workshop, please <a href="https://git-scm.com/downloads/win" class="external-link">install Git Bash (“Git for
 Windows”)</a>.</p>
+<p><strong>How to open Git Bash (Windows):</strong> 1. After
+installation, search for “Git Bash” in the Start Menu. 2. Click on the
+“Git Bash” application to open it. 3. A terminal window will appear
+where you can type commands.</p>
 </div>
 <div class="section level3">
 <h3 id="installing-python">2) Installing Python<a class="anchor" aria-label="anchor" href="#installing-python"></a></h3>
@@ -697,8 +701,15 @@ Guide</a> or head straight to the <a href="https://www.python.org/downloads/" cl
 encounter problems with the installation procedure, ask your workshop
 organizers via e-mail for assistance so you are ready to go as soon as
 the workshop begins.</p>
-<p>To verify installation, open terminal / Git Bash and run…</p>
-<div class="codewrapper sourceCode" id="cb1">
+<ol style="list-style-type: decimal"><li>Open Terminal (Mac/Linux) or Git Bash (Windows).
+<ul><li>On Mac/Linux: Open the “Terminal” application, which can usually be
+found using Spotlight (Cmd + Space) or under Applications &gt;
+Utilities.</li>
+<li>On Windows: Open Git Bash as described above.</li>
+</ul></li>
+<li>Type one of the following commands to check your Python
+version:</li>
+</ol><div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">python3</span> <span class="at">--version</span> <span class="co"># mac</span></span>
@@ -749,7 +760,7 @@ directory.</p>
 <blockquote>
 <p>If you’re on Linux and this doesn’t work, you may need to install
 venv first. Try running <code>sudo apt-get install python3-venv</code>
-first, then <code>python3 -m venv intro_ml</code></p>
+first, then <code>python3 -m venv venv</code></p>
 </blockquote>
 </div>
 <div class="section level3">
@@ -771,7 +782,8 @@ by running the following commands:</p>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="ex">python.exe</span> <span class="at">-m</span> pip install <span class="at">--upgrade</span> pip</span></code></pre>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> pip install <span class="at">--upgrade</span> pip <span class="co"># windows</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-m</span> pip install <span class="at">--upgrade</span> pip <span class="co"># mac</span></span></code></pre>
 </div>
 <p>Then, install the required libraries. We’ve chosen a CPU-only (no
 GPUs enabled) setup for this lesson to make the environment simpler and
