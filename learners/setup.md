@@ -102,7 +102,8 @@ pip install ipykernel
 
 2. Add the virtual environment as a Jupyter kernel:
 ```sh
-python -m ipykernel install --user --name=venv --display-name "trustworthy_ML"
+python -m ipykernel install --user --name=venv --display-name "trustworthy_ML" # windows
+python3 -m ipykernel install --user --name=venv --display-name "trustworthy_ML" # mac
 ```
 
 3. When you launch JupyterLab, select the `trustworthy_ML` kernel to ensure your code runs in the correct environment.
