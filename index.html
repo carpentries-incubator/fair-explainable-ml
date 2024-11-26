@@ -625,16 +625,18 @@ correct environment. Then run the following lines of code:</p>
 <span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a><span class="im">import</span> pytorch_ood</span>
 <span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a><span class="im">import</span> fairlearn</span>
 <span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a><span class="im">import</span> umap</span>
-<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a></span>
-<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a><span class="co"># Tested versions in this workshop:</span></span>
-<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Torch version:"</span>, torch.__version__)  <span class="co"># &gt;= 2.2</span></span>
-<span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Pandas version:"</span>, pd.__version__)  <span class="co"># &gt;= 2.2.3</span></span>
-<span id="cb12-14"><a href="#cb12-14" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Scikit-learn version:"</span>, sklearn.__version__)  <span class="co"># &gt;= 1.5.2</span></span>
-<span id="cb12-15"><a href="#cb12-15" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"TensorFlow version:"</span>, tf.__version__)  <span class="co"># &gt;= 2.16</span></span>
-<span id="cb12-16"><a href="#cb12-16" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Transformers version:"</span>, transformers.__version__)  <span class="co"># &gt;= 4.46.3</span></span>
-<span id="cb12-17"><a href="#cb12-17" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"PyTorch-OOD version:"</span>, pytorch_ood.__version__)  <span class="co"># &gt;= 0.2.0</span></span>
-<span id="cb12-18"><a href="#cb12-18" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Fairlearn version:"</span>, fairlearn.__version__)  <span class="co"># &gt;= 0.11.0</span></span>
-<span id="cb12-19"><a href="#cb12-19" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"UMAP version:"</span>, umap.__version__)  <span class="co"># &gt;= 0.5.7</span></span></code></pre>
+<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a><span class="co"># Tested versions in this workshop:</span></span>
+<span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Python version: </span><span class="sc">{</span>sys<span class="sc">.</span>version_info[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">.</span><span class="sc">{</span>sys<span class="sc">.</span>version_info[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">.</span><span class="sc">{</span>sys<span class="sc">.</span>version_info[<span class="dv">2</span>]<span class="sc">}</span><span class="ss">"</span>) <span class="co"># 3.11.9</span></span>
+<span id="cb12-14"><a href="#cb12-14" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Torch version:"</span>, torch.__version__)  <span class="co"># &gt;= 2.2</span></span>
+<span id="cb12-15"><a href="#cb12-15" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Pandas version:"</span>, pd.__version__)  <span class="co"># &gt;= 2.2.3</span></span>
+<span id="cb12-16"><a href="#cb12-16" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Scikit-learn version:"</span>, sklearn.__version__)  <span class="co"># &gt;= 1.5.2</span></span>
+<span id="cb12-17"><a href="#cb12-17" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"TensorFlow version:"</span>, tf.__version__)  <span class="co"># &gt;= 2.16</span></span>
+<span id="cb12-18"><a href="#cb12-18" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Transformers version:"</span>, transformers.__version__)  <span class="co"># &gt;= 4.46.3</span></span>
+<span id="cb12-19"><a href="#cb12-19" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"PyTorch-OOD version:"</span>, pytorch_ood.__version__)  <span class="co"># &gt;= 0.2.0</span></span>
+<span id="cb12-20"><a href="#cb12-20" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Fairlearn version:"</span>, fairlearn.__version__)  <span class="co"># &gt;= 0.11.0</span></span>
+<span id="cb12-21"><a href="#cb12-21" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"UMAP version:"</span>, umap.__version__)  <span class="co"># &gt;= 0.5.7</span></span></code></pre>
 </div>
 <p>This should output the versions of all required packages without
 giving errors. Most versions should work fine with this lesson, but
