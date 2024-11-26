@@ -670,219 +670,128 @@ any links that you are not going to use.
  --></tbody></table><p>
       The actual schedule may vary slightly depending on the topics and exercises chosen by the instructor.
       </p>
-      </section><section id="setup"><section><h2 class="section-heading" id="software-setup">1) Software setup<a class="anchor" aria-label="anchor" href="#software-setup"></a></h2>
-<hr class="half-width"><div id="installing-python-using-anaconda" class="callout discussion">
-<div class="callout-square">
-<i class="callout-icon" data-feather="message-circle"></i>
+      </section><section id="setup"><div class="section level1">
+<h1 id="setup">Setup<a class="anchor" aria-label="anchor" href="#setup"></a></h1>
+<p>The full workshop setup includes (1) software installation, (2)
+downloading the data, and (3) setting up a HuggingFace account &amp;
+access token. If you have any trouble with the steps outlined below,
+please contact the workshop organizers ASAP to make sure you have
+everything completed before the workshop starts.</p>
+<div class="section level2">
+<h2 id="software-setup">Software setup<a class="anchor" aria-label="anchor" href="#software-setup"></a></h2>
+<p>You will need a terminal (or Git Bash recommended for Windows),
+Python 3.8+, and the ability to create Python virtual environments. You
+will also need to install a variety of packages within your virtual
+environment.</p>
+<div class="section level3">
+<h3 id="installing-git-bash-windows-only">1) Installing Git Bash (Windows only)<a class="anchor" aria-label="anchor" href="#installing-git-bash-windows-only"></a></h3>
+<p>We will be launching Jupyter Lab (IDE) from a terminal (Mac/Linux) or
+Git Bash (Windows) during this workshop. If you will be using a Windows
+machine for this workshop, please <a href="https://git-scm.com/downloads/win" class="external-link">install Git Bash (“Git for
+Windows”)</a>.</p>
 </div>
-<div id="installing-python-using-anaconda" class="callout-inner">
-<h3 class="callout-title">Installing Python using Anaconda</h3>
-<div class="callout-content">
-<p>[Python][python] is a popular language for scientific computing, and
-a frequent choice for machine learning as well. Installing all of its
-scientific packages individually can be a bit difficult, however, so we
-recommend the installer [Anaconda][anaconda] which includes most (but
-not all) of the software you will need.</p>
-<p>Regardless of how you choose to install it, please make sure you
-install Python version 3.x (e.g., 3.4 is fine). Also, please set up your
-python environment at least a day in advance of the workshop. If you
+<div class="section level3">
+<h3 id="installing-python">2) Installing Python<a class="anchor" aria-label="anchor" href="#installing-python"></a></h3>
+<p>To install Python, follow the <a href="https://wiki.python.org/moin/BeginnersGuide/Download" class="external-link">Beginner’s
+Guide</a> or head straight to the <a href="https://www.python.org/downloads/" class="external-link">download page</a>. If you
 encounter problems with the installation procedure, ask your workshop
 organizers via e-mail for assistance so you are ready to go as soon as
 the workshop begins.</p>
-</div>
-</div>
-</div>
-<div id="accordionSpoiler1" class="accordion spoiler-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button spoiler-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpoiler1" aria-expanded="false" aria-controls="collapseSpoiler1">
-  <h3 class="accordion-header" id="headingSpoiler1">
-  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="eye"></i></div>
-  Windows
-  </h3>
-</button>
-<div id="collapseSpoiler1" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler1" aria-labelledby="headingSpoiler1">
-<div class="accordion-body">
-<p>Checkout the [video tutorial][video-windows] or:</p>
-<ol style="list-style-type: decimal"><li>Open [<a href="https://www.anaconda.com/products/distribution" class="external-link uri">https://www.anaconda.com/products/distribution</a>][anaconda-distribution]
-with your web browser.</li>
-<li>Download the Python 3 installer for Windows.</li>
-<li>Double-click the executable and install Python 3 using <em>MOST</em>
-of the default settings. The only exception is to check the <strong>Make
-Anaconda the default Python</strong> option.</li>
-</ol></div>
-</div>
-</div>
-</div>
-<div id="accordionSpoiler2" class="accordion spoiler-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button spoiler-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpoiler2" aria-expanded="false" aria-controls="collapseSpoiler2">
-  <h3 class="accordion-header" id="headingSpoiler2">
-  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="eye"></i></div>
-  MacOS
-  </h3>
-</button>
-<div id="collapseSpoiler2" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler2" aria-labelledby="headingSpoiler2">
-<div class="accordion-body">
-<p>Checkout the [video tutorial][video-mac] or:</p>
-<ol style="list-style-type: decimal"><li>Open [<a href="https://www.anaconda.com/products/distribution" class="external-link uri">https://www.anaconda.com/products/distribution</a>][anaconda-distribution]
-with your web browser.</li>
-<li>Download the Python 3 installer for OS X. Make sure to use the
-correct version for your hardware, i.e. choose the options with “(M1)”
-if yours is one of the more recent models containing Apple’s chip.</li>
-<li>Install Python 3 using all of the defaults for installation.</li>
-</ol></div>
-</div>
-</div>
-</div>
-<div id="accordionSpoiler3" class="accordion spoiler-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button spoiler-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpoiler3" aria-expanded="false" aria-controls="collapseSpoiler3">
-  <h3 class="accordion-header" id="headingSpoiler3">
-  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="eye"></i></div>
-  Linux
-  </h3>
-</button>
-<div id="collapseSpoiler3" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler3" aria-labelledby="headingSpoiler3">
-<div class="accordion-body">
-<p>Note that the following installation steps require you to work from
-the shell. If you run into any difficulties, please request help before
-the workshop begins.</p>
-<ol style="list-style-type: decimal"><li>Open [<a href="https://www.anaconda.com/products/distribution" class="external-link uri">https://www.anaconda.com/products/distribution</a>][anaconda-distribution]
-with your web browser.</li>
-<li>Download the Python 3 installer for Linux.</li>
-<li>Install Python 3 using all of the defaults for installation.
-<ol style="list-style-type: lower-alpha"><li>Open a terminal window.</li>
-<li>Navigate to the folder where you downloaded the installer</li>
-<li>Type</li>
-</ol><div class="codewrapper sourceCode" id="cb1">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<p>To verify installation, open terminal / Git Bash and run…</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">bash</span> Anaconda3-</span></code></pre>
-</div>
-and press tab. The name of the file you just downloaded should appear.
-<ol start="4" style="list-style-type: lower-alpha"><li>Press enter.</li>
-<li>Follow the text-only prompts. When the license agreement appears (a
-colon will be present at the bottom of the screen) hold the down arrow
-until the bottom of the text. Type <code>yes</code> and press enter to
-approve the license. Press enter again to approve the default location
-for the files. Type <code>yes</code> and press enter to prepend Anaconda
-to your <code>PATH</code> (this makes the Anaconda distribution the
-default Python).</li>
-</ol></li>
-</ol></div>
-</div>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">python3</span> <span class="at">--version</span> <span class="co"># mac</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="ex">python</span> <span class="at">--version</span> <span class="co"># windows</span></span></code></pre>
 </div>
 </div>
 <div class="section level3">
-<h3 id="installing-the-required-packages">Installing the required packages<a class="anchor" aria-label="anchor" href="#installing-the-required-packages"></a></h3>
-<p><a href="https://docs.conda.io/projects/conda/en/latest/" class="external-link">Conda</a>
-is the package management system associated with <a href="https://anaconda.org" class="external-link">Anaconda</a> and runs on Windows, macOS, and
-Linux. Conda should already be available in your system once you
-installed Anaconda successfully. Conda thus works regardless of the
-operating system.</p>
-<ol style="list-style-type: decimal"><li><p>Make sure you have an up-to-date version of Conda running. See <a href="https://docs.anaconda.com/anaconda/install/update-version/" class="external-link">these
-instructions</a> for updating Conda if required.</p></li>
-<li>
-<p>Create the Conda Environment (CPU only) We’ve chosen a CPU-only
-setup for this lesson to make the environment simpler and more
-accessible for everyone. By avoiding GPU-specific dependencies like
-CUDA, we reduce the storage requirements by 3-4 GB and eliminate
-potential compatibility issues related to GPU hardware. This streamlined
-approach ensures the environment is portable and works seamlessly across
-different systems, making it easier for learners to set up and focus on
-the lesson content without worrying about hardware constraints.</p>
-<p>To create a conda environment called <code>trustworthy_ML</code> with
-the required packages, open a terminal (Mac/Linux) or Anaconda prompt
-(Windows) and type the below command. This command creates a new conda
-environment named <code>trustworthy_ML</code> and installs the necessary
-packages from the <code>conda-forge</code> and <code>pytorch</code>
-channels. When prompted to Proceed ([y]/n) during environment setup,
-press y. It may take around 10-20 minutes to complete the full
-environment setup. Please reach out to the workshop organizers sooner
-rather than later to fix setup issues prior to the workshop.</p>
+<h3 id="create-a-workshop-folder-on-your-desktop-called-trustworthy_ml">3) Create a workshop folder on your Desktop called
+“trustworthy_ML”<a class="anchor" aria-label="anchor" href="#create-a-workshop-folder-on-your-desktop-called-trustworthy_ml"></a></h3>
+<p>We’ll use this folder to store code throughput the workshop. We’ll
+also add our virtual environment to this folder.</p>
+<p>In terminal (Mac/Linux) or Git Bash, create fodler using.</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">--name</span> trustworthy_ML python=3.9 pytorch torchvision torchaudio <span class="at">-c</span> pytorch</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="co"># NOT RECOMMENDED for this workshop, but for future purposes, here is how you would setup the GPU verison</span></span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co"># To install other pytorch version based on your cuda version / more detailed instructions, you can checkout https://pytorch.org/get-started/locally/.</span></span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="co">#conda create --name trustworthy_ML python=3.9 pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia</span></span></code></pre>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">mkdir</span> Desktop/trustworthy_ML <span class="co"># create folder</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="bu">cd</span> Desktop/trustworthy_ML <span class="co"># change directory to folder</span></span></code></pre>
 </div>
-</li>
-<li>
-<p>Activate the Conda Environment: After creating the environment,
-activate it using the following command.</p>
-<div class="codewrapper sourceCode" id="cb3">
-<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">conda</span> activate trustworthy_ML</span></code></pre>
 </div>
-</li>
-<li>
-<p>Use conda to install core libraries</p>
-<p>Conda is used to install core libraries like pytorch, torchvision,
-and other popular libraries such as jupyter, scikit-learn, pandas,
-matplotlib, etc. These packages often include complex dependencies
-(e.g., CUDA binaries for GPU support) that Conda handles more robustly
-compared to pip.</p>
-<p>In this command, all packages are sourced from the conda-forge
-channel. The <code>-c conda-forge</code> is a community-driven conda
-channel that provides a wide array of up-to-date packages, ensuring
-better compatibility and a more extensive package library.</p>
-<p>Make sure to do this AFTER activating the environment.</p>
-<div class="codewrapper sourceCode" id="cb4">
-<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="ex">conda</span> install jupyter scikit-learn pandas matplotlib keras tensorflow umap-learn aif360 <span class="at">-c</span> conda-forge</span></code></pre>
+<div class="section level3">
+<h3 id="creating-a-new-virtual-environment">4) Creating a new virtual environment<a class="anchor" aria-label="anchor" href="#creating-a-new-virtual-environment"></a></h3>
+<p>We’ll install the prerequisite libraries in a virtual environment, to
+prevent them from cluttering up your Python environment and causing
+conflicts.</p>
+<p>To create a new virtual environment (“venv”) for the project, open
+the terminal (Mac/Linux), Git Bash (Windows), or Anaconda Prompt
+(Windows), and type one of the below OS-specific options below.</p>
+<p>Make sure you are already CD’d into your workshop folder,
+<code>Desktop/trustworthy_ML</code>. The code below will create a new
+virtual environment in a folder named `venv/`` in the current working
+directory.</p>
+<pre><code>cd Desktop/trustworthy_ML # if you're not already in this folder, CD to it (adjust path, if necesssary)
+
+# Run one of the below options (OS-specific)
+python3 -m venv venv # mac/linux
+python -m venv venv # windows</code></pre>
+<p>{: .language-bash}</p>
+<p>If you run <code>ls</code> (list files), you should see a new
+`venv/`` folder in your trustworthy_ML folder. ~~~ ls ~~~ {:
+.language-bash}</p>
+<blockquote>
+<p>If you’re on Linux and this doesn’t work, you may need to install
+venv first. Try running <code>sudo apt-get install python3-venv</code>
+first, then <code>python3 -m venv intro_ml</code> {: .info}</p>
+</blockquote>
 </div>
-</li>
-<li>
-<p>Install <code>pytorch-ood</code>, <code>fairlearn</code>,
-<code>aif360[Reductions]</code>, and <code>aif360[inFairness]</code>
-using pip. Some libraries, like pytorch-ood, fairlearn, and specific
-extras for aif360 ([Reductions] and [inFairness]), may not be available
-in Conda or may not be up-to-date in Conda repositories. In these cases,
-pip is used to fill the gap.</p>
-<p>Best practice is to first make sure pip is up-to-date.</p>
-<div class="codewrapper sourceCode" id="cb5">
-<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> pip install <span class="at">--upgrade</span> pip</span></code></pre>
+<div class="section level3">
+<h3 id="activating-the-environment">5) Activating the environment<a class="anchor" aria-label="anchor" href="#activating-the-environment"></a></h3>
+<p>To activate the environment, run the following OS-specific commands
+in Terminal (Mac/Linux) or Git Bash (Windows):</p>
+<pre><code>source venv/Scripts/activate # Windows + Git Bash
+source venv/bin/activate # Mac/Linux</code></pre>
+<p>{: .language-bash}</p>
 </div>
+<div class="section level3">
+<h3 id="installing-your-prerequisites">6) Installing your prerequisites<a class="anchor" aria-label="anchor" href="#installing-your-prerequisites"></a></h3>
+<p>Once the virtual environment is activated, install the prerequisites
+by running the following commands:</p>
+<p>First, make sure you have the latest version of pip by running:</p>
+<pre><code>python.exe -m pip install --upgrade pip</code></pre>
+<p>{: .language-bash}</p>
+<p>Then, install the required libraries. We’ve chosen a CPU-only (no
+GPUs enabled) setup for this lesson to make the environment simpler and
+more accessible for everyone. By avoiding GPU-specific dependencies like
+CUDA, we reduce the storage requirements by 3-4 GB and eliminate
+potential compatibility issues related to GPU hardware.</p>
+<p><strong>Note</strong>: If prompted to Proceed ([y]/n) during
+environment setup, press y. It may take around 10-20 minutes to complete
+the full environment setup. Please reach out to the workshop organizers
+sooner rather than later to fix setup issues prior to the workshop.</p>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="ex">pip</span> install datasets</span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="ex">pip</span> install pytorch-ood</span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="ex">pip</span> install transformers</span>
-<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="ex">pip</span> install fairlearn</span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="ex">pip</span> install aif360<span class="pp">[</span><span class="ss">Reductions</span><span class="pp">]</span></span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="ex">pip</span> install aif360<span class="pp">[</span><span class="ss">inFairness</span><span class="pp">]</span></span></code></pre>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="ex">pip</span> install torch torchvision torchaudio <span class="dt">\</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>            jupyter scikit-learn pandas matplotlib keras tensorflow umap-learn <span class="dt">\</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>            datasets pytorch-ood transformers fairlearn <span class="st">"aif360[Reductions]"</span> <span class="st">"aif360[inFairness]"</span></span></code></pre>
 </div>
-<p>Depending on your AIF360 installation, the final two
-<code>pip install</code> commands may or may not work. If they do not
-work, then installing these sub-packages is not necessary – you can
-continue on.</p>
-</li>
+</div>
+<div class="section level3">
+<h3 id="adding-your-virtual-environment-to-jupyterlab">7) Adding your virtual environment to JupyterLab<a class="anchor" aria-label="anchor" href="#adding-your-virtual-environment-to-jupyterlab"></a></h3>
+<p>We want Jupyter Lab to have access to the enviornment we just built.
+To use this virtual environment in JupyterLab, follow these steps:</p>
+<ol style="list-style-type: decimal"><li>Install the <code>ipykernel</code> package:</li>
+</ol><pre><code>pip install ipykernel</code></pre>
+<p>{: .language-bash}</p>
+<ol start="2" style="list-style-type: decimal"><li>Add the virtual environment as a Jupyter kernel:</li>
+</ol><pre><code>python -m ipykernel install --user --name=venv --display-name "trustworthy_ML"</code></pre>
+<p>{: .language-bash}</p>
+<ol start="3" style="list-style-type: decimal"><li>When you launch JupyterLab, select the <code>trustworthy_ML</code>
+kernel to ensure your code runs in the correct environment.</li>
 </ol></div>
 <div class="section level3">
-<h3 id="create-a-folder-on-your-desktop-for-storing-code-later">Create a folder on your Desktop for storing code later<a class="anchor" aria-label="anchor" href="#create-a-folder-on-your-desktop-for-storing-code-later"></a></h3>
-<div class="codewrapper sourceCode" id="cb7">
-<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">mkdir</span> Desktop/trustworthy_ML</span></code></pre>
-</div>
-</div>
-<div class="section level3">
-<h3 id="starting-jupyter-lab">Starting Jupyter Lab<a class="anchor" aria-label="anchor" href="#starting-jupyter-lab"></a></h3>
-<p>We want Jupyter Lab to have access to the enviornment we just built.
-Before launching a notebook, make sure the environment is activated:</p>
-<div class="codewrapper sourceCode" id="cb8">
-<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="ex">conda</span> activate trustworthy_ML</span></code></pre>
-</div>
+<h3 id="verify-the-setup">8) Verify the setup<a class="anchor" aria-label="anchor" href="#verify-the-setup"></a></h3>
 <p>Change directory to your code folder before launching Jupyter. This
 will help us keep our code organized in one place.</p>
 <div class="codewrapper sourceCode" id="cb9">
@@ -890,31 +799,38 @@ will help us keep our code organized in one place.</p>
 </h3>
 <pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="bu">cd</span> Desktop/trustworthy_ML</span></code></pre>
 </div>
-<p>To start jupyter lab, open a terminal (Mac/Linux) or Anaconda prompt
-(Windows) and type the command after activating your conda
-environment:</p>
+<p>To start jupyter lab, open a terminal (Mac/Linux) or Git Bash
+(Windows) and type the command:</p>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="ex">jupyter</span> lab</span></code></pre>
 </div>
-</div>
-<div class="section level3">
-<h3 id="check-your-software-setup">Check your software setup<a class="anchor" aria-label="anchor" href="#check-your-software-setup"></a></h3>
-<p>To check whether all packages installed correctly, start a jupyter
-notebook in jupyter lab as explained above. Run the following lines of
-code:</p>
+<p>After launching, start a new notebook using the
+<code>trustworthy_ML</code> kernel to ensure your code runs in the
+correct environment. Then run the following lines of code:</p>
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="im">import</span> sklearn</span>
-<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'sklearn version: '</span>, sklearn.__version__) <span class="co"># &gt;= 1.5.2</span></span>
-<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a></span>
-<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="im">import</span> pandas</span>
-<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'pandas version: '</span>, pandas.__version__) <span class="co"># &gt;= 2.2.3</span></span>
-<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a></span>
-<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a><span class="im">import</span> torch</span>
-<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'torch version: '</span>, torch.__version__) <span class="co"># &gt;= 2.5.1</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="im">import</span> sklearn</span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="im">import</span> jupyter</span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="im">import</span> tensorflow <span class="im">as</span> tf</span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="im">import</span> transformers</span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a><span class="im">import</span> pytorch_ood</span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a><span class="im">import</span> fairlearn</span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a><span class="im">import</span> umap</span>
+<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a></span>
+<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a><span class="co"># Tested versions in this workshop:</span></span>
+<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Torch version:"</span>, torch.__version__)  <span class="co"># &gt;= 2.5.1</span></span>
+<span id="cb11-13"><a href="#cb11-13" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Pandas version:"</span>, pd.__version__)  <span class="co"># &gt;= 2.2.3</span></span>
+<span id="cb11-14"><a href="#cb11-14" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Scikit-learn version:"</span>, sklearn.__version__)  <span class="co"># &gt;= 1.5.2</span></span>
+<span id="cb11-15"><a href="#cb11-15" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"TensorFlow version:"</span>, tf.__version__)  <span class="co"># &gt;= 2.18.0</span></span>
+<span id="cb11-16"><a href="#cb11-16" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Transformers version:"</span>, transformers.__version__)  <span class="co"># &gt;= 4.46.3</span></span>
+<span id="cb11-17"><a href="#cb11-17" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"PyTorch-OOD version:"</span>, pytorch_ood.__version__)  <span class="co"># &gt;= 0.2.0</span></span>
+<span id="cb11-18"><a href="#cb11-18" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Fairlearn version:"</span>, fairlearn.__version__)  <span class="co"># &gt;= 0.11.0</span></span>
+<span id="cb11-19"><a href="#cb11-19" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"UMAP version:"</span>, umap.__version__)  <span class="co"># &gt;= 0.5.7</span></span></code></pre>
 </div>
 <p>This should output the versions of all required packages without
 giving errors. Most versions should work fine with this lesson, but
@@ -923,26 +839,31 @@ we’ve only tested thoroughly with the versions commented above.</p>
 <div class="section level3">
 <h3 id="fallback-option-cloud-environment">Fallback option: cloud environment<a class="anchor" aria-label="anchor" href="#fallback-option-cloud-environment"></a></h3>
 <p>If a local installation does not work for you, it is also possible to
-run this lesson in <a href="https://colab.research.google.com/" class="external-link">Google
-Colab</a>. Some packages may need to be installed on the fly within the
-notebook (TBD).</p>
+run (most of) this lesson in <a href="https://colab.research.google.com/" class="external-link">Google Colab</a>. Some
+packages may need to be installed on the fly within the notebook
+(TBD).</p>
 </div>
 <div class="section level3">
-<h3 id="deactivating-environment-complete-at-end-of-each-day">Deactivating environment (complete at end of each day)<a class="anchor" aria-label="anchor" href="#deactivating-environment-complete-at-end-of-each-day"></a></h3>
-<p>Deactivating environments is part of good workflow hygiene. If you
-keep your conda environment active and then start working on another
-project, you may inadvertently use the wrong environment. This can lead
-to package conflicts or incorrect dependencies being used. To deactive
-your environment, you can either close out of your shell entirely or
-type:</p>
+<h3 id="deactivatingactivating-environment">Deactivating/activating environment<a class="anchor" aria-label="anchor" href="#deactivatingactivating-environment"></a></h3>
+<p>To deactivate your virtual environment, simply run
+<code>deactivate</code> in your terminal. If you close the terminal or
+Git Bash without deactivating, the environment will automatically close
+as the session ends. Later, you can reactivate the environment using the
+“Activate environment” instructions above to continue working. If you
+want to keep coding in the same terminal but no longer need this
+environment, it’s best to explicitly deactivate it. This ensures that
+the software installed for this workshop doesn’t interfere with your
+default Python setup or other projects.</p>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code></pre>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="ex">deactivate</span></span></code></pre>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="download-and-move-the-data-needed">2) Download and move the data needed<a class="anchor" aria-label="anchor" href="#download-and-move-the-data-needed"></a></h2>
-<hr class="half-width"><p>For the fairness evaluation episode, you will need access to the
+</div>
+<div class="section level2">
+<h2 id="download-and-move-the-data-needed">Download and move the data needed<a class="anchor" aria-label="anchor" href="#download-and-move-the-data-needed"></a></h2>
+<p>For the fairness evaluation episode, you will need access to the
 Medical Expenditure Panel Survey Dataset. Please complete these steps to
 ensure you have access:</p>
 <ol style="list-style-type: decimal"><li><p>Download AI 360 Fairness example data: <a href="https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/data/h181.zip" class="external-link">Medical
@@ -950,28 +871,20 @@ Expenditure Panel Survey data</a> (zip file)</p></li>
 <li><p>Unzip h181.zip (right-click and extract all on Windows;
 double-click zip file on Mac)</p></li>
 <li>
-<p>In the unzipped folder, find the h181.csv file. If you installed
-<code>conda</code> with Anaconda, i.e., as described earlier in this
-document, move this file to the following location:</p>
-<ul><li>Windows:
-<code>C:\Users\[Usernmae]\anaconda3\envs\trustworthy_ML\Lib\site-packages\aif360\data\raw\meps\h181.csv</code>
+<p>In the unzipped folder, find the h181.csv file. Place the
+<code>h181.csv</code> file in the <code>aif360</code> package’s data
+directory within your virtual environment folder:</p>
+<ul><li>
+<strong>Windows</strong>:<br><code>Desktop/trustworthy_ML/venv/Lib/site-packages/aif360/data/raw/meps/h181.csv</code>
 </li>
-<li>Mac:
-<code>/Users/[Username]/opt/anaconda3/envs/trustworthy_ML/lib/python3.9/site-packages/aif360/data/raw/meps/h181.csv</code>
+<li>
+<strong>Mac/Linux</strong>:<br><code>[path-to-venv]/lib/python3.x/site-packages/aif360/data/raw/meps/h181.csv</code>
 </li>
-</ul><p>If you installed <code>conda</code> in a different way, or don’t
-remember how you installed it, check the location of your
-<code>trustworthy_ML</code> environment (make sure this environment is
-active, first!):</p>
-<ul><li>Windows: <code>where python3.9</code>
-</li>
-<li>Mac: <code>which python3.9</code>.</li>
-</ul><p>Follow the instructions above, but replace everything before
-<code>/trustworthy_ML</code> with the printed path to
-<code>/trustworthy_ML</code>.</p>
-</li>
-</ol></section><section><h2 class="section-heading" id="create-a-hugging-face-account-and-access-token">3) Create a Hugging Face account and access Token<a class="anchor" aria-label="anchor" href="#create-a-hugging-face-account-and-access-token"></a></h2>
-<hr class="half-width"><p>You will need a Hugging Face account for the workshop episode on
+</ul></li>
+</ol></div>
+<div class="section level2">
+<h2 id="create-a-hugging-face-account-and-access-token">Create a Hugging Face account and access Token<a class="anchor" aria-label="anchor" href="#create-a-hugging-face-account-and-access-token"></a></h2>
+<p>You will need a Hugging Face account for the workshop episode on
 model sharing. Hugging Face is a very popular machine learning (ML)
 platform and community that helps users build, deploy, share, and train
 machine learning models.</p>
@@ -986,12 +899,15 @@ upload/share models to your Hugging Face account during the workshop. To
 generate a token, visit the <a href="https://huggingface.co/settings/tokens" class="external-link">Access Tokens setting
 page</a> after logging in. Once there, click “New token” to generate an
 access token. We’ll use this token later to log in to Hugging Face via
-Python</p>
+Python.</p>
 <!--
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
-</section></section></main><nav class="bottom-pagination mx-md-4" aria-label="Next Chapter"><!-- content for small screens --><div class="d-block d-sm-block d-md-none">
+</div>
+</div>
+
+      </section></main><nav class="bottom-pagination mx-md-4" aria-label="Next Chapter"><!-- content for small screens --><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link float-end" href="../instructor/0-introduction.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
       <!-- content for large screens -->
