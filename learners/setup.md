@@ -39,21 +39,18 @@ To create a new virtual environment ("venv") for the project, open the terminal 
 
 Make sure you are already CD'd into your workshop folder, `Desktop/trustworthy_ML`. The code below will create a new virtual environment in a folder named `venv/`` in the current working directory. 
 
-~~~
+```sh
 cd Desktop/trustworthy_ML # if you're not already in this folder, CD to it (adjust path, if necesssary)
 
 # Run one of the below options (OS-specific)
 python3 -m venv venv # mac/linux
 python -m venv venv # windows
-~~~
-{: .language-bash}
+```
 
 If you run `ls` (list files), you should see a new `venv/`` folder in your trustworthy_ML folder.
-~~~
+```sh
 ls
-~~~
-{: .language-bash}
-
+```
 
 > If you're on Linux and this doesn't work, you may need to install venv first. Try running `sudo apt-get install python3-venv` first, then `python3 -m venv intro_ml`
 {: .info}
@@ -61,11 +58,10 @@ ls
 ### 5) Activating the environment
 To activate the environment, run the following OS-specific commands in Terminal (Mac/Linux) or Git Bash (Windows):
 
-~~~
+```sh
 source venv/Scripts/activate # Windows + Git Bash
 source venv/bin/activate # Mac/Linux
-~~~
-{: .language-bash}
+```
 
 
 ### 6) Installing your prerequisites
@@ -73,10 +69,9 @@ Once the virtual environment is activated, install the prerequisites by running 
 
 First, make sure you have the latest version of pip by running:
 
-~~~
+```sh
 python.exe -m pip install --upgrade pip
-~~~
-{: .language-bash}
+```
 
 Then, install the required libraries. We've chosen a CPU-only (no GPUs enabled) setup for this lesson to make the environment simpler and more accessible for everyone. By avoiding GPU-specific dependencies like CUDA, we reduce the storage requirements by 3-4 GB and eliminate potential compatibility issues related to GPU hardware.
 
@@ -92,16 +87,14 @@ pip install torch torchvision torchaudio \
 We want Jupyter Lab to have access to the enviornment we just built. To use this virtual environment in JupyterLab, follow these steps:
 
 1. Install the `ipykernel` package:
-~~~
+```sh
 pip install ipykernel
-~~~
-{: .language-bash}
+```
 
 2. Add the virtual environment as a Jupyter kernel:
-~~~
+```sh
 python -m ipykernel install --user --name=venv --display-name "trustworthy_ML"
-~~~
-{: .language-bash}
+```
 
 3. When you launch JupyterLab, select the `trustworthy_ML` kernel to ensure your code runs in the correct environment.
 
@@ -115,11 +108,12 @@ cd Desktop/trustworthy_ML
 
 To start jupyter lab, open a terminal (Mac/Linux) or Git Bash (Windows) and type the command:
 
-```bash
+```sh
 jupyter lab
 ```
 
 After launching, start a new notebook using the `trustworthy_ML` kernel to ensure your code runs in the correct environment. Then run the following lines of code:
+
 ```python
 import torch
 import pandas as pd
@@ -179,7 +173,3 @@ You will need a Hugging Face account for the workshop episode on model sharing. 
 **Create account**: To create an account on Hugging Face, visit: [huggingface.co/join](https://huggingface.co/join). Enter an email address and password, and follow the instructions provided via Hugging Face (you may need to verify your email address) to complete the process.
 
 **Setup access token**: Once you have your account created, you'll need to generate an access token so that you can upload/share models to your Hugging Face account during the workshop. To generate a token, visit the [Access Tokens setting page](https://huggingface.co/settings/tokens) after logging in. Once there, click “New token” to generate an access token. We'll use this token later to log in to Hugging Face via Python.
-
-
-
-
