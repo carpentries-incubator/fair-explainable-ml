@@ -447,8 +447,8 @@ everything completed before the workshop starts.</p>
 <div class="section level2">
 <h2 id="software-setup">Software setup<a class="anchor" aria-label="anchor" href="#software-setup"></a></h2>
 <p>You will need a terminal (or Git Bash recommended for Windows),
-Python 3.9+, and the ability to create Python virtual environments. You
-will also need to install a variety of packages within your virtual
+Python 3.11.9, and the ability to create Python virtual environments.
+You will also need to install a variety of packages within your virtual
 environment.</p>
 <div class="section level3">
 <h3 id="installing-git-bash-windows-only">1) Installing Git Bash (Windows only)<a class="anchor" aria-label="anchor" href="#installing-git-bash-windows-only"></a></h3>
@@ -462,13 +462,11 @@ installation, search for “Git Bash” in the Start Menu. 2. Click on the
 where you can type commands.</p>
 </div>
 <div class="section level3">
-<h3 id="installing-python-3-9-x-or-higher">2) Installing Python 3.9.x (or higher)<a class="anchor" aria-label="anchor" href="#installing-python-3-9-x-or-higher"></a></h3>
-<p>To install Python, follow the <a href="https://wiki.python.org/moin/BeginnersGuide/Download" class="external-link">Beginner’s
-Guide</a> or head straight to the <a href="https://www.python.org/downloads/" class="external-link">download page</a>. Please
-ensure you have a more modern version of Python — 3.9 or higher. If you
-encounter problems with the installation procedure, ask your workshop
-organizers via e-mail for assistance so you are ready to go as soon as
-the workshop begins.</p>
+<h3 id="installing-python-3-11-9">2) Installing Python 3.11.9<a class="anchor" aria-label="anchor" href="#installing-python-3-11-9"></a></h3>
+<p>Install python 3.11.9 by scrolling towards the bottom of this page
+and clicking the proper OS-specific link: <a href="https://www.python.org/downloads/release/python-3119/" class="external-link">https://www.python.org/downloads/release/python-3119/</a>
+If prompted, make sure to check the box for <strong>“Add Python to
+PATH”</strong> during the setup process.</p>
 <ol style="list-style-type: decimal"><li>Open Terminal (Mac/Linux) or Git Bash (Windows).
 <ul><li>On Mac/Linux: Open the “Terminal” application, which can usually be
 found using Spotlight (Cmd + Space) or under Applications &gt;
@@ -483,6 +481,7 @@ version:</li>
 <pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">python3</span> <span class="at">--version</span> <span class="co"># mac</span></span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="ex">python</span> <span class="at">--version</span> <span class="co"># windows</span></span></code></pre>
 </div>
+<p>Python 3.11.9</p>
 </div>
 <div class="section level3">
 <h3 id="create-a-workshop-folder-on-your-desktop-called-trustworthy_ml">3) Create a workshop folder on your Desktop called
@@ -515,7 +514,7 @@ directory.</p>
 <pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="bu">cd</span> Desktop/trustworthy_ML <span class="co"># if you're not already in this folder, CD to it (adjust path, if necesssary)</span></span>
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="co"># Run one of the below options (OS-specific)</span></span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-m</span> venv venv <span class="co"># mac/linux</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="ex">python3.11</span> <span class="at">-m</span> venv venv <span class="co"># mac/linux</span></span>
 <span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> venv venv <span class="co"># windows</span></span></code></pre>
 </div>
 <p>If you run <code>ls</code> (list files), you should see a new
@@ -584,8 +583,7 @@ To use this virtual environment in JupyterLab, follow these steps:</p>
 </ol><div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> ipykernel install <span class="at">--user</span> <span class="at">--name</span><span class="op">=</span>venv <span class="at">--display-name</span> <span class="st">"trustworthy_ML"</span> <span class="co"># windows</span></span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-m</span> ipykernel install <span class="at">--user</span> <span class="at">--name</span><span class="op">=</span>venv <span class="at">--display-name</span> <span class="st">"trustworthy_ML"</span> <span class="co"># mac</span></span></code></pre>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> ipykernel install <span class="at">--user</span> <span class="at">--name</span><span class="op">=</span>venv <span class="at">--display-name</span> <span class="st">"trustworthy_ML"</span> </span></code></pre>
 </div>
 <ol start="3" style="list-style-type: decimal"><li>When you launch JupyterLab, select the <code>trustworthy_ML</code>
 kernel to ensure your code runs in the correct environment.</li>
