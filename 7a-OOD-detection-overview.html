@@ -409,7 +409,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>OOD detection: overview</h1>
-        <p>Last updated on 2024-11-15 |
+        <p>Last updated on 2024-11-26 |
 
         <a href="https://github.com/carpentries-incubator/fair-explainable-ml/edit/main/episodes/7a-OOD-detection-overview.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -474,12 +474,88 @@ data that significantly differs from their training distribution.</p>
 from:</p>
 <ul><li>
 <strong>Semantic shift</strong>: The OOD sample belongs to a class
-that was not present during training.</li>
+that was not present during training (classification). With continuous
+prediction/regression, semantic shift occurs when the underlying
+relationship between X and Y changes.</li>
 <li>
 <strong>Covariate shift</strong>: The OOD sample comes from a domain
 where the input feature distribution is drastically different from the
-training data.</li>
-</ul></div>
+training data. The input feature distribution changes, but the
+underlying relationship between X and Y stays the same.</li>
+</ul><p>Semantic shift often co-occurs with covariate shift.</p>
+<div id="distinguishing-semantic-shift-vs.-covariate-shift" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div id="distinguishing-semantic-shift-vs.-covariate-shift" class="callout-inner">
+<h3 class="callout-title">Distinguishing Semantic Shift vs. Covariate Shift</h3>
+<div class="callout-content">
+<p>You trained a model using the CIFAR-10 dataset to classify images
+into 10 classes (e.g., airplanes, dogs, trucks). Now, you deploy the
+model to classify images found on the internet. Consider the following
+scenarios and classify each as <strong>Semantic Shift</strong>,
+<strong>Covariate Shift</strong>, or <strong>Both</strong>. Provide
+reasoning for your choice.</p>
+<ol style="list-style-type: decimal"><li><p><strong>Scenario A</strong>: The internet dataset contains images
+of drones, which were not present in the CIFAR-10 dataset. The model
+struggles to classify them.</p></li>
+<li><p><strong>Scenario B</strong>: The internet dataset has dog images,
+but these dogs are primarily captured in outdoor settings with
+unfamiliar backgrounds and lighting conditions compared to the training
+data.</p></li>
+<li><p><strong>Scenario C</strong>: The internet dataset contains images
+of hybrid animals (e.g., “wolf-dogs”) that do not belong to any CIFAR-10
+class. The model predicts incorrectly.</p></li>
+<li><p><strong>Scenario D</strong>: The internet dataset includes
+high-resolution images of airplanes, while the CIFAR-10 dataset contains
+only low-resolution airplane images. The model performs poorly on these
+new airplane images.</p></li>
+<li><p><strong>Scenario E</strong>: A researcher retrains the CIFAR-10
+model using an updated dataset where labels for “trucks” are now
+redefined to include pickup trucks, which were previously excluded. The
+new labels confuse the original model.</p></li>
+</ol></div>
+</div>
+</div>
+<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
+  <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
+</button>
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div class="accordion-body">
+<ol style="list-style-type: decimal"><li>
+<strong>Scenario A</strong>: <strong>Semantic Shift</strong>
+<ul><li>Drones represent a new class not seen during training, so the model
+encounters a semantic shift.</li>
+</ul></li>
+<li>
+<strong>Scenario B</strong>: <strong>Covariate Shift</strong>
+<ul><li>The distribution of input features (e.g., lighting, background)
+changes, but the semantic relationship (e.g., dogs are still dogs)
+remains intact.</li>
+</ul></li>
+<li>
+<strong>Scenario C</strong>: <strong>Both</strong>
+<ul><li>Hybrid animals represent a semantic shift (new class), and
+unfamiliar feature distributions (e.g., traits of wolves and dogs
+combined) also introduce covariate shift.</li>
+</ul></li>
+<li>
+<strong>Scenario D</strong>: <strong>Covariate Shift</strong>
+<ul><li>The resolution of the images (input features) changes, but the
+semantic class of airplanes remains consistent.</li>
+</ul></li>
+<li>
+<strong>Scenario E</strong>: <strong>Semantic Shift</strong>
+<ul><li>The relationship between input features and class labels has
+changed, as the definition of the “truck” class has been altered.</li>
+</ul></li>
+</ol></div>
+</div>
+</div>
+</div>
+</div>
 <div class="section level2">
 <h2 id="why-does-ood-data-matter">Why does OOD data matter?<a class="anchor" aria-label="anchor" href="#why-does-ood-data-matter"></a></h2>
 <p>Models trained on a specific distribution might make incorrect
@@ -731,7 +807,7 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/fair-explainable-ml/7a-OOD-detection-overview.html",
   "identifier": "https://carpentries-incubator.github.io/fair-explainable-ml/7a-OOD-detection-overview.html",
   "dateCreated": "2023-12-05",
-  "dateModified": "2024-11-15",
+  "dateModified": "2024-11-26",
   "datePublished": "2024-11-26"
 }
 
