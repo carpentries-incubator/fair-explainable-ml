@@ -497,15 +497,22 @@ the terminal (Mac/Linux), Git Bash (Windows), or Anaconda Prompt
 <code>Desktop/trustworthy_ML</code>. The code below will create a new
 virtual environment in a folder named `venv/`` in the current working
 directory.</p>
-<pre><code>cd Desktop/trustworthy_ML # if you're not already in this folder, CD to it (adjust path, if necesssary)
-
-# Run one of the below options (OS-specific)
-python3 -m venv venv # mac/linux
-python -m venv venv # windows</code></pre>
-<p>{: .language-bash}</p>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="bu">cd</span> Desktop/trustworthy_ML <span class="co"># if you're not already in this folder, CD to it (adjust path, if necesssary)</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="co"># Run one of the below options (OS-specific)</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-m</span> venv venv <span class="co"># mac/linux</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> venv venv <span class="co"># windows</span></span></code></pre>
+</div>
 <p>If you run <code>ls</code> (list files), you should see a new
-`venv/`` folder in your trustworthy_ML folder. ~~~ ls ~~~ {:
-.language-bash}</p>
+`venv/`` folder in your trustworthy_ML folder.</p>
+<div class="codewrapper sourceCode" id="cb4">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">ls</span></span></code></pre>
+</div>
 <blockquote>
 <p>If you’re on Linux and this doesn’t work, you may need to install
 venv first. Try running <code>sudo apt-get install python3-venv</code>
@@ -516,17 +523,23 @@ first, then <code>python3 -m venv intro_ml</code> {: .info}</p>
 <h3 id="activating-the-environment">5) Activating the environment<a class="anchor" aria-label="anchor" href="#activating-the-environment"></a></h3>
 <p>To activate the environment, run the following OS-specific commands
 in Terminal (Mac/Linux) or Git Bash (Windows):</p>
-<pre><code>source venv/Scripts/activate # Windows + Git Bash
-source venv/bin/activate # Mac/Linux</code></pre>
-<p>{: .language-bash}</p>
+<div class="codewrapper sourceCode" id="cb5">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="bu">source</span> venv/Scripts/activate <span class="co"># Windows + Git Bash</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="bu">source</span> venv/bin/activate <span class="co"># Mac/Linux</span></span></code></pre>
+</div>
 </div>
 <div class="section level3">
 <h3 id="installing-your-prerequisites">6) Installing your prerequisites<a class="anchor" aria-label="anchor" href="#installing-your-prerequisites"></a></h3>
 <p>Once the virtual environment is activated, install the prerequisites
 by running the following commands:</p>
 <p>First, make sure you have the latest version of pip by running:</p>
-<pre><code>python.exe -m pip install --upgrade pip</code></pre>
-<p>{: .language-bash}</p>
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="ex">python.exe</span> <span class="at">-m</span> pip install <span class="at">--upgrade</span> pip</span></code></pre>
+</div>
 <p>Then, install the required libraries. We’ve chosen a CPU-only (no
 GPUs enabled) setup for this lesson to make the environment simpler and
 more accessible for everyone. By avoiding GPU-specific dependencies like
@@ -536,12 +549,12 @@ potential compatibility issues related to GPU hardware.</p>
 environment setup, press y. It may take around 10-20 minutes to complete
 the full environment setup. Please reach out to the workshop organizers
 sooner rather than later to fix setup issues prior to the workshop.</p>
-<div class="codewrapper sourceCode" id="cb6">
+<div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="ex">pip</span> install torch torchvision torchaudio <span class="dt">\</span></span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>            jupyter scikit-learn pandas matplotlib keras tensorflow umap-learn <span class="dt">\</span></span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>            datasets grad-cam pytorch-ood transformers fairlearn <span class="st">"aif360[Reductions]"</span> <span class="st">"aif360[inFairness]"</span></span></code></pre>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="ex">pip</span> install torch torchvision torchaudio <span class="dt">\</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>            jupyter scikit-learn pandas matplotlib keras tensorflow umap-learn <span class="dt">\</span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>            datasets grad-cam pytorch-ood transformers fairlearn <span class="st">"aif360[Reductions]"</span> <span class="st">"aif360[inFairness]"</span></span></code></pre>
 </div>
 </div>
 <div class="section level3">
@@ -549,11 +562,17 @@ sooner rather than later to fix setup issues prior to the workshop.</p>
 <p>We want Jupyter Lab to have access to the enviornment we just built.
 To use this virtual environment in JupyterLab, follow these steps:</p>
 <ol style="list-style-type: decimal"><li>Install the <code>ipykernel</code> package:</li>
-</ol><pre><code>pip install ipykernel</code></pre>
-<p>{: .language-bash}</p>
+</ol><div class="codewrapper sourceCode" id="cb8">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="ex">pip</span> install ipykernel</span></code></pre>
+</div>
 <ol start="2" style="list-style-type: decimal"><li>Add the virtual environment as a Jupyter kernel:</li>
-</ol><pre><code>python -m ipykernel install --user --name=venv --display-name "trustworthy_ML"</code></pre>
-<p>{: .language-bash}</p>
+</ol><div class="codewrapper sourceCode" id="cb9">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> ipykernel install <span class="at">--user</span> <span class="at">--name</span><span class="op">=</span>venv <span class="at">--display-name</span> <span class="st">"trustworthy_ML"</span></span></code></pre>
+</div>
 <ol start="3" style="list-style-type: decimal"><li>When you launch JupyterLab, select the <code>trustworthy_ML</code>
 kernel to ensure your code runs in the correct environment.</li>
 </ol></div>
@@ -561,43 +580,43 @@ kernel to ensure your code runs in the correct environment.</li>
 <h3 id="verify-the-setup">8) Verify the setup<a class="anchor" aria-label="anchor" href="#verify-the-setup"></a></h3>
 <p>Change directory to your code folder before launching Jupyter. This
 will help us keep our code organized in one place.</p>
-<div class="codewrapper sourceCode" id="cb9">
+<div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="bu">cd</span> Desktop/trustworthy_ML</span></code></pre>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="bu">cd</span> Desktop/trustworthy_ML</span></code></pre>
 </div>
 <p>To start jupyter lab, open a terminal (Mac/Linux) or Git Bash
 (Windows) and type the command:</p>
-<div class="codewrapper sourceCode" id="cb10">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<div class="codewrapper sourceCode" id="cb11">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="ex">jupyter</span> lab</span></code></pre>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="ex">jupyter</span> lab</span></code></pre>
 </div>
 <p>After launching, start a new notebook using the
 <code>trustworthy_ML</code> kernel to ensure your code runs in the
 correct environment. Then run the following lines of code:</p>
-<div class="codewrapper sourceCode" id="cb11">
+<div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="im">import</span> torch</span>
-<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="im">import</span> sklearn</span>
-<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="im">import</span> jupyter</span>
-<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="im">import</span> tensorflow <span class="im">as</span> tf</span>
-<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="im">import</span> transformers</span>
-<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a><span class="im">import</span> pytorch_ood</span>
-<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a><span class="im">import</span> fairlearn</span>
-<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a><span class="im">import</span> umap</span>
-<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a></span>
-<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a><span class="co"># Tested versions in this workshop:</span></span>
-<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Torch version:"</span>, torch.__version__)  <span class="co"># &gt;= 2.5.1</span></span>
-<span id="cb11-13"><a href="#cb11-13" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Pandas version:"</span>, pd.__version__)  <span class="co"># &gt;= 2.2.3</span></span>
-<span id="cb11-14"><a href="#cb11-14" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Scikit-learn version:"</span>, sklearn.__version__)  <span class="co"># &gt;= 1.5.2</span></span>
-<span id="cb11-15"><a href="#cb11-15" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"TensorFlow version:"</span>, tf.__version__)  <span class="co"># &gt;= 2.18.0</span></span>
-<span id="cb11-16"><a href="#cb11-16" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Transformers version:"</span>, transformers.__version__)  <span class="co"># &gt;= 4.46.3</span></span>
-<span id="cb11-17"><a href="#cb11-17" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"PyTorch-OOD version:"</span>, pytorch_ood.__version__)  <span class="co"># &gt;= 0.2.0</span></span>
-<span id="cb11-18"><a href="#cb11-18" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Fairlearn version:"</span>, fairlearn.__version__)  <span class="co"># &gt;= 0.11.0</span></span>
-<span id="cb11-19"><a href="#cb11-19" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"UMAP version:"</span>, umap.__version__)  <span class="co"># &gt;= 0.5.7</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a><span class="im">import</span> sklearn</span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a><span class="im">import</span> jupyter</span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a><span class="im">import</span> tensorflow <span class="im">as</span> tf</span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a><span class="im">import</span> transformers</span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a><span class="im">import</span> pytorch_ood</span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a><span class="im">import</span> fairlearn</span>
+<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a><span class="im">import</span> umap</span>
+<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a><span class="co"># Tested versions in this workshop:</span></span>
+<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Torch version:"</span>, torch.__version__)  <span class="co"># &gt;= 2.5.1</span></span>
+<span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Pandas version:"</span>, pd.__version__)  <span class="co"># &gt;= 2.2.3</span></span>
+<span id="cb12-14"><a href="#cb12-14" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Scikit-learn version:"</span>, sklearn.__version__)  <span class="co"># &gt;= 1.5.2</span></span>
+<span id="cb12-15"><a href="#cb12-15" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"TensorFlow version:"</span>, tf.__version__)  <span class="co"># &gt;= 2.18.0</span></span>
+<span id="cb12-16"><a href="#cb12-16" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Transformers version:"</span>, transformers.__version__)  <span class="co"># &gt;= 4.46.3</span></span>
+<span id="cb12-17"><a href="#cb12-17" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"PyTorch-OOD version:"</span>, pytorch_ood.__version__)  <span class="co"># &gt;= 0.2.0</span></span>
+<span id="cb12-18"><a href="#cb12-18" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Fairlearn version:"</span>, fairlearn.__version__)  <span class="co"># &gt;= 0.11.0</span></span>
+<span id="cb12-19"><a href="#cb12-19" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"UMAP version:"</span>, umap.__version__)  <span class="co"># &gt;= 0.5.7</span></span></code></pre>
 </div>
 <p>This should output the versions of all required packages without
 giving errors. Most versions should work fine with this lesson, but
@@ -621,10 +640,10 @@ want to keep coding in the same terminal but no longer need this
 environment, it’s best to explicitly deactivate it. This ensures that
 the software installed for this workshop doesn’t interfere with your
 default Python setup or other projects.</p>
-<div class="codewrapper sourceCode" id="cb12">
+<div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="ex">deactivate</span></span></code></pre>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="ex">deactivate</span></span></code></pre>
 </div>
 </div>
 </div>
