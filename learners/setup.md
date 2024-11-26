@@ -53,7 +53,6 @@ ls
 ```
 
 > If you're on Linux and this doesn't work, you may need to install venv first. Try running `sudo apt-get install python3-venv` first, then `python3 -m venv intro_ml`
-{: .info}
 
 ### 5) Activating the environment
 To activate the environment, run the following OS-specific commands in Terminal (Mac/Linux) or Git Bash (Windows):
