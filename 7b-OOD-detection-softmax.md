@@ -105,7 +105,7 @@ def plot_data_sample(train_data, ood_data):
 ```python
 train_data, test_data, ood_data, train_labels, test_labels, ood_labels = prep_ID_OOD_datasests([0,1], [5])
 fig = plot_data_sample(train_data, ood_data)
-fig.savefig('../images/OOD-detection_image-data-preview.png', dpi=300, bbox_inches='tight')
+#fig.savefig('../images/OOD-detection_image-data-preview.png', dpi=300, bbox_inches='tight')
 plt.show()
 
 
@@ -424,7 +424,7 @@ def plot_metrics_vs_thresholds(thresholds, f1_scores, precisions, recalls, OOD_s
 ```
 ```python
 fig, best_f1_threshold, best_precision_threshold, best_recall_threshold = plot_metrics_vs_thresholds(thresholds, f1_scores, precisions, recalls, 'Softmax')
-fig.savefig('../images/OOD-detection_metrics_vs_softmax-thresholds.png', dpi=300, bbox_inches='tight')
+#fig.savefig('../images/OOD-detection_metrics_vs_softmax-thresholds.png', dpi=300, bbox_inches='tight')
 
 ```
 ![OOD-detection_metrics_vs_softmax-thresholds](https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/OOD-detection_metrics_vs_softmax-thresholds.png)
