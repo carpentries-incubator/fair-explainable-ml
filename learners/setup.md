@@ -81,8 +81,7 @@ Once the virtual environment is activated, install the prerequisites by running 
 First, make sure you have the latest version of pip by running:
 
 ```sh
-python -m pip install --upgrade pip # windows
-python3 -m pip install --upgrade pip # mac
+python -m pip install --upgrade pip # now that environment is activated, "python" (not "python3") should work for both mac and windows users
 ```
 
 Then, install the required libraries. We've chosen a CPU-only (no GPUs enabled) setup for this lesson to make the environment simpler and more accessible for everyone. By avoiding GPU-specific dependencies like CUDA, we reduce the storage requirements by 3-4 GB and eliminate potential compatibility issues related to GPU hardware.
