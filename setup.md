@@ -85,7 +85,7 @@ Then, install the required libraries. We've chosen a CPU-only (no GPUs enabled) 
 ```sh
 pip install torch torchvision torchaudio \
             jupyter scikit-learn pandas matplotlib keras tensorflow umap-learn \
-            datasets pytorch-ood transformers fairlearn "aif360[Reductions]" "aif360[inFairness]"
+            datasets grad-cam pytorch-ood transformers fairlearn "aif360[Reductions]" "aif360[inFairness]"
 ```
 
 ### 7) Adding your virtual environment to JupyterLab
