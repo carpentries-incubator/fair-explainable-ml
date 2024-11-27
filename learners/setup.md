@@ -150,7 +150,7 @@ print("UMAP version:", umap.__version__)  # >= 0.5.7
 
 ```
 
-This should output the versions of all required packages without giving errors.
+This should output the versions of all required packages without giving errors.  There might be an informational warning (tensorflow cpu_feature_guard) about CPU optimized version of tensorflow, which won't have any impact.
 Most versions should work fine with this lesson, but we've only tested thoroughly with the versions commented above.
 
 ### Fallback option: cloud environment
