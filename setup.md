@@ -30,7 +30,7 @@ We will be launching Jupyter Lab (IDE) from a terminal (Mac/Linux) or Git Bash (
      
 3. Type one of the following commands to check your Python version:
 ```sh
-python3 --version # mac
+python3.11 --version # mac
 python --version # windows
 ```
    Python 3.11.9
