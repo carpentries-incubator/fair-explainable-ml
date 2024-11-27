@@ -872,8 +872,10 @@ correct environment. Then run the following lines of code:</p>
 <span id="cb12-21"><a href="#cb12-21" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"UMAP version:"</span>, umap.__version__)  <span class="co"># &gt;= 0.5.7</span></span></code></pre>
 </div>
 <p>This should output the versions of all required packages without
-giving errors. Most versions should work fine with this lesson, but
-we’ve only tested thoroughly with the versions commented above.</p>
+giving errors. There might be an informational warning (tensorflow
+cpu_feature_guard) about CPU optimized version of tensorflow, which
+won’t have any impact. Most versions should work fine with this lesson,
+but we’ve only tested thoroughly with the versions commented above.</p>
 </div>
 <div class="section level3">
 <h3 id="fallback-option-cloud-environment">Fallback option: cloud environment<a class="anchor" aria-label="anchor" href="#fallback-option-cloud-environment"></a></h3>
