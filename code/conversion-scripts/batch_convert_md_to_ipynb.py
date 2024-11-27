@@ -54,8 +54,10 @@ if __name__ == "__main__":
         "1-preparing-to-train.md",
         "2-model-eval-and-fairness.md",
         "4-explainability-vs-interpretability.md",
+        "5a-explainable-AI-method-overview.md",
         "5b-deep-dive-into-methods.md",
         "6-confidence-intervals.md",
+        "7a-OOD-detection-overview.md",
         "7e-OOD-detection-algo-design.md"
     ]
 
