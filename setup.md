@@ -20,7 +20,7 @@ We will be launching Jupyter Lab (IDE) from a terminal (Mac/Linux) or Git Bash (
 
 ### 2) Installing Python 3.11.9 
 
-1. Download Python 3.11.9 using one of the OS-specifc download links below (retrieved from [Python.org](https://www.python.org/ftp/python/3.11.9/python-3.11.9-amd64.exe)) If prompted, make sure to check the box for **"Add Python to PATH"** during the setup process.
+1. Download Python 3.11.9 using one of the OS-specifc download links below (retrieved from [Python.org](https://www.python.org/downloads/release/python-3119/)) If prompted, make sure to check the box for **"Add Python to PATH"** during the setup process.
    - Mac: [macOS 64-bit universal2 installer](https://www.python.org/ftp/python/3.11.9/python-3.11.9-macos11.pkg)
    - Windows: [Windows installer (64-bit)](https://www.python.org/ftp/python/3.11.9/python-3.11.9-amd64.exe)
 
