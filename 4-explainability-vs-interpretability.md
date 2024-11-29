@@ -27,7 +27,7 @@ In this lesson, we will explore the concepts of interpretability and explainabil
 #### Interpretability
 In the context of machine learning, interpretability is the degree to which a human can understand the cause of a decision made by a model, crucial for verifying correctness and ensuring compliance. 
 
-**"Interpretable" models**: Generally refers to models that are inherently understandable, such as...
+**"Interpretable" models**: Generally refers to models that are "inherently" understandable, such as...
 
 - Linear regression: Examining the coefficients along with confidence intervals (CIs) helps understand the strength and direction of the relationship between features and predictions.
 - Decision trees: Visualizing decision trees allows users to see the rules that lead to specific predictions, clarifying how features interact in the decision-making process. 
