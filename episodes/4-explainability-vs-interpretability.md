@@ -18,20 +18,7 @@ exercises: 2
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::: keypoints 
 
-- **Model Explainability vs. Model Interpretability:**
-   - **Interpretability:** The degree to which a human can understand the cause of a decision made by a model, crucial for verifying correctness and ensuring compliance.
-   - **Explainability:** The extent to which the internal mechanics of a machine learning model can be articulated in human terms, important for transparency and building trust.
-
-- **Choosing Between Explainable and Interpretable Models:**
-   - **When Transparency is Critical:** Use interpretable models when understanding how decisions are made is essential.
-   - **When Performance is a Priority:** Use explainable models when accuracy is more important, leveraging techniques like LIME and SHAP to clarify complex models.
-
-- **Accuracy vs. Complexity:**
-   - The relationship between model complexity and accuracy is not always linear. Increasing complexity can improve accuracy up to a point but may lead to overfitting, highlighting the gray area in model selection. This is illustrated by the accuracy vs. complexity plot, which shows different models on these axes.
-
-::::::::::::::::::::::::::::::::::::::::::::::::
 
 ### Introduction
 
@@ -200,4 +187,17 @@ The COVID-19 pandemic highlighted the urgent need for rapid and accurate diagnos
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
+::::::::::::::::::::::::::::::::::::: keypoints 
 
+- **Model Explainability vs. Model Interpretability:**
+   - **Interpretability:** The degree to which a human can understand the cause of a decision made by a model, crucial for verifying correctness and ensuring compliance.
+   - **Explainability:** The extent to which the internal mechanics of a machine learning model can be articulated in human terms, important for transparency and building trust.
+
+- **Choosing Between Explainable and Interpretable Models:**
+   - **When Transparency is Critical:** Use interpretable models when understanding how decisions are made is essential.
+   - **When Performance is a Priority:** Use explainable models when accuracy is more important, leveraging techniques like LIME and SHAP to clarify complex models.
+
+- **Accuracy vs. Complexity:**
+   - The relationship between model complexity and accuracy is not always linear. Increasing complexity can improve accuracy up to a point but may lead to overfitting, highlighting the gray area in model selection. This is illustrated by the accuracy vs. complexity plot, which shows different models on these axes.
+
+::::::::::::::::::::::::::::::::::::::::::::::::
