@@ -667,27 +667,33 @@ shifts</td>
 <h3 class="callout-title">Tabular Data Example</h3>
 <div class="section level4 callout-content">
 <h4 id="application-hospital-resource-allocation">Application: Hospital resource allocation<a class="anchor" aria-label="anchor" href="#application-hospital-resource-allocation"></a></h4>
-<p><strong>Aleatoric Uncertainty:</strong> - <strong>Linear
-models:</strong> Predictive variance captures inherent randomness in
-hospital occupancy patterns due to seasonal variability or unpredictable
-local events. See <a href="https://bmcmedinformdecismak.biomedcentral.com/articles/10.1186/s12911-022-01787-9" class="external-link">Taylor
+<p><strong>Aleatoric Uncertainty:</strong></p>
+<ul><li>
+<strong>Linear models:</strong> Predictive variance captures
+inherent randomness in hospital occupancy patterns due to seasonal
+variability or unpredictable local events. See <a href="https://bmcmedinformdecismak.biomedcentral.com/articles/10.1186/s12911-022-01787-9" class="external-link">Taylor
 et al., 2021</a> for regression-based modeling of hospital bed demand
-during flu seasons. - <strong>Deep learning:</strong> Heteroscedastic
-models account for input-dependent noise, such as variability in
-hospital reporting systems or random fluctuations in patient arrival
-rates during holidays or flu season. See <a href="https://www.nature.com/articles/s41746-018-0029-1.pdf" class="external-link">Rajkomar et
+during flu seasons.</li>
+<li>
+<strong>Deep learning:</strong> Heteroscedastic models account for
+input-dependent noise, such as variability in hospital reporting systems
+or random fluctuations in patient arrival rates during holidays or flu
+season. See <a href="https://www.nature.com/articles/s41746-018-0029-1.pdf" class="external-link">Rajkomar et
 al., 2018</a> for applications of deep learning in hospital resource
-prediction.</p>
-<p><strong>Epistemic Uncertainty:</strong> - <strong>Tree
-ensembles:</strong> Capture uncertainty for underrepresented or novel
-conditions, such as predicting hospital demand during rare pandemics.
-For an example, see <a href="https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010602" class="external-link">Shahid
+prediction.</li>
+</ul><p><strong>Epistemic Uncertainty:</strong></p>
+<ul><li>
+<strong>Tree ensembles:</strong> Capture uncertainty for
+underrepresented or novel conditions, such as predicting hospital demand
+during rare pandemics. For an example, see <a href="https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010602" class="external-link">Shahid
 et al., 2020</a>, which uses ensemble models for pandemic demand
-forecasting. - <strong>OOD detection:</strong> Identifies anomalies in
-resource usage data, such as unexpected spikes in equipment demands or
+forecasting.</li>
+<li>
+<strong>OOD detection:</strong> Identifies anomalies in resource
+usage data, such as unexpected spikes in equipment demands or
 misreported occupancy. See <a href="https://arxiv.org/abs/2110.11334" class="external-link">Pang et al., 2021</a> for a
-comprehensive survey on OOD detection in real-world tabular data.</p>
-</div>
+comprehensive survey on OOD detection in real-world tabular data.</li>
+</ul></div>
 </div>
 </div>
 <div id="image-data-example" class="callout">
@@ -698,25 +704,31 @@ comprehensive survey on OOD detection in real-world tabular data.</p>
 <h3 class="callout-title">Image Data Example</h3>
 <div class="section level4 callout-content">
 <h4 id="application-tumor-detection-in-radiology-images">Application: Tumor detection in radiology images<a class="anchor" aria-label="anchor" href="#application-tumor-detection-in-radiology-images"></a></h4>
-<p><strong>Aleatoric Uncertainty:</strong> - <strong>CNNs:</strong>
-Heteroscedastic loss accounts for noise from imaging artifacts like low
-resolution or motion blur. For an example of modeling aleatoric
-uncertainty in medical imaging, see <a href="https://arxiv.org/abs/1703.04977" class="external-link">Kendall &amp; Gal, 2017</a>. -
+<p><strong>Aleatoric Uncertainty:</strong></p>
+<ul><li>
+<strong>CNNs:</strong> Heteroscedastic loss accounts for noise from
+imaging artifacts like low resolution or motion blur. For an example of
+modeling aleatoric uncertainty in medical imaging, see <a href="https://arxiv.org/abs/1703.04977" class="external-link">Kendall &amp; Gal,
+2017</a>.</li>
+<li>
 <strong>Data augmentation:</strong> Synthetic noise during training
 improves robustness to real-world imperfections in medical images. See
 <a href="https://journalofbigdata.springeropen.com/articles/10.1186/s40537-019-0197-0" class="external-link">Shorten
 &amp; Khoshgoftaar, 2019</a> for a survey on data augmentation
-strategies in deep learning.</p>
-<p><strong>Epistemic Uncertainty:</strong> - <strong>Monte Carlo
-dropout:</strong> Samples multiple outputs to generate uncertainty maps
-for tumor boundaries in rare conditions. See <a href="https://www.nature.com/articles/s41598-017-17876-z.pdf" class="external-link">Leibig et
-al., 2017</a> for an application of MC dropout to retinal disease
-detection. - <strong>OOD detection:</strong> Flags anomalous radiology
-images, such as previously unseen tumor types or imaging modalities. See
-<a href="https://arxiv.org/abs/1610.02136" class="external-link">Hendrycks &amp; Gimpel,
-2017</a> for the foundational OOD detection method applied to medical
-imaging.</p>
-</div>
+strategies in deep learning.</li>
+</ul><p><strong>Epistemic Uncertainty:</strong></p>
+<ul><li>
+<strong>Monte Carlo dropout:</strong> Samples multiple outputs to
+generate uncertainty maps for tumor boundaries in rare conditions. See
+<a href="https://www.nature.com/articles/s41598-017-17876-z.pdf" class="external-link">Leibig
+et al., 2017</a> for an application of MC dropout to retinal disease
+detection.</li>
+<li>
+<strong>OOD detection:</strong> Flags anomalous radiology images,
+such as previously unseen tumor types or imaging modalities. See <a href="https://arxiv.org/abs/1610.02136" class="external-link">Hendrycks &amp; Gimpel, 2017</a>
+for the foundational OOD detection method applied to medical
+imaging.</li>
+</ul></div>
 </div>
 </div>
 <div id="text-data-example" class="callout">
@@ -727,21 +739,28 @@ imaging.</p>
 <h3 class="callout-title">Text Data Example</h3>
 <div class="section level4 callout-content">
 <h4 id="application-chatbot-intent-recognition">Application: Chatbot intent recognition<a class="anchor" aria-label="anchor" href="#application-chatbot-intent-recognition"></a></h4>
-<p><strong>Aleatoric Uncertainty:</strong> - <strong>Logistic
-regression:</strong> Predictive variance highlights ambiguities in user
-queries with mixed intents. See <a href="https://direct.mit.edu/tacl/article/doi/10.1162/tacl_a_00483/111592/Uncertainty-Estimation-and-Reduction-of-Pre" class="external-link">Hazra
+<p><strong>Aleatoric Uncertainty:</strong></p>
+<ul><li>
+<strong>Logistic regression:</strong> Predictive variance highlights
+ambiguities in user queries with mixed intents. See <a href="https://direct.mit.edu/tacl/article/doi/10.1162/tacl_a_00483/111592/Uncertainty-Estimation-and-Reduction-of-Pre" class="external-link">Hazra
 et al., 2020</a> for a discussion on uncertainty estimation in NLP
-tasks. - <strong>Transformers:</strong> Heteroscedastic models capture
+tasks.</li>
+<li>
+<strong>Transformers:</strong> Heteroscedastic models capture
 token-level uncertainty in noisy or ambiguous language inputs. See <a href="https://arxiv.org/pdf/1802.10501v3" class="external-link">Malinin &amp; Gales, 2018</a>
-for heteroscedastic neural network modeling in NLP.</p>
-<p><strong>Epistemic Uncertainty:</strong> - <strong>Bayesian
-transformers:</strong> Quantify uncertainty in rare or unseen query
-topics (e.g., domain-specific technical questions). See <a href="https://openreview.net/pdf?id=CSXa8LJMttt" class="external-link">Fort et al., 2020</a>
-for a discussion on uncertainty in transformers. - <strong>OOD
-detection:</strong> Detects out-of-scope queries or previously unseen
-intents, such as rare idiomatic expressions or slang. See <a href="https://aclanthology.org/2020.coling-main.125.pdf" class="external-link">Lin &amp; Xu,
-2019</a> for OOD detection in NLP systems.</p>
-</div>
+for heteroscedastic neural network modeling in NLP.</li>
+</ul><p><strong>Epistemic Uncertainty:</strong></p>
+<ul><li>
+<strong>Bayesian transformers:</strong> Quantify uncertainty in rare
+or unseen query topics (e.g., domain-specific technical questions). See
+<a href="https://openreview.net/pdf?id=CSXa8LJMttt" class="external-link">Fort et al.,
+2020</a> for a discussion on uncertainty in transformers.</li>
+<li>
+<strong>OOD detection:</strong> Detects out-of-scope queries or
+previously unseen intents, such as rare idiomatic expressions or slang.
+See <a href="https://aclanthology.org/2020.coling-main.125.pdf" class="external-link">Lin
+&amp; Xu, 2019</a> for OOD detection in NLP systems.</li>
+</ul></div>
 </div>
 </div>
 <div class="section level4">
