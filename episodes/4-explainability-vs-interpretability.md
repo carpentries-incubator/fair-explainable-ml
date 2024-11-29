@@ -36,7 +36,7 @@ In the context of machine learning, interpretability is the degree to which a hu
 However, as we scale up these models (e.g., high-dimensional regression models or random forests), it is important to note that the complexity can increase significantly, potentially making these models less interpretable than their simpler counterparts.
 
 #### Explainability
-The extent to which the internal mechanics of a machine learning model can be articulated in human terms, important for transparency and building trust.
+In the context of machine learning, explainability is the extent to which the internal mechanics of a machine learning model can be articulated in human terms, important for transparency and building trust.
 
 **Explainable models**: Typical refers to more complex models, such as neural networks or ensemble methods, that may be considered "black boxes" without the use of specialized *explainability methods*. 
 
