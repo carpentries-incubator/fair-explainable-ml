@@ -420,7 +420,7 @@ Behavior</a></li>
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Explainability methods overview</h1>
-        <p>Last updated on 2024-11-13 |
+        <p>Last updated on 2024-11-29 |
 
         <a href="https://github.com/carpentries-incubator/fair-explainable-ml/edit/main/episodes/5a-explainable-AI-method-overview.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -509,6 +509,67 @@ tradeoff between local and global explanations has a long history in
 statistics, with methods like linear regression (global) and kernel
 smoothing (local) illustrating the importance of considering both
 perspectives in statistical analysis.</p>
+<div class="section level4">
+<h4 id="local-example-feature-attribution-with-shap">Local example: Feature attribution with SHAP<a class="anchor" aria-label="anchor" href="#local-example-feature-attribution-with-shap"></a></h4>
+<p>SHAP (SHapley Additive exPlanations) is a feature attribution method
+that provides insights into how individual features contribute to a
+specific prediction for an individual instance.</p>
+<ul><li>
+<strong>How it works</strong>: SHAP perturbs features in all
+possible combinations and calculates their impact on the prediction.
+This process ensures that the contribution of each feature is evaluated
+fairly and consistently.</li>
+<li>
+<strong>Applications</strong>:
+<ul><li>Explaining why a specific patient was diagnosed with a
+condition.</li>
+<li>Identifying the most influential features in predicting the price of
+a single house in a housing dataset.</li>
+</ul></li>
+<li>
+<strong>Strengths</strong>:
+<ul><li>Offers precise and theoretically grounded local explanations.</li>
+<li>Useful for debugging individual predictions or building trust with
+stakeholders.</li>
+</ul></li>
+<li>
+<strong>Limitations</strong>:
+<ul><li>Computationally expensive, especially for high-dimensional datasets
+or complex models.</li>
+</ul></li>
+</ul></div>
+<div class="section level4">
+<h4 id="global-example-aggregated-insights-with-shap">Global example: Aggregated insights with SHAP<a class="anchor" aria-label="anchor" href="#global-example-aggregated-insights-with-shap"></a></h4>
+<p>SHAP can also provide global insights by averaging feature
+attributions across many individual instances. This allows practitioners
+to identify overall trends, rank feature importance, and detect
+dataset-wide biases.</p>
+<ul><li>
+<strong>How it works</strong>: SHAP values for individual instances
+are aggregated to compute global feature importance. For example,
+calculating the average SHAP value for each feature across all instances
+reveals how strongly that feature influences the model’s predictions
+overall.</li>
+<li>
+<strong>Applications</strong>:
+<ul><li>Understanding which features are most predictive across a dataset
+(e.g., income level being the most significant factor in loan
+approvals).</li>
+<li>Detecting global trends or biases in model predictions.</li>
+</ul></li>
+<li>
+<strong>Strengths</strong>:
+<ul><li>Bridges local and global interpretability by connecting individual
+predictions to dataset-wide insights.</li>
+<li>Provides theoretically consistent global feature importance
+rankings.</li>
+</ul></li>
+<li>
+<strong>Limitations</strong>:
+<ul><li>May require significant computational resources for large datasets
+or complex models.</li>
+</ul></li>
+</ul></div>
 </div>
 <div class="section level3">
 <h3 id="black-box-vs-white-box-approaches">Black box vs White Box Approaches<a class="anchor" aria-label="anchor" href="#black-box-vs-white-box-approaches"></a></h3>
@@ -919,7 +980,7 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/fair-explainable-ml/instructor/5a-explainable-AI-method-overview.html",
   "identifier": "https://carpentries-incubator.github.io/fair-explainable-ml/instructor/5a-explainable-AI-method-overview.html",
   "dateCreated": "2023-12-05",
-  "dateModified": "2024-11-13",
+  "dateModified": "2024-11-29",
   "datePublished": "2024-11-29"
 }
 
