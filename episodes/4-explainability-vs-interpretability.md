@@ -38,7 +38,7 @@ However, as we scale up these models (e.g., high-dimensional regression models o
 #### Explainability
 The extent to which the internal mechanics of a machine learning model can be articulated in human terms, important for transparency and building trust.
 
-**Explainable models**: Typical refers to more complex models, such as neural networks or ensemble methods, that may act as black boxes. While these models can deliver high accuracy, they require additional techniques (like LIME and SHAP) to explain their decisions.
+**Explainable models**: Typical refers to more complex models, such as neural networks or ensemble methods, that may be considered "black boxes" without the use of specialized *explainability methods*. 
 
 **Explainability methods preview:** Various explainability methods exist to help clarify how complex models work. For instance...
 
