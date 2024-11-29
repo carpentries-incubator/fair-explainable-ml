@@ -75,6 +75,7 @@ To help guide method selection, here are rough definitions for **model size**, *
 - **Low**: Suitable for standard CPU or single GPU, training/inference in minutes to an hour.
 - **Medium**: Requires a modern GPU, training/inference in hours to a day.
 - **High**: Requires multiple GPUs/TPUs or distributed setups, training/inference in days to weeks.
+  
 ::::::::::::::::::::::::::::::::::::::
 
 | Method                  | Type of uncertainty | Key strengths                               | Key limitations                                    | Model size restrictions         | Data size restrictions          | Compute time (approx.)          |
@@ -84,9 +85,8 @@ To help guide method selection, here are rough definitions for **model size**, *
 | Monte Carlo dropout     | Epistemic          | Easy to implement in existing neural networks | Computationally expensive due to multiple forward passes | Medium                         | Medium to large                 | High (scales with forward passes) |
 | Bayesian neural nets    | Epistemic          | Rigorous probabilistic foundation          | Computationally prohibitive for large models/datasets | Small to medium (challenging to scale) | Small to medium               | Very high (depends on sampling)  |
 | Ensemble models         | Epistemic          | Effective and robust; captures diverse uncertainties | Resource-intensive; requires training multiple models | Medium to large                 | Medium to large                 | Very high (training multiple models) |
-| OOD detection           | Epistemic          | Efficient, scalable, excels at rejecting anomalous inputs | Limited to identifying OOD inputs, not fine-grained uncertainty | Medium to large                 | Small to large                  | Low to medium (scales efficiently) |
+| OOD detection           | Epistemic          | Efficient, scalable, excels at rejecting anomalous inputs | Comparisons to OOD classes can be infinite, making perfect thresholds hard to define; struggles with subtle in-distribution shifts  | Medium to large                 | Small to large                  | Low to medium (scales efficiently) |
 
-Thanks for your patience! Here is the updated section with all the papers linked and formatted using `###` headers:
 
 :::::::::::::::::::::::::::::: callout
 ### Tabular Data Example
