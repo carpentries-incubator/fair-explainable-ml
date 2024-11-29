@@ -605,66 +605,53 @@ setups, training/inference in days to weeks.</li>
 </ul></div>
 </div>
 </div>
-<table class="table"><colgroup><col width="6%"><col width="6%"><col width="15%"><col width="14%"><col width="27%"><col width="10%"><col width="10%"><col width="9%"></colgroup><thead><tr class="header"><th><strong>Method</strong></th>
-<th><strong>Type of uncertainty</strong></th>
-<th><strong>Key strengths</strong></th>
-<th><strong>Key limitations</strong></th>
-<th><strong>Common use cases/domains</strong></th>
-<th><strong>Model size restrictions</strong></th>
-<th><strong>Data size restrictions</strong></th>
-<th><strong>Compute time (approx.)</strong></th>
-</tr></thead><tbody><tr class="odd"><td><strong>Predictive variance</strong></td>
+<table class="table"><colgroup><col width="10%"><col width="8%"><col width="18%"><col width="20%"><col width="13%"><col width="13%"><col width="14%"></colgroup><thead><tr class="header"><th>Method</th>
+<th>Type of uncertainty</th>
+<th>Key strengths</th>
+<th>Key limitations</th>
+<th>Model size restrictions</th>
+<th>Data size restrictions</th>
+<th>Compute time (approx.)</th>
+</tr></thead><tbody><tr class="odd"><td>Predictive variance</td>
 <td>Aleatoric</td>
 <td>Simple, intuitive for regression tasks</td>
 <td>Limited to regression problems; doesn’t address epistemic
 uncertainty</td>
-<td>Regression tasks like house price prediction, energy consumption
-modeling.</td>
 <td>Small to medium</td>
 <td>Small to medium</td>
 <td>Very low (single pass)</td>
-</tr><tr class="even"><td><strong>Heteroscedastic models</strong></td>
+</tr><tr class="even"><td>Heteroscedastic models</td>
 <td>Aleatoric</td>
 <td>Models variable noise across inputs</td>
 <td>Requires specialized architectures or loss functions</td>
-<td>Robotics (handling sensor noise), object detection in noisy
-environments.</td>
-<td>Medium to large (depends on task)</td>
+<td>Medium to large (task-dependent)</td>
 <td>Medium</td>
 <td>Medium (depends on task complexity)</td>
-</tr><tr class="odd"><td><strong>Monte Carlo dropout</strong></td>
+</tr><tr class="odd"><td>Monte Carlo dropout</td>
 <td>Epistemic</td>
 <td>Easy to implement in existing neural networks</td>
 <td>Computationally expensive due to multiple forward passes</td>
-<td>Medical diagnosis models, small-scale deep learning tasks requiring
-uncertainty estimates.</td>
 <td>Medium</td>
 <td>Medium to large</td>
 <td>High (scales with forward passes)</td>
-</tr><tr class="even"><td><strong>Bayesian neural nets</strong></td>
+</tr><tr class="even"><td>Bayesian neural nets</td>
 <td>Epistemic</td>
 <td>Rigorous probabilistic foundation</td>
 <td>Computationally prohibitive for large models/datasets</td>
-<td>Research-intensive applications like materials science, drug
-discovery.</td>
 <td>Small to medium (challenging to scale)</td>
 <td>Small to medium</td>
 <td>Very high (depends on sampling)</td>
-</tr><tr class="odd"><td><strong>Ensemble models</strong></td>
+</tr><tr class="odd"><td>Ensemble models</td>
 <td>Epistemic</td>
 <td>Effective and robust; captures diverse uncertainties</td>
 <td>Resource-intensive; requires training multiple models</td>
-<td>Financial risk assessment, autonomous systems, and materials
-property prediction.</td>
 <td>Medium to large</td>
 <td>Medium to large</td>
 <td>Very high (training multiple models)</td>
-</tr><tr class="even"><td><strong>OOD detection</strong></td>
+</tr><tr class="even"><td>OOD detection</td>
 <td>Epistemic</td>
 <td>Efficient, scalable, excels at rejecting anomalous inputs</td>
 <td>Limited to identifying OOD inputs, not fine-grained uncertainty</td>
-<td>NLP (e.g., chatbot queries), computer vision (e.g., detecting novel
-objects in autonomous driving).</td>
 <td>Medium to large</td>
 <td>Small to large</td>
 <td>Low to medium (scales efficiently)</td>
