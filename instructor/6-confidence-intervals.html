@@ -409,7 +409,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Estimating model uncertainty</h1>
-        <p>Last updated on 2024-11-15 |
+        <p>Last updated on 2024-11-29 |
 
         <a href="https://github.com/carpentries-incubator/fair-explainable-ml/edit/main/episodes/6-confidence-intervals.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -565,8 +565,13 @@ offering confidence estimates for predictions on ID inputs.</li>
 </div>
 <div class="section level3">
 <h3 id="method-selection-summary-table">Method selection summary table<a class="anchor" aria-label="anchor" href="#method-selection-summary-table"></a></h3>
-<div class="section level4">
-<h4 id="understanding-size-categories-in-table">Understanding size categories in table<a class="anchor" aria-label="anchor" href="#understanding-size-categories-in-table"></a></h4>
+<div id="understanding-size-categories-in-table" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div id="understanding-size-categories-in-table" class="callout-inner">
+<h3 class="callout-title">Understanding size categories in table</h3>
+<div class="callout-content">
 <p>To help guide method selection, here are rough definitions for
 <strong>model size</strong>, <strong>data size</strong>, and
 <strong>compute requirements</strong> used in the table:</p>
@@ -599,7 +604,10 @@ in hours to a day.</li>
 <li>
 <strong>High</strong>: Requires multiple GPUs/TPUs or distributed
 setups, training/inference in days to weeks.</li>
-</ul><table class="table"><colgroup><col width="6%"><col width="6%"><col width="15%"><col width="14%"><col width="27%"><col width="10%"><col width="10%"><col width="9%"></colgroup><thead><tr class="header"><th><strong>Method</strong></th>
+</ul></div>
+</div>
+</div>
+<table class="table"><colgroup><col width="6%"><col width="6%"><col width="15%"><col width="14%"><col width="27%"><col width="10%"><col width="10%"><col width="9%"></colgroup><thead><tr class="header"><th><strong>Method</strong></th>
 <th><strong>Type of uncertainty</strong></th>
 <th><strong>Key strengths</strong></th>
 <th><strong>Key limitations</strong></th>
@@ -662,8 +670,7 @@ objects in autonomous driving).</td>
 <td>Medium to large</td>
 <td>Small to large</td>
 <td>Low to medium (scales efficiently)</td>
-</tr></tbody></table></div>
-<div class="section level4">
+</tr></tbody></table><div class="section level4">
 <h4 id="why-is-ood-detection-widely-adopted">Why is OOD detection widely adopted?<a class="anchor" aria-label="anchor" href="#why-is-ood-detection-widely-adopted"></a></h4>
 <p>Among epistemic uncertainty methods, OOD detection has become a
 widely adopted approach in real-world applications due to its ability to
@@ -758,7 +765,7 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/fair-explainable-ml/instructor/6-confidence-intervals.html",
   "identifier": "https://carpentries-incubator.github.io/fair-explainable-ml/instructor/6-confidence-intervals.html",
   "dateCreated": "2023-12-05",
-  "dateModified": "2024-11-15",
+  "dateModified": "2024-11-29",
   "datePublished": "2024-11-29"
 }
 
