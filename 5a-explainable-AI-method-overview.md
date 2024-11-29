@@ -52,6 +52,35 @@ While global explanations may be more comprehensive, they run the risk of being 
 Both types of explanations are valuable for uncovering biases and ensuring that the model makes predictions for the right reasons. 
 The tradeoff between local and global explanations has a long history in statistics, with methods like linear regression (global) and kernel smoothing (local) illustrating the importance of considering both perspectives in statistical analysis.
 
+#### Local example: Feature attribution with SHAP
+
+SHAP (SHapley Additive exPlanations) is a feature attribution method that provides insights into how individual features contribute to a specific prediction for an individual instance.
+
+- **How it works**: SHAP perturbs features in all possible combinations and calculates their impact on the prediction. This process ensures that the contribution of each feature is evaluated fairly and consistently.
+- **Applications**:
+  - Explaining why a specific patient was diagnosed with a condition.
+  - Identifying the most influential features in predicting the price of a single house in a housing dataset.
+- **Strengths**:
+  - Offers precise and theoretically grounded local explanations.
+  - Useful for debugging individual predictions or building trust with stakeholders.
+- **Limitations**:
+  - Computationally expensive, especially for high-dimensional datasets or complex models.
+
+#### Global example: Aggregated insights with SHAP
+
+SHAP can also provide global insights by averaging feature attributions across many individual instances. This allows practitioners to identify overall trends, rank feature importance, and detect dataset-wide biases.
+
+- **How it works**: SHAP values for individual instances are aggregated to compute global feature importance. For example, calculating the average SHAP value for each feature across all instances reveals how strongly that feature influences the model's predictions overall.
+- **Applications**:
+  - Understanding which features are most predictive across a dataset (e.g., income level being the most significant factor in loan approvals).
+  - Detecting global trends or biases in model predictions.
+- **Strengths**:
+  - Bridges local and global interpretability by connecting individual predictions to dataset-wide insights.
+  - Provides theoretically consistent global feature importance rankings.
+- **Limitations**:
+  - May require significant computational resources for large datasets or complex models.
+
+
 ### Black box vs White Box Approaches
 Techniques that require access to model internals (e.g., model architecture and model weights) are called "white box" while techniques that only need query access to the model are called "black box". 
 Even without access to the model weights, black box or top down approaches can shed a lot of light on model behavior. 
