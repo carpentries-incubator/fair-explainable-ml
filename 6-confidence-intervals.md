@@ -53,6 +53,7 @@ Epistemic uncertainty arises from the model's lack of knowledge about certain re
 
 ### Method selection summary table
 
+:::::::::::::::::::::::::::::::::::::: callout
 #### Understanding size categories in table
 
 To help guide method selection, here are rough definitions for **model size**, **data size**, and **compute requirements** used in the table:
@@ -74,6 +75,7 @@ To help guide method selection, here are rough definitions for **model size**, *
 - **Low**: Suitable for standard CPU or single GPU, training/inference in minutes to an hour.
 - **Medium**: Requires a modern GPU, training/inference in hours to a day.
 - **High**: Requires multiple GPUs/TPUs or distributed setups, training/inference in days to weeks.
+::::::::::::::::::::::::::::::::::::::
 
 | **Method**                | **Type of uncertainty**  | **Key strengths**                                             | **Key limitations**                                   | **Common use cases/domains**                                                                                  | **Model size restrictions**            | **Data size restrictions**            | **Compute time (approx.)**          |
 |---------------------------|-------------------------|-------------------------------------------------------------|----------------------------------------------------------|-------------------------------------------------------------------------------------------------------------|----------------------------------------|----------------------------------------|---------------------------------------|
