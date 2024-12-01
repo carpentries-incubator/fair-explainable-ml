@@ -28,7 +28,7 @@ exercises: 0
 
 Understanding how confident a model is in its predictions is a valuable tool for building trustworthy AI systems, especially in high-stakes settings like healthcare or autonomous vehicles. Model uncertainty estimation focuses on quantifying the model's confidence and is often used to identify predictions that require further review or caution.
 
-Model uncertainty can be divided into two categories:
+Model uncertainty can be divided into two categories: (1) Aleatoric/Random and (2) Epistemic uncertainty.
 
 ### 1. Aleatoric (Random) uncertainty
 **Aleatoric** (a·le·a·to·ric) is an adjective that means, "*depending on the throw of a dice or on chance; random.*" 
