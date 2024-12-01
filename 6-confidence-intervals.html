@@ -287,12 +287,19 @@
 <div class="accordion accordion-flush" id="accordionFlushcurrent">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-headingcurrent">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapsecurrent" aria-expanded="true" aria-controls="flush-collapsecurrent">
         <span class="visually-hidden">Current Chapter</span>
         <span class="current-chapter">
         10. Estimating model uncertainty
         </span>
-      
+      </button>
     </div><!--/div.accordion-header-->
+
+    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
+      <div class="accordion-body">
+        <ul><li><a href="#estimating-model-uncertainty">Estimating model uncertainty</a></li>
+        </ul></div><!--/div.accordion-body-->
+    </div><!--/div.accordion-collapse-->
 
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
@@ -459,29 +466,29 @@ are most useful.</li>
 </div>
 </div>
 </div>
-<div class="section level3">
-<h3 id="estimating-model-uncertainty">Estimating model uncertainty<a class="anchor" aria-label="anchor" href="#estimating-model-uncertainty"></a></h3>
-<p>Understanding how confident a model is in its predictions is a
+<section><h2 class="section-heading" id="estimating-model-uncertainty">Estimating model uncertainty<a class="anchor" aria-label="anchor" href="#estimating-model-uncertainty"></a></h2>
+<hr class="half-width"><p>Understanding how confident a model is in its predictions is a
 valuable tool for building trustworthy AI systems, especially in
 high-stakes settings like healthcare or autonomous vehicles. Model
 uncertainty estimation focuses on quantifying the model’s confidence and
 is often used to identify predictions that require further review or
 caution.</p>
 <p>Model uncertainty can be divided into two categories:</p>
-<div class="section level4">
-<h4 id="aleatoric-random-uncertainty">1. Aleatoric (Random) uncertainty<a class="anchor" aria-label="anchor" href="#aleatoric-random-uncertainty"></a></h4>
+<div class="section level3">
+<h3 id="aleatoric-random-uncertainty">1. Aleatoric (Random) uncertainty<a class="anchor" aria-label="anchor" href="#aleatoric-random-uncertainty"></a></h3>
 <p><strong>Aleatoric</strong> is a synonym for “random”: a·le·a·to·ry
 /ˈālēəˌtôrē/ adjective adjective: aleatoric depending on the throw of a
 dice or on chance; random.</p>
 <p>Aleatoric uncertainty is the inherent noise in the data that cannot
-be reduced, even with more data. Aleatoric uncertainy can arise due to:
-- Inconsistent readings from faulty sensors - Background noise in audio,
-multiple overlapping signals, recording quality - Resolution of image,
-lighting conditions - Overlapping classes, ambiguous labels due to
-subjective interpretations - Human errors in data entry, missing
-values</p>
-<div class="section level5">
-<h5 id="methods-for-addressing-aleatoric-uncertainty">Methods for addressing aleatoric uncertainty<a class="anchor" aria-label="anchor" href="#methods-for-addressing-aleatoric-uncertainty"></a></h5>
+be reduced, even with more data (observations OR missing features).
+Aleatoric uncertainy can arise due to: - Inconsistent readings from
+faulty sensors - Background noise in audio, multiple overlapping
+signals, recording quality - Random fluctuations in image resolution or
+lightning conditions (NOT systemic or cyclic) - Overlapping classes,
+ambiguous labels due to subjective interpretations - Human errors in
+data entry, random missing values</p>
+<div class="section level4">
+<h4 id="methods-for-addressing-aleatoric-uncertainty">Methods for addressing aleatoric uncertainty<a class="anchor" aria-label="anchor" href="#methods-for-addressing-aleatoric-uncertainty"></a></h4>
 <p>Aleatoric uncertainty arises from the data itself. Methods to
 estimate it include:</p>
 <ul><li>
@@ -509,16 +516,59 @@ synthetic noise can help the model better handle real-world
 imperfections like motion blur or occlusions.</li>
 </ul></div>
 </div>
-<div class="section level4">
-<h4 id="epistemic-uncertainty">2. Epistemic uncertainty<a class="anchor" aria-label="anchor" href="#epistemic-uncertainty"></a></h4>
+<div class="section level3">
+<h3 id="epistemic-uncertainty">2. Epistemic uncertainty<a class="anchor" aria-label="anchor" href="#epistemic-uncertainty"></a></h3>
 <p><strong>Epistemic</strong> is defined as: ep·i·ste·mic
 /ˌepəˈstēmik,ˌepəˈstemik/ adjectivePhilosophy relating to knowledge or
 to the degree of its validation.</p>
 <p>Epistemic uncertainty refers to gaps in the model’s knowledge about
 the data distribution, which can be reduced by using more data or
-improved models.</p>
-<div class="section level5">
-<h5 id="methods-for-addressing-epistemic-uncertainty">Methods for addressing epistemic uncertainty<a class="anchor" aria-label="anchor" href="#methods-for-addressing-epistemic-uncertainty"></a></h5>
+improved models. Aleatoric uncertainy can arise due to: ### 2. Epistemic
+Uncertainty</p>
+<p>Epistemic uncertainty refers to gaps in the model’s knowledge about
+the data distribution, which can be reduced by using more data or
+improved models. Epistemic uncertainty can arise due to: - <strong>Rare
+or underrepresented scenarios</strong>: - Tabular: Predicting hospital
+demand during a rare pandemic with limited historical data. - Image:
+Detecting tumors in rare imaging modalities (e.g., PET scans). - Text:
+Answering questions about niche technical domains in a chatbot
+system.</p>
+<ul><li>
+<strong>Systematic resolution differences</strong>:
+<ul><li>Image: A model trained on high-resolution images but tested on
+low-resolution inputs (e.g., wildlife drones capturing lower-resolution
+data than the training dataset).</li>
+<li>Text: OCR systems misclassifying text scanned at lower resolution
+than the training examples.</li>
+</ul></li>
+<li>
+<strong>Novel or unseen data points</strong>:
+<ul><li>Tabular: Classifying user behavior from a new region not included in
+training data.</li>
+<li>Image: Recognizing a new species in wildlife monitoring.</li>
+<li>Text: Interpreting slang or idiomatic expressions unseen during
+training.</li>
+</ul></li>
+<li>
+<strong>Out-of-distribution (OOD) data</strong>:
+<ul><li>Tabular: Unexpected shifts in sensor readings from equipment
+malfunctions.</li>
+<li>Image: Adversarial images with imperceptible changes designed to
+confuse the model.</li>
+<li>Text: Queries about topics completely outside the model’s domain
+(e.g., financial queries in a healthcare chatbot).</li>
+</ul></li>
+<li>
+<strong>Sparse or insufficient data in feature space</strong>:
+<ul><li>Tabular: High-dimensional data with many missing or sparsely sampled
+features (e.g., genomic datasets).</li>
+<li>Image: Limited labeled examples for rare diseases in medical imaging
+datasets.</li>
+<li>Text: Few-shot learning scenarios for domain-specific
+terminology.</li>
+</ul></li>
+</ul><div class="section level4">
+<h4 id="methods-for-addressing-epistemic-uncertainty">Methods for addressing epistemic uncertainty<a class="anchor" aria-label="anchor" href="#methods-for-addressing-epistemic-uncertainty"></a></h4>
 <p>Epistemic uncertainty arises from the model’s lack of knowledge about
 certain regions of the data space. Techniques to estimate it
 include:</p>
@@ -572,9 +622,19 @@ training data. These scores can be interpreted as a form of epistemic
 uncertainty, providing insight into how unfamiliar an input is. However,
 OOD detection focuses on distinguishing ID from OOD inputs rather than
 offering confidence estimates for predictions on ID inputs.</li>
+<li>
+<strong>Collect more data</strong>: Focus on gathering data from
+underrepresented scenarios or regions of the feature space, particularly
+areas where the model exhibits high uncertainty (e.g., rare medical
+conditions, edge cases in autonomous driving). This directly reduces
+epistemic uncertainty by expanding the model’s knowledge base.</li>
+<li>
+<strong>Active learning</strong>: Use model uncertainty estimates to
+prioritize uncertain or ambiguous samples for annotation, enabling more
+targeted data collection.</li>
 </ul></div>
-<div class="section level5">
-<h5 id="methods-for-addressing-epistemic-uncertainty-table">Methods for addressing epistemic uncertainty (table)<a class="anchor" aria-label="anchor" href="#methods-for-addressing-epistemic-uncertainty-table"></a></h5>
+<div class="section level4">
+<h4 id="methods-for-addressing-epistemic-uncertainty-table">Methods for addressing epistemic uncertainty (table)<a class="anchor" aria-label="anchor" href="#methods-for-addressing-epistemic-uncertainty-table"></a></h4>
 <table class="table"><colgroup><col width="11%"><col width="20%"><col width="22%"><col width="15%"><col width="14%"><col width="15%"></colgroup><thead><tr class="header"><th>Method</th>
 <th>Key strengths</th>
 <th>Key limitations</th>
@@ -650,111 +710,6 @@ setups, training/inference in days to weeks.</li>
 </ul></div>
 </div>
 </div>
-<div id="tabular-data-example" class="callout">
-<div class="callout-square">
-<i class="callout-icon" data-feather="bell"></i>
-</div>
-<div id="tabular-data-example" class="callout-inner">
-<h3 class="callout-title">Tabular Data Example</h3>
-<div class="section level4 callout-content">
-<h4 id="application-hospital-resource-allocation">Application: Hospital resource allocation<a class="anchor" aria-label="anchor" href="#application-hospital-resource-allocation"></a></h4>
-<p><strong>Aleatoric Uncertainty:</strong></p>
-<ul><li>
-<strong>Linear models:</strong> Predictive variance captures
-inherent randomness in hospital occupancy patterns due to seasonal
-variability or unpredictable local events. See <a href="https://bmcmedinformdecismak.biomedcentral.com/articles/10.1186/s12911-022-01787-9" class="external-link">Taylor
-et al., 2021</a> for regression-based modeling of hospital bed demand
-during flu seasons.</li>
-<li>
-<strong>Deep learning:</strong> Heteroscedastic models account for
-input-dependent noise, such as variability in hospital reporting systems
-or random fluctuations in patient arrival rates during holidays or flu
-season. See <a href="https://www.nature.com/articles/s41746-018-0029-1.pdf" class="external-link">Rajkomar et
-al., 2018</a> for applications of deep learning in hospital resource
-prediction.</li>
-</ul><p><strong>Epistemic Uncertainty:</strong></p>
-<ul><li>
-<strong>Tree ensembles:</strong> Capture uncertainty for
-underrepresented or novel conditions, such as predicting hospital demand
-during rare pandemics. For an example, see <a href="https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010602" class="external-link">Shahid
-et al., 2020</a>, which uses ensemble models for pandemic demand
-forecasting.</li>
-<li>
-<strong>OOD detection:</strong> Identifies anomalies in resource
-usage data, such as unexpected spikes in equipment demands or
-misreported occupancy. See <a href="https://arxiv.org/abs/2110.11334" class="external-link">Pang et al., 2021</a> for a
-comprehensive survey on OOD detection in real-world tabular data.</li>
-</ul></div>
-</div>
-</div>
-<div id="image-data-example" class="callout">
-<div class="callout-square">
-<i class="callout-icon" data-feather="bell"></i>
-</div>
-<div id="image-data-example" class="callout-inner">
-<h3 class="callout-title">Image Data Example</h3>
-<div class="section level4 callout-content">
-<h4 id="application-tumor-detection-in-radiology-images">Application: Tumor detection in radiology images<a class="anchor" aria-label="anchor" href="#application-tumor-detection-in-radiology-images"></a></h4>
-<p><strong>Aleatoric Uncertainty:</strong></p>
-<ul><li>
-<strong>CNNs:</strong> Heteroscedastic loss accounts for noise from
-imaging artifacts like low resolution or motion blur. For an example of
-modeling aleatoric uncertainty in medical imaging, see <a href="https://arxiv.org/abs/1703.04977" class="external-link">Kendall &amp; Gal,
-2017</a>.</li>
-<li>
-<strong>Data augmentation:</strong> Synthetic noise during training
-improves robustness to real-world imperfections in medical images. See
-<a href="https://journalofbigdata.springeropen.com/articles/10.1186/s40537-019-0197-0" class="external-link">Shorten
-&amp; Khoshgoftaar, 2019</a> for a survey on data augmentation
-strategies in deep learning.</li>
-</ul><p><strong>Epistemic Uncertainty:</strong></p>
-<ul><li>
-<strong>Monte Carlo dropout:</strong> Samples multiple outputs to
-generate uncertainty maps for tumor boundaries in rare conditions. See
-<a href="https://www.nature.com/articles/s41598-017-17876-z.pdf" class="external-link">Leibig
-et al., 2017</a> for an application of MC dropout to retinal disease
-detection.</li>
-<li>
-<strong>OOD detection:</strong> Flags anomalous radiology images,
-such as previously unseen tumor types or imaging modalities. See <a href="https://arxiv.org/abs/1610.02136" class="external-link">Hendrycks &amp; Gimpel, 2017</a>
-for the foundational OOD detection method applied to medical
-imaging.</li>
-</ul></div>
-</div>
-</div>
-<div id="text-data-example" class="callout">
-<div class="callout-square">
-<i class="callout-icon" data-feather="bell"></i>
-</div>
-<div id="text-data-example" class="callout-inner">
-<h3 class="callout-title">Text Data Example</h3>
-<div class="section level4 callout-content">
-<h4 id="application-chatbot-intent-recognition">Application: Chatbot intent recognition<a class="anchor" aria-label="anchor" href="#application-chatbot-intent-recognition"></a></h4>
-<p><strong>Aleatoric Uncertainty:</strong></p>
-<ul><li>
-<strong>Logistic regression:</strong> Predictive variance highlights
-ambiguities in user queries with mixed intents. See <a href="https://direct.mit.edu/tacl/article/doi/10.1162/tacl_a_00483/111592/Uncertainty-Estimation-and-Reduction-of-Pre" class="external-link">Hazra
-et al., 2020</a> for a discussion on uncertainty estimation in NLP
-tasks.</li>
-<li>
-<strong>Transformers:</strong> Heteroscedastic models capture
-token-level uncertainty in noisy or ambiguous language inputs. See <a href="https://arxiv.org/pdf/1802.10501v3" class="external-link">Malinin &amp; Gales, 2018</a>
-for heteroscedastic neural network modeling in NLP.</li>
-</ul><p><strong>Epistemic Uncertainty:</strong></p>
-<ul><li>
-<strong>Bayesian transformers:</strong> Quantify uncertainty in rare
-or unseen query topics (e.g., domain-specific technical questions). See
-<a href="https://openreview.net/pdf?id=CSXa8LJMttt" class="external-link">Fort et al.,
-2020</a> for a discussion on uncertainty in transformers.</li>
-<li>
-<strong>OOD detection:</strong> Detects out-of-scope queries or
-previously unseen intents, such as rare idiomatic expressions or slang.
-See <a href="https://aclanthology.org/2020.coling-main.125.pdf" class="external-link">Lin
-&amp; Xu, 2019</a> for OOD detection in NLP systems.</li>
-</ul></div>
-</div>
-</div>
-</div>
 </div>
 <div class="section level4">
 <h4 id="why-is-ood-detection-widely-adopted">Why is OOD detection widely adopted?<a class="anchor" aria-label="anchor" href="#why-is-ood-detection-widely-adopted"></a></h4>
@@ -775,6 +730,235 @@ model’s training corpus, such as out-of-context questions in a chatbot
 system. In the next couple of episodes, we’ll see how to implement
 various OOD strategies.</p>
 </div>
+</div>
+<div class="section level3">
+<h3 id="exercises-analyzing-uncertainty-in-real-world-applications">Exercises: Analyzing Uncertainty in Real-World Applications<a class="anchor" aria-label="anchor" href="#exercises-analyzing-uncertainty-in-real-world-applications"></a></h3>
+<div id="tabular-data-example-hospital-resource-allocation" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div id="tabular-data-example-hospital-resource-allocation" class="callout-inner">
+<h3 class="callout-title">Tabular Data Example: Hospital Resource
+Allocation</h3>
+<div class="callout-content">
+<p>You are tasked with designing a machine learning system to predict
+hospital resource demands during seasonal flu outbreaks and rare
+pandemics. Discuss: 1. Types of uncertainty (aleatoric vs. epistemic)
+present in this application. 2. Methods to estimate and address each
+type of uncertainty. 3. Trade-offs between methods in terms of
+complexity and applicability.</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
+  <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
+</button>
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div class="accordion-body">
+<p>For hospital resource allocation, both aleatoric and epistemic
+uncertainties play a critical role. Aleatoric uncertainty arises from
+inherent variability in hospital resource demand, such as seasonal flu
+spikes or local reporting inconsistencies. Epistemic uncertainty stems
+from limited or incomplete data, particularly for rare events like
+pandemics.</p>
+<div class="section level4">
+<h4 id="general-approaches">General Approaches:<a class="anchor" aria-label="anchor" href="#general-approaches"></a></h4>
+<ul><li>
+<strong>Aleatoric Uncertainty</strong>:
+<ul><li>Use models that capture the variability in the data through
+predictive variance or heteroscedastic loss.</li>
+<li>Employ robust models or data augmentation to handle noise in the
+data.</li>
+</ul></li>
+<li>
+<strong>Epistemic Uncertainty</strong>:
+<ul><li>Use ensemble methods or Bayesian neural networks to estimate
+uncertainty in underrepresented scenarios.</li>
+<li>Apply OOD detection methods to identify anomalies or novel data
+points outside the training distribution.</li>
+</ul></li>
+</ul></div>
+<div class="section level4">
+<h4 id="specific-examples">Specific Examples:<a class="anchor" aria-label="anchor" href="#specific-examples"></a></h4>
+<ul><li>
+<strong>Aleatoric Uncertainty</strong>:
+<ul><li>Predictive variance in regression models can highlight inherent
+randomness in hospital bed demand due to unpredictable events.
+<ul><li>Reference: <a href="https://bmcmedinformdecismak.biomedcentral.com/articles/10.1186/s12911-022-01787-9" class="external-link">Taylor
+et al., 2021</a>.</li>
+</ul></li>
+<li>Heteroscedastic models can account for variability in reporting
+systems or fluctuating patient arrival rates.
+<ul><li>Reference: <a href="https://www.nature.com/articles/s41746-018-0029-1.pdf" class="external-link">Rajkomar et
+al., 2018</a>.</li>
+</ul></li>
+</ul></li>
+<li>
+<strong>Epistemic Uncertainty</strong>:
+<ul><li>Tree ensembles can capture uncertainty in rare conditions, such as
+during pandemics.
+<ul><li>Reference: <a href="https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010602" class="external-link">Shahid
+et al., 2020</a>.</li>
+</ul></li>
+<li>OOD detection methods identify unexpected spikes in demand or errors
+in occupancy reporting.
+<ul><li>Reference: <a href="https://arxiv.org/abs/2110.11334" class="external-link">Pang et al.,
+2021</a>.</li>
+</ul></li>
+</ul></li>
+</ul></div>
+</div>
+</div>
+</div>
+</div>
+<div id="image-data-example-tumor-detection-in-radiology-images" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div id="image-data-example-tumor-detection-in-radiology-images" class="callout-inner">
+<h3 class="callout-title">Image Data Example: Tumor Detection in
+Radiology Images</h3>
+<div class="callout-content">
+<p>Design a system to detect tumors in radiology images. Discuss: 1.
+Sources of aleatoric and epistemic uncertainty in this application. 2.
+Potential methods to estimate and address these uncertainties. 3.
+Evaluate how well these methods scale for large datasets and real-world
+deployment.</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
+  <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
+</button>
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div class="accordion-body">
+<p>For tumor detection, aleatoric uncertainty arises from variability in
+image quality, such as noise, motion blur, or resolution artifacts.
+Epistemic uncertainty comes from limited labeled data for rare tumor
+types or novel imaging modalities.</p>
+<div class="section level4">
+<h4 id="general-approaches-1">General Approaches:<a class="anchor" aria-label="anchor" href="#general-approaches-1"></a></h4>
+<ul><li>
+<strong>Aleatoric Uncertainty</strong>:
+<ul><li>Use heteroscedastic loss to model data-dependent noise.</li>
+<li>Apply data augmentation to improve robustness to imaging
+artifacts.</li>
+</ul></li>
+<li>
+<strong>Epistemic Uncertainty</strong>:
+<ul><li>Use Monte Carlo dropout or Bayesian models to estimate uncertainty
+in rare cases.</li>
+<li>Apply OOD detection to flag previously unseen tumor types or
+conditions.</li>
+</ul></li>
+</ul></div>
+<div class="section level4">
+<h4 id="specific-examples-1">Specific Examples:<a class="anchor" aria-label="anchor" href="#specific-examples-1"></a></h4>
+<ul><li>
+<strong>Aleatoric Uncertainty</strong>:
+<ul><li>CNNs with heteroscedastic loss can account for imaging artifacts
+like low resolution or motion blur.
+<ul><li>Reference: <a href="https://arxiv.org/abs/1703.04977" class="external-link">Kendall &amp;
+Gal, 2017</a>.</li>
+</ul></li>
+<li>Data augmentation strategies, such as adding synthetic noise,
+improve robustness.
+<ul><li>Reference: <a href="https://journalofbigdata.springeropen.com/articles/10.1186/s40537-019-0197-0" class="external-link">Shorten
+&amp; Khoshgoftaar, 2019</a>.</li>
+</ul></li>
+</ul></li>
+<li>
+<strong>Epistemic Uncertainty</strong>:
+<ul><li>Monte Carlo dropout generates uncertainty maps for tumor boundaries.
+<ul><li>Reference: <a href="https://www.nature.com/articles/s41598-017-17876-z.pdf" class="external-link">Leibig et
+al., 2017</a>.</li>
+</ul></li>
+<li>OOD detection flags anomalous imaging data, such as unseen tumor
+types.
+<ul><li>Reference: <a href="https://arxiv.org/abs/1610.02136" class="external-link">Hendrycks
+&amp; Gimpel, 2017</a>.</li>
+</ul></li>
+</ul></li>
+</ul></div>
+</div>
+</div>
+</div>
+</div>
+<div id="text-data-example-chatbot-intent-recognition" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div id="text-data-example-chatbot-intent-recognition" class="callout-inner">
+<h3 class="callout-title">Text Data Example: Chatbot Intent
+Recognition</h3>
+<div class="callout-content">
+<p>Develop a system for chatbot intent recognition. Address: 1.
+Aleatoric and epistemic uncertainties in the application. 2. Methods to
+mitigate these uncertainties. 3. Trade-offs between implementing simple
+uncertainty measures versus advanced techniques.</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution3" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
+  <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
+</button>
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div class="accordion-body">
+<p>For chatbot intent recognition, aleatoric uncertainty comes from
+ambiguous or noisy user queries, while epistemic uncertainty arises from
+queries in domains not represented in the training data.</p>
+<div class="section level4">
+<h4 id="general-approaches-2">General Approaches:<a class="anchor" aria-label="anchor" href="#general-approaches-2"></a></h4>
+<ul><li>
+<strong>Aleatoric Uncertainty</strong>:
+<ul><li>Use predictive variance in simpler models like logistic regression
+to detect ambiguities.</li>
+<li>Heteroscedastic models, particularly in transformers, can handle
+token-level noise.</li>
+</ul></li>
+<li>
+<strong>Epistemic Uncertainty</strong>:
+<ul><li>Bayesian methods or Monte Carlo dropout can quantify uncertainty for
+rare or unseen topics.</li>
+<li>OOD detection can identify out-of-scope queries.</li>
+</ul></li>
+</ul></div>
+<div class="section level4">
+<h4 id="specific-examples-2">Specific Examples:<a class="anchor" aria-label="anchor" href="#specific-examples-2"></a></h4>
+<ul><li>
+<strong>Aleatoric Uncertainty</strong>:
+<ul><li>Logistic regression captures variance in mixed-intent queries.
+<ul><li>Reference: <a href="https://direct.mit.edu/tacl/article/doi/10.1162/tacl_a_00483/111592/Uncertainty-Estimation-and-Reduction-of-Pre" class="external-link">Hazra
+et al., 2020</a>.</li>
+</ul></li>
+<li>Transformers with heteroscedastic models capture token-level
+uncertainty in noisy inputs.
+<ul><li>Reference: <a href="https://arxiv.org/pdf/1802.10501v3" class="external-link">Malinin
+&amp; Gales, 2018</a>.</li>
+</ul></li>
+</ul></li>
+<li>
+<strong>Epistemic Uncertainty</strong>:
+<ul><li>Bayesian transformers quantify uncertainty in rare topics.
+<ul><li>Reference: <a href="https://openreview.net/pdf?id=CSXa8LJMttt" class="external-link">Fort
+et al., 2020</a>.</li>
+</ul></li>
+<li>OOD detection identifies out-of-scope or idiomatic queries.
+<ul><li>Reference: <a href="https://aclanthology.org/2020.coling-main.125.pdf" class="external-link">Lin &amp; Xu,
+2019</a>.</li>
+</ul></li>
+</ul></li>
+</ul></div>
+</div>
+</div>
+</div>
+</div>
 <div class="section level4">
 <h4 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a></h4>
 <p>While uncertainty estimation provides a broad framework for
@@ -790,10 +974,7 @@ any links that you are not going to use.
  -->
 </div>
 </div>
-
-
-
-      </div> <!-- / div.lesson-content -->
+</section></div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter"><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="5d-gradcam.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
         <a class="chapter-link float-end" href="7a-OOD-detection-overview.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
