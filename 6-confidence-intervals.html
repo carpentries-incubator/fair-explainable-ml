@@ -754,7 +754,7 @@ complexity and applicability.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>For hospital resource allocation, both aleatoric and epistemic
 uncertainties play a critical role. Aleatoric uncertainty arises from
@@ -833,7 +833,7 @@ deployment.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>For tumor detection, aleatoric uncertainty arises from variability in
 image quality, such as noise, motion blur, or resolution artifacts.
@@ -907,7 +907,7 @@ uncertainty measures versus advanced techniques.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <p>For chatbot intent recognition, aleatoric uncertainty comes from
 ambiguous or noisy user queries, while epistemic uncertainty arises from
@@ -960,13 +960,35 @@ et al., 2020</a>.</li>
 </div>
 <div class="section level4">
 <h4 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a></h4>
-<p>While uncertainty estimation provides a broad framework for
-understanding model confidence, different methods are suited for
-specific types of uncertainty and use cases. OOD detection stands out as
-the most practical approach for handling epistemic uncertainty in modern
-applications, thanks to its efficiency and ability to reject anomalous
-inputs. Together, these methods form a complementary toolkit for
-building trustworthy AI systems.</p>
+<p>Uncertainty estimation is a critical component of building reliable
+and trustworthy machine learning models, especially in high-stakes
+applications. By understanding the distinction between aleatoric
+uncertainty (inherent data noise) and epistemic uncertainty (gaps in the
+model’s knowledge), practitioners can adopt tailored strategies to
+improve model robustness and interpretability.</p>
+<ul><li>Aleatoric uncertainty is irreducible noise in the data itself.
+Addressing this requires models that can predict variability, such as
+heteroscedastic loss functions, or strategies like data augmentation to
+make models more resilient to imperfections.</li>
+<li>Epistemic uncertainty arises from the model’s incomplete
+understanding of the data distribution. It can be mitigated through
+methods like Monte Carlo dropout, Bayesian neural networks, ensemble
+models, and Out-of-Distribution (OOD) detection. Among these methods,
+OOD detection has become a cornerstone for handling epistemic
+uncertainty in practical applications. Its ability to flag anomalous or
+out-of-distribution inputs makes it an essential tool for ensuring model
+predictions are reliable in real-world scenarios.
+<ul><li>In many cases, collecting more data and employing active learning
+can directly address the root causes of epistemic uncertainty.</li>
+</ul></li>
+</ul><p>When choosing a method, it’s important to consider the trade-offs in
+computational cost, model complexity, and the type of uncertainty being
+addressed. Together, these techniques form a powerful toolbox, enabling
+models to better navigate uncertainty and maintain trustworthiness in
+dynamic environments. By combining these approaches strategically,
+practitioners can ensure that their systems are not only accurate but
+also robust, interpretable, and adaptable to the challenges of
+real-world data.</p>
 <!--
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
