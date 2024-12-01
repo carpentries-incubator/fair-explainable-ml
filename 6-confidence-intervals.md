@@ -34,6 +34,7 @@ Model uncertainty can be divided into two categories:
 **Aleatoric** (a·le·a·to·ric) is an adjective that means, "*depending on the throw of a dice or on chance; random.*" 
 
 Aleatoric uncertainty is the inherent noise in the data that cannot be reduced, even with more data (observations OR missing features). Aleatoric uncertainy can arise due to:
+
   - Inconsistent readings from faulty sensors
   - Background noise in audio, multiple overlapping signals, recording quality
   - Random fluctuations in image resolution or lightning conditions (NOT systemic or cyclic)
