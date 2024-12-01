@@ -478,9 +478,9 @@ caution.</p>
 <p>Model uncertainty can be divided into two categories:</p>
 <div class="section level3">
 <h3 id="aleatoric-random-uncertainty">1. Aleatoric (Random) uncertainty<a class="anchor" aria-label="anchor" href="#aleatoric-random-uncertainty"></a></h3>
-<p><strong>Aleatoric</strong> is a synonym for “random”: a·le·a·to·ry
-/ˈālēəˌtôrē/ adjective adjective: aleatoric depending on the throw of a
-dice or on chance; random.</p>
+<p><strong>Aleatoric</strong> (a·le·a·to·ric) is an adjective that
+means, “<em>depending on the throw of a dice or on chance;
+random.</em>”</p>
 <p>Aleatoric uncertainty is the inherent noise in the data that cannot
 be reduced, even with more data (observations OR missing features).
 Aleatoric uncertainy can arise due to: - Inconsistent readings from
@@ -520,22 +520,21 @@ imperfections like motion blur or occlusions.</li>
 </div>
 <div class="section level3">
 <h3 id="epistemic-uncertainty">2. Epistemic uncertainty<a class="anchor" aria-label="anchor" href="#epistemic-uncertainty"></a></h3>
-<p><strong>Epistemic</strong> is defined as: ep·i·ste·mic
-/ˌepəˈstēmik,ˌepəˈstemik/ adjectivePhilosophy relating to knowledge or
-to the degree of its validation.</p>
+<p><strong>Epistemic</strong> (ep·i·ste·mic) is an adjective that means,
+“<em>relating to knowledge or to the degree of its validation.</em>”</p>
 <p>Epistemic uncertainty refers to gaps in the model’s knowledge about
 the data distribution, which can be reduced by using more data or
-improved models. Aleatoric uncertainy can arise due to: ### 2. Epistemic
-Uncertainty</p>
-<p>Epistemic uncertainty refers to gaps in the model’s knowledge about
-the data distribution, which can be reduced by using more data or
-improved models. Epistemic uncertainty can arise due to: - <strong>Rare
-or underrepresented scenarios</strong>: - Tabular: Predicting hospital
-demand during a rare pandemic with limited historical data. - Image:
-Detecting tumors in rare imaging modalities (e.g., PET scans). - Text:
-Answering questions about niche technical domains in a chatbot
-system.</p>
+improved models. Aleatoric uncertainy can arise due to:</p>
 <ul><li>
+<strong>Rare or underrepresented scenarios</strong>:
+<ul><li>Tabular: Predicting hospital demand during a rare pandemic with
+limited historical data.</li>
+<li>Image: Detecting tumors in rare imaging modalities (e.g., PET
+scans).</li>
+<li>Text: Answering questions about niche technical domains in a chatbot
+system.</li>
+</ul></li>
+<li>
 <strong>Systematic resolution differences</strong>:
 <ul><li>Image: A model trained on high-resolution images but tested on
 low-resolution inputs (e.g., wildlife drones capturing lower-resolution
@@ -734,7 +733,7 @@ various OOD strategies.</p>
 </div>
 </div>
 <div class="section level3">
-<h3 id="exercises-analyzing-uncertainty-in-real-world-applications">Exercises: Analyzing Uncertainty in Real-World Applications<a class="anchor" aria-label="anchor" href="#exercises-analyzing-uncertainty-in-real-world-applications"></a></h3>
+<h3 id="exercises-analyzing-uncertainty-in-real-world-applications">Exercises: Analyzing uncertainty in real-world applications<a class="anchor" aria-label="anchor" href="#exercises-analyzing-uncertainty-in-real-world-applications"></a></h3>
 <div id="tabular-data-example-hospital-resource-allocation" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
@@ -757,7 +756,7 @@ complexity and applicability.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>For hospital resource allocation, both aleatoric and epistemic
 uncertainties play a critical role. Aleatoric uncertainty arises from
@@ -836,7 +835,7 @@ deployment.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>For tumor detection, aleatoric uncertainty arises from variability in
 image quality, such as noise, motion blur, or resolution artifacts.
@@ -910,7 +909,7 @@ uncertainty measures versus advanced techniques.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <p>For chatbot intent recognition, aleatoric uncertainty comes from
 ambiguous or noisy user queries, while epistemic uncertainty arises from
