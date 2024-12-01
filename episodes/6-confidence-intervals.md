@@ -137,6 +137,7 @@ For example, in autonomous vehicles, OOD detection can help flag unexpected scen
 #### Tabular Data Example: Hospital Resource Allocation
 
 You are tasked with designing a machine learning system to predict hospital resource demands during seasonal flu outbreaks and rare pandemics. Discuss:
+
 1. Types of uncertainty (aleatoric vs. epistemic) present in this application.
 2. Methods to estimate and address each type of uncertainty.
 3. Trade-offs between methods in terms of complexity and applicability.
@@ -176,6 +177,7 @@ For hospital resource allocation, both aleatoric and epistemic uncertainties pla
 #### Image Data Example: Tumor Detection in Radiology Images
 
 Design a system to detect tumors in radiology images. Discuss:
+
 1. Sources of aleatoric and epistemic uncertainty in this application.
 2. Potential methods to estimate and address these uncertainties.
 3. Evaluate how well these methods scale for large datasets and real-world deployment.
@@ -213,7 +215,8 @@ For tumor detection, aleatoric uncertainty arises from variability in image qual
 
 #### Text Data Example: Chatbot Intent Recognition
 
-Develop a system for chatbot intent recognition. Address:
+Develop a system for chatbot intent recognition. Discuss:
+
 1. Aleatoric and epistemic uncertainties in the application.
 2. Methods to mitigate these uncertainties.
 3. Trade-offs between implementing simple uncertainty measures versus advanced techniques.
