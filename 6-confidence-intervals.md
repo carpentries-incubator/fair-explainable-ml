@@ -31,18 +31,41 @@ Understanding how confident a model is in its predictions is a valuable tool for
 
 Model uncertainty can be divided into two categories:
 
-- **Aleatoric uncertainty**: Inherent noise in the data (e.g., overlapping classes) that cannot be reduced, even with more data.
-- **Epistemic uncertainty**: Gaps in the model's knowledge about the data distribution, which can be reduced by using more data or improved models.
+#### 1. Aleatoric (Random) uncertainty
+**Aleatoric** is a synonym for "random":
+  a·le·a·to·ry
+  /ˈālēəˌtôrē/
+  adjective
+  adjective: aleatoric
+  depending on the throw of a dice or on chance; random.
 
-#### Common techniques for estimating aleatoric uncertainty
+Aleatoric uncertainty is the inherent noise in the data that cannot be reduced, even with more data. Aleatoric uncertainy can arise due to:
+  - Inconsistent readings from faulty sensors
+  - Background noise in audio, multiple overlapping signals, recording quality
+  - Resolution of image, lighting conditions
+  - Overlapping classes, ambiguous labels due to subjective interpretations
+  - Human errors in data entry, missing values
+    
+##### Methods for addressing aleatoric uncertainty
 
 Aleatoric uncertainty arises from the data itself. Methods to estimate it include:
 
 - **Predictive variance in regression models**: Outputs the variance of the predicted value, reflecting the noise in the data. For instance, in a regression task predicting house prices, predictive variance highlights how much randomness exists in the relationship between input features (like square footage) and price.  
-- **Heteroscedastic models**: Use specialized loss functions that allow the model to predict the noise level in the data directly. These models are particularly critical in fields like **robotics**, where sensor noise varies significantly depending on environmental conditions. For example, a robot navigating in bright daylight versus dim lighting conditions may experience vastly different levels of noise in its sensor inputs, and heteroscedastic models can help account for this variability.  
+- **Heteroscedastic models**: Use specialized loss functions that allow the model to predict the noise level in the data directly. These models are particularly critical in fields like *robotics*, where sensor noise varies significantly depending on environmental conditions. For example, a robot navigating in bright daylight versus dim lighting conditions may experience vastly different levels of noise in its sensor inputs, and heteroscedastic models can help account for this variability.  
 - **Data augmentation and perturbation analysis**: Assess variability in predictions by adding noise to the input data and observing how much the model’s outputs change. A highly sensitive change in predictions may indicate underlying noise or instability in the data. For instance, in image classification, augmenting training data with synthetic noise can help the model better handle real-world imperfections like motion blur or occlusions.
 
-#### Common techniques for estimating epistemic uncertainty
+
+#### 2. Epistemic uncertainty 
+
+**Epistemic** is defined as:
+  ep·i·ste·mic
+  /ˌepəˈstēmik,ˌepəˈstemik/
+  adjectivePhilosophy
+  relating to knowledge or to the degree of its validation.
+
+Epistemic uncertainty refers to gaps in the model's knowledge about the data distribution, which can be reduced by using more data or improved models.
+
+##### Methods for addressing epistemic uncertainty
 
 Epistemic uncertainty arises from the model's lack of knowledge about certain regions of the data space. Techniques to estimate it include:
 
@@ -51,7 +74,14 @@ Epistemic uncertainty arises from the model's lack of knowledge about certain re
 - **Ensemble models**: These involve training multiple models on the same data, each starting with different initializations or random seeds. The ensemble's predictions are aggregated, and the variance in their outputs reflects uncertainty. This approach works well because different models often capture different aspects of the data. For example, if all models agree, the prediction is confident; if they disagree, there is uncertainty. Ensembles are effective but computationally expensive, as they require training and evaluating multiple models.
 - **Out-of-distribution detection**: Identifies inputs that fall significantly outside the training distribution, flagging areas where the model's predictions are unreliable. Many OOD methods produce continuous scores, such as Mahalanobis distance or energy-based scores, which measure how novel or dissimilar an input is from the training data. These scores can be interpreted as a form of epistemic uncertainty, providing insight into how unfamiliar an input is. However, OOD detection focuses on distinguishing ID from OOD inputs rather than offering confidence estimates for predictions on ID inputs.
 
-### Method selection summary table
+##### Methods for addressing epistemic uncertainty (table)
+
+| Method                  | Key strengths                               | Key limitations                                    | Suitable model sizes           | Suitable data sizes            | Compute time (approx.)          |
+|-------------------------|--------------------------------------------|--------------------------------------------------|---------------------------------|--------------------------------|----------------------------------|
+| Bayesian neural nets    | Rigorous probabilistic foundation          | Computationally prohibitive for large models/datasets due to repeated approximation of posterior distributions | Small to medium                 | Small to medium                 | Very high (requires posterior approximation with multiple forward passes) |
+| Ensemble models         | Effective and robust; captures diverse uncertainties | Resource-intensive; requires training multiple models | Small to large (scales with ensemble size) | Small to large                  | Very high (training multiple models) |
+| Monte Carlo dropout     | Easy to implement in existing neural networks | Computationally expensive due to multiple forward passes | Small to large                  | Small to large                  | High (scales with forward passes) |
+| OOD detection           | Efficient, scalable, excels at rejecting anomalous inputs | Comparisons to OOD classes can be infinite, making perfect thresholds hard to define; struggles with subtle in-distribution shifts | Small to large                  | Small to large                  | Low to medium (scales efficiently) |
 
 :::::::::::::::::::::::::::::::::::::: callout
 #### Understanding size categories in table
@@ -66,7 +96,7 @@ To help guide method selection, here are rough definitions for **model size**, *
 
 **Data size**
 
-- **Small**: Fewer than 10,000 samples (e.g., materials science datasets).
+- **Small**: Fewer than 10,000 samples.
 - **Medium**: 10,000–1M samples (e.g., ImageNet).
 - **Large**: More than 1M samples (e.g., Common Crawl, LAION-5B).
 
@@ -77,16 +107,6 @@ To help guide method selection, here are rough definitions for **model size**, *
 - **High**: Requires multiple GPUs/TPUs or distributed setups, training/inference in days to weeks.
   
 ::::::::::::::::::::::::::::::::::::::
-
-| Method                  | Type of uncertainty | Key strengths                               | Key limitations                                    | Model size restrictions         | Data size restrictions          | Compute time (approx.)          |
-|-------------------------|---------------------|--------------------------------------------|--------------------------------------------------|---------------------------------|---------------------------------|----------------------------------|
-| Predictive variance     | Aleatoric          | Simple, intuitive for regression tasks     | Limited to regression problems; doesn’t address epistemic uncertainty | Small to medium                 | Small to medium                 | Very low (single pass)           |
-| Heteroscedastic models  | Aleatoric          | Models variable noise across inputs        | Requires specialized architectures or loss functions | Medium to large (task-dependent) | Medium                          | Medium (depends on task complexity) |
-| Monte Carlo dropout     | Epistemic          | Easy to implement in existing neural networks | Computationally expensive due to multiple forward passes | Medium                         | Medium to large                 | High (scales with forward passes) |
-| Bayesian neural nets    | Epistemic          | Rigorous probabilistic foundation          | Computationally prohibitive for large models/datasets | Small to medium (challenging to scale) | Small to medium               | Very high (depends on sampling)  |
-| Ensemble models         | Epistemic          | Effective and robust; captures diverse uncertainties | Resource-intensive; requires training multiple models | Medium to large                 | Medium to large                 | Very high (training multiple models) |
-| OOD detection           | Epistemic          | Efficient, scalable, excels at rejecting anomalous inputs | Comparisons to OOD classes can be infinite, making perfect thresholds hard to define; struggles with subtle in-distribution shifts  | Medium to large                 | Small to large                  | Low to medium (scales efficiently) |
-
 
 :::::::::::::::::::::::::::::: callout
 ### Tabular Data Example
