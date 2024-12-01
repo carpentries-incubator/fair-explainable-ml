@@ -1,6 +1,6 @@
 ---
 title: "Estimating model uncertainty"
-teaching: 15
+teaching: 40
 exercises: 0
 ---
 
