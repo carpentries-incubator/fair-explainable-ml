@@ -409,7 +409,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Estimating model uncertainty</h1>
-        <p>Last updated on 2024-11-29 |
+        <p>Last updated on 2024-12-01 |
 
         <a href="https://github.com/carpentries-incubator/fair-explainable-ml/edit/main/episodes/6-confidence-intervals.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -470,16 +470,20 @@ uncertainty estimation focuses on quantifying the model’s confidence and
 is often used to identify predictions that require further review or
 caution.</p>
 <p>Model uncertainty can be divided into two categories:</p>
-<ul><li>
-<strong>Aleatoric uncertainty</strong>: Inherent noise in the data
-(e.g., overlapping classes) that cannot be reduced, even with more
-data.</li>
-<li>
-<strong>Epistemic uncertainty</strong>: Gaps in the model’s
-knowledge about the data distribution, which can be reduced by using
-more data or improved models.</li>
-</ul><div class="section level4">
-<h4 id="common-techniques-for-estimating-aleatoric-uncertainty">Common techniques for estimating aleatoric uncertainty<a class="anchor" aria-label="anchor" href="#common-techniques-for-estimating-aleatoric-uncertainty"></a></h4>
+<div class="section level4">
+<h4 id="aleatoric-random-uncertainty">1. Aleatoric (Random) uncertainty<a class="anchor" aria-label="anchor" href="#aleatoric-random-uncertainty"></a></h4>
+<p><strong>Aleatoric</strong> is a synonym for “random”: a·le·a·to·ry
+/ˈālēəˌtôrē/ adjective adjective: aleatoric depending on the throw of a
+dice or on chance; random.</p>
+<p>Aleatoric uncertainty is the inherent noise in the data that cannot
+be reduced, even with more data. Aleatoric uncertainy can arise due to:
+- Inconsistent readings from faulty sensors - Background noise in audio,
+multiple overlapping signals, recording quality - Resolution of image,
+lighting conditions - Overlapping classes, ambiguous labels due to
+subjective interpretations - Human errors in data entry, missing
+values</p>
+<div class="section level5">
+<h5 id="methods-for-addressing-aleatoric-uncertainty">Methods for addressing aleatoric uncertainty<a class="anchor" aria-label="anchor" href="#methods-for-addressing-aleatoric-uncertainty"></a></h5>
 <p>Aleatoric uncertainty arises from the data itself. Methods to
 estimate it include:</p>
 <ul><li>
@@ -492,11 +496,11 @@ between input features (like square footage) and price.<br></li>
 <strong>Heteroscedastic models</strong>: Use specialized loss
 functions that allow the model to predict the noise level in the data
 directly. These models are particularly critical in fields like
-<strong>robotics</strong>, where sensor noise varies significantly
-depending on environmental conditions. For example, a robot navigating
-in bright daylight versus dim lighting conditions may experience vastly
-different levels of noise in its sensor inputs, and heteroscedastic
-models can help account for this variability.<br></li>
+<em>robotics</em>, where sensor noise varies significantly depending on
+environmental conditions. For example, a robot navigating in bright
+daylight versus dim lighting conditions may experience vastly different
+levels of noise in its sensor inputs, and heteroscedastic models can
+help account for this variability.<br></li>
 <li>
 <strong>Data augmentation and perturbation analysis</strong>: Assess
 variability in predictions by adding noise to the input data and
@@ -506,8 +510,17 @@ For instance, in image classification, augmenting training data with
 synthetic noise can help the model better handle real-world
 imperfections like motion blur or occlusions.</li>
 </ul></div>
+</div>
 <div class="section level4">
-<h4 id="common-techniques-for-estimating-epistemic-uncertainty">Common techniques for estimating epistemic uncertainty<a class="anchor" aria-label="anchor" href="#common-techniques-for-estimating-epistemic-uncertainty"></a></h4>
+<h4 id="epistemic-uncertainty">2. Epistemic uncertainty<a class="anchor" aria-label="anchor" href="#epistemic-uncertainty"></a></h4>
+<p><strong>Epistemic</strong> is defined as: ep·i·ste·mic
+/ˌepəˈstēmik,ˌepəˈstemik/ adjectivePhilosophy relating to knowledge or
+to the degree of its validation.</p>
+<p>Epistemic uncertainty refers to gaps in the model’s knowledge about
+the data distribution, which can be reduced by using more data or
+improved models.</p>
+<div class="section level5">
+<h5 id="methods-for-addressing-epistemic-uncertainty">Methods for addressing epistemic uncertainty<a class="anchor" aria-label="anchor" href="#methods-for-addressing-epistemic-uncertainty"></a></h5>
 <p>Epistemic uncertainty arises from the model’s lack of knowledge about
 certain regions of the data space. Techniques to estimate it
 include:</p>
@@ -562,10 +575,43 @@ uncertainty, providing insight into how unfamiliar an input is. However,
 OOD detection focuses on distinguishing ID from OOD inputs rather than
 offering confidence estimates for predictions on ID inputs.</li>
 </ul></div>
-</div>
-<div class="section level3">
-<h3 id="method-selection-summary-table">Method selection summary table<a class="anchor" aria-label="anchor" href="#method-selection-summary-table"></a></h3>
-<div id="understanding-size-categories-in-table" class="callout">
+<div class="section level5">
+<h5 id="methods-for-addressing-epistemic-uncertainty-table">Methods for addressing epistemic uncertainty (table)<a class="anchor" aria-label="anchor" href="#methods-for-addressing-epistemic-uncertainty-table"></a></h5>
+<table class="table"><colgroup><col width="11%"><col width="20%"><col width="22%"><col width="15%"><col width="14%"><col width="15%"></colgroup><thead><tr class="header"><th>Method</th>
+<th>Key strengths</th>
+<th>Key limitations</th>
+<th>Suitable model sizes</th>
+<th>Suitable data sizes</th>
+<th>Compute time (approx.)</th>
+</tr></thead><tbody><tr class="odd"><td>Bayesian neural nets</td>
+<td>Rigorous probabilistic foundation</td>
+<td>Computationally prohibitive for large models/datasets due to
+repeated approximation of posterior distributions</td>
+<td>Small to medium</td>
+<td>Small to medium</td>
+<td>Very high (requires posterior approximation with multiple forward
+passes)</td>
+</tr><tr class="even"><td>Ensemble models</td>
+<td>Effective and robust; captures diverse uncertainties</td>
+<td>Resource-intensive; requires training multiple models</td>
+<td>Small to large (scales with ensemble size)</td>
+<td>Small to large</td>
+<td>Very high (training multiple models)</td>
+</tr><tr class="odd"><td>Monte Carlo dropout</td>
+<td>Easy to implement in existing neural networks</td>
+<td>Computationally expensive due to multiple forward passes</td>
+<td>Small to large</td>
+<td>Small to large</td>
+<td>High (scales with forward passes)</td>
+</tr><tr class="even"><td>OOD detection</td>
+<td>Efficient, scalable, excels at rejecting anomalous inputs</td>
+<td>Comparisons to OOD classes can be infinite, making perfect
+thresholds hard to define; struggles with subtle in-distribution
+shifts</td>
+<td>Small to large</td>
+<td>Small to large</td>
+<td>Low to medium (scales efficiently)</td>
+</tr></tbody></table><div id="understanding-size-categories-in-table" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
@@ -587,8 +633,7 @@ BERT-base).</li>
 Vision Transformers).</li>
 </ul><p><strong>Data size</strong></p>
 <ul><li>
-<strong>Small</strong>: Fewer than 10,000 samples (e.g., materials
-science datasets).</li>
+<strong>Small</strong>: Fewer than 10,000 samples.</li>
 <li>
 <strong>Medium</strong>: 10,000–1M samples (e.g., ImageNet).</li>
 <li>
@@ -607,59 +652,7 @@ setups, training/inference in days to weeks.</li>
 </ul></div>
 </div>
 </div>
-<table class="table"><colgroup><col width="10%"><col width="8%"><col width="18%"><col width="20%"><col width="13%"><col width="13%"><col width="14%"></colgroup><thead><tr class="header"><th>Method</th>
-<th>Type of uncertainty</th>
-<th>Key strengths</th>
-<th>Key limitations</th>
-<th>Model size restrictions</th>
-<th>Data size restrictions</th>
-<th>Compute time (approx.)</th>
-</tr></thead><tbody><tr class="odd"><td>Predictive variance</td>
-<td>Aleatoric</td>
-<td>Simple, intuitive for regression tasks</td>
-<td>Limited to regression problems; doesn’t address epistemic
-uncertainty</td>
-<td>Small to medium</td>
-<td>Small to medium</td>
-<td>Very low (single pass)</td>
-</tr><tr class="even"><td>Heteroscedastic models</td>
-<td>Aleatoric</td>
-<td>Models variable noise across inputs</td>
-<td>Requires specialized architectures or loss functions</td>
-<td>Medium to large (task-dependent)</td>
-<td>Medium</td>
-<td>Medium (depends on task complexity)</td>
-</tr><tr class="odd"><td>Monte Carlo dropout</td>
-<td>Epistemic</td>
-<td>Easy to implement in existing neural networks</td>
-<td>Computationally expensive due to multiple forward passes</td>
-<td>Medium</td>
-<td>Medium to large</td>
-<td>High (scales with forward passes)</td>
-</tr><tr class="even"><td>Bayesian neural nets</td>
-<td>Epistemic</td>
-<td>Rigorous probabilistic foundation</td>
-<td>Computationally prohibitive for large models/datasets</td>
-<td>Small to medium (challenging to scale)</td>
-<td>Small to medium</td>
-<td>Very high (depends on sampling)</td>
-</tr><tr class="odd"><td>Ensemble models</td>
-<td>Epistemic</td>
-<td>Effective and robust; captures diverse uncertainties</td>
-<td>Resource-intensive; requires training multiple models</td>
-<td>Medium to large</td>
-<td>Medium to large</td>
-<td>Very high (training multiple models)</td>
-</tr><tr class="even"><td>OOD detection</td>
-<td>Epistemic</td>
-<td>Efficient, scalable, excels at rejecting anomalous inputs</td>
-<td>Comparisons to OOD classes can be infinite, making perfect
-thresholds hard to define; struggles with subtle in-distribution
-shifts</td>
-<td>Medium to large</td>
-<td>Small to large</td>
-<td>Low to medium (scales efficiently)</td>
-</tr></tbody></table><div id="tabular-data-example" class="callout">
+<div id="tabular-data-example" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
@@ -763,6 +756,8 @@ See <a href="https://aclanthology.org/2020.coling-main.125.pdf" class="external-
 </ul></div>
 </div>
 </div>
+</div>
+</div>
 <div class="section level4">
 <h4 id="why-is-ood-detection-widely-adopted">Why is OOD detection widely adopted?<a class="anchor" aria-label="anchor" href="#why-is-ood-detection-widely-adopted"></a></h4>
 <p>Among epistemic uncertainty methods, OOD detection has become a
@@ -858,7 +853,7 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/fair-explainable-ml/instructor/6-confidence-intervals.html",
   "identifier": "https://carpentries-incubator.github.io/fair-explainable-ml/instructor/6-confidence-intervals.html",
   "dateCreated": "2023-12-05",
-  "dateModified": "2024-11-29",
+  "dateModified": "2024-12-01",
   "datePublished": "2024-12-01"
 }
 
