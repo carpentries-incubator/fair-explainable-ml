@@ -31,12 +31,7 @@ Understanding how confident a model is in its predictions is a valuable tool for
 Model uncertainty can be divided into two categories:
 
 ### 1. Aleatoric (Random) uncertainty
-**Aleatoric** is a synonym for "random":
-  a·le·a·to·ry
-  /ˈālēəˌtôrē/
-  adjective
-  adjective: aleatoric
-  depending on the throw of a dice or on chance; random.
+**Aleatoric** (a·le·a·to·ric) is an adjective that means, "*depending on the throw of a dice or on chance; random.*" 
 
 Aleatoric uncertainty is the inherent noise in the data that cannot be reduced, even with more data (observations OR missing features). Aleatoric uncertainy can arise due to:
   - Inconsistent readings from faulty sensors
@@ -55,40 +50,33 @@ Aleatoric uncertainty arises from the data itself. Methods to estimate it includ
 
 
 ### 2. Epistemic uncertainty 
-
-**Epistemic** is defined as:
-  ep·i·ste·mic
-  /ˌepəˈstēmik,ˌepəˈstemik/
-  adjectivePhilosophy
-  relating to knowledge or to the degree of its validation.
+**Epistemic** (ep·i·ste·mic) is an adjective that means, "*relating to knowledge or to the degree of its validation.*" 
 
 Epistemic uncertainty refers to gaps in the model's knowledge about the data distribution, which can be reduced by using more data or improved models. Aleatoric uncertainy can arise due to:
-### 2. Epistemic Uncertainty
 
-Epistemic uncertainty refers to gaps in the model's knowledge about the data distribution, which can be reduced by using more data or improved models. Epistemic uncertainty can arise due to:
-  - **Rare or underrepresented scenarios**:
-    - Tabular: Predicting hospital demand during a rare pandemic with limited historical data.
-    - Image: Detecting tumors in rare imaging modalities (e.g., PET scans).
-    - Text: Answering questions about niche technical domains in a chatbot system.
+- **Rare or underrepresented scenarios**:
+  - Tabular: Predicting hospital demand during a rare pandemic with limited historical data.
+  - Image: Detecting tumors in rare imaging modalities (e.g., PET scans).
+  - Text: Answering questions about niche technical domains in a chatbot system.
 
-  - **Systematic resolution differences**:
-    - Image: A model trained on high-resolution images but tested on low-resolution inputs (e.g., wildlife drones capturing lower-resolution data than the training dataset).
-    - Text: OCR systems misclassifying text scanned at lower resolution than the training examples.
+- **Systematic resolution differences**:
+  - Image: A model trained on high-resolution images but tested on low-resolution inputs (e.g., wildlife drones capturing lower-resolution data than the training dataset).
+  - Text: OCR systems misclassifying text scanned at lower resolution than the training examples.
 
-  - **Novel or unseen data points**:
-    - Tabular: Classifying user behavior from a new region not included in training data.
-    - Image: Recognizing a new species in wildlife monitoring.
-    - Text: Interpreting slang or idiomatic expressions unseen during training.
+- **Novel or unseen data points**:
+  - Tabular: Classifying user behavior from a new region not included in training data.
+  - Image: Recognizing a new species in wildlife monitoring.
+  - Text: Interpreting slang or idiomatic expressions unseen during training.
 
-  - **Out-of-distribution (OOD) data**:
-    - Tabular: Unexpected shifts in sensor readings from equipment malfunctions.
-    - Image: Adversarial images with imperceptible changes designed to confuse the model.
-    - Text: Queries about topics completely outside the model's domain (e.g., financial queries in a healthcare chatbot).
+- **Out-of-distribution (OOD) data**:
+  - Tabular: Unexpected shifts in sensor readings from equipment malfunctions.
+  - Image: Adversarial images with imperceptible changes designed to confuse the model.
+  - Text: Queries about topics completely outside the model's domain (e.g., financial queries in a healthcare chatbot).
 
-  - **Sparse or insufficient data in feature space**:
-    - Tabular: High-dimensional data with many missing or sparsely sampled features (e.g., genomic datasets).
-    - Image: Limited labeled examples for rare diseases in medical imaging datasets.
-    - Text: Few-shot learning scenarios for domain-specific terminology.
+- **Sparse or insufficient data in feature space**:
+  - Tabular: High-dimensional data with many missing or sparsely sampled features (e.g., genomic datasets).
+  - Image: Limited labeled examples for rare diseases in medical imaging datasets.
+  - Text: Few-shot learning scenarios for domain-specific terminology.
 
 #### Methods for addressing epistemic uncertainty
 
@@ -141,7 +129,7 @@ Among epistemic uncertainty methods, OOD detection has become a widely adopted a
 
 For example, in autonomous vehicles, OOD detection can help flag unexpected scenarios (e.g., unusual objects on the road) in near real-time, enabling safer decision-making. Similarly, in NLP, OOD methods are used to identify queries or statements that deviate from a model's training corpus, such as out-of-context questions in a chatbot system. In the next couple of episodes, we'll see how to implement various OOD strategies.
 
-### Exercises: Analyzing Uncertainty in Real-World Applications
+### Exercises: Analyzing uncertainty in real-world applications
 
 :::: challenge
 
