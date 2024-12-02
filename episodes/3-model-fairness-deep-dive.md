@@ -63,7 +63,7 @@ from aif360.datasets import MEPSDataset19 # import the dataset
 # Split the data into 50% train, 30% val, and 20% test
 (dataset_orig_panel19_train,
  dataset_orig_panel19_val,
- dataset_orig_panel19_test) = MEPSDataset19().split([0.5, 0.8], shuffle=True) 
+ dataset_orig_panel19_test) = MEPSDataset19().split([0.5, 0.8], shuffle=True, seed=1) 
 
 sens_ind = 0 # sensitive attribute index is 0
 sens_attr = dataset_orig_panel19_train.protected_attribute_names[sens_ind] # sensitive attribute name
@@ -151,7 +151,7 @@ explainer_orig_panel19_train = MetricTextExplainer(metric_orig_panel19_train) # 
 print(explainer_orig_panel19_train.disparate_impact()) # print disparate impact
 
 ```
-We see that the disparate impact is about 0.53, which means the privileged group has the favorable outcome at about 2x the rate as the unprivileged group does. 
+We see that the disparate impact is about 0.48, which means the privileged group has the favorable outcome at about 2x the rate as the unprivileged group does. 
 
 (In this case, the "favorable" outcome is label=1, i.e., high utilization)
 ## Train a model
@@ -293,9 +293,9 @@ Answer the following questions:
 :::::::::::::: solution
 ### Solution
 
-1. Using a threshold of 0.1, the accuracy is about 0.71 and the 1-DI score is about 0.71. Using a threshold of 0.5, the accuracy is about 0.69 and the 1-DI score is about 0.79.
+1. Using a threshold of 0.1, the accuracy is about 0.72 and the 1-DI score is about 0.54. Using a threshold of 0.5, the accuracy is about 0.69 and the 1-DI score is about 0.61.
 
-2. The optimal accuracy occurs with a threshold of 0.19 (indicated by the dotted vertical line). However, the disparate impact is quite bad at this threshold. Choosing a slightly smaller threshold, e.g., around 0.15, yields similarly high-accuracy and is slightly fairer. However, there's no "good" outcome here: whenever the accuracy is near-optimal, the 1-DI score is high. If you were the model developer, you might want to consider interventions to improve the accuracy/fairness tradeoff, some of which we discuss below.
+2. The optimal accuracy occurs with a threshold of 0.19 (indicated by the dotted vertical line). However, the disparate impact is worse at this threshold (0.61) than at smaller thresholds. Choosing a slightly smaller threshold, e.g., around 0.11, yields accuracy that is a bit worse (about 0.73 vs 0.76) and is slightly fairer. However, there's no \"good\" outcome here: whenever the accuracy is near-optimal, the 1-DI score is high. If you were the model developer, you might want to consider interventions to improve the accuracy/fairness tradeoff, some of which we discuss below.
 
 :::::::::::::::::::::::::
 
