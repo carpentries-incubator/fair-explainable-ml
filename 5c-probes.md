@@ -5,19 +5,20 @@ exercises: 0
 ---
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- TODO
+ - Do language models like BERT encode knowledge about Sentiment Analysis in specific layers?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- TODO
+- Gain familiarity with the PyTorch and HuggingFace libraries, for using and evaluating language models.
+- Learn how to probe language models for useful information.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-```python
-# Let's start by importing the necessary libraries.
+Let's start by importing the necessary libraries.
 
+```python
 import os
 import torch
 import logging
@@ -25,6 +26,7 @@ import numpy as np
 from typing import Tuple
 import matplotlib.pyplot as plt
 from sklearn.manifold import TSNE
+from sklearn.decomposition import PCA
 from datasets import load_dataset, Dataset
 from transformers import AutoModel, AutoTokenizer, AutoConfig
 
@@ -70,6 +72,7 @@ We use distilBERT for this example, but feel free to explore other models from h
 
 BERT is a transformer-based model, and is known to perform well on a variety of NLP tasks.
 The model is pre-trained on a large corpus of text, and can be fine-tuned for specific tasks.
+distilBERT is a lightweight version of the model, created through a process known as [distillation](https://en.wikipedia.org/wiki/Knowledge_distillation#:~:text=In%20machine%20learning%2C%20knowledge%20distillation,might%20not%20be%20fully%20utilized.)
 ```python
 def load_model(model_name: str) -> Tuple[AutoModel, AutoTokenizer]:
     '''
@@ -86,8 +89,8 @@ def load_model(model_name: str) -> Tuple[AutoModel, AutoTokenizer]:
                  f'hidden size {model.config.hidden_size} and sequence length {model.config.max_position_embeddings}.')
     return model, tokenizer
 ```
+To play around with other models, find a list of models and their model_ids at: https://huggingface.co/models
 ```python
-# To play around with other models, find a list of models and their model_ids at: https://huggingface.co/models
 model, tokenizer = load_model('distilbert-base-uncased') #'bert-base-uncased' has 12 layers and may take a while to process. We'll investigate distilbert instead.
 ```
 
@@ -106,7 +109,7 @@ The probe will be trained from hidden representations from a specific layer of t
 
 The `visualize_embeddings` method can be used to see what these high dimensional hidden embeddings would look like when converted into a 2D view. The visualization is not intended to be informative in itself, and is only an additional tool used to get a sense of what the inputs to the probing classifier may look like. 
 ```python
-def get_embeddings_from_model(model: AutoModel, tokenizer: AutoTokenizer, layer_num: int, data: list[str]) -> torch.Tensor:
+def get_embeddings_from_model(model: AutoModel, tokenizer: AutoTokenizer, layer_num: int, data: list[str], batch_size : int) -> torch.Tensor:
     '''
     Get the embeddings from a model.
     :param model: The model to use. This is needed to get the embeddings.
@@ -118,21 +121,21 @@ def get_embeddings_from_model(model: AutoModel, tokenizer: AutoTokenizer, layer_
     logging.info(f'Getting embeddings from layer {layer_num} for {len(data)} samples...')
 
     # Batch the data for computational efficiency
-    batch_size = 32
     batch_num = 1
     for i in range(0, len(data), batch_size):
         batch = data[i:i+batch_size]
-        logging.info(f'Getting embeddings for batch {batch_num}...')
+        logging.debug(f'Getting embeddings for batch {batch_num}...')
         batch_num += 1
 
         # Tokenize the batch of data
-        inputs = tokenizer(batch, return_tensors='pt', padding=True, truncation=True)
+        inputs = tokenizer(batch, return_tensors='pt', padding=True, truncation=True, max_length=256)
 
         # Get the embeddings from the model
         outputs = model(**inputs, output_hidden_states=True)
 
         # Get the embeddings for the specific the layer
         embeddings = outputs.hidden_states[layer_num]
+        logging.debug(f'Extracted hidden states of shape {embeddings.shape}')
 
         # Concatenate the embeddings from each batch
         if i == 0:
@@ -145,7 +148,7 @@ def get_embeddings_from_model(model: AutoModel, tokenizer: AutoTokenizer, layer_
 ```
 
 ```python
-def visualize_embeddings(embeddings: torch.Tensor, labels: list, layer_num: int, save_plot: bool = False) -> None:
+def visualize_embeddings(embeddings: torch.Tensor, labels: list, layer_num: int, visualization_method: str = 't-SNE', save_plot: bool = False) -> None:
     '''
     Visualize the embeddings using t-SNE.
     :param embeddings: The embeddings to visualize. Shape is N, L, D, where N is the number of samples, L is the length of the sequence, and D is the dimensionality of the embeddings.
@@ -161,9 +164,19 @@ def visualize_embeddings(embeddings: torch.Tensor, labels: list, layer_num: int,
     sentence_embeddings = sentence_embeddings.detach().numpy()
     labels = np.array(labels)
 
-    # Visualize the embeddings using t-SNE
-    tsne = TSNE(n_components=2, random_state=0)
-    embeddings_2d = tsne.fit_transform(sentence_embeddings)
+    assert visualization_method in ['t-SNE', 'PCA'], "visualization_method must be one of 't-SNE' or 'PCA'"
+
+    # Visualize the embeddings
+    if visualization_method == 't-SNE':
+        tsne = TSNE(n_components=2, random_state=0)
+        embeddings_2d = tsne.fit_transform(sentence_embeddings)
+        xlabel = 't-SNE dimension 1'
+        ylabel = 't-SNE dimension 2'
+    if visualization_method == 'PCA':
+        pca = PCA(n_components=2, random_state=0)
+        embeddings_2d = pca.fit_transform(sentence_embeddings)
+        xlabel = 'First Principal Component'
+        ylabel = 'Second Principal Component'
 
     negative_points = embeddings_2d[labels == 0]
     positive_points = embeddings_2d[labels == 1]
@@ -172,17 +185,17 @@ def visualize_embeddings(embeddings: torch.Tensor, labels: list, layer_num: int,
     fig, ax = plt.subplots()
     ax.scatter(negative_points[:, 0], negative_points[:, 1], label='Negative', color='red', marker='o', s=10, alpha=0.7)
     ax.scatter(positive_points[:, 0], positive_points[:, 1], label='Positive', color='blue', marker='o', s=10, alpha=0.7)
-    plt.xlabel('t-SNE dimension 1')
-    plt.ylabel('t-SNE dimension 2')
-    plt.title(f't-SNE of Sentence Embeddings - Layer{layer_num}')
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+    plt.title(f'{visualization_method} of Sentence Embeddings - Layer{layer_num}')
     plt.legend()
 
     # Save the plot if needed, then display it
     if save_plot:
-        plt.savefig(f'tsne_layer_{layer_num}.png')
+        plt.savefig(f'{visualization_method}_layer_{layer_num}.png')
     plt.show()
 
-    logging.info('Visualized embeddings using t-SNE.')
+    logging.info(f'Visualized embeddings using {visualization_method}.')
 
 ```
 Now, it's finally time to define our probe! We set this up as a class, where the probe itself is an object of this class. 
@@ -262,7 +275,7 @@ class Probe():
                 loss.backward()
                 optimizer.step()
 
-        logging.info('Trained the probe.')
+        logging.info('Done.')
 
 
     def predict(self, data_embeddings: torch.Tensor, batch_size: int = 32) -> torch.Tensor:
@@ -278,6 +291,9 @@ class Probe():
 
             # Iterate through one batch of data at a time
             batch_embeddings = data_embeddings[i:i+batch_size]
+
+            # Convert to sentence embeddings, since we are performing a sentence classification task
+            batch_embeddings = torch.mean(batch_embeddings, dim=1)  # N, D
 
             # Get the probe's predictions
             outputs = self.probe(batch_embeddings)
@@ -345,24 +361,20 @@ For this, we will train the probe on embeddings from each layer of the model, an
 ```python
 layer_wise_accuracies = []
 best_probe, best_layer, best_accuracy = None, -1, 0
+batch_size = 32
 
 for layer_num in range(num_layers):
-    logging.info(f'\n\nEvaluating representations of layer {layer_num+1}...')
+    logging.info(f'Evaluating representations of layer {layer_num}:\n')
 
-    train_embeddings = get_embeddings_from_model(model, tokenizer, layer_num=layer_num, data=train_dataset['text'])
-    dev_embeddings = get_embeddings_from_model(model, tokenizer, layer_num=layer_num, data=dev_dataset['text'])
+    train_embeddings = get_embeddings_from_model(model, tokenizer, layer_num=layer_num, data=train_dataset['text'], batch_size=batch_size)
+    dev_embeddings = get_embeddings_from_model(model, tokenizer, layer_num=layer_num, data=dev_dataset['text'], batch_size=batch_size)
     train_labels, dev_labels = torch.tensor(train_dataset['label'],  dtype=torch.long), torch.tensor(dev_dataset['label'],  dtype=torch.long)
-
-    # Before training the probe, let's visualize the embeddings using t-SNE.
-    # If the layer has information about sentiment analysis, would we see some structure in the embeddings?
-    # Compare plots from layers where the probe does poorly, with ones where it does well. What do you notice?
-    visualize_embeddings(embeddings=train_embeddings, labels=train_dataset['label'], layer_num=layer_num, save_plot=False)
 
     # Now, let's train the probe on the embeddings from the model.
     # Feel free to play around with the training hyperparameters, and see what works best for your probe.
     probe = Probe()
     probe.train(data_embeddings=train_embeddings, labels=train_labels,
-                num_epochs=5, learning_rate=0.001, batch_size=32)
+                num_epochs=5, learning_rate=0.001, batch_size=8)
 
     # Let's see how well our probe does on a held out dev set
     accuracy = probe.evaluate(data_embeddings=dev_embeddings, labels=dev_labels)
@@ -371,9 +383,11 @@ for layer_num in range(num_layers):
     # Keep track of the best probe
     if accuracy > best_accuracy:
         best_probe, best_layer, best_accuracy = probe, layer_num, accuracy
+
+logging.info(f'DONE.\n Best accuracy of {best_accuracy*100}% from layer {best_layer}.')
 ```
+Seeing a list of accuracies can be hard to interpret. Let's plot the layer-wise accuracies to see which layer is best.
 ```python
-# Seeing a list of accuracies can be hard to interpret. Let's plot the layer-wise accuracies to see which layer is best.
 plt.plot(layer_wise_accuracies)
 plt.xlabel('Layer')
 plt.ylabel('Accuracy')
@@ -383,12 +397,34 @@ plt.show()
 ```
 Which layer has the best accuracy? What does this tell us about the model?
 
-Let's go ahead and stress test this. Is the best layer able to predict sentiment for sentences outside the IMDB dataset?
+Is the last layer of every model the most informative? Not necessarily! With larger models, many semantic tasks are encoded in the intermediate layers, while the last layers focus more on next token prediction.
+
+##### Visualizing Embeddings
+
+We've seen that the last layer of the model is most informative for the sentiment analysis task. Can we "see" what embedding structure the probe saw to say that the last layer's embeddings were most separable? 
+
+Let's use the `visualize_embeddings` method from before. We'll also use two different kinds of visualization strategies:
+- PCA: A linear method using SVD to highlight the largest variances in the data.
+- t-SNE: A non-linear method that emphasizes local patterns and clusters.
+
+```python
+layer_num = ...
+embeddings=get_embeddings_from_model(model, tokenizer, layer_num=layer_num, data=train_dataset['text'], batch_size=batch_size)
+labels=torch.tensor(train_dataset['label'],  dtype=torch.long).numpy().tolist()
+visualize_embeddings(embeddings=embeddings, labels=labels, layer_num=layer_num, visualization_method='t-SNE')
+visualize_embeddings(embeddings=embeddings, labels=labels, layer_num=layer_num, visualization_method='PCA')
+```
+Not very informative, was it? Because these embeddings exist in such high dimentions, it is not always possible to extract useful structure in them to simple 2D spaces. For this reason, visualizations are better treated as additional sources of information, rather than primary ones.
+
+#### Testing the best layer on OOD data
+
+Let's go ahead and stress test our probe's finding. Is the best layer able to predict sentiment for sentences outside the IMDB dataset?
 
 For answering this question, you are the test set! Try to think of challenging sequences for which the model may not be able to predict sentiment.
 ```python
+best_layer = ...
 test_sequences = ['Your sentence here', 'Here is another sentence']
-embeddings = get_embeddings_from_model(model=model, tokenizer=tokenizer, layer_num=best_layer, data=test_sequences)
+embeddings = get_embeddings_from_model(model=model, tokenizer=tokenizer, layer_num=best_layer, data=test_sequences, batch_size=batch_size)
 preds = probe.predict(data_embeddings=embeddings)
 predictions = ['Positive' if pred == 1 else 'Negative' for pred in preds]
 print(f'Predictions for test sequences: {predictions}')
