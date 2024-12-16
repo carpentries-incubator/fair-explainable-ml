@@ -1,5 +1,5 @@
 ---
-title: "Explainability methods: linear probe"
+title: "Explainability methods: Linear Probes"
 teaching: 0
 exercises: 0
 ---
