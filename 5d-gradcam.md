@@ -5,20 +5,17 @@ exercises: 0
 ---
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- TODO
+ - How do saliency maps help identify the part of the image responsible for a prediction?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- TODO
+- Gain familiarity with the PyTorch and GradCam libraries for vision models. 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-```python
-# Let's begin by installing the grad-cam package - this will significantly simplify our implementation
-!pip install grad-cam
-```
+
 ```python
 # Packages to download test images
 import requests
@@ -49,17 +46,16 @@ ResNet-50 is popular model that is a type of convolutional neural network. You c
 model = resnet50(pretrained=True).to(device).eval()
 ```
 ##### Load Test Image
+Let's first take a look at the image, which we source from the GradCAM package
 ```python
-# Let's first take a look at the image, which we source from the GradCAM package
-
 url = "https://raw.githubusercontent.com/jacobgil/pytorch-grad-cam/master/examples/both.png"
 Image.open(requests.get(url, stream=True).raw)
 ```
-```python
-# Cute, isn't it? Do you prefer dogs or cats?
+Cute, isn't it? Do you prefer dogs or cats?
 
-# We will need to convert the image into a tensor to feed it into the model.
-# Let's create a function to do this for us.
+We will need to convert the image into a tensor to feed it into the model.
+Let's create a function to do this for us.
+```python
 def load_image(url):
     rgb_img = np.array(Image.open(requests.get(url, stream=True).raw))
     rgb_img = np.float32(rgb_img) / 255
@@ -70,10 +66,10 @@ def load_image(url):
 input_tensor, rgb_image = load_image(url)
 ```
 ### Grad-CAM Time!
+Let's start by selecting which layers of the model we want to use to generate the CAM.
+For that, we will need to inspect the model architecture.
+We can do that by simply printing the model object.
 ```python
-# Let's start by selecting which layers of the model we want to use to generate the CAM.
-# For that, we will need to inspect the model architecture.
-# We can do that by simply printing the model object.
 print(model)
 ```
 Here we want to interpret what the model as a whole is doing (not what a specific layer is doing).
