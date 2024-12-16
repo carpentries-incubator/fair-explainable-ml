@@ -5,16 +5,67 @@ exercises: 0
 ---
 :::::::::::::::::::::::::::::::::::::: questions 
 
- - Do language models like BERT encode knowledge about Sentiment Analysis in specific layers?
+- How can probing classifiers help us understand what a model has learned?  
+- What are the limitations of probing classifiers, and how can they be addressed?  
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
+- Understand the concept of probing classifiers and how they assess the representations learned by models.  
 - Gain familiarity with the PyTorch and HuggingFace libraries, for using and evaluating language models.
-- Learn how to probe language models for useful information.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+## What part of my model causes this prediction?
+
+When a model makes a correct prediction on a task it has been trained on (known as a 'downstream task'), 
+**[Probing classifiers](https://direct.mit.edu/coli/article/48/1/207/107571/Probing-Classifiers-Promises-Shortcomings-and)** can be used to identify if the model actually contains the relevant information or knowledge required 
+to make that prediction, or if it is just making a lucky guess.
+Furthermore, probes can be used to identify the specific components of the model that contain this relevant information, 
+providing crucial insights for developing better models over time.
+
+#### Method and Examples
+
+A neural network takes its input as a series of vectors, or representations, and transforms them through a series of layers to produce an output.
+The job of the main body of the neural network is to develop representations that are as useful for the downstream task as possible, 
+so that the final few layers of the network can make a good prediction.
+
+This essentially means that a good quality representation is one that _already_ contains all the information required to make a good prediction. 
+In other words, the features or representations from the model are easily separable by a simple classifier. And that classifier is what we call 
+a 'probe'. A probe is a simple model that uses the representations of the model as input, and tries to learn the downstream task from them.
+The probe itself is designed to be too easy to learn the task on its own. This means, that the only way the probe get perform well on this task is if 
+the representations it is given are already good enough to make the prediction.
+
+These representations can be taken from any part of the model. Generally, using representations from the last layer of a neural network help identify if
+the model even contains the information to make predictions for the downstream task. 
+However, this can be extended further: probing the representations from different layers of the model can help identify where in the model the
+information is stored, and how it is transformed through the model.
+
+Probes have been frequently used in the domain of NLP, where they have been used to check if language models contain certain kinds of linguistic information. 
+These probes can be designed with varying levels of complexity. For example, simple probes have shown language models to contain information 
+about simple syntactical features like [Part of Speech tags](https://aclanthology.org/D15-1246.pdf), and more complex probes have shown models to contain entire [Parse trees](https://aclanthology.org/N19-1419.pdf) of sentences.
+
+#### Limitations and Extensions
+
+One large challenge in using probes is identifying the correct architectural design of the probe. Too simple, and 
+it may not be able to learn the downstream task at all. Too complex, and it may be able to learn the task even if the 
+model does not contain the information required to make the prediction.
+
+Another large limitation is that even if a probe is able to learn the downstream task, it does not mean that the model
+is actually using the information contained in the representations to make the prediction. 
+So essentially, a probe can only tell us if a part of the model _can_ make the prediction, not if it _does_ make the prediction.
+
+A new approach known as **[Causal Tracing](https://proceedings.neurips.cc/paper/2020/hash/92650b2e92217715fe312e6fa7b90d82-Abstract.html)** 
+addresses this limitation. The objective of this approach is similar to probes: attempting to understand which part of a model contains 
+information relevant to a downstream task. The approach involves iterating through all parts of the model being examined (e.g. all layers
+of a model), and disrupting the information flow through that part of the model. (This could be as easy as adding some kind of noise on top of the 
+weights of that model component). If the model performance on the downstream task suddenly drops on disrupting a specific model component, 
+we know for sure that that component not only contains the information required to make the prediction, but that the model is actually using that
+information to make the prediction.
+
+## Implementing your own Probe
 
 Let's start by importing the necessary libraries.
 
