@@ -409,7 +409,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Explainability methods: linear probe</h1>
-        <p>Last updated on 2024-11-19 |
+        <p>Last updated on 2024-12-16 |
 
         <a href="https://github.com/carpentries-incubator/fair-explainable-ml/edit/main/episodes/5c-probes.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -428,7 +428,8 @@
 <div class="card-body">
 <div class="inner">
 <h3 class="card-title">Questions</h3>
-<ul><li>TODO</li>
+<ul><li>Do language models like BERT encode knowledge about Sentiment
+Analysis in specific layers?</li>
 </ul></div>
 </div>
 </div>
@@ -436,29 +437,31 @@
 <div class="card-body">
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
-<ul><li>TODO</li>
+<ul><li>Gain familiarity with the PyTorch and HuggingFace libraries, for
+using and evaluating language models.</li>
+<li>Learn how to probe language models for useful information.</li>
 </ul></div>
 </div>
 </div>
 </div>
 </div>
+<p>Let’s start by importing the necessary libraries.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Let's start by importing the necessary libraries.</span></span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="im">import</span> os</span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="im">import</span> torch</span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="im">import</span> logging</span>
-<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> Tuple</span>
-<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="im">from</span> sklearn.manifold <span class="im">import</span> TSNE</span>
-<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="im">from</span> datasets <span class="im">import</span> load_dataset, Dataset</span>
-<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> AutoModel, AutoTokenizer, AutoConfig</span>
-<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a>logging.basicConfig(level<span class="op">=</span>logging.INFO)</span>
-<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>os.environ[<span class="st">'TOKENIZERS_PARALLELISM'</span>] <span class="op">=</span> <span class="st">'false'</span>  <span class="co"># This is needed to avoid a warning from huggingface</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="im">import</span> logging</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> Tuple</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="im">from</span> sklearn.manifold <span class="im">import</span> TSNE</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="im">from</span> datasets <span class="im">import</span> load_dataset, Dataset</span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> AutoModel, AutoTokenizer, AutoConfig</span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>logging.basicConfig(level<span class="op">=</span>logging.INFO)</span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a>os.environ[<span class="st">'TOKENIZERS_PARALLELISM'</span>] <span class="op">=</span> <span class="st">'false'</span>  <span class="co"># This is needed to avoid a warning from huggingface</span></span></code></pre>
 </div>
 <p>Now, let’s set the random seed to ensure reproducibility. Setting
 random seeds is like setting a starting point for your machine learning
@@ -512,7 +515,8 @@ embeddings for the probe. We use distilBERT for this example, but feel
 free to explore other models from huggingface after the exercise.</p>
 <p>BERT is a transformer-based model, and is known to perform well on a
 variety of NLP tasks. The model is pre-trained on a large corpus of
-text, and can be fine-tuned for specific tasks.</p>
+text, and can be fine-tuned for specific tasks. distilBERT is a
+lightweight version of the model, created through a process known as <a href="https://en.wikipedia.org/wiki/Knowledge_distillation#:~:text=In%20machine%20learning%2C%20knowledge%20distillation,might%20not%20be%20fully%20utilized." class="external-link">distillation</a></p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -531,11 +535,12 @@ text, and can be fine-tuned for specific tasks.</p>
 <span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a>                 <span class="ss">f'hidden size </span><span class="sc">{</span>model<span class="sc">.</span>config<span class="sc">.</span>hidden_size<span class="sc">}</span><span class="ss"> and sequence length </span><span class="sc">{</span>model<span class="sc">.</span>config<span class="sc">.</span>max_position_embeddings<span class="sc">}</span><span class="ss">.'</span>)</span>
 <span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a>    <span class="cf">return</span> model, tokenizer</span></code></pre>
 </div>
+<p>To play around with other models, find a list of models and their
+model_ids at: <a href="https://huggingface.co/models" class="external-link uri">https://huggingface.co/models</a></p>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="co"># To play around with other models, find a list of models and their model_ids at: https://huggingface.co/models</span></span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>model, tokenizer <span class="op">=</span> load_model(<span class="st">'distilbert-base-uncased'</span>) <span class="co">#'bert-base-uncased' has 12 layers and may take a while to process. We'll investigate distilbert instead.</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>model, tokenizer <span class="op">=</span> load_model(<span class="st">'distilbert-base-uncased'</span>) <span class="co">#'bert-base-uncased' has 12 layers and may take a while to process. We'll investigate distilbert instead.</span></span></code></pre>
 </div>
 <p>Let’s see what the model’s architecture looks like. How many layers
 does it have?</p>
@@ -569,7 +574,7 @@ inputs to the probing classifier may look like.</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="kw">def</span> get_embeddings_from_model(model: AutoModel, tokenizer: AutoTokenizer, layer_num: <span class="bu">int</span>, data: <span class="bu">list</span>[<span class="bu">str</span>]) <span class="op">-&gt;</span> torch.Tensor:</span>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="kw">def</span> get_embeddings_from_model(model: AutoModel, tokenizer: AutoTokenizer, layer_num: <span class="bu">int</span>, data: <span class="bu">list</span>[<span class="bu">str</span>], batch_size : <span class="bu">int</span>) <span class="op">-&gt;</span> torch.Tensor:</span>
 <span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>    <span class="co">'''</span></span>
 <span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="co">    Get the embeddings from a model.</span></span>
 <span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="co">    :param model: The model to use. This is needed to get the embeddings.</span></span>
@@ -581,21 +586,21 @@ inputs to the probing classifier may look like.</p>
 <span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a>    logging.info(<span class="ss">f'Getting embeddings from layer </span><span class="sc">{</span>layer_num<span class="sc">}</span><span class="ss"> for </span><span class="sc">{</span><span class="bu">len</span>(data)<span class="sc">}</span><span class="ss"> samples...'</span>)</span>
 <span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a></span>
 <span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a>    <span class="co"># Batch the data for computational efficiency</span></span>
-<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a>    batch_size <span class="op">=</span> <span class="dv">32</span></span>
-<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a>    batch_num <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="bu">len</span>(data), batch_size):</span>
-<span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a>        batch <span class="op">=</span> data[i:i<span class="op">+</span>batch_size]</span>
-<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a>        logging.info(<span class="ss">f'Getting embeddings for batch </span><span class="sc">{</span>batch_num<span class="sc">}</span><span class="ss">...'</span>)</span>
-<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a>        batch_num <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb9-19"><a href="#cb9-19" tabindex="-1"></a></span>
-<span id="cb9-20"><a href="#cb9-20" tabindex="-1"></a>        <span class="co"># Tokenize the batch of data</span></span>
-<span id="cb9-21"><a href="#cb9-21" tabindex="-1"></a>        inputs <span class="op">=</span> tokenizer(batch, return_tensors<span class="op">=</span><span class="st">'pt'</span>, padding<span class="op">=</span><span class="va">True</span>, truncation<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb9-22"><a href="#cb9-22" tabindex="-1"></a></span>
-<span id="cb9-23"><a href="#cb9-23" tabindex="-1"></a>        <span class="co"># Get the embeddings from the model</span></span>
-<span id="cb9-24"><a href="#cb9-24" tabindex="-1"></a>        outputs <span class="op">=</span> model(<span class="op">**</span>inputs, output_hidden_states<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb9-25"><a href="#cb9-25" tabindex="-1"></a></span>
-<span id="cb9-26"><a href="#cb9-26" tabindex="-1"></a>        <span class="co"># Get the embeddings for the specific the layer</span></span>
-<span id="cb9-27"><a href="#cb9-27" tabindex="-1"></a>        embeddings <span class="op">=</span> outputs.hidden_states[layer_num]</span>
+<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a>    batch_num <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="bu">len</span>(data), batch_size):</span>
+<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a>        batch <span class="op">=</span> data[i:i<span class="op">+</span>batch_size]</span>
+<span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a>        logging.debug(<span class="ss">f'Getting embeddings for batch </span><span class="sc">{</span>batch_num<span class="sc">}</span><span class="ss">...'</span>)</span>
+<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a>        batch_num <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a></span>
+<span id="cb9-19"><a href="#cb9-19" tabindex="-1"></a>        <span class="co"># Tokenize the batch of data</span></span>
+<span id="cb9-20"><a href="#cb9-20" tabindex="-1"></a>        inputs <span class="op">=</span> tokenizer(batch, return_tensors<span class="op">=</span><span class="st">'pt'</span>, padding<span class="op">=</span><span class="va">True</span>, truncation<span class="op">=</span><span class="va">True</span>, max_length<span class="op">=</span><span class="dv">256</span>)</span>
+<span id="cb9-21"><a href="#cb9-21" tabindex="-1"></a></span>
+<span id="cb9-22"><a href="#cb9-22" tabindex="-1"></a>        <span class="co"># Get the embeddings from the model</span></span>
+<span id="cb9-23"><a href="#cb9-23" tabindex="-1"></a>        outputs <span class="op">=</span> model(<span class="op">**</span>inputs, output_hidden_states<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb9-24"><a href="#cb9-24" tabindex="-1"></a></span>
+<span id="cb9-25"><a href="#cb9-25" tabindex="-1"></a>        <span class="co"># Get the embeddings for the specific the layer</span></span>
+<span id="cb9-26"><a href="#cb9-26" tabindex="-1"></a>        embeddings <span class="op">=</span> outputs.hidden_states[layer_num]</span>
+<span id="cb9-27"><a href="#cb9-27" tabindex="-1"></a>        logging.debug(<span class="ss">f'Extracted hidden states of shape </span><span class="sc">{</span>embeddings<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">'</span>)</span>
 <span id="cb9-28"><a href="#cb9-28" tabindex="-1"></a></span>
 <span id="cb9-29"><a href="#cb9-29" tabindex="-1"></a>        <span class="co"># Concatenate the embeddings from each batch</span></span>
 <span id="cb9-30"><a href="#cb9-30" tabindex="-1"></a>        <span class="cf">if</span> i <span class="op">==</span> <span class="dv">0</span>:</span>
@@ -609,7 +614,7 @@ inputs to the probing classifier may look like.</p>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="kw">def</span> visualize_embeddings(embeddings: torch.Tensor, labels: <span class="bu">list</span>, layer_num: <span class="bu">int</span>, save_plot: <span class="bu">bool</span> <span class="op">=</span> <span class="va">False</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="kw">def</span> visualize_embeddings(embeddings: torch.Tensor, labels: <span class="bu">list</span>, layer_num: <span class="bu">int</span>, visualization_method: <span class="bu">str</span> <span class="op">=</span> <span class="st">'t-SNE'</span>, save_plot: <span class="bu">bool</span> <span class="op">=</span> <span class="va">False</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
 <span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>    <span class="co">'''</span></span>
 <span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="co">    Visualize the embeddings using t-SNE.</span></span>
 <span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="co">    :param embeddings: The embeddings to visualize. Shape is N, L, D, where N is the number of samples, L is the length of the sequence, and D is the dimensionality of the embeddings.</span></span>
@@ -625,28 +630,38 @@ inputs to the probing classifier may look like.</p>
 <span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a>    sentence_embeddings <span class="op">=</span> sentence_embeddings.detach().numpy()</span>
 <span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a>    labels <span class="op">=</span> np.array(labels)</span>
 <span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a></span>
-<span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a>    <span class="co"># Visualize the embeddings using t-SNE</span></span>
-<span id="cb10-18"><a href="#cb10-18" tabindex="-1"></a>    tsne <span class="op">=</span> TSNE(n_components<span class="op">=</span><span class="dv">2</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb10-19"><a href="#cb10-19" tabindex="-1"></a>    embeddings_2d <span class="op">=</span> tsne.fit_transform(sentence_embeddings)</span>
-<span id="cb10-20"><a href="#cb10-20" tabindex="-1"></a></span>
-<span id="cb10-21"><a href="#cb10-21" tabindex="-1"></a>    negative_points <span class="op">=</span> embeddings_2d[labels <span class="op">==</span> <span class="dv">0</span>]</span>
-<span id="cb10-22"><a href="#cb10-22" tabindex="-1"></a>    positive_points <span class="op">=</span> embeddings_2d[labels <span class="op">==</span> <span class="dv">1</span>]</span>
-<span id="cb10-23"><a href="#cb10-23" tabindex="-1"></a></span>
-<span id="cb10-24"><a href="#cb10-24" tabindex="-1"></a>    <span class="co"># Plot the embeddings. We want to colour the datapoints by label.</span></span>
-<span id="cb10-25"><a href="#cb10-25" tabindex="-1"></a>    fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb10-26"><a href="#cb10-26" tabindex="-1"></a>    ax.scatter(negative_points[:, <span class="dv">0</span>], negative_points[:, <span class="dv">1</span>], label<span class="op">=</span><span class="st">'Negative'</span>, color<span class="op">=</span><span class="st">'red'</span>, marker<span class="op">=</span><span class="st">'o'</span>, s<span class="op">=</span><span class="dv">10</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
-<span id="cb10-27"><a href="#cb10-27" tabindex="-1"></a>    ax.scatter(positive_points[:, <span class="dv">0</span>], positive_points[:, <span class="dv">1</span>], label<span class="op">=</span><span class="st">'Positive'</span>, color<span class="op">=</span><span class="st">'blue'</span>, marker<span class="op">=</span><span class="st">'o'</span>, s<span class="op">=</span><span class="dv">10</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
-<span id="cb10-28"><a href="#cb10-28" tabindex="-1"></a>    plt.xlabel(<span class="st">'t-SNE dimension 1'</span>)</span>
-<span id="cb10-29"><a href="#cb10-29" tabindex="-1"></a>    plt.ylabel(<span class="st">'t-SNE dimension 2'</span>)</span>
-<span id="cb10-30"><a href="#cb10-30" tabindex="-1"></a>    plt.title(<span class="ss">f't-SNE of Sentence Embeddings - Layer</span><span class="sc">{</span>layer_num<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb10-31"><a href="#cb10-31" tabindex="-1"></a>    plt.legend()</span>
-<span id="cb10-32"><a href="#cb10-32" tabindex="-1"></a></span>
-<span id="cb10-33"><a href="#cb10-33" tabindex="-1"></a>    <span class="co"># Save the plot if needed, then display it</span></span>
-<span id="cb10-34"><a href="#cb10-34" tabindex="-1"></a>    <span class="cf">if</span> save_plot:</span>
-<span id="cb10-35"><a href="#cb10-35" tabindex="-1"></a>        plt.savefig(<span class="ss">f'tsne_layer_</span><span class="sc">{</span>layer_num<span class="sc">}</span><span class="ss">.png'</span>)</span>
-<span id="cb10-36"><a href="#cb10-36" tabindex="-1"></a>    plt.show()</span>
-<span id="cb10-37"><a href="#cb10-37" tabindex="-1"></a></span>
-<span id="cb10-38"><a href="#cb10-38" tabindex="-1"></a>    logging.info(<span class="st">'Visualized embeddings using t-SNE.'</span>)</span></code></pre>
+<span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a>    <span class="cf">assert</span> visualization_method <span class="kw">in</span> [<span class="st">'t-SNE'</span>, <span class="st">'PCA'</span>], <span class="st">"visualization_method must be one of 't-SNE' or 'PCA'"</span></span>
+<span id="cb10-18"><a href="#cb10-18" tabindex="-1"></a></span>
+<span id="cb10-19"><a href="#cb10-19" tabindex="-1"></a>    <span class="co"># Visualize the embeddings</span></span>
+<span id="cb10-20"><a href="#cb10-20" tabindex="-1"></a>    <span class="cf">if</span> visualization_method <span class="op">==</span> <span class="st">'t-SNE'</span>:</span>
+<span id="cb10-21"><a href="#cb10-21" tabindex="-1"></a>        tsne <span class="op">=</span> TSNE(n_components<span class="op">=</span><span class="dv">2</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb10-22"><a href="#cb10-22" tabindex="-1"></a>        embeddings_2d <span class="op">=</span> tsne.fit_transform(sentence_embeddings)</span>
+<span id="cb10-23"><a href="#cb10-23" tabindex="-1"></a>        xlabel <span class="op">=</span> <span class="st">'t-SNE dimension 1'</span></span>
+<span id="cb10-24"><a href="#cb10-24" tabindex="-1"></a>        ylabel <span class="op">=</span> <span class="st">'t-SNE dimension 2'</span></span>
+<span id="cb10-25"><a href="#cb10-25" tabindex="-1"></a>    <span class="cf">if</span> visualization_method <span class="op">==</span> <span class="st">'PCA'</span>:</span>
+<span id="cb10-26"><a href="#cb10-26" tabindex="-1"></a>        pca <span class="op">=</span> PCA(n_components<span class="op">=</span><span class="dv">2</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb10-27"><a href="#cb10-27" tabindex="-1"></a>        embeddings_2d <span class="op">=</span> pca.fit_transform(sentence_embeddings)</span>
+<span id="cb10-28"><a href="#cb10-28" tabindex="-1"></a>        xlabel <span class="op">=</span> <span class="st">'First Principal Component'</span></span>
+<span id="cb10-29"><a href="#cb10-29" tabindex="-1"></a>        ylabel <span class="op">=</span> <span class="st">'Second Principal Component'</span></span>
+<span id="cb10-30"><a href="#cb10-30" tabindex="-1"></a></span>
+<span id="cb10-31"><a href="#cb10-31" tabindex="-1"></a>    negative_points <span class="op">=</span> embeddings_2d[labels <span class="op">==</span> <span class="dv">0</span>]</span>
+<span id="cb10-32"><a href="#cb10-32" tabindex="-1"></a>    positive_points <span class="op">=</span> embeddings_2d[labels <span class="op">==</span> <span class="dv">1</span>]</span>
+<span id="cb10-33"><a href="#cb10-33" tabindex="-1"></a></span>
+<span id="cb10-34"><a href="#cb10-34" tabindex="-1"></a>    <span class="co"># Plot the embeddings. We want to colour the datapoints by label.</span></span>
+<span id="cb10-35"><a href="#cb10-35" tabindex="-1"></a>    fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb10-36"><a href="#cb10-36" tabindex="-1"></a>    ax.scatter(negative_points[:, <span class="dv">0</span>], negative_points[:, <span class="dv">1</span>], label<span class="op">=</span><span class="st">'Negative'</span>, color<span class="op">=</span><span class="st">'red'</span>, marker<span class="op">=</span><span class="st">'o'</span>, s<span class="op">=</span><span class="dv">10</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb10-37"><a href="#cb10-37" tabindex="-1"></a>    ax.scatter(positive_points[:, <span class="dv">0</span>], positive_points[:, <span class="dv">1</span>], label<span class="op">=</span><span class="st">'Positive'</span>, color<span class="op">=</span><span class="st">'blue'</span>, marker<span class="op">=</span><span class="st">'o'</span>, s<span class="op">=</span><span class="dv">10</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb10-38"><a href="#cb10-38" tabindex="-1"></a>    plt.xlabel(xlabel)</span>
+<span id="cb10-39"><a href="#cb10-39" tabindex="-1"></a>    plt.ylabel(ylabel)</span>
+<span id="cb10-40"><a href="#cb10-40" tabindex="-1"></a>    plt.title(<span class="ss">f'</span><span class="sc">{</span>visualization_method<span class="sc">}</span><span class="ss"> of Sentence Embeddings - Layer</span><span class="sc">{</span>layer_num<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb10-41"><a href="#cb10-41" tabindex="-1"></a>    plt.legend()</span>
+<span id="cb10-42"><a href="#cb10-42" tabindex="-1"></a></span>
+<span id="cb10-43"><a href="#cb10-43" tabindex="-1"></a>    <span class="co"># Save the plot if needed, then display it</span></span>
+<span id="cb10-44"><a href="#cb10-44" tabindex="-1"></a>    <span class="cf">if</span> save_plot:</span>
+<span id="cb10-45"><a href="#cb10-45" tabindex="-1"></a>        plt.savefig(<span class="ss">f'</span><span class="sc">{</span>visualization_method<span class="sc">}</span><span class="ss">_layer_</span><span class="sc">{</span>layer_num<span class="sc">}</span><span class="ss">.png'</span>)</span>
+<span id="cb10-46"><a href="#cb10-46" tabindex="-1"></a>    plt.show()</span>
+<span id="cb10-47"><a href="#cb10-47" tabindex="-1"></a></span>
+<span id="cb10-48"><a href="#cb10-48" tabindex="-1"></a>    logging.info(<span class="ss">f'Visualized embeddings using </span><span class="sc">{</span>visualization_method<span class="sc">}</span><span class="ss">.'</span>)</span></code></pre>
 </div>
 <p>Now, it’s finally time to define our probe! We set this up as a
 class, where the probe itself is an object of this class. The class also
@@ -729,7 +744,7 @@ to define and train neural networks!</p>
 <span id="cb11-70"><a href="#cb11-70" tabindex="-1"></a>                loss.backward()</span>
 <span id="cb11-71"><a href="#cb11-71" tabindex="-1"></a>                optimizer.step()</span>
 <span id="cb11-72"><a href="#cb11-72" tabindex="-1"></a></span>
-<span id="cb11-73"><a href="#cb11-73" tabindex="-1"></a>        logging.info(<span class="st">'Trained the probe.'</span>)</span>
+<span id="cb11-73"><a href="#cb11-73" tabindex="-1"></a>        logging.info(<span class="st">'Done.'</span>)</span>
 <span id="cb11-74"><a href="#cb11-74" tabindex="-1"></a></span>
 <span id="cb11-75"><a href="#cb11-75" tabindex="-1"></a></span>
 <span id="cb11-76"><a href="#cb11-76" tabindex="-1"></a>    <span class="kw">def</span> predict(<span class="va">self</span>, data_embeddings: torch.Tensor, batch_size: <span class="bu">int</span> <span class="op">=</span> <span class="dv">32</span>) <span class="op">-&gt;</span> torch.Tensor:</span>
@@ -746,60 +761,63 @@ to define and train neural networks!</p>
 <span id="cb11-87"><a href="#cb11-87" tabindex="-1"></a>            <span class="co"># Iterate through one batch of data at a time</span></span>
 <span id="cb11-88"><a href="#cb11-88" tabindex="-1"></a>            batch_embeddings <span class="op">=</span> data_embeddings[i:i<span class="op">+</span>batch_size]</span>
 <span id="cb11-89"><a href="#cb11-89" tabindex="-1"></a></span>
-<span id="cb11-90"><a href="#cb11-90" tabindex="-1"></a>            <span class="co"># Get the probe's predictions</span></span>
-<span id="cb11-91"><a href="#cb11-91" tabindex="-1"></a>            outputs <span class="op">=</span> <span class="va">self</span>.probe(batch_embeddings)</span>
+<span id="cb11-90"><a href="#cb11-90" tabindex="-1"></a>            <span class="co"># Convert to sentence embeddings, since we are performing a sentence classification task</span></span>
+<span id="cb11-91"><a href="#cb11-91" tabindex="-1"></a>            batch_embeddings <span class="op">=</span> torch.mean(batch_embeddings, dim<span class="op">=</span><span class="dv">1</span>)  <span class="co"># N, D</span></span>
 <span id="cb11-92"><a href="#cb11-92" tabindex="-1"></a></span>
-<span id="cb11-93"><a href="#cb11-93" tabindex="-1"></a>            <span class="co"># Get the predicted class for each sample</span></span>
-<span id="cb11-94"><a href="#cb11-94" tabindex="-1"></a>            _, predicted <span class="op">=</span> torch.<span class="bu">max</span>(outputs, <span class="dv">1</span>)</span>
+<span id="cb11-93"><a href="#cb11-93" tabindex="-1"></a>            <span class="co"># Get the probe's predictions</span></span>
+<span id="cb11-94"><a href="#cb11-94" tabindex="-1"></a>            outputs <span class="op">=</span> <span class="va">self</span>.probe(batch_embeddings)</span>
 <span id="cb11-95"><a href="#cb11-95" tabindex="-1"></a></span>
-<span id="cb11-96"><a href="#cb11-96" tabindex="-1"></a>            <span class="co"># Concatenate the predictions from each batch</span></span>
-<span id="cb11-97"><a href="#cb11-97" tabindex="-1"></a>            <span class="cf">if</span> i <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb11-98"><a href="#cb11-98" tabindex="-1"></a>                all_predicted <span class="op">=</span> predicted</span>
-<span id="cb11-99"><a href="#cb11-99" tabindex="-1"></a>            <span class="cf">else</span>:</span>
-<span id="cb11-100"><a href="#cb11-100" tabindex="-1"></a>                all_predicted <span class="op">=</span> torch.cat([all_predicted, predicted], dim<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb11-101"><a href="#cb11-101" tabindex="-1"></a></span>
-<span id="cb11-102"><a href="#cb11-102" tabindex="-1"></a>        <span class="cf">return</span> all_predicted</span>
-<span id="cb11-103"><a href="#cb11-103" tabindex="-1"></a></span>
+<span id="cb11-96"><a href="#cb11-96" tabindex="-1"></a>            <span class="co"># Get the predicted class for each sample</span></span>
+<span id="cb11-97"><a href="#cb11-97" tabindex="-1"></a>            _, predicted <span class="op">=</span> torch.<span class="bu">max</span>(outputs, <span class="dv">1</span>)</span>
+<span id="cb11-98"><a href="#cb11-98" tabindex="-1"></a></span>
+<span id="cb11-99"><a href="#cb11-99" tabindex="-1"></a>            <span class="co"># Concatenate the predictions from each batch</span></span>
+<span id="cb11-100"><a href="#cb11-100" tabindex="-1"></a>            <span class="cf">if</span> i <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb11-101"><a href="#cb11-101" tabindex="-1"></a>                all_predicted <span class="op">=</span> predicted</span>
+<span id="cb11-102"><a href="#cb11-102" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb11-103"><a href="#cb11-103" tabindex="-1"></a>                all_predicted <span class="op">=</span> torch.cat([all_predicted, predicted], dim<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb11-104"><a href="#cb11-104" tabindex="-1"></a></span>
-<span id="cb11-105"><a href="#cb11-105" tabindex="-1"></a>    <span class="kw">def</span> evaluate(<span class="va">self</span>, data_embeddings: torch.tensor, labels: torch.tensor, batch_size: <span class="bu">int</span> <span class="op">=</span> <span class="dv">32</span>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
-<span id="cb11-106"><a href="#cb11-106" tabindex="-1"></a>        <span class="co">'''</span></span>
-<span id="cb11-107"><a href="#cb11-107" tabindex="-1"></a><span class="co">        Evaluate the probe's performance by testing it on unseen data.</span></span>
-<span id="cb11-108"><a href="#cb11-108" tabindex="-1"></a><span class="co">        :param data_embeddings: A tensor of shape N, L, D, where N is the number of samples, L is the length of the sequence, and D is the dimensionality of the embeddings.</span></span>
-<span id="cb11-109"><a href="#cb11-109" tabindex="-1"></a><span class="co">        :param labels: A tensor of shape N, where N is the number of samples. Each element is the label for the corresponding sample.</span></span>
-<span id="cb11-110"><a href="#cb11-110" tabindex="-1"></a><span class="co">        :return: The accuracy of the probe on the unseen data.</span></span>
-<span id="cb11-111"><a href="#cb11-111" tabindex="-1"></a><span class="co">        '''</span></span>
-<span id="cb11-112"><a href="#cb11-112" tabindex="-1"></a></span>
-<span id="cb11-113"><a href="#cb11-113" tabindex="-1"></a>        <span class="co"># Iterate through batches</span></span>
-<span id="cb11-114"><a href="#cb11-114" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="bu">len</span>(data_embeddings), batch_size):</span>
+<span id="cb11-105"><a href="#cb11-105" tabindex="-1"></a>        <span class="cf">return</span> all_predicted</span>
+<span id="cb11-106"><a href="#cb11-106" tabindex="-1"></a></span>
+<span id="cb11-107"><a href="#cb11-107" tabindex="-1"></a></span>
+<span id="cb11-108"><a href="#cb11-108" tabindex="-1"></a>    <span class="kw">def</span> evaluate(<span class="va">self</span>, data_embeddings: torch.tensor, labels: torch.tensor, batch_size: <span class="bu">int</span> <span class="op">=</span> <span class="dv">32</span>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
+<span id="cb11-109"><a href="#cb11-109" tabindex="-1"></a>        <span class="co">'''</span></span>
+<span id="cb11-110"><a href="#cb11-110" tabindex="-1"></a><span class="co">        Evaluate the probe's performance by testing it on unseen data.</span></span>
+<span id="cb11-111"><a href="#cb11-111" tabindex="-1"></a><span class="co">        :param data_embeddings: A tensor of shape N, L, D, where N is the number of samples, L is the length of the sequence, and D is the dimensionality of the embeddings.</span></span>
+<span id="cb11-112"><a href="#cb11-112" tabindex="-1"></a><span class="co">        :param labels: A tensor of shape N, where N is the number of samples. Each element is the label for the corresponding sample.</span></span>
+<span id="cb11-113"><a href="#cb11-113" tabindex="-1"></a><span class="co">        :return: The accuracy of the probe on the unseen data.</span></span>
+<span id="cb11-114"><a href="#cb11-114" tabindex="-1"></a><span class="co">        '''</span></span>
 <span id="cb11-115"><a href="#cb11-115" tabindex="-1"></a></span>
-<span id="cb11-116"><a href="#cb11-116" tabindex="-1"></a>            <span class="co"># Iterate through one batch of data at a time</span></span>
-<span id="cb11-117"><a href="#cb11-117" tabindex="-1"></a>            batch_embeddings <span class="op">=</span> data_embeddings[i:i<span class="op">+</span>batch_size]</span>
-<span id="cb11-118"><a href="#cb11-118" tabindex="-1"></a>            batch_labels <span class="op">=</span> labels[i:i<span class="op">+</span>batch_size]</span>
-<span id="cb11-119"><a href="#cb11-119" tabindex="-1"></a></span>
-<span id="cb11-120"><a href="#cb11-120" tabindex="-1"></a>            <span class="co"># Convert to sentence embeddings, since we are performing a sentence classification task</span></span>
-<span id="cb11-121"><a href="#cb11-121" tabindex="-1"></a>            batch_embeddings <span class="op">=</span> torch.mean(batch_embeddings, dim<span class="op">=</span><span class="dv">1</span>)  <span class="co"># N, D</span></span>
+<span id="cb11-116"><a href="#cb11-116" tabindex="-1"></a>        <span class="co"># Iterate through batches</span></span>
+<span id="cb11-117"><a href="#cb11-117" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="bu">len</span>(data_embeddings), batch_size):</span>
+<span id="cb11-118"><a href="#cb11-118" tabindex="-1"></a></span>
+<span id="cb11-119"><a href="#cb11-119" tabindex="-1"></a>            <span class="co"># Iterate through one batch of data at a time</span></span>
+<span id="cb11-120"><a href="#cb11-120" tabindex="-1"></a>            batch_embeddings <span class="op">=</span> data_embeddings[i:i<span class="op">+</span>batch_size]</span>
+<span id="cb11-121"><a href="#cb11-121" tabindex="-1"></a>            batch_labels <span class="op">=</span> labels[i:i<span class="op">+</span>batch_size]</span>
 <span id="cb11-122"><a href="#cb11-122" tabindex="-1"></a></span>
-<span id="cb11-123"><a href="#cb11-123" tabindex="-1"></a>            <span class="co"># Get the probe's predictions</span></span>
-<span id="cb11-124"><a href="#cb11-124" tabindex="-1"></a>            <span class="cf">with</span> torch.no_grad():</span>
-<span id="cb11-125"><a href="#cb11-125" tabindex="-1"></a>                outputs <span class="op">=</span> <span class="va">self</span>.probe(batch_embeddings)</span>
-<span id="cb11-126"><a href="#cb11-126" tabindex="-1"></a></span>
-<span id="cb11-127"><a href="#cb11-127" tabindex="-1"></a>            <span class="co"># Get the predicted class for each sample</span></span>
-<span id="cb11-128"><a href="#cb11-128" tabindex="-1"></a>            _, predicted <span class="op">=</span> torch.<span class="bu">max</span>(outputs, dim<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb11-123"><a href="#cb11-123" tabindex="-1"></a>            <span class="co"># Convert to sentence embeddings, since we are performing a sentence classification task</span></span>
+<span id="cb11-124"><a href="#cb11-124" tabindex="-1"></a>            batch_embeddings <span class="op">=</span> torch.mean(batch_embeddings, dim<span class="op">=</span><span class="dv">1</span>)  <span class="co"># N, D</span></span>
+<span id="cb11-125"><a href="#cb11-125" tabindex="-1"></a></span>
+<span id="cb11-126"><a href="#cb11-126" tabindex="-1"></a>            <span class="co"># Get the probe's predictions</span></span>
+<span id="cb11-127"><a href="#cb11-127" tabindex="-1"></a>            <span class="cf">with</span> torch.no_grad():</span>
+<span id="cb11-128"><a href="#cb11-128" tabindex="-1"></a>                outputs <span class="op">=</span> <span class="va">self</span>.probe(batch_embeddings)</span>
 <span id="cb11-129"><a href="#cb11-129" tabindex="-1"></a></span>
-<span id="cb11-130"><a href="#cb11-130" tabindex="-1"></a>            <span class="co"># Concatenate the predictions from each batch</span></span>
-<span id="cb11-131"><a href="#cb11-131" tabindex="-1"></a>            <span class="cf">if</span> i <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb11-132"><a href="#cb11-132" tabindex="-1"></a>                all_predicted <span class="op">=</span> predicted</span>
-<span id="cb11-133"><a href="#cb11-133" tabindex="-1"></a>                all_labels <span class="op">=</span> batch_labels</span>
-<span id="cb11-134"><a href="#cb11-134" tabindex="-1"></a>            <span class="cf">else</span>:</span>
-<span id="cb11-135"><a href="#cb11-135" tabindex="-1"></a>                all_predicted <span class="op">=</span> torch.cat([all_predicted, predicted], dim<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb11-136"><a href="#cb11-136" tabindex="-1"></a>                all_labels <span class="op">=</span> torch.cat([all_labels, batch_labels], dim<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb11-137"><a href="#cb11-137" tabindex="-1"></a></span>
-<span id="cb11-138"><a href="#cb11-138" tabindex="-1"></a>        <span class="co"># Calculate the accuracy of the probe</span></span>
-<span id="cb11-139"><a href="#cb11-139" tabindex="-1"></a>        correct <span class="op">=</span> (all_predicted <span class="op">==</span> all_labels).<span class="bu">sum</span>().item()</span>
-<span id="cb11-140"><a href="#cb11-140" tabindex="-1"></a>        accuracy <span class="op">=</span> correct <span class="op">/</span> all_labels.shape[<span class="dv">0</span>]</span>
-<span id="cb11-141"><a href="#cb11-141" tabindex="-1"></a>        logging.info(<span class="ss">f'Probe accuracy: </span><span class="sc">{</span>accuracy<span class="sc">:.2f}</span><span class="ss">'</span>)</span>
-<span id="cb11-142"><a href="#cb11-142" tabindex="-1"></a></span>
-<span id="cb11-143"><a href="#cb11-143" tabindex="-1"></a>        <span class="cf">return</span> accuracy</span></code></pre>
+<span id="cb11-130"><a href="#cb11-130" tabindex="-1"></a>            <span class="co"># Get the predicted class for each sample</span></span>
+<span id="cb11-131"><a href="#cb11-131" tabindex="-1"></a>            _, predicted <span class="op">=</span> torch.<span class="bu">max</span>(outputs, dim<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb11-132"><a href="#cb11-132" tabindex="-1"></a></span>
+<span id="cb11-133"><a href="#cb11-133" tabindex="-1"></a>            <span class="co"># Concatenate the predictions from each batch</span></span>
+<span id="cb11-134"><a href="#cb11-134" tabindex="-1"></a>            <span class="cf">if</span> i <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb11-135"><a href="#cb11-135" tabindex="-1"></a>                all_predicted <span class="op">=</span> predicted</span>
+<span id="cb11-136"><a href="#cb11-136" tabindex="-1"></a>                all_labels <span class="op">=</span> batch_labels</span>
+<span id="cb11-137"><a href="#cb11-137" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb11-138"><a href="#cb11-138" tabindex="-1"></a>                all_predicted <span class="op">=</span> torch.cat([all_predicted, predicted], dim<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb11-139"><a href="#cb11-139" tabindex="-1"></a>                all_labels <span class="op">=</span> torch.cat([all_labels, batch_labels], dim<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb11-140"><a href="#cb11-140" tabindex="-1"></a></span>
+<span id="cb11-141"><a href="#cb11-141" tabindex="-1"></a>        <span class="co"># Calculate the accuracy of the probe</span></span>
+<span id="cb11-142"><a href="#cb11-142" tabindex="-1"></a>        correct <span class="op">=</span> (all_predicted <span class="op">==</span> all_labels).<span class="bu">sum</span>().item()</span>
+<span id="cb11-143"><a href="#cb11-143" tabindex="-1"></a>        accuracy <span class="op">=</span> correct <span class="op">/</span> all_labels.shape[<span class="dv">0</span>]</span>
+<span id="cb11-144"><a href="#cb11-144" tabindex="-1"></a>        logging.info(<span class="ss">f'Probe accuracy: </span><span class="sc">{</span>accuracy<span class="sc">:.2f}</span><span class="ss">'</span>)</span>
+<span id="cb11-145"><a href="#cb11-145" tabindex="-1"></a></span>
+<span id="cb11-146"><a href="#cb11-146" tabindex="-1"></a>        <span class="cf">return</span> accuracy</span></code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -819,59 +837,92 @@ model, and see which layer performs the best on the dev set.</p>
 </h3>
 <pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>layer_wise_accuracies <span class="op">=</span> []</span>
 <span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>best_probe, best_layer, best_accuracy <span class="op">=</span> <span class="va">None</span>, <span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span></span>
-<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a><span class="cf">for</span> layer_num <span class="kw">in</span> <span class="bu">range</span>(num_layers):</span>
-<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>    logging.info(<span class="ss">f'</span><span class="ch">\n\n</span><span class="ss">Evaluating representations of layer </span><span class="sc">{</span>layer_num<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">...'</span>)</span>
-<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a></span>
-<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a>    train_embeddings <span class="op">=</span> get_embeddings_from_model(model, tokenizer, layer_num<span class="op">=</span>layer_num, data<span class="op">=</span>train_dataset[<span class="st">'text'</span>])</span>
-<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a>    dev_embeddings <span class="op">=</span> get_embeddings_from_model(model, tokenizer, layer_num<span class="op">=</span>layer_num, data<span class="op">=</span>dev_dataset[<span class="st">'text'</span>])</span>
-<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a>    train_labels, dev_labels <span class="op">=</span> torch.tensor(train_dataset[<span class="st">'label'</span>],  dtype<span class="op">=</span>torch.<span class="bu">long</span>), torch.tensor(dev_dataset[<span class="st">'label'</span>],  dtype<span class="op">=</span>torch.<span class="bu">long</span>)</span>
-<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a></span>
-<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a>    <span class="co"># Before training the probe, let's visualize the embeddings using t-SNE.</span></span>
-<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a>    <span class="co"># If the layer has information about sentiment analysis, would we see some structure in the embeddings?</span></span>
-<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a>    <span class="co"># Compare plots from layers where the probe does poorly, with ones where it does well. What do you notice?</span></span>
-<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a>    visualize_embeddings(embeddings<span class="op">=</span>train_embeddings, labels<span class="op">=</span>train_dataset[<span class="st">'label'</span>], layer_num<span class="op">=</span>layer_num, save_plot<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a></span>
-<span id="cb13-16"><a href="#cb13-16" tabindex="-1"></a>    <span class="co"># Now, let's train the probe on the embeddings from the model.</span></span>
-<span id="cb13-17"><a href="#cb13-17" tabindex="-1"></a>    <span class="co"># Feel free to play around with the training hyperparameters, and see what works best for your probe.</span></span>
-<span id="cb13-18"><a href="#cb13-18" tabindex="-1"></a>    probe <span class="op">=</span> Probe()</span>
-<span id="cb13-19"><a href="#cb13-19" tabindex="-1"></a>    probe.train(data_embeddings<span class="op">=</span>train_embeddings, labels<span class="op">=</span>train_labels,</span>
-<span id="cb13-20"><a href="#cb13-20" tabindex="-1"></a>                num_epochs<span class="op">=</span><span class="dv">5</span>, learning_rate<span class="op">=</span><span class="fl">0.001</span>, batch_size<span class="op">=</span><span class="dv">32</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>batch_size <span class="op">=</span> <span class="dv">32</span></span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a><span class="cf">for</span> layer_num <span class="kw">in</span> <span class="bu">range</span>(num_layers):</span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a>    logging.info(<span class="ss">f'Evaluating representations of layer </span><span class="sc">{</span>layer_num<span class="sc">}</span><span class="ss">:</span><span class="ch">\n</span><span class="ss">'</span>)</span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a>    train_embeddings <span class="op">=</span> get_embeddings_from_model(model, tokenizer, layer_num<span class="op">=</span>layer_num, data<span class="op">=</span>train_dataset[<span class="st">'text'</span>], batch_size<span class="op">=</span>batch_size)</span>
+<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a>    dev_embeddings <span class="op">=</span> get_embeddings_from_model(model, tokenizer, layer_num<span class="op">=</span>layer_num, data<span class="op">=</span>dev_dataset[<span class="st">'text'</span>], batch_size<span class="op">=</span>batch_size)</span>
+<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a>    train_labels, dev_labels <span class="op">=</span> torch.tensor(train_dataset[<span class="st">'label'</span>],  dtype<span class="op">=</span>torch.<span class="bu">long</span>), torch.tensor(dev_dataset[<span class="st">'label'</span>],  dtype<span class="op">=</span>torch.<span class="bu">long</span>)</span>
+<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a>    <span class="co"># Now, let's train the probe on the embeddings from the model.</span></span>
+<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a>    <span class="co"># Feel free to play around with the training hyperparameters, and see what works best for your probe.</span></span>
+<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a>    probe <span class="op">=</span> Probe()</span>
+<span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a>    probe.train(data_embeddings<span class="op">=</span>train_embeddings, labels<span class="op">=</span>train_labels,</span>
+<span id="cb13-16"><a href="#cb13-16" tabindex="-1"></a>                num_epochs<span class="op">=</span><span class="dv">5</span>, learning_rate<span class="op">=</span><span class="fl">0.001</span>, batch_size<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb13-17"><a href="#cb13-17" tabindex="-1"></a></span>
+<span id="cb13-18"><a href="#cb13-18" tabindex="-1"></a>    <span class="co"># Let's see how well our probe does on a held out dev set</span></span>
+<span id="cb13-19"><a href="#cb13-19" tabindex="-1"></a>    accuracy <span class="op">=</span> probe.evaluate(data_embeddings<span class="op">=</span>dev_embeddings, labels<span class="op">=</span>dev_labels)</span>
+<span id="cb13-20"><a href="#cb13-20" tabindex="-1"></a>    layer_wise_accuracies.append(accuracy)</span>
 <span id="cb13-21"><a href="#cb13-21" tabindex="-1"></a></span>
-<span id="cb13-22"><a href="#cb13-22" tabindex="-1"></a>    <span class="co"># Let's see how well our probe does on a held out dev set</span></span>
-<span id="cb13-23"><a href="#cb13-23" tabindex="-1"></a>    accuracy <span class="op">=</span> probe.evaluate(data_embeddings<span class="op">=</span>dev_embeddings, labels<span class="op">=</span>dev_labels)</span>
-<span id="cb13-24"><a href="#cb13-24" tabindex="-1"></a>    layer_wise_accuracies.append(accuracy)</span>
+<span id="cb13-22"><a href="#cb13-22" tabindex="-1"></a>    <span class="co"># Keep track of the best probe</span></span>
+<span id="cb13-23"><a href="#cb13-23" tabindex="-1"></a>    <span class="cf">if</span> accuracy <span class="op">&gt;</span> best_accuracy:</span>
+<span id="cb13-24"><a href="#cb13-24" tabindex="-1"></a>        best_probe, best_layer, best_accuracy <span class="op">=</span> probe, layer_num, accuracy</span>
 <span id="cb13-25"><a href="#cb13-25" tabindex="-1"></a></span>
-<span id="cb13-26"><a href="#cb13-26" tabindex="-1"></a>    <span class="co"># Keep track of the best probe</span></span>
-<span id="cb13-27"><a href="#cb13-27" tabindex="-1"></a>    <span class="cf">if</span> accuracy <span class="op">&gt;</span> best_accuracy:</span>
-<span id="cb13-28"><a href="#cb13-28" tabindex="-1"></a>        best_probe, best_layer, best_accuracy <span class="op">=</span> probe, layer_num, accuracy</span></code></pre>
+<span id="cb13-26"><a href="#cb13-26" tabindex="-1"></a>logging.info(<span class="ss">f'DONE.</span><span class="ch">\n</span><span class="ss"> Best accuracy of </span><span class="sc">{</span>best_accuracy<span class="op">*</span><span class="dv">100</span><span class="sc">}</span><span class="ss">% from layer </span><span class="sc">{</span>best_layer<span class="sc">}</span><span class="ss">.'</span>)</span></code></pre>
 </div>
+<p>Seeing a list of accuracies can be hard to interpret. Let’s plot the
+layer-wise accuracies to see which layer is best.</p>
 <div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="co"># Seeing a list of accuracies can be hard to interpret. Let's plot the layer-wise accuracies to see which layer is best.</span></span>
-<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>plt.plot(layer_wise_accuracies)</span>
-<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>plt.xlabel(<span class="st">'Layer'</span>)</span>
-<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>plt.ylabel(<span class="st">'Accuracy'</span>)</span>
-<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>plt.title(<span class="st">'Probe Accuracy by Layer'</span>)</span>
-<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a>plt.grid(alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
-<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a>plt.show()</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>plt.plot(layer_wise_accuracies)</span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>plt.xlabel(<span class="st">'Layer'</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>plt.ylabel(<span class="st">'Accuracy'</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>plt.title(<span class="st">'Probe Accuracy by Layer'</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>plt.grid(alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a>plt.show()</span></code></pre>
 </div>
 <p>Which layer has the best accuracy? What does this tell us about the
 model?</p>
-<p>Let’s go ahead and stress test this. Is the best layer able to
-predict sentiment for sentences outside the IMDB dataset?</p>
-<p>For answering this question, you are the test set! Try to think of
-challenging sequences for which the model may not be able to predict
-sentiment.</p>
+<p>Is the last layer of every model the most informative? Not
+necessarily! With larger models, many semantic tasks are encoded in the
+intermediate layers, while the last layers focus more on next token
+prediction.</p>
+</div>
+<div class="section level5">
+<h5 id="visualizing-embeddings">Visualizing Embeddings<a class="anchor" aria-label="anchor" href="#visualizing-embeddings"></a></h5>
+<p>We’ve seen that the last layer of the model is most informative for
+the sentiment analysis task. Can we “see” what embedding structure the
+probe saw to say that the last layer’s embeddings were most
+separable?</p>
+<p>Let’s use the <code>visualize_embeddings</code> method from before.
+We’ll also use two different kinds of visualization strategies: - PCA: A
+linear method using SVD to highlight the largest variances in the data.
+- t-SNE: A non-linear method that emphasizes local patterns and
+clusters.</p>
 <div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>test_sequences <span class="op">=</span> [<span class="st">'Your sentence here'</span>, <span class="st">'Here is another sentence'</span>]</span>
-<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>embeddings <span class="op">=</span> get_embeddings_from_model(model<span class="op">=</span>model, tokenizer<span class="op">=</span>tokenizer, layer_num<span class="op">=</span>best_layer, data<span class="op">=</span>test_sequences)</span>
-<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a>preds <span class="op">=</span> probe.predict(data_embeddings<span class="op">=</span>embeddings)</span>
-<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a>predictions <span class="op">=</span> [<span class="st">'Positive'</span> <span class="cf">if</span> pred <span class="op">==</span> <span class="dv">1</span> <span class="cf">else</span> <span class="st">'Negative'</span> <span class="cf">for</span> pred <span class="kw">in</span> preds]</span>
-<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Predictions for test sequences: </span><span class="sc">{</span>predictions<span class="sc">}</span><span class="ss">'</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>layer_num <span class="op">=</span> ...</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>embeddings<span class="op">=</span>get_embeddings_from_model(model, tokenizer, layer_num<span class="op">=</span>layer_num, data<span class="op">=</span>train_dataset[<span class="st">'text'</span>], batch_size<span class="op">=</span>batch_size)</span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a>labels<span class="op">=</span>torch.tensor(train_dataset[<span class="st">'label'</span>],  dtype<span class="op">=</span>torch.<span class="bu">long</span>).numpy().tolist()</span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a>visualize_embeddings(embeddings<span class="op">=</span>embeddings, labels<span class="op">=</span>labels, layer_num<span class="op">=</span>layer_num, visualization_method<span class="op">=</span><span class="st">'t-SNE'</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a>visualize_embeddings(embeddings<span class="op">=</span>embeddings, labels<span class="op">=</span>labels, layer_num<span class="op">=</span>layer_num, visualization_method<span class="op">=</span><span class="st">'PCA'</span>)</span></code></pre>
+</div>
+<p>Not very informative, was it? Because these embeddings exist in such
+high dimentions, it is not always possible to extract useful structure
+in them to simple 2D spaces. For this reason, visualizations are better
+treated as additional sources of information, rather than primary
+ones.</p>
+</div>
+<div class="section level4">
+<h4 id="testing-the-best-layer-on-ood-data">Testing the best layer on OOD data<a class="anchor" aria-label="anchor" href="#testing-the-best-layer-on-ood-data"></a></h4>
+<p>Let’s go ahead and stress test our probe’s finding. Is the best layer
+able to predict sentiment for sentences outside the IMDB dataset?</p>
+<p>For answering this question, you are the test set! Try to think of
+challenging sequences for which the model may not be able to predict
+sentiment.</p>
+<div class="codewrapper sourceCode" id="cb16">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>best_layer <span class="op">=</span> ...</span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>test_sequences <span class="op">=</span> [<span class="st">'Your sentence here'</span>, <span class="st">'Here is another sentence'</span>]</span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>embeddings <span class="op">=</span> get_embeddings_from_model(model<span class="op">=</span>model, tokenizer<span class="op">=</span>tokenizer, layer_num<span class="op">=</span>best_layer, data<span class="op">=</span>test_sequences, batch_size<span class="op">=</span>batch_size)</span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a>preds <span class="op">=</span> probe.predict(data_embeddings<span class="op">=</span>embeddings)</span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a>predictions <span class="op">=</span> [<span class="st">'Positive'</span> <span class="cf">if</span> pred <span class="op">==</span> <span class="dv">1</span> <span class="cf">else</span> <span class="st">'Negative'</span> <span class="cf">for</span> pred <span class="kw">in</span> preds]</span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Predictions for test sequences: </span><span class="sc">{</span>predictions<span class="sc">}</span><span class="ss">'</span>)</span></code></pre>
 </div>
 <!--
 Place links that you need to refer to multiple times across pages here. Delete
@@ -939,7 +990,7 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/fair-explainable-ml/5c-probes.html",
   "identifier": "https://carpentries-incubator.github.io/fair-explainable-ml/5c-probes.html",
   "dateCreated": "2023-12-05",
-  "dateModified": "2024-11-19",
+  "dateModified": "2024-12-16",
   "datePublished": "2024-12-16"
 }
 
