@@ -269,12 +269,20 @@
 <div class="accordion accordion-flush" id="accordionFlushcurrent">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-headingcurrent">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapsecurrent" aria-expanded="true" aria-controls="flush-collapsecurrent">
         <span class="visually-hidden">Current Chapter</span>
         <span class="current-chapter">
         8. Explainability methods: linear probe
         </span>
-      
+      </button>
     </div><!--/div.accordion-header-->
+
+    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
+      <div class="accordion-body">
+        <ul><li><a href="#what-part-of-my-model-causes-this-prediction">What part of my model causes this prediction?</a></li>
+<li><a href="#implementing-your-own-probe">Implementing your own Probe</a></li>
+        </ul></div><!--/div.accordion-body-->
+    </div><!--/div.accordion-collapse-->
 
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
@@ -430,8 +438,10 @@
 <div class="card-body">
 <div class="inner">
 <h3 class="card-title">Questions</h3>
-<ul><li>Do language models like BERT encode knowledge about Sentiment
-Analysis in specific layers?</li>
+<ul><li>How can probing classifiers help us understand what a model has
+learned?<br></li>
+<li>What are the limitations of probing classifiers, and how can they be
+addressed?</li>
 </ul></div>
 </div>
 </div>
@@ -439,15 +449,85 @@ Analysis in specific layers?</li>
 <div class="card-body">
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
-<ul><li>Gain familiarity with the PyTorch and HuggingFace libraries, for
+<ul><li>Understand the concept of probing classifiers and how they assess
+the representations learned by models.<br></li>
+<li>Gain familiarity with the PyTorch and HuggingFace libraries, for
 using and evaluating language models.</li>
-<li>Learn how to probe language models for useful information.</li>
 </ul></div>
 </div>
 </div>
 </div>
 </div>
-<p>Let’s start by importing the necessary libraries.</p>
+<section><h2 class="section-heading" id="what-part-of-my-model-causes-this-prediction">What part of my model causes this prediction?<a class="anchor" aria-label="anchor" href="#what-part-of-my-model-causes-this-prediction"></a></h2>
+<hr class="half-width"><p>When a model makes a correct prediction on a task it has been trained
+on (known as a ‘downstream task’), <strong><a href="https://direct.mit.edu/coli/article/48/1/207/107571/Probing-Classifiers-Promises-Shortcomings-and" class="external-link">Probing
+classifiers</a></strong> can be used to identify if the model actually
+contains the relevant information or knowledge required to make that
+prediction, or if it is just making a lucky guess. Furthermore, probes
+can be used to identify the specific components of the model that
+contain this relevant information, providing crucial insights for
+developing better models over time.</p>
+<div class="section level4">
+<h4 id="method-and-examples">Method and Examples<a class="anchor" aria-label="anchor" href="#method-and-examples"></a></h4>
+<p>A neural network takes its input as a series of vectors, or
+representations, and transforms them through a series of layers to
+produce an output. The job of the main body of the neural network is to
+develop representations that are as useful for the downstream task as
+possible, so that the final few layers of the network can make a good
+prediction.</p>
+<p>This essentially means that a good quality representation is one that
+<em>already</em> contains all the information required to make a good
+prediction. In other words, the features or representations from the
+model are easily separable by a simple classifier. And that classifier
+is what we call a ‘probe’. A probe is a simple model that uses the
+representations of the model as input, and tries to learn the downstream
+task from them. The probe itself is designed to be too easy to learn the
+task on its own. This means, that the only way the probe get perform
+well on this task is if the representations it is given are already good
+enough to make the prediction.</p>
+<p>These representations can be taken from any part of the model.
+Generally, using representations from the last layer of a neural network
+help identify if the model even contains the information to make
+predictions for the downstream task. However, this can be extended
+further: probing the representations from different layers of the model
+can help identify where in the model the information is stored, and how
+it is transformed through the model.</p>
+<p>Probes have been frequently used in the domain of NLP, where they
+have been used to check if language models contain certain kinds of
+linguistic information. These probes can be designed with varying levels
+of complexity. For example, simple probes have shown language models to
+contain information about simple syntactical features like <a href="https://aclanthology.org/D15-1246.pdf" class="external-link">Part of Speech tags</a>,
+and more complex probes have shown models to contain entire <a href="https://aclanthology.org/N19-1419.pdf" class="external-link">Parse trees</a> of
+sentences.</p>
+</div>
+<div class="section level4">
+<h4 id="limitations-and-extensions">Limitations and Extensions<a class="anchor" aria-label="anchor" href="#limitations-and-extensions"></a></h4>
+<p>One large challenge in using probes is identifying the correct
+architectural design of the probe. Too simple, and it may not be able to
+learn the downstream task at all. Too complex, and it may be able to
+learn the task even if the model does not contain the information
+required to make the prediction.</p>
+<p>Another large limitation is that even if a probe is able to learn the
+downstream task, it does not mean that the model is actually using the
+information contained in the representations to make the prediction. So
+essentially, a probe can only tell us if a part of the model
+<em>can</em> make the prediction, not if it <em>does</em> make the
+prediction.</p>
+<p>A new approach known as <strong><a href="https://proceedings.neurips.cc/paper/2020/hash/92650b2e92217715fe312e6fa7b90d82-Abstract.html" class="external-link">Causal
+Tracing</a></strong> addresses this limitation. The objective of this
+approach is similar to probes: attempting to understand which part of a
+model contains information relevant to a downstream task. The approach
+involves iterating through all parts of the model being examined
+(e.g. all layers of a model), and disrupting the information flow
+through that part of the model. (This could be as easy as adding some
+kind of noise on top of the weights of that model component). If the
+model performance on the downstream task suddenly drops on disrupting a
+specific model component, we know for sure that that component not only
+contains the information required to make the prediction, but that the
+model is actually using that information to make the prediction.</p>
+</div>
+</section><section><h2 class="section-heading" id="implementing-your-own-probe">Implementing your own Probe<a class="anchor" aria-label="anchor" href="#implementing-your-own-probe"></a></h2>
+<hr class="half-width"><p>Let’s start by importing the necessary libraries.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -931,10 +1011,7 @@ Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
 </div>
-
-
-
-      </div> <!-- / div.lesson-content -->
+</section></div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter"><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="../instructor/5b-deep-dive-into-methods.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
         <a class="chapter-link float-end" href="../instructor/5d-gradcam.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
