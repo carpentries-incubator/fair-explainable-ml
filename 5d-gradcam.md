@@ -4,17 +4,62 @@ teaching: 0
 exercises: 0
 ---
 :::::::::::::::::::::::::::::::::::::: questions 
-
- - How do saliency maps help identify the part of the image responsible for a prediction?
+- How can we identify which parts of an input contribute most to a model’s prediction?  
+- What insights can saliency maps, GradCAM, and similar techniques provide about model behavior?  
+- What are the strengths and limitations of gradient-based explainability methods?  
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
+- Explain how saliency maps and GradCAM work and their applications in understanding model predictions.  
+- Introduce GradCAM as a method to visualize the important features used by a model.  
 - Gain familiarity with the PyTorch and GradCam libraries for vision models. 
-
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
+## What part of my input causes this prediction?
+
+When a model makes a prediction, we often want to know which parts of the input were most important in generating that prediction.
+This helps confirm if the model is making its predictions for the right reasons. 
+Sometimes, models use features totally unrelated to the task for their prediction - these are known as 'spurious correlations'.
+For example, a model might predict that a picture contains a dog because it was taken in a park, and not because there is actually a dog in the picture.
+
+**[Saliency Maps](https://arxiv.org/abs/1312.6034)** are among the most simple and popular methods used towards this end. 
+We will be working with a more sophisticated version of this method, known as **[GradCAM](https://arxiv.org/abs/1610.02391)**.
+
+#### Method and Examples
+
+A saliency map is a kind of visualization - it is a heatmap across the input that shows which parts of the input are most important in generating the model's prediction.
+They can be calculated using the gradients of a neural network, or by perturbing the input to any ML model and observing how the model reacts to these perturbations.
+The key intuition is that if a small change in a part of the input causes a large change in the model's prediction, then that part of the input is important for the prediction.
+Gradients are useful in this because they provide a signal towards how much the model's prediction would change if the input was changed slightly.
+
+For example, in an image classification task, a saliency map can be used to highlight the parts of the image that the model is focusing on to make its prediction.
+In a text classification task, a saliency map can be used to highlight the words or phrases that are most important for the model's prediction.
+
+GradCAM is an extension of this idea, which uses the gradients of the final layer of a convolutional neural network to generate a heatmap that highlights the important regions of an image.
+This heatmap can be overlaid on the original image to visualize which parts of the image are most important for the model's prediction.
+
+Other variants of this method include [Integrated Gradients](https://arxiv.org/abs/1703.01365), [SmoothGrad](https://arxiv.org/pdf/1806.03000), and others, which are designed to provide more robust and reliable explanations for model predictions.
+However, GradCAM is a good starting point for understanding how saliency maps work, and is a popularly used approach.
+
+Alternative approaches, which may not directly generate heatmaps, include [LIME](https://arxiv.org/abs/1602.04938) and [SHAP](https://arxiv.org/abs/1705.07874), which are also popular and recommended for further reading. 
+
+#### Limitations and Extensions
+
+Gradient based saliency methods like GradCam are fast to compute, requiring only a handful of backpropagation steps on the model to generate the heatmap.
+The method is also model-agnostic, meaning it can be applied to any model that can be trained using gradient descent.
+Additionally, the results obtained from these methods are intuitive and easy to understand, making them useful for explaining model predictions to non-experts.
+
+However, their use is limited to models that can be trained using gradient descent, and have white-box access. 
+It is also difficult to apply these methods to tasks beyond classification, making their application limited with many recent
+generative models (think LLMs).
+
+Another limitation is that the insights gained from these methods are not actionable - knowing which part of the input caused the prediction does not highlight why that part caused it.
+On finding issues in the prediction process, it is also hard to pick up on if there is an underlying issue in the model, or just the specific inputs tested on.
+
+
+## Implementing GradCAM
 
 ```python
 # Packages to download test images
