@@ -25,54 +25,51 @@ exercises: 0
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Estimating model uncertainty
-
 Understanding how confident a model is in its predictions is a valuable tool for building trustworthy AI systems, especially in high-stakes settings like healthcare or autonomous vehicles. Model uncertainty estimation focuses on quantifying the model's confidence and is often used to identify predictions that require further review or caution.
 
-Model uncertainty can be divided into two categories: (1) Aleatoric/Random and (2) Epistemic uncertainty.
+### Sources of uncertainty 
+At its core, uncertainty starts with the **data** itself, as all models learn to form embeddings (feature representations) of the data. Uncertainty in the data—whether from inherent randomness or insufficient coverage—propagates through the model's embeddings, leading to uncertainty in the outputs. 
 
-### 1. Aleatoric (Random) uncertainty
-**Aleatoric** (a·le·a·to·ric) is an adjective that means, "*depending on the throw of a dice or on chance; random.*" 
+#### 1) Aleatoric (Random) uncertainty
+Aleotoric or random uncertainty is the inherent noise in the data that cannot be reduced, even with more data (observations OR missing features). 
 
-Aleatoric uncertainty is the inherent noise in the data that cannot be reduced, even with more data (observations OR missing features). Aleatoric uncertainy can arise due to:
-
-  - Inconsistent readings from faulty sensors
-  - Background noise in audio, multiple overlapping signals, recording quality
-  - Random fluctuations in image resolution or lightning conditions (NOT systemic or cyclic)
-  - Overlapping classes, ambiguous labels due to subjective interpretations
-  - Human errors in data entry, random missing values
+  - Inconsistent readings from faulty sensors (e.g., modern image sensors exhibit "thermal noise" or "shot noise", where pixel values randomly fluctuate even under constant lighting)
+  - Random crackling/static in recordings
+  - Human errors in data entry
+  - Any aspect of the data that is unpredictable
     
 #### Methods for addressing aleatoric uncertainty
+Since aleatoric/random uncertainty is generally considered inherent (unless you upgrade sensors or remove whatever is causing the random generating process), methods to address it focus on measuring the degree of noise or uncertainty.
 
-Aleatoric uncertainty arises from the data itself. Methods to estimate it include:
+- **Predictive variance in linear regression**: The ability to derive error bars or prediction intervals in traditional regression comes from the assumption that the errors (residuals) follow a normal distribution.
+  - In contrast, deep learning models are highly non-linear and have millions (or billions) of parameters. The mapping between inputs and outputs is not a simple linear equation but rather a complex, multi-layer function. Because of this nonlinear nature, errors are rarely normally distributed in deep learning applications. In addition, deep learning can overfit common classes and underfit rarer clases.
+- **Heteroscedastic models**: Use specialized loss functions that allow the model to predict the noise level in the data directly. These models are particularly critical in fields like *robotics*, where sensor noise varies significantly depending on environmental conditions. It is possible to build this functionality into both linear models and modern deep learning models. However, these methods may require some calibration, as ground truth measurements of noise usually aren't available.
+- **Data augmentation and perturbation analysis**: Assess variability in predictions by adding noise to the input data and observing how much the model’s outputs change. A highly sensitive change in predictions may indicate underlying noise or instability in the data. For instance, in image classification, augmenting training data with synthetic noise can help the model better handle real-world imperfections stemming from sensor artifacts. 
 
-- **Predictive variance in regression models**: Outputs the variance of the predicted value, reflecting the noise in the data. For instance, in a regression task predicting house prices, predictive variance highlights how much randomness exists in the relationship between input features (like square footage) and price.  
-- **Heteroscedastic models**: Use specialized loss functions that allow the model to predict the noise level in the data directly. These models are particularly critical in fields like *robotics*, where sensor noise varies significantly depending on environmental conditions. For example, a robot navigating in bright daylight versus dim lighting conditions may experience vastly different levels of noise in its sensor inputs, and heteroscedastic models can help account for this variability.  
-- **Data augmentation and perturbation analysis**: Assess variability in predictions by adding noise to the input data and observing how much the model’s outputs change. A highly sensitive change in predictions may indicate underlying noise or instability in the data. For instance, in image classification, augmenting training data with synthetic noise can help the model better handle real-world imperfections like motion blur or occlusions.
+#### 2) Subjectivity and ill-defined problems 
 
+- Overlapping classes, ambiguous labels due to subjective interpretations
+- Ambiguous or conflicting text inputs.
 
+#### Methods for addressing subjectivity and ill-defined problems 
+- **Reframe problme**: If the overlap or subjectivity stems from an ill-posed problem, reframing the task can help. Example: Instead of classifying "happy" vs. "neutral" expressions (which overlap), predict the intensity of happiness on a scale of 0–1. For medical images, shift from hard "benign vs. malignant" classifications to predicting risk scores.
+- **Consensus-based labeling (inter-annotator agreement)**: Aggregate labels from multiple annotators to reduce subjectivity and quantify ambiguity. Use metrics like Cohen's kappa or Fleiss' kappa to measure agreement between annotators. Example: In medical imaging (e.g., tumor detection), combining expert radiologists’ opinions can reduce subjective bias in labeling.
+- **Probabilistic labeling or soft targets**: Instead of using hard labels (e.g., 0 or 1), assign probabilistic labels to account for ambiguity in the data. Example: If 70% of annotators labeled an image as "happy" and 30% as "neutral," you can label it as [0.7, 0.3] instead of forcing a binary decision.
+
+    
 ### 2. Epistemic uncertainty 
 **Epistemic** (ep·i·ste·mic) is an adjective that means, "*relating to knowledge or to the degree of its validation.*" 
 
 Epistemic uncertainty refers to gaps in the model's knowledge about the data distribution, which can be reduced by using more data or improved models. Aleatoric uncertainy can arise due to:
 
-- **Rare or underrepresented scenarios**:
-  - Tabular: Predicting hospital demand during a rare pandemic with limited historical data.
-  - Image: Detecting tumors in rare imaging modalities (e.g., PET scans).
-  - Text: Answering questions about niche technical domains in a chatbot system.
-
 - **Systematic resolution differences**:
   - Image: A model trained on high-resolution images but tested on low-resolution inputs (e.g., wildlife drones capturing lower-resolution data than the training dataset).
   - Text: OCR systems misclassifying text scanned at lower resolution than the training examples.
 
-- **Novel or unseen data points**:
-  - Tabular: Classifying user behavior from a new region not included in training data.
-  - Image: Recognizing a new species in wildlife monitoring.
-  - Text: Interpreting slang or idiomatic expressions unseen during training.
-
 - **Out-of-distribution (OOD) data**:
-  - Tabular: Unexpected shifts in sensor readings from equipment malfunctions.
-  - Image: Adversarial images with imperceptible changes designed to confuse the model.
-  - Text: Queries about topics completely outside the model's domain (e.g., financial queries in a healthcare chatbot).
+  - Tabular: Classifying user behavior from a new region not included in training data. Predicting hospital demand during a rare pandemic with limited historical data.
+  - Image: Recognizing a new species in wildlife monitoring. Detecting a rare/unseen obstacle to automate driving.
+  - Text: Queries about topics completely outside the model's domain (e.g., financial queries in a healthcare chatbot).  Interpreting slang or idiomatic expressions unseen during training.
 
 - **Sparse or insufficient data in feature space**:
   - Tabular: High-dimensional data with many missing or sparsely sampled features (e.g., genomic datasets).
@@ -81,48 +78,13 @@ Epistemic uncertainty refers to gaps in the model's knowledge about the data dis
 
 #### Methods for addressing epistemic uncertainty
 
-Epistemic uncertainty arises from the model's lack of knowledge about certain regions of the data space. Techniques to estimate it include:
+Epistemic uncertainty arises from the model's lack of knowledge about certain regions of the data space. Techniques to address this uncertainty include:
 
-- **Monte Carlo dropout**: In this method, dropout (a regularization technique that randomly disables some neurons) is applied during inference, and multiple forward passes are performed for the same input. The variability in the outputs across these passes gives an estimate of uncertainty. Intuitively, each forward pass simulates a slightly different version of the model, akin to an ensemble. If the model consistently predicts similar outputs despite dropout, it is confident; if predictions vary widely, the model is uncertain about that input.
-- **Bayesian neural networks**: These networks incorporate probabilistic layers to model uncertainty directly in the weights of the network. Instead of assigning a single deterministic weight to each connection, Bayesian neural networks assign distributions to these weights, reflecting the uncertainty about their true values. During inference, these distributions are sampled multiple times to generate predictions, which naturally include uncertainty estimates. While Bayesian neural networks are theoretically rigorous and align well with the goal of epistemic uncertainty estimation, they are computationally expensive and challenging to scale for large datasets or deep architectures. This is because calculating or approximating posterior distributions over all parameters becomes intractable as model size grows. To address this, methods like variational inference or Monte Carlo sampling are often used, but these approximations can introduce inaccuracies, making Bayesian approaches less practical for many modern applications. Despite these challenges, Bayesian neural networks remain valuable for research contexts where precise uncertainty quantification is needed or in domains where computational resources are less of a concern.
 - **Ensemble models**: These involve training multiple models on the same data, each starting with different initializations or random seeds. The ensemble's predictions are aggregated, and the variance in their outputs reflects uncertainty. This approach works well because different models often capture different aspects of the data. For example, if all models agree, the prediction is confident; if they disagree, there is uncertainty. Ensembles are effective but computationally expensive, as they require training and evaluating multiple models.
+- **Bayesian neural networks**: These networks incorporate probabilistic layers to model uncertainty directly in the weights of the network. Instead of assigning a single deterministic weight to each connection, Bayesian neural networks assign distributions to these weights, reflecting the uncertainty about their true values. During inference, these distributions are sampled multiple times to generate predictions, which naturally include uncertainty estimates. While Bayesian neural networks are theoretically rigorous and align well with the goal of epistemic uncertainty estimation, they are computationally expensive and challenging to scale for large datasets or deep architectures. This is because calculating or approximating posterior distributions over all parameters becomes intractable as model size grows. To address this, methods like variational inference or Monte Carlo sampling are often used, but these approximations can introduce inaccuracies, making Bayesian approaches less practical for many modern applications. Despite these challenges, Bayesian neural networks remain valuable for research contexts where precise uncertainty quantification is needed or in domains where computational resources are less of a concern.
 - **Out-of-distribution detection**: Identifies inputs that fall significantly outside the training distribution, flagging areas where the model's predictions are unreliable. Many OOD methods produce continuous scores, such as Mahalanobis distance or energy-based scores, which measure how novel or dissimilar an input is from the training data. These scores can be interpreted as a form of epistemic uncertainty, providing insight into how unfamiliar an input is. However, OOD detection focuses on distinguishing ID from OOD inputs rather than offering confidence estimates for predictions on ID inputs.
-- **Collect more data**: Focus on gathering data from underrepresented scenarios or regions of the feature space, particularly areas where the model exhibits high uncertainty (e.g., rare medical conditions, edge cases in autonomous driving). This directly reduces epistemic uncertainty by expanding the model's knowledge base.
-- **Active learning**: Use model uncertainty estimates to prioritize uncertain or ambiguous samples for annotation, enabling more targeted data collection.
-
-#### Methods for addressing epistemic uncertainty (table)
-
-| Method                  | Key strengths                               | Key limitations                                    | Suitable model sizes           | Suitable data sizes            | Compute time (approx.)          |
-|-------------------------|--------------------------------------------|--------------------------------------------------|---------------------------------|--------------------------------|----------------------------------|
-| Bayesian neural nets    | Rigorous probabilistic foundation          | Computationally prohibitive for large models/datasets due to repeated approximation of posterior distributions | Small to medium                 | Small to medium                 | Very high (requires posterior approximation with multiple forward passes) |
-| Ensemble models         | Effective and robust; captures diverse uncertainties | Resource-intensive; requires training multiple models | Small to large (scales with ensemble size) | Small to large                  | Very high (training multiple models) |
-| Monte Carlo dropout     | Easy to implement in existing neural networks | Computationally expensive due to multiple forward passes | Small to large                  | Small to large                  | High (scales with forward passes) |
-| OOD detection           | Efficient, scalable, excels at rejecting anomalous inputs | Comparisons to OOD classes can be infinite, making perfect thresholds hard to define; struggles with subtle in-distribution shifts | Small to large                  | Small to large                  | Low to medium (scales efficiently) |
-
-:::::::::::::::::::::::::::::::::::::: callout
-#### Understanding size categories in table
-
-To help guide method selection, here are rough definitions for **model size**, **data size**, and **compute requirements** used in the table:
-
-**Model size**
-
-- **Small**: Fewer than 10M parameters (e.g., logistic regression, LeNet).
-- **Medium**: 10M–100M parameters (e.g., ResNet-50, BERT-base).
-- **Large**: More than 100M parameters (e.g., GPT-3, Vision Transformers).
-
-**Data size**
-
-- **Small**: Fewer than 10,000 samples.
-- **Medium**: 10,000–1M samples (e.g., ImageNet).
-- **Large**: More than 1M samples (e.g., Common Crawl, LAION-5B).
-
-**Compute time** (approximate)
-
-- **Low**: Suitable for standard CPU or single GPU, training/inference in minutes to an hour.
-- **Medium**: Requires a modern GPU, training/inference in hours to a day.
-- **High**: Requires multiple GPUs/TPUs or distributed setups, training/inference in days to weeks.
-  
-::::::::::::::::::::::::::::::::::::::
+- **Collect more data**: Easier said than done! Focus on gathering data from underrepresented scenarios or regions of the feature space, particularly areas where the model exhibits high uncertainty (e.g., rare medical conditions, edge cases in autonomous driving). This directly reduces epistemic uncertainty by expanding the model's knowledge base.
+  - **Active learning**: Use model uncertainty estimates to prioritize uncertain or ambiguous samples for annotation, enabling more targeted data collection.
 
 #### Why is OOD detection widely adopted?
 
