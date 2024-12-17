@@ -61,7 +61,6 @@ episodes:
 - 3-model-fairness-deep-dive.md
 - 4-explainability-vs-interpretability.md
 - 5a-explainable-AI-method-overview.md
-- 5b-deep-dive-into-methods.md
 - 5c-probes.md
 - 5d-gradcam.md
 - 6-confidence-intervals.md
