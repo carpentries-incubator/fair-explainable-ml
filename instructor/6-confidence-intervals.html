@@ -407,7 +407,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Estimating model uncertainty</h1>
-        <p>Last updated on 2024-12-01 |
+        <p>Last updated on 2024-12-17 |
 
         <a href="https://github.com/carpentries-incubator/fair-explainable-ml/edit/main/episodes/6-confidence-intervals.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -466,43 +466,52 @@ high-stakes settings like healthcare or autonomous vehicles. Model
 uncertainty estimation focuses on quantifying the model’s confidence and
 is often used to identify predictions that require further review or
 caution.</p>
-<p>Model uncertainty can be divided into two categories: (1)
-Aleatoric/Random and (2) Epistemic uncertainty.</p>
 <div class="section level3">
-<h3 id="aleatoric-random-uncertainty">1. Aleatoric (Random) uncertainty<a class="anchor" aria-label="anchor" href="#aleatoric-random-uncertainty"></a></h3>
-<p><strong>Aleatoric</strong> (a·le·a·to·ric) is an adjective that
-means, “<em>depending on the throw of a dice or on chance;
-random.</em>”</p>
-<p>Aleatoric uncertainty is the inherent noise in the data that cannot
-be reduced, even with more data (observations OR missing features).
-Aleatoric uncertainy can arise due to:</p>
-<ul><li>Inconsistent readings from faulty sensors</li>
-<li>Background noise in audio, multiple overlapping signals, recording
-quality</li>
-<li>Random fluctuations in image resolution or lightning conditions (NOT
-systemic or cyclic)</li>
-<li>Overlapping classes, ambiguous labels due to subjective
-interpretations</li>
-<li>Human errors in data entry, random missing values</li>
-</ul><div class="section level4">
+<h3 id="sources-of-uncertainty">Sources of uncertainty<a class="anchor" aria-label="anchor" href="#sources-of-uncertainty"></a></h3>
+<p>At its core, uncertainty starts with the <strong>data</strong>
+itself, as all models learn to form embeddings (feature representations)
+of the data. Uncertainty in the data—whether from inherent randomness or
+insufficient coverage—propagates through the model’s embeddings, leading
+to uncertainty in the outputs.</p>
+<div class="section level4">
+<h4 id="aleatoric-random-uncertainty">1) Aleatoric (Random) uncertainty<a class="anchor" aria-label="anchor" href="#aleatoric-random-uncertainty"></a></h4>
+<p>Aleotoric or random uncertainty is the inherent noise in the data
+that cannot be reduced, even with more data (observations OR missing
+features).</p>
+<ul><li>Inconsistent readings from faulty sensors (e.g., modern image
+sensors exhibit “thermal noise” or “shot noise”, where pixel values
+randomly fluctuate even under constant lighting)</li>
+<li>Random crackling/static in recordings</li>
+<li>Human errors in data entry</li>
+<li>Any aspect of the data that is unpredictable</li>
+</ul></div>
+<div class="section level4">
 <h4 id="methods-for-addressing-aleatoric-uncertainty">Methods for addressing aleatoric uncertainty<a class="anchor" aria-label="anchor" href="#methods-for-addressing-aleatoric-uncertainty"></a></h4>
-<p>Aleatoric uncertainty arises from the data itself. Methods to
-estimate it include:</p>
+<p>Since aleatoric/random uncertainty is generally considered inherent
+(unless you upgrade sensors or remove whatever is causing the random
+generating process), methods to address it focus on measuring the degree
+of noise or uncertainty.</p>
 <ul><li>
-<strong>Predictive variance in regression models</strong>: Outputs
-the variance of the predicted value, reflecting the noise in the data.
-For instance, in a regression task predicting house prices, predictive
-variance highlights how much randomness exists in the relationship
-between input features (like square footage) and price.<br></li>
+<strong>Predictive variance in linear regression</strong>: The
+ability to derive error bars or prediction intervals in traditional
+regression comes from the assumption that the errors (residuals) follow
+a normal distribution.
+<ul><li>In contrast, deep learning models are highly non-linear and have
+millions (or billions) of parameters. The mapping between inputs and
+outputs is not a simple linear equation but rather a complex,
+multi-layer function. Because of this nonlinear nature, errors are
+rarely normally distributed in deep learning applications. In addition,
+deep learning can overfit common classes and underfit rarer clases.</li>
+</ul></li>
 <li>
 <strong>Heteroscedastic models</strong>: Use specialized loss
 functions that allow the model to predict the noise level in the data
 directly. These models are particularly critical in fields like
 <em>robotics</em>, where sensor noise varies significantly depending on
-environmental conditions. For example, a robot navigating in bright
-daylight versus dim lighting conditions may experience vastly different
-levels of noise in its sensor inputs, and heteroscedastic models can
-help account for this variability.<br></li>
+environmental conditions. It is possible to build this functionality
+into both linear models and modern deep learning models. However, these
+methods may require some calibration, as ground truth measurements of
+noise usually aren’t available.</li>
 <li>
 <strong>Data augmentation and perturbation analysis</strong>: Assess
 variability in predictions by adding noise to the input data and
@@ -510,7 +519,36 @@ observing how much the model’s outputs change. A highly sensitive change
 in predictions may indicate underlying noise or instability in the data.
 For instance, in image classification, augmenting training data with
 synthetic noise can help the model better handle real-world
-imperfections like motion blur or occlusions.</li>
+imperfections stemming from sensor artifacts.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="subjectivity-and-ill-defined-problems">2) Subjectivity and ill-defined problems<a class="anchor" aria-label="anchor" href="#subjectivity-and-ill-defined-problems"></a></h4>
+<ul><li>Overlapping classes, ambiguous labels due to subjective
+interpretations</li>
+<li>Ambiguous or conflicting text inputs.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="methods-for-addressing-subjectivity-and-ill-defined-problems">Methods for addressing subjectivity and ill-defined problems<a class="anchor" aria-label="anchor" href="#methods-for-addressing-subjectivity-and-ill-defined-problems"></a></h4>
+<ul><li>
+<strong>Reframe problme</strong>: If the overlap or subjectivity
+stems from an ill-posed problem, reframing the task can help. Example:
+Instead of classifying “happy” vs. “neutral” expressions (which
+overlap), predict the intensity of happiness on a scale of 0–1. For
+medical images, shift from hard “benign vs. malignant” classifications
+to predicting risk scores.</li>
+<li>
+<strong>Consensus-based labeling (inter-annotator
+agreement)</strong>: Aggregate labels from multiple annotators to reduce
+subjectivity and quantify ambiguity. Use metrics like Cohen’s kappa or
+Fleiss’ kappa to measure agreement between annotators. Example: In
+medical imaging (e.g., tumor detection), combining expert radiologists’
+opinions can reduce subjective bias in labeling.</li>
+<li>
+<strong>Probabilistic labeling or soft targets</strong>: Instead of
+using hard labels (e.g., 0 or 1), assign probabilistic labels to account
+for ambiguity in the data. Example: If 70% of annotators labeled an
+image as “happy” and 30% as “neutral,” you can label it as [0.7, 0.3]
+instead of forcing a binary decision.</li>
 </ul></div>
 </div>
 <div class="section level3">
@@ -521,15 +559,6 @@ imperfections like motion blur or occlusions.</li>
 the data distribution, which can be reduced by using more data or
 improved models. Aleatoric uncertainy can arise due to:</p>
 <ul><li>
-<strong>Rare or underrepresented scenarios</strong>:
-<ul><li>Tabular: Predicting hospital demand during a rare pandemic with
-limited historical data.</li>
-<li>Image: Detecting tumors in rare imaging modalities (e.g., PET
-scans).</li>
-<li>Text: Answering questions about niche technical domains in a chatbot
-system.</li>
-</ul></li>
-<li>
 <strong>Systematic resolution differences</strong>:
 <ul><li>Image: A model trained on high-resolution images but tested on
 low-resolution inputs (e.g., wildlife drones capturing lower-resolution
@@ -538,21 +567,15 @@ data than the training dataset).</li>
 than the training examples.</li>
 </ul></li>
 <li>
-<strong>Novel or unseen data points</strong>:
-<ul><li>Tabular: Classifying user behavior from a new region not included in
-training data.</li>
-<li>Image: Recognizing a new species in wildlife monitoring.</li>
-<li>Text: Interpreting slang or idiomatic expressions unseen during
-training.</li>
-</ul></li>
-<li>
 <strong>Out-of-distribution (OOD) data</strong>:
-<ul><li>Tabular: Unexpected shifts in sensor readings from equipment
-malfunctions.</li>
-<li>Image: Adversarial images with imperceptible changes designed to
-confuse the model.</li>
+<ul><li>Tabular: Classifying user behavior from a new region not included in
+training data. Predicting hospital demand during a rare pandemic with
+limited historical data.</li>
+<li>Image: Recognizing a new species in wildlife monitoring. Detecting a
+rare/unseen obstacle to automate driving.</li>
 <li>Text: Queries about topics completely outside the model’s domain
-(e.g., financial queries in a healthcare chatbot).</li>
+(e.g., financial queries in a healthcare chatbot). Interpreting slang or
+idiomatic expressions unseen during training.</li>
 </ul></li>
 <li>
 <strong>Sparse or insufficient data in feature space</strong>:
@@ -566,18 +589,18 @@ terminology.</li>
 </ul><div class="section level4">
 <h4 id="methods-for-addressing-epistemic-uncertainty">Methods for addressing epistemic uncertainty<a class="anchor" aria-label="anchor" href="#methods-for-addressing-epistemic-uncertainty"></a></h4>
 <p>Epistemic uncertainty arises from the model’s lack of knowledge about
-certain regions of the data space. Techniques to estimate it
-include:</p>
+certain regions of the data space. Techniques to address this
+uncertainty include:</p>
 <ul><li>
-<strong>Monte Carlo dropout</strong>: In this method, dropout (a
-regularization technique that randomly disables some neurons) is applied
-during inference, and multiple forward passes are performed for the same
-input. The variability in the outputs across these passes gives an
-estimate of uncertainty. Intuitively, each forward pass simulates a
-slightly different version of the model, akin to an ensemble. If the
-model consistently predicts similar outputs despite dropout, it is
-confident; if predictions vary widely, the model is uncertain about that
-input.</li>
+<strong>Ensemble models</strong>: These involve training multiple
+models on the same data, each starting with different initializations or
+random seeds. The ensemble’s predictions are aggregated, and the
+variance in their outputs reflects uncertainty. This approach works well
+because different models often capture different aspects of the data.
+For example, if all models agree, the prediction is confident; if they
+disagree, there is uncertainty. Ensembles are effective but
+computationally expensive, as they require training and evaluating
+multiple models.</li>
 <li>
 <strong>Bayesian neural networks</strong>: These networks
 incorporate probabilistic layers to model uncertainty directly in the
@@ -599,16 +622,6 @@ valuable for research contexts where precise uncertainty quantification
 is needed or in domains where computational resources are less of a
 concern.</li>
 <li>
-<strong>Ensemble models</strong>: These involve training multiple
-models on the same data, each starting with different initializations or
-random seeds. The ensemble’s predictions are aggregated, and the
-variance in their outputs reflects uncertainty. This approach works well
-because different models often capture different aspects of the data.
-For example, if all models agree, the prediction is confident; if they
-disagree, there is uncertainty. Ensembles are effective but
-computationally expensive, as they require training and evaluating
-multiple models.</li>
-<li>
 <strong>Out-of-distribution detection</strong>: Identifies inputs
 that fall significantly outside the training distribution, flagging
 areas where the model’s predictions are unreliable. Many OOD methods
@@ -619,94 +632,18 @@ uncertainty, providing insight into how unfamiliar an input is. However,
 OOD detection focuses on distinguishing ID from OOD inputs rather than
 offering confidence estimates for predictions on ID inputs.</li>
 <li>
-<strong>Collect more data</strong>: Focus on gathering data from
-underrepresented scenarios or regions of the feature space, particularly
-areas where the model exhibits high uncertainty (e.g., rare medical
-conditions, edge cases in autonomous driving). This directly reduces
-epistemic uncertainty by expanding the model’s knowledge base.</li>
-<li>
+<strong>Collect more data</strong>: Easier said than done! Focus on
+gathering data from underrepresented scenarios or regions of the feature
+space, particularly areas where the model exhibits high uncertainty
+(e.g., rare medical conditions, edge cases in autonomous driving). This
+directly reduces epistemic uncertainty by expanding the model’s
+knowledge base.
+<ul><li>
 <strong>Active learning</strong>: Use model uncertainty estimates to
 prioritize uncertain or ambiguous samples for annotation, enabling more
 targeted data collection.</li>
+</ul></li>
 </ul></div>
-<div class="section level4">
-<h4 id="methods-for-addressing-epistemic-uncertainty-table">Methods for addressing epistemic uncertainty (table)<a class="anchor" aria-label="anchor" href="#methods-for-addressing-epistemic-uncertainty-table"></a></h4>
-<table class="table"><colgroup><col width="11%"><col width="20%"><col width="22%"><col width="15%"><col width="14%"><col width="15%"></colgroup><thead><tr class="header"><th>Method</th>
-<th>Key strengths</th>
-<th>Key limitations</th>
-<th>Suitable model sizes</th>
-<th>Suitable data sizes</th>
-<th>Compute time (approx.)</th>
-</tr></thead><tbody><tr class="odd"><td>Bayesian neural nets</td>
-<td>Rigorous probabilistic foundation</td>
-<td>Computationally prohibitive for large models/datasets due to
-repeated approximation of posterior distributions</td>
-<td>Small to medium</td>
-<td>Small to medium</td>
-<td>Very high (requires posterior approximation with multiple forward
-passes)</td>
-</tr><tr class="even"><td>Ensemble models</td>
-<td>Effective and robust; captures diverse uncertainties</td>
-<td>Resource-intensive; requires training multiple models</td>
-<td>Small to large (scales with ensemble size)</td>
-<td>Small to large</td>
-<td>Very high (training multiple models)</td>
-</tr><tr class="odd"><td>Monte Carlo dropout</td>
-<td>Easy to implement in existing neural networks</td>
-<td>Computationally expensive due to multiple forward passes</td>
-<td>Small to large</td>
-<td>Small to large</td>
-<td>High (scales with forward passes)</td>
-</tr><tr class="even"><td>OOD detection</td>
-<td>Efficient, scalable, excels at rejecting anomalous inputs</td>
-<td>Comparisons to OOD classes can be infinite, making perfect
-thresholds hard to define; struggles with subtle in-distribution
-shifts</td>
-<td>Small to large</td>
-<td>Small to large</td>
-<td>Low to medium (scales efficiently)</td>
-</tr></tbody></table><div id="understanding-size-categories-in-table" class="callout">
-<div class="callout-square">
-<i class="callout-icon" data-feather="bell"></i>
-</div>
-<div id="understanding-size-categories-in-table" class="callout-inner">
-<h3 class="callout-title">Understanding size categories in table</h3>
-<div class="callout-content">
-<p>To help guide method selection, here are rough definitions for
-<strong>model size</strong>, <strong>data size</strong>, and
-<strong>compute requirements</strong> used in the table:</p>
-<p><strong>Model size</strong></p>
-<ul><li>
-<strong>Small</strong>: Fewer than 10M parameters (e.g., logistic
-regression, LeNet).</li>
-<li>
-<strong>Medium</strong>: 10M–100M parameters (e.g., ResNet-50,
-BERT-base).</li>
-<li>
-<strong>Large</strong>: More than 100M parameters (e.g., GPT-3,
-Vision Transformers).</li>
-</ul><p><strong>Data size</strong></p>
-<ul><li>
-<strong>Small</strong>: Fewer than 10,000 samples.</li>
-<li>
-<strong>Medium</strong>: 10,000–1M samples (e.g., ImageNet).</li>
-<li>
-<strong>Large</strong>: More than 1M samples (e.g., Common Crawl,
-LAION-5B).</li>
-</ul><p><strong>Compute time</strong> (approximate)</p>
-<ul><li>
-<strong>Low</strong>: Suitable for standard CPU or single GPU,
-training/inference in minutes to an hour.</li>
-<li>
-<strong>Medium</strong>: Requires a modern GPU, training/inference
-in hours to a day.</li>
-<li>
-<strong>High</strong>: Requires multiple GPUs/TPUs or distributed
-setups, training/inference in days to weeks.</li>
-</ul></div>
-</div>
-</div>
-</div>
 <div class="section level4">
 <h4 id="why-is-ood-detection-widely-adopted">Why is OOD detection widely adopted?<a class="anchor" aria-label="anchor" href="#why-is-ood-detection-widely-adopted"></a></h4>
 <p>Among epistemic uncertainty methods, OOD detection has become a
@@ -753,7 +690,7 @@ applicability.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>For hospital resource allocation, both aleatoric and epistemic
 uncertainties play a critical role. Aleatoric uncertainty arises from
@@ -833,7 +770,7 @@ real-world deployment.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>For tumor detection, aleatoric uncertainty arises from variability in
 image quality, such as noise, motion blur, or resolution artifacts.
@@ -908,7 +845,7 @@ advanced techniques.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <p>For chatbot intent recognition, aleatoric uncertainty comes from
 ambiguous or noisy user queries, while epistemic uncertainty arises from
@@ -1054,7 +991,7 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/fair-explainable-ml/instructor/6-confidence-intervals.html",
   "identifier": "https://carpentries-incubator.github.io/fair-explainable-ml/instructor/6-confidence-intervals.html",
   "dateCreated": "2023-12-05",
-  "dateModified": "2024-12-01",
+  "dateModified": "2024-12-17",
   "datePublished": "2024-12-17"
 }
 
