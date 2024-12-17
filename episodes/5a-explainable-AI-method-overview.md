@@ -52,34 +52,29 @@ While global explanations may be more comprehensive, they run the risk of being 
 Both types of explanations are valuable for uncovering biases and ensuring that the model makes predictions for the right reasons. 
 The tradeoff between local and global explanations has a long history in statistics, with methods like linear regression (global) and kernel smoothing (local) illustrating the importance of considering both perspectives in statistical analysis.
 
-#### Local example: Feature attribution with SHAP
+#### Local example: Understanding single prediciton using SHAP
+SHAP (SHapley Additive exPlanations) is a feature attribution method that provides insights into how individual features contribute to a specific prediction for an *individual instance*. Its popularity stems from its strong theoretical foundation and flexibility, making it applicable across a wide range of machine learning models, including tree-based models, linear regressions, and neural networks. SHAP is particularly relevant for deep learning models, where traditional feature importance methods struggle to handle complex feature interactions and non-linearities.
 
-SHAP (SHapley Additive exPlanations) is a feature attribution method that provides insights into how individual features contribute to a specific prediction for an individual instance.
+**Examples**
 
-- **How it works**: SHAP perturbs features in all possible combinations and calculates their impact on the prediction. This process ensures that the contribution of each feature is evaluated fairly and consistently.
-- **Applications**:
-  - Explaining why a specific patient was diagnosed with a condition.
-  - Identifying the most influential features in predicting the price of a single house in a housing dataset.
-- **Strengths**:
-  - Offers precise and theoretically grounded local explanations.
-  - Useful for debugging individual predictions or building trust with stakeholders.
-- **Limitations**:
-  - Computationally expensive, especially for high-dimensional datasets or complex models.
+- Explaining why a specific patient was predicted to have a high risk of developing a disease.
+- Identifying the key features driving the predicted price of a single house in a real estate model.
+- Understanding why a fraud detection model flagged a particular transaction as suspicious
+
+**How it works**: SHAP values start with a model that's been fitted to all features and training data. We then perturb the instance by including or excluding features, where excluding a feature means replacing its value with a baseline value (i.e., its average value or a value sampled from the dataset). For each subset of features, SHAP computes the model's prediction and measures the marginal contribution of each feature to the outcome. To ensure fairness and consistency, SHAP averages these contributions across all possible feature orderings. The result is a set of SHAP values that explain how much each feature pushed the prediction higher or lower relative to the baseline model output. These local explanations provide clear, human-readable insights into why the model made a particular prediction. However, for high-dimensional datasets, the combinatorial nature of feature perturbations can lead to longer compute times, making approximations like Kernel SHAP more practical.
 
 #### Global example: Aggregated insights with SHAP
+SHAP (SHapley Additive exPlanations) can also provide global insights by aggregating feature attributions across multiple instances, offering a comprehensive understanding of a model's behavior. Its ability to rank feature importance and reveal trends makes it invaluable for uncovering dataset-wide patterns and detecting potential biases. This global perspective is particularly useful for complex models where direct interpretation of weights or architecture is not feasible.
 
-SHAP can also provide global insights by averaging feature attributions across many individual instances. This allows practitioners to identify overall trends, rank feature importance, and detect dataset-wide biases.
+**Examples**
 
-- **How it works**: SHAP values for individual instances are aggregated to compute global feature importance. For example, calculating the average SHAP value for each feature across all instances reveals how strongly that feature influences the model's predictions overall.
-- **Applications**:
-  - Understanding which features are most predictive across a dataset (e.g., income level being the most significant factor in loan approvals).
-  - Detecting global trends or biases in model predictions.
-- **Strengths**:
-  - Bridges local and global interpretability by connecting individual predictions to dataset-wide insights.
-  - Provides theoretically consistent global feature importance rankings.
-- **Limitations**:
-  - May require significant computational resources for large datasets or complex models.
+- Understanding which features are the most influential across a dataset (e.g., income level being the most significant factor in loan approvals).
+- Detecting global trends or biases in a predictive model, such as gender-based discrepancies in hiring recommendations.
+- Identifying the key drivers behind a model's success in predicting customer churn rates.
 
+**How it works**: SHAP values are first computed for individual predictions by analyzing the contributions of features to specific outputs. These local attributions are then aggregated across all instances in the dataset to compute a global measure of feature importance. For example, averaging the absolute SHAP values for each feature reveals its overall impact on the model’s predictions. This process allows practitioners to identify which features consistently drive predictions and uncover dataset-level insights. By connecting local explanations to a broader view, SHAP provides a unified approach to understanding both individual predictions and global model behavior.
+
+However, for large datasets or highly complex models, aggregating SHAP values can be computationally expensive. Optimized implementations, such as Tree SHAP for tree-based models, help mitigate this challenge by efficiently calculating global feature attributions.
 
 ### Black box vs White Box Approaches
 Techniques that require access to model internals (e.g., model architecture and model weights) are called "white box" while techniques that only need query access to the model are called "black box". 
