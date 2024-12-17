@@ -408,7 +408,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Explainability methods: GradCAM</h1>
-        <p>Last updated on 2024-12-16 |
+        <p>Last updated on 2024-12-17 |
 
         <a href="https://github.com/carpentries-incubator/fair-explainable-ml/edit/main/episodes/5d-gradcam.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -520,28 +520,7 @@ on.</p>
 <hr class="half-width"><div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Packages to download test images</span></span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="im">import</span> requests</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="co"># Packages to view and process images</span></span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="im">import</span> cv2</span>
-<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="im">from</span> PIL <span class="im">import</span> Image</span>
-<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="co"># Packages to load the model</span></span>
-<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="im">import</span> torch</span>
-<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="im">from</span> torchvision.models <span class="im">import</span> resnet50</span>
-<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="co"># GradCAM Packaes</span></span>
-<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="im">from</span> pytorch_grad_cam <span class="im">import</span> GradCAM</span>
-<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a><span class="im">from</span> pytorch_grad_cam.utils.model_targets <span class="im">import</span> ClassifierOutputTarget</span>
-<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a><span class="im">from</span> pytorch_grad_cam.utils.image <span class="im">import</span> show_cam_on_image, preprocess_image</span></code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb2">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>device <span class="op">=</span> <span class="st">'cpu'</span> <span class="co"># we're using the CPU only version of this workshop </span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>device <span class="op">=</span> <span class="st">'cpu'</span> <span class="co"># we're using the CPU only version of this workshop </span></span></code></pre>
 </div>
 <div class="section level5">
 <h5 id="load-model">Load Model<a class="anchor" aria-label="anchor" href="#load-model"></a></h5>
@@ -549,38 +528,56 @@ on.</p>
 pre-trained on the ImageNet dataset, which contains 1.2 million images
 across 1000 classes. ResNet-50 is popular model that is a type of
 convolutional neural network. You can learn more about it here: <a href="https://pytorch.org/hub/pytorch_vision_resnet/" class="external-link uri">https://pytorch.org/hub/pytorch_vision_resnet/</a></p>
-<div class="codewrapper sourceCode" id="cb3">
+<div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>model <span class="op">=</span> resnet50(pretrained<span class="op">=</span><span class="va">True</span>).to(device).<span class="bu">eval</span>()</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="im">from</span> torchvision.models <span class="im">import</span> resnet50</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>model <span class="op">=</span> resnet50(pretrained<span class="op">=</span><span class="va">True</span>).to(device).<span class="bu">eval</span>() <span class="co"># set to evaluation/inference mode (rather than training)</span></span></code></pre>
 </div>
 </div>
 <div class="section level5">
 <h5 id="load-test-image">Load Test Image<a class="anchor" aria-label="anchor" href="#load-test-image"></a></h5>
 <p>Let’s first take a look at the image, which we source from the
 GradCAM package</p>
-<div class="codewrapper sourceCode" id="cb4">
+<div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/jacobgil/pytorch-grad-cam/master/examples/both.png"</span></span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>Image.<span class="bu">open</span>(requests.get(url, stream<span class="op">=</span><span class="va">True</span>).raw)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Packages to download images</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="im">from</span> PIL <span class="im">import</span> Image</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/jacobgil/pytorch-grad-cam/master/examples/both.png"</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>Image.<span class="bu">open</span>(requests.get(url, stream<span class="op">=</span><span class="va">True</span>).raw)</span></code></pre>
 </div>
 <p>Cute, isn’t it? Do you prefer dogs or cats?</p>
 <p>We will need to convert the image into a tensor to feed it into the
 model. Let’s create a function to do this for us.</p>
+<p><strong>ML reminder:</strong> A tensor is a mathematical object that
+can be thought of as a generalization of scalars, vectors, and matrices.
+Tensors have a rank (or order), which determines their
+dimensionality:</p>
+<ul><li>Rank 0: Scalar (a single number, e.g., 5)</li>
+<li>Rank 1: Vector (a 1-dimensional array, e.g., [1, 2, 3])</li>
+<li>Rank 2: Matrix (a 2-dimensional array, e.g., [[1, 2], [3, 4]])</li>
+<li>Rank ≥ 3: Higher-dimensional tensors (e.g., a 3D tensor for images,
+a 4D tensor for batch processing, etc.)</li>
+</ul><div class="codewrapper sourceCode" id="cb4">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="im">from</span> pytorch_grad_cam.utils.image <span class="im">import</span> preprocess_image</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="kw">def</span> load_image(url):</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>    rgb_img <span class="op">=</span> np.array(Image.<span class="bu">open</span>(requests.get(url, stream<span class="op">=</span><span class="va">True</span>).raw))</span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>    rgb_img <span class="op">=</span> np.float32(rgb_img) <span class="op">/</span> <span class="dv">255</span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>    input_tensor <span class="op">=</span> preprocess_image(rgb_img).to(device)</span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>    <span class="cf">return</span> input_tensor, rgb_img</span></code></pre>
+</div>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="kw">def</span> load_image(url):</span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>    rgb_img <span class="op">=</span> np.array(Image.<span class="bu">open</span>(requests.get(url, stream<span class="op">=</span><span class="va">True</span>).raw))</span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>    rgb_img <span class="op">=</span> np.float32(rgb_img) <span class="op">/</span> <span class="dv">255</span></span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>    input_tensor <span class="op">=</span> preprocess_image(rgb_img).to(device)</span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>    <span class="cf">return</span> input_tensor, rgb_img</span></code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb6">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>input_tensor, rgb_image <span class="op">=</span> load_image(url)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>input_tensor, rgb_image <span class="op">=</span> load_image(url)</span></code></pre>
 </div>
 </div>
 <div class="section level3">
@@ -588,10 +585,10 @@ model. Let’s create a function to do this for us.</p>
 <p>Let’s start by selecting which layers of the model we want to use to
 generate the CAM. For that, we will need to inspect the model
 architecture. We can do that by simply printing the model object.</p>
-<div class="codewrapper sourceCode" id="cb7">
+<div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="bu">print</span>(model)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="bu">print</span>(model)</span></code></pre>
 </div>
 <p>Here we want to interpret what the model as a whole is doing (not
 what a specific layer is doing). That means that we want to use the
@@ -600,10 +597,10 @@ is the layer that contains the information about the image encoded by
 the model as a whole.</p>
 <p>Looking at the model, we can see that the last layer before the final
 classification layer is <code>layer4</code>.</p>
-<div class="codewrapper sourceCode" id="cb8">
+<div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>target_layers <span class="op">=</span> [model.layer4]</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>target_layers <span class="op">=</span> [model.layer4]</span></code></pre>
 </div>
 <p>We also want to pick a label for the CAM - this is the class we want
 to visualize the activation for. Essentially, we want to see what the
@@ -611,13 +608,13 @@ model is looking at when it is predicting a certain class.</p>
 <p>Since ResNet was trained on the ImageNet dataset with 1000 classes,
 let’s get an indexed list of those classes. We can then pick the index
 of the class we want to visualize.</p>
-<div class="codewrapper sourceCode" id="cb9">
+<div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>imagenet_categories_url <span class="op">=</span> <span class="op">\</span></span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>     <span class="st">"https://gist.githubusercontent.com/yrevar/942d3a0ac09ec9e5eb3a/raw/238f720ff059c1f82f368259d1ca4ffa5dd8f9f5/imagenet1000_clsidx_to_labels.txt"</span></span>
-<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>labels <span class="op">=</span> <span class="bu">eval</span>(requests.get(imagenet_categories_url).text)</span>
-<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>labels</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>imagenet_categories_url <span class="op">=</span> <span class="op">\</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>     <span class="st">"https://gist.githubusercontent.com/yrevar/942d3a0ac09ec9e5eb3a/raw/238f720ff059c1f82f368259d1ca4ffa5dd8f9f5/imagenet1000_clsidx_to_labels.txt"</span></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>labels <span class="op">=</span> <span class="bu">eval</span>(requests.get(imagenet_categories_url).text)</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>labels</span></code></pre>
 </div>
 <p>Well, that’s a lot! To simplify things, we have already picked out
 the indices of a few interesting classes.</p>
@@ -630,77 +627,134 @@ the indices of a few interesting classes.</p>
 <li>537: Dog Sleigh</li>
 <li>799: Sliding Door</li>
 <li>918: Street Sign</li>
-</ul><div class="codewrapper sourceCode" id="cb10">
+</ul><div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="co"># Specify the target class for visualization here. If you set this to None, the class with the highest score from the model will automatically be used.</span></span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>visualized_class_id <span class="op">=</span> <span class="dv">245</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co"># Specify the target class for visualization here. If you set this to None, the class with the highest score from the model will automatically be used.</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>visualized_class_id <span class="op">=</span> <span class="dv">245</span></span></code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb11">
+<div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="kw">def</span> viz_gradcam(model, target_layers, class_id):</span>
-<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>    <span class="cf">if</span> class_id <span class="kw">is</span> <span class="va">None</span>:</span>
-<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a>        targets <span class="op">=</span> <span class="va">None</span></span>
-<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a>        targets <span class="op">=</span> [ClassifierOutputTarget(class_id)]</span>
-<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a></span>
-<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a>    cam_algorithm <span class="op">=</span> GradCAM</span>
-<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a>    <span class="cf">with</span> cam_algorithm(model<span class="op">=</span>model, target_layers<span class="op">=</span>target_layers) <span class="im">as</span> cam:</span>
-<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a>        grayscale_cam <span class="op">=</span> cam(input_tensor<span class="op">=</span>input_tensor, targets<span class="op">=</span>targets)</span>
-<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a></span>
-<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a>        grayscale_cam <span class="op">=</span> grayscale_cam[<span class="dv">0</span>, :]</span>
-<span id="cb11-13"><a href="#cb11-13" tabindex="-1"></a></span>
-<span id="cb11-14"><a href="#cb11-14" tabindex="-1"></a>        cam_image <span class="op">=</span> show_cam_on_image(rgb_image, grayscale_cam, use_rgb<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb11-15"><a href="#cb11-15" tabindex="-1"></a>        cam_image <span class="op">=</span> cv2.cvtColor(cam_image, cv2.COLOR_RGB2BGR)</span>
-<span id="cb11-16"><a href="#cb11-16" tabindex="-1"></a></span>
-<span id="cb11-17"><a href="#cb11-17" tabindex="-1"></a>    plt.imshow(cam_image)</span>
-<span id="cb11-18"><a href="#cb11-18" tabindex="-1"></a>    plt.axis(<span class="st">"off"</span>)</span>
-<span id="cb11-19"><a href="#cb11-19" tabindex="-1"></a>    plt.show()</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="im">import</span> cv2</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="im">from</span> pytorch_grad_cam <span class="im">import</span> GradCAM</span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a><span class="im">from</span> pytorch_grad_cam.utils.image <span class="im">import</span> show_cam_on_image</span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a><span class="im">from</span> pytorch_grad_cam.utils.model_targets <span class="im">import</span> ClassifierOutputTarget</span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a><span class="kw">def</span> viz_gradcam(model, target_layers, class_id, input_tensor, rgb_image):</span>
+<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a><span class="co">    Visualize Grad-CAM heatmaps for a given model and target class.</span></span>
+<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a><span class="co">    Parameters:</span></span>
+<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a><span class="co">    1. model (torch.nn.Module): The neural network model.</span></span>
+<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a><span class="co">    2. target_layers (list): List of layers to compute Grad-CAM for (usually the last convolutional layer).</span></span>
+<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a><span class="co">    3. class_id (int or None): Target class ID for which Grad-CAM is computed. If None, the model's prediction is used.</span></span>
+<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a><span class="co">    4. input_tensor (torch.Tensor): The input image tensor expected by the model.</span></span>
+<span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a><span class="co">    5. rgb_image (numpy.ndarray): The original input image in RGB format, scaled to [0, 1].</span></span>
+<span id="cb10-18"><a href="#cb10-18" tabindex="-1"></a></span>
+<span id="cb10-19"><a href="#cb10-19" tabindex="-1"></a><span class="co">    Returns:</span></span>
+<span id="cb10-20"><a href="#cb10-20" tabindex="-1"></a><span class="co">    None. Displays a Grad-CAM heatmap over the input image.</span></span>
+<span id="cb10-21"><a href="#cb10-21" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb10-22"><a href="#cb10-22" tabindex="-1"></a></span>
+<span id="cb10-23"><a href="#cb10-23" tabindex="-1"></a>    <span class="co"># Step 1: Get predicted class if class_id is not specified</span></span>
+<span id="cb10-24"><a href="#cb10-24" tabindex="-1"></a>    <span class="cf">if</span> class_id <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb10-25"><a href="#cb10-25" tabindex="-1"></a>        <span class="cf">with</span> torch.no_grad():  <span class="co"># Disable gradient computation for efficiency (not needed for inference)</span></span>
+<span id="cb10-26"><a href="#cb10-26" tabindex="-1"></a>            outputs <span class="op">=</span> model(input_tensor)  <span class="co"># Run the input image through the model to get output scores</span></span>
+<span id="cb10-27"><a href="#cb10-27" tabindex="-1"></a>            </span>
+<span id="cb10-28"><a href="#cb10-28" tabindex="-1"></a>            <span class="co"># torch.argmax finds the index of the maximum value in the output tensor.</span></span>
+<span id="cb10-29"><a href="#cb10-29" tabindex="-1"></a>            <span class="co"># dim=1 indicates we are finding the maximum value **along the class dimension** </span></span>
+<span id="cb10-30"><a href="#cb10-30" tabindex="-1"></a>            <span class="co"># (assuming the shape of outputs is [batch_size, num_classes]).</span></span>
+<span id="cb10-31"><a href="#cb10-31" tabindex="-1"></a>            predicted_class <span class="op">=</span> torch.argmax(outputs, dim<span class="op">=</span><span class="dv">1</span>).item()  <span class="co"># Extract the top class index.</span></span>
+<span id="cb10-32"><a href="#cb10-32" tabindex="-1"></a>            </span>
+<span id="cb10-33"><a href="#cb10-33" tabindex="-1"></a>            <span class="co"># .item() converts the PyTorch scalar tensor to a Python integer (e.g., tensor(245) -&gt; 245).</span></span>
+<span id="cb10-34"><a href="#cb10-34" tabindex="-1"></a>            <span class="co"># This is necessary for further operations like accessing the class label from a list.</span></span>
+<span id="cb10-35"><a href="#cb10-35" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"Predicted Class: </span><span class="sc">{</span>labels[predicted_class]<span class="sc">}</span><span class="ss"> (</span><span class="sc">{</span>predicted_class<span class="sc">}</span><span class="ss">)"</span>)  <span class="co"># Print the predicted label</span></span>
+<span id="cb10-36"><a href="#cb10-36" tabindex="-1"></a>            </span>
+<span id="cb10-37"><a href="#cb10-37" tabindex="-1"></a>            <span class="co"># Define the target for Grad-CAM visualization.</span></span>
+<span id="cb10-38"><a href="#cb10-38" tabindex="-1"></a>            <span class="co"># ClassifierOutputTarget wraps the target class for Grad-CAM to calculate activations.</span></span>
+<span id="cb10-39"><a href="#cb10-39" tabindex="-1"></a>            targets <span class="op">=</span> [ClassifierOutputTarget(predicted_class)]</span>
+<span id="cb10-40"><a href="#cb10-40" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb10-41"><a href="#cb10-41" tabindex="-1"></a>        <span class="co"># If a specific class_id is provided, use it directly.</span></span>
+<span id="cb10-42"><a href="#cb10-42" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Target Class: </span><span class="sc">{</span>labels[class_id]<span class="sc">}</span><span class="ss"> (</span><span class="sc">{</span>class_id<span class="sc">}</span><span class="ss">)"</span>)</span>
+<span id="cb10-43"><a href="#cb10-43" tabindex="-1"></a>        targets <span class="op">=</span> [ClassifierOutputTarget(class_id)]</span>
+<span id="cb10-44"><a href="#cb10-44" tabindex="-1"></a>    </span>
+<span id="cb10-45"><a href="#cb10-45" tabindex="-1"></a>    <span class="co"># Step 2: Select the Grad-CAM algorithm.</span></span>
+<span id="cb10-46"><a href="#cb10-46" tabindex="-1"></a>    <span class="co"># Here, we use GradCAM, but this can be swapped for other algorithms like GradCAM++.</span></span>
+<span id="cb10-47"><a href="#cb10-47" tabindex="-1"></a>    cam_algorithm <span class="op">=</span> GradCAM</span>
+<span id="cb10-48"><a href="#cb10-48" tabindex="-1"></a></span>
+<span id="cb10-49"><a href="#cb10-49" tabindex="-1"></a>    <span class="co"># Step 3: Initialize the Grad-CAM object.</span></span>
+<span id="cb10-50"><a href="#cb10-50" tabindex="-1"></a>    <span class="co"># This links the model and the target layers where Grad-CAM will compute the gradients.</span></span>
+<span id="cb10-51"><a href="#cb10-51" tabindex="-1"></a>    cam <span class="op">=</span> cam_algorithm(model<span class="op">=</span>model, target_layers<span class="op">=</span>target_layers)</span>
+<span id="cb10-52"><a href="#cb10-52" tabindex="-1"></a></span>
+<span id="cb10-53"><a href="#cb10-53" tabindex="-1"></a>    <span class="co"># Step 4: Generate the Grad-CAM heatmap.</span></span>
+<span id="cb10-54"><a href="#cb10-54" tabindex="-1"></a>    <span class="co"># - input_tensor: The input image tensor (preprocessed as required by the model).</span></span>
+<span id="cb10-55"><a href="#cb10-55" tabindex="-1"></a>    <span class="co"># - targets: The target class for which we compute Grad-CAM (if None, model's prediction is used).</span></span>
+<span id="cb10-56"><a href="#cb10-56" tabindex="-1"></a>    grayscale_cam <span class="op">=</span> cam(input_tensor<span class="op">=</span>input_tensor, targets<span class="op">=</span>targets)</span>
+<span id="cb10-57"><a href="#cb10-57" tabindex="-1"></a></span>
+<span id="cb10-58"><a href="#cb10-58" tabindex="-1"></a>    <span class="co"># Step 5: Extract the heatmap corresponding to the first input image.</span></span>
+<span id="cb10-59"><a href="#cb10-59" tabindex="-1"></a>    <span class="co"># The result is [batch_size, height, width], so we select the first image: grayscale_cam[0, :].</span></span>
+<span id="cb10-60"><a href="#cb10-60" tabindex="-1"></a>    grayscale_cam <span class="op">=</span> grayscale_cam[<span class="dv">0</span>, :]</span>
+<span id="cb10-61"><a href="#cb10-61" tabindex="-1"></a></span>
+<span id="cb10-62"><a href="#cb10-62" tabindex="-1"></a>    <span class="co"># Step 6: Overlay the Grad-CAM heatmap on the original input image.</span></span>
+<span id="cb10-63"><a href="#cb10-63" tabindex="-1"></a>    <span class="co"># - show_cam_on_image: Combines the heatmap with the RGB image (values must be in [0, 1]).</span></span>
+<span id="cb10-64"><a href="#cb10-64" tabindex="-1"></a>    cam_image <span class="op">=</span> show_cam_on_image(rgb_image, grayscale_cam, use_rgb<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb10-65"><a href="#cb10-65" tabindex="-1"></a></span>
+<span id="cb10-66"><a href="#cb10-66" tabindex="-1"></a>    <span class="co"># Step 7: Convert the image from RGB to BGR (OpenCV's default format).</span></span>
+<span id="cb10-67"><a href="#cb10-67" tabindex="-1"></a>    cam_image <span class="op">=</span> cv2.cvtColor(cam_image, cv2.COLOR_RGB2BGR)</span>
+<span id="cb10-68"><a href="#cb10-68" tabindex="-1"></a></span>
+<span id="cb10-69"><a href="#cb10-69" tabindex="-1"></a>    <span class="co"># Step 8: Display the Grad-CAM heatmap overlaid on the input image.</span></span>
+<span id="cb10-70"><a href="#cb10-70" tabindex="-1"></a>    plt.imshow(cam_image)  <span class="co"># Show the image with the heatmap.</span></span>
+<span id="cb10-71"><a href="#cb10-71" tabindex="-1"></a>    plt.axis(<span class="st">"off"</span>)       <span class="co"># Remove axes for cleaner visualization.</span></span>
+<span id="cb10-72"><a href="#cb10-72" tabindex="-1"></a>    plt.show()             <span class="co"># Display the plot.</span></span></code></pre>
 </div>
 <p>Finally, we can start visualizing! Let’s begin by seeing what parts
 of the image the model looks at to make its most confident
 prediction.</p>
-<div class="codewrapper sourceCode" id="cb12">
+<div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>viz_gradcam(model<span class="op">=</span>model, target_layers<span class="op">=</span>target_layers, class_id<span class="op">=</span><span class="va">None</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>viz_gradcam(model<span class="op">=</span>model, target_layers<span class="op">=</span>target_layers, class_id<span class="op">=</span><span class="va">None</span>, input_tensor<span class="op">=</span>input_tensor, rgb_image<span class="op">=</span>rgb_image)</span></code></pre>
 </div>
 <p>Interesting, it looks like the model totally ignores the cat and
 makes a prediction based on the dog. If we set the output class to
 “French Bulldog” (<code>class_id=245</code>), we see the same
 visualization - meaning that the model is indeed looking at the correct
 part of the image to make the correct prediction.</p>
+<div class="codewrapper sourceCode" id="cb12">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>viz_gradcam(model<span class="op">=</span>model, target_layers<span class="op">=</span>target_layers, class_id<span class="op">=</span><span class="dv">245</span>, input_tensor<span class="op">=</span>input_tensor, rgb_image<span class="op">=</span>rgb_image)</span></code></pre>
+</div>
 <p>Let’s see what the heatmap looks like when we force the model to look
 at the cat.</p>
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>viz_gradcam(model<span class="op">=</span>model, target_layers<span class="op">=</span>target_layers, class_id<span class="op">=</span><span class="dv">281</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>viz_gradcam(model<span class="op">=</span>model, target_layers<span class="op">=</span>target_layers, class_id<span class="op">=</span><span class="dv">281</span>, input_tensor<span class="op">=</span>input_tensor, rgb_image<span class="op">=</span>rgb_image)</span></code></pre>
 </div>
 <p>The model is indeed looking at the cat when asked to predict the
-class “Tabby Cat” (<code>class_id=281</code>)! But why is it still
-predicting the dog? Well, the model was trained on the ImageNet dataset,
-which contains a lot of images of dogs and cats. The model has learned
-that the dog is a better indicator of the class “Tabby Cat” than the cat
-itself.</p>
+class “Tabby Cat” (class_id=281), as Grad-CAM highlights regions
+relevant to that class. However, the model may still predict the “dog”
+class overall because the dog’s features dominate the output logits when
+no specific target class is specified.</p>
 <p>Let’s see another example of this. The image has not only a dog and a
 cat, but also a items in the background. Can the model correctly
 identify the door?</p>
 <div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>viz_gradcam(model<span class="op">=</span>model, target_layers<span class="op">=</span>target_layers, class_id<span class="op">=</span><span class="dv">799</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>viz_gradcam(model<span class="op">=</span>model, target_layers<span class="op">=</span>target_layers, class_id<span class="op">=</span><span class="dv">799</span>, input_tensor<span class="op">=</span>input_tensor, rgb_image<span class="op">=</span>rgb_image)</span></code></pre>
 </div>
 <p>It can! However, it seems to also think of the shelf behind the dog
 as a door.</p>
 <p>Let’s try an unrelated object now. Where in the image does the model
-see a street sign?</p>
+see a crossword puzzle?</p>
 <div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>viz_gradcam(model<span class="op">=</span>model, target_layers<span class="op">=</span>target_layers, class_id<span class="op">=</span><span class="dv">918</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>viz_gradcam(model<span class="op">=</span>model, target_layers<span class="op">=</span>target_layers, class_id<span class="op">=</span><span class="dv">918</span>, input_tensor<span class="op">=</span>input_tensor, rgb_image<span class="op">=</span>rgb_image)</span></code></pre>
 </div>
 <p>Looks like our analysis has revealed a shortcoming of the model! It
 seems to percieve cats and street signs similarly.</p>
@@ -710,7 +764,7 @@ does a good job with the class for Dog Sleigh.</p>
 <div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>viz_gradcam(model<span class="op">=</span>model, target_layers<span class="op">=</span>target_layers, class_id<span class="op">=</span><span class="dv">537</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>viz_gradcam(model<span class="op">=</span>model, target_layers<span class="op">=</span>target_layers, class_id<span class="op">=</span><span class="dv">537</span>, input_tensor<span class="op">=</span>input_tensor, rgb_image<span class="op">=</span>rgb_image)</span></code></pre>
 </div>
 <p>Explaining model predictions though visualization techniques like
 this can be very subjective and prone to error. However, this still
@@ -782,7 +836,7 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/fair-explainable-ml/instructor/5d-gradcam.html",
   "identifier": "https://carpentries-incubator.github.io/fair-explainable-ml/instructor/5d-gradcam.html",
   "dateCreated": "2023-12-05",
-  "dateModified": "2024-12-16",
+  "dateModified": "2024-12-17",
   "datePublished": "2024-12-17"
 }
 
