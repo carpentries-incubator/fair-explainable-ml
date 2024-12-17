@@ -100,7 +100,7 @@ Tensors have a rank (or order), which determines their dimensionality:
 
 ```python
 import numpy as np
-from pytorch_grad_cam.utils.image import show_cam_on_image, preprocess_image
+from pytorch_grad_cam.utils.image import preprocess_image
 
 def load_image(url):
     rgb_img = np.array(Image.open(requests.get(url, stream=True).raw))
