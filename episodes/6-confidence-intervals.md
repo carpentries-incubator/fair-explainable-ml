@@ -57,7 +57,7 @@ Since aleatoric/random uncertainty is generally considered inherent (unless you 
 - **Probabilistic labeling or soft targets**: Instead of using hard labels (e.g., 0 or 1), assign probabilistic labels to account for ambiguity in the data. Example: If 70% of annotators labeled an image as "happy" and 30% as "neutral," you can label it as [0.7, 0.3] instead of forcing a binary decision.
 
     
-### 2. Epistemic uncertainty 
+### 3. Epistemic uncertainty 
 **Epistemic** (ep·i·ste·mic) is an adjective that means, "*relating to knowledge or to the degree of its validation.*" 
 
 Epistemic uncertainty refers to gaps in the model's knowledge about the data distribution, which can be reduced by using more data or improved models. Aleatoric uncertainy can arise due to:
