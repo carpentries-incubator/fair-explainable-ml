@@ -398,7 +398,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Estimating model uncertainty</h1>
-        <p>Last updated on 2024-12-17 |
+        <p>Last updated on 2024-12-18 |
 
         <a href="https://github.com/carpentries-incubator/fair-explainable-ml/edit/main/episodes/6-confidence-intervals.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -486,16 +486,18 @@ of noise or uncertainty.</p>
 <strong>Predictive variance in linear regression</strong>: The
 ability to derive error bars or prediction intervals in traditional
 regression comes from the assumption that the errors (residuals) follow
-a normal distribution.
+a normal distribution and are homoskedastic (errors stay relatively
+constant across different values of predictors).
 <ul><li>In contrast, deep learning models are highly non-linear and have
 millions (or billions) of parameters. The mapping between inputs and
 outputs is not a simple linear equation but rather a complex,
 multi-layer function. In addition, deep learning can overfit common
 classes and underfit rarer clases. Because of these factors, errors are
-rarely normally distributed in deep learning applications.</li>
+rarely normally distributed and homoskedastic in deep learning
+applications.</li>
 </ul></li>
 <li>
-<strong>Heteroscedastic models</strong>: Use specialized loss
+<strong>Heteroskedastic models</strong>: Use specialized loss
 functions that allow the model to predict the noise level in the data
 directly. These models are particularly critical in fields like
 <em>robotics</em>, where sensor noise varies significantly depending on
@@ -681,7 +683,7 @@ applicability.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>For hospital resource allocation, both aleatoric and epistemic
 uncertainties play a critical role. Aleatoric uncertainty arises from
@@ -761,7 +763,7 @@ real-world deployment.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>For tumor detection, aleatoric uncertainty arises from variability in
 image quality, such as noise, motion blur, or resolution artifacts.
@@ -836,7 +838,7 @@ advanced techniques.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <p>For chatbot intent recognition, aleatoric uncertainty comes from
 ambiguous or noisy user queries, while epistemic uncertainty arises from
@@ -982,7 +984,7 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/fair-explainable-ml/instructor/6-confidence-intervals.html",
   "identifier": "https://carpentries-incubator.github.io/fair-explainable-ml/instructor/6-confidence-intervals.html",
   "dateCreated": "2023-12-05",
-  "dateModified": "2024-12-17",
+  "dateModified": "2024-12-18",
   "datePublished": "2024-12-18"
 }
 
