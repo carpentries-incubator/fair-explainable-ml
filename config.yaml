@@ -68,7 +68,6 @@ episodes:
 - 7b-OOD-detection-softmax.md
 - 7c-OOD-detection-energy.md
 - 7d-OOD-detection-distance-based.md
-- 7e-OOD-detection-algo-design.md
 - 8-releasing-a-model.md
 
 # Information for Learners
