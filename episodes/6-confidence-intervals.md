@@ -62,29 +62,26 @@ Since aleatoric/random uncertainty is generally considered inherent (unless you 
 
 Epistemic uncertainty refers to gaps in the model's knowledge about the data distribution, which can be reduced by using more data or improved models. Aleatoric uncertainy can arise due to:
 
-- **Systematic resolution differences**:
-  - Image: A model trained on high-resolution images but tested on low-resolution inputs (e.g., wildlife drones capturing lower-resolution data than the training dataset).
-  - Text: OCR systems misclassifying text scanned at lower resolution than the training examples.
-
 - **Out-of-distribution (OOD) data**:
-  - Tabular: Classifying user behavior from a new region not included in training data. Predicting hospital demand during a rare pandemic with limited historical data.
-  - Image: Recognizing a new species in wildlife monitoring. Detecting a rare/unseen obstacle to automate driving.
+  - Tabular: Classifying user behavior from a new region not included in training data. Predicting hospital demand during a rare pandemic with limited historical data. Applying model trained on one location to another.
+  - Image: Recognizing a new species in wildlife monitoring. Detecting a rare/unseen obstacle to automate driving. A model trained on high-resolution images but tested on low-resolution inputs.
   - Text: Queries about topics completely outside the model's domain (e.g., financial queries in a healthcare chatbot).  Interpreting slang or idiomatic expressions unseen during training.
 
 - **Sparse or insufficient data in feature space**:
   - Tabular: High-dimensional data with many missing or sparsely sampled features (e.g., genomic datasets).
   - Image: Limited labeled examples for rare diseases in medical imaging datasets.
-  - Text: Few-shot learning scenarios for domain-specific terminology.
+  - Text: Rare domain-specific terminology.
 
 #### Methods for addressing epistemic uncertainty
 
 Epistemic uncertainty arises from the model's lack of knowledge about certain regions of the data space. Techniques to address this uncertainty include:
 
+- **Collect more data**: Easier said than done! Focus on gathering data from underrepresented scenarios or regions of the feature space, particularly areas where the model exhibits high uncertainty (e.g., rare medical conditions, edge cases in autonomous driving). This directly reduces epistemic uncertainty by expanding the model's knowledge base.
+  - **Active learning**: Use model uncertainty estimates to prioritize uncertain or ambiguous samples for annotation, enabling more targeted data collection.
 - **Ensemble models**: These involve training multiple models on the same data, each starting with different initializations or random seeds. The ensemble's predictions are aggregated, and the variance in their outputs reflects uncertainty. This approach works well because different models often capture different aspects of the data. For example, if all models agree, the prediction is confident; if they disagree, there is uncertainty. Ensembles are effective but computationally expensive, as they require training and evaluating multiple models.
 - **Bayesian neural networks**: These networks incorporate probabilistic layers to model uncertainty directly in the weights of the network. Instead of assigning a single deterministic weight to each connection, Bayesian neural networks assign distributions to these weights, reflecting the uncertainty about their true values. During inference, these distributions are sampled multiple times to generate predictions, which naturally include uncertainty estimates. While Bayesian neural networks are theoretically rigorous and align well with the goal of epistemic uncertainty estimation, they are computationally expensive and challenging to scale for large datasets or deep architectures. This is because calculating or approximating posterior distributions over all parameters becomes intractable as model size grows. To address this, methods like variational inference or Monte Carlo sampling are often used, but these approximations can introduce inaccuracies, making Bayesian approaches less practical for many modern applications. Despite these challenges, Bayesian neural networks remain valuable for research contexts where precise uncertainty quantification is needed or in domains where computational resources are less of a concern.
 - **Out-of-distribution detection**: Identifies inputs that fall significantly outside the training distribution, flagging areas where the model's predictions are unreliable. Many OOD methods produce continuous scores, such as Mahalanobis distance or energy-based scores, which measure how novel or dissimilar an input is from the training data. These scores can be interpreted as a form of epistemic uncertainty, providing insight into how unfamiliar an input is. However, OOD detection focuses on distinguishing ID from OOD inputs rather than offering confidence estimates for predictions on ID inputs.
-- **Collect more data**: Easier said than done! Focus on gathering data from underrepresented scenarios or regions of the feature space, particularly areas where the model exhibits high uncertainty (e.g., rare medical conditions, edge cases in autonomous driving). This directly reduces epistemic uncertainty by expanding the model's knowledge base.
-  - **Active learning**: Use model uncertainty estimates to prioritize uncertain or ambiguous samples for annotation, enabling more targeted data collection.
+
 
 #### Why is OOD detection widely adopted?
 
