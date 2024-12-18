@@ -550,20 +550,14 @@ instead of forcing a binary decision.</li>
 the data distribution, which can be reduced by using more data or
 improved models. Aleatoric uncertainy can arise due to:</p>
 <ul><li>
-<strong>Systematic resolution differences</strong>:
-<ul><li>Image: A model trained on high-resolution images but tested on
-low-resolution inputs (e.g., wildlife drones capturing lower-resolution
-data than the training dataset).</li>
-<li>Text: OCR systems misclassifying text scanned at lower resolution
-than the training examples.</li>
-</ul></li>
-<li>
 <strong>Out-of-distribution (OOD) data</strong>:
 <ul><li>Tabular: Classifying user behavior from a new region not included in
 training data. Predicting hospital demand during a rare pandemic with
-limited historical data.</li>
+limited historical data. Applying model trained on one location to
+another.</li>
 <li>Image: Recognizing a new species in wildlife monitoring. Detecting a
-rare/unseen obstacle to automate driving.</li>
+rare/unseen obstacle to automate driving. A model trained on
+high-resolution images but tested on low-resolution inputs.</li>
 <li>Text: Queries about topics completely outside the model’s domain
 (e.g., financial queries in a healthcare chatbot). Interpreting slang or
 idiomatic expressions unseen during training.</li>
@@ -574,8 +568,7 @@ idiomatic expressions unseen during training.</li>
 features (e.g., genomic datasets).</li>
 <li>Image: Limited labeled examples for rare diseases in medical imaging
 datasets.</li>
-<li>Text: Few-shot learning scenarios for domain-specific
-terminology.</li>
+<li>Text: Rare domain-specific terminology.</li>
 </ul></li>
 </ul><div class="section level4">
 <h4 id="methods-for-addressing-epistemic-uncertainty">Methods for addressing epistemic uncertainty<a class="anchor" aria-label="anchor" href="#methods-for-addressing-epistemic-uncertainty"></a></h4>
@@ -583,6 +576,18 @@ terminology.</li>
 certain regions of the data space. Techniques to address this
 uncertainty include:</p>
 <ul><li>
+<strong>Collect more data</strong>: Easier said than done! Focus on
+gathering data from underrepresented scenarios or regions of the feature
+space, particularly areas where the model exhibits high uncertainty
+(e.g., rare medical conditions, edge cases in autonomous driving). This
+directly reduces epistemic uncertainty by expanding the model’s
+knowledge base.
+<ul><li>
+<strong>Active learning</strong>: Use model uncertainty estimates to
+prioritize uncertain or ambiguous samples for annotation, enabling more
+targeted data collection.</li>
+</ul></li>
+<li>
 <strong>Ensemble models</strong>: These involve training multiple
 models on the same data, each starting with different initializations or
 random seeds. The ensemble’s predictions are aggregated, and the
@@ -622,18 +627,6 @@ training data. These scores can be interpreted as a form of epistemic
 uncertainty, providing insight into how unfamiliar an input is. However,
 OOD detection focuses on distinguishing ID from OOD inputs rather than
 offering confidence estimates for predictions on ID inputs.</li>
-<li>
-<strong>Collect more data</strong>: Easier said than done! Focus on
-gathering data from underrepresented scenarios or regions of the feature
-space, particularly areas where the model exhibits high uncertainty
-(e.g., rare medical conditions, edge cases in autonomous driving). This
-directly reduces epistemic uncertainty by expanding the model’s
-knowledge base.
-<ul><li>
-<strong>Active learning</strong>: Use model uncertainty estimates to
-prioritize uncertain or ambiguous samples for annotation, enabling more
-targeted data collection.</li>
-</ul></li>
 </ul></div>
 <div class="section level4">
 <h4 id="why-is-ood-detection-widely-adopted">Why is OOD detection widely adopted?<a class="anchor" aria-label="anchor" href="#why-is-ood-detection-widely-adopted"></a></h4>
@@ -681,7 +674,7 @@ applicability.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>For hospital resource allocation, both aleatoric and epistemic
 uncertainties play a critical role. Aleatoric uncertainty arises from
@@ -761,7 +754,7 @@ real-world deployment.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>For tumor detection, aleatoric uncertainty arises from variability in
 image quality, such as noise, motion blur, or resolution artifacts.
@@ -836,7 +829,7 @@ advanced techniques.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <p>For chatbot intent recognition, aleatoric uncertainty comes from
 ambiguous or noisy user queries, while epistemic uncertainty arises from
