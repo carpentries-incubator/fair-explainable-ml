@@ -33,10 +33,12 @@ $$
 D_M(x) = \sqrt{(x - \mu)^T \Sigma^{-1} (x - \mu)}
 $$
 where:
+
 - x: The input data point.
 - \(mu\): The mean vector of the distribution.
 - Sigma: The covariance matrix of the distribution. The inverse of the covariance matrix is used to "whiten" the feature space, ensuring that features with larger variances do not dominate the distance computation. This adjustment also accounts for correlations between features, transforming the data into a space where all features are uncorrelated and standardized.
 This approach is robust for high-dimensional data as it accounts for correlations between features.
+
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
