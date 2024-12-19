@@ -118,11 +118,11 @@
   Trustworthy AI: Explainability, Bias, Fairness, and Safety
 </div>
 
-<aside class="col-md-12 lesson-progress"><div style="width: 100%" class="percentage">
-    100%
+<aside class="col-md-12 lesson-progress"><div style="width: 65%" class="percentage">
+    65%
   </div>
   <div class="progress incubator">
-    <div class="progress-bar incubator" role="progressbar" style="width: 100%" aria-valuenow="100" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
+    <div class="progress-bar incubator" role="progressbar" style="width: 65%" aria-valuenow="65" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
     </div>
   </div>
 </aside><div class="container">
@@ -278,7 +278,7 @@
 <div class="accordion accordion-flush" id="accordionFlush10">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading10">
-        <a href="6-confidence-intervals.html">9. Estimating model uncertainty</a>
+        <a href="6-uncertainty-overview.html">9. Estimating model uncertainty</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -296,12 +296,21 @@
 <div class="accordion accordion-flush" id="accordionFlushcurrent">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-headingcurrent">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapsecurrent" aria-expanded="true" aria-controls="flush-collapsecurrent">
         <span class="visually-hidden">Current Chapter</span>
         <span class="current-chapter">
         11. OOD detection: softmax
         </span>
-      
+      </button>
     </div><!--/div.accordion-header-->
+
+    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
+      <div class="accordion-body">
+        <ul><li><a href="#visualizing-ood-and-id-data">Visualizing OOD and ID data</a></li>
+<li><a href="#how-does-our-model-view-ood-data">How does our model view OOD data?</a></li>
+<li><a href="#iterative-threshold-determination">Iterative Threshold Determination</a></li>
+        </ul></div><!--/div.accordion-body-->
+    </div><!--/div.accordion-collapse-->
 
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
@@ -318,7 +327,7 @@
 <div class="accordion accordion-flush" id="accordionFlush14">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading14">
-        <a href="7d-OOD-detection-distance-based.html">13. OOD detection: distance-based</a>
+        <a href="7d-OOD-detection-distance.html">13. OOD detection: distance-based</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -391,7 +400,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>OOD detection: softmax</h1>
-        <p>Last updated on 2024-11-26 |
+        <p>Last updated on 2024-12-19 |
 
         <a href="https://github.com/carpentries-incubator/fair-explainable-ml/edit/main/episodes/7b-OOD-detection-softmax.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -440,16 +449,20 @@ detection methods, such as energy-based detection.</li>
 </div>
 </div>
 </div>
-<div class="section level1">
-<h1 id="example-1-softmax-scores">Example 1: Softmax scores<a class="anchor" aria-label="anchor" href="#example-1-softmax-scores"></a></h1>
 <p>Softmax-based methods are among the most widely used techniques for
 out-of-distribution (OOD) detection, leveraging the probabilistic
 outputs of a model to differentiate between in-distribution (ID) and OOD
 data. These methods are inherently tied to models employing a softmax
 activation function in their final layer, such as logistic regression or
-neural networks with a classification output layer. Softmax produces a
-normalized probability distribution across the classes, which can then
-be thresholded to identify OOD instances.</p>
+neural networks with a classification output layer.</p>
+<p>The softmax function normalizes the logits (i.e., sum of neuron input
+without passing through activation function) in the final layer,
+squeezing the output into a range between 0 and 1. This is useful for
+interpreting the model’s predictions as probabilities. Softmax
+probabilities are computed as:</p>
+<p><span class="math display">\[
+P(y = k \mid x) = \frac{\exp(f_k(x))}{ \sum_{j} \exp(f_j(x))}
+\]</span></p>
 <p>In this lesson, we will train a logistic regression model to classify
 images from the Fashion MNIST dataset and explore how its softmax
 outputs can signal whether a given input belongs to the ID classes
@@ -457,99 +470,133 @@ outputs can signal whether a given input belongs to the ID classes
 most naturally applied in models with a logistic activation, alternative
 approaches, such as applying softmax-like operations post hoc to models
 with different architectures, are occasionally used. However, these
-alternatives are less common and may require additional
-considerations.</p>
-<p>By focusing on logistic regression, we aim to illustrate the
-fundamental principles of softmax-based OOD detection in a simple and
-interpretable context before extending these ideas to more complex
-architectures.</p>
-<div class="codewrapper sourceCode" id="cb1">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># some settings I'm playing around with when designing this lesson</span></span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>verbose <span class="op">=</span> <span class="va">False</span></span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>alpha<span class="op">=</span><span class="fl">0.2</span></span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>max_iter <span class="op">=</span> <span class="dv">10</span> <span class="co"># increase after testing phase</span></span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>n_epochs <span class="op">=</span> <span class="dv">10</span> <span class="co"># increase after testing phase</span></span></code></pre>
-</div>
-<div class="section level3">
-<h3 id="prepare-the-id-train-and-test-and-ood-data">Prepare the ID (train and test) and OOD data<a class="anchor" aria-label="anchor" href="#prepare-the-id-train-and-test-and-ood-data"></a></h3>
+alternatives are less common and may require additional considerations.
+By focusing on logistic regression, we aim to illustrate the fundamental
+principles of softmax-based OOD detection in a simple and interpretable
+context before extending these ideas to more complex architectures. ###
+Prepare the ID (train and test) and OOD data In order to determine a
+threshold that can separate ID data from OOD data (or ensure new test
+data as ID), we need to sample data from both distributions. OOD data
+used should be representative of potential new classes (i.e., semanitic
+shift) that may be seen by your model, or distribution/covariate shifts
+observed in your application area.</p>
 <ul><li>ID = T-shirts/Blouses, Pants</li>
 <li>OOD = any other class. For Illustrative purposes, we’ll focus on
 images of sandals as the OOD class.</li>
-</ul><div class="codewrapper sourceCode" id="cb2">
+</ul><div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score</span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="im">from</span> keras.datasets <span class="im">import</span> fashion_mnist</span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="kw">def</span> prep_ID_OOD_datasests(ID_class_labels, OOD_class_labels):</span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>    <span class="co"># Load Fashion MNIST dataset</span></span>
-<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>    (train_images, train_labels), (test_images, test_labels) <span class="op">=</span> fashion_mnist.load_data()</span>
-<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>    </span>
-<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>    <span class="co"># Prepare OOD data: Sandals = 5</span></span>
-<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>    ood_filter <span class="op">=</span> np.isin(test_labels, OOD_class_labels)</span>
-<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>    ood_data <span class="op">=</span> test_images[ood_filter]</span>
-<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>    ood_labels <span class="op">=</span> test_labels[ood_filter]</span>
-<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'ood_data.shape=</span><span class="sc">{</span>ood_data<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>    </span>
-<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>    <span class="co"># Filter data for T-shirts (0) and Trousers (1) as in-distribution</span></span>
-<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>    train_filter <span class="op">=</span> np.isin(train_labels, ID_class_labels)</span>
-<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>    test_filter <span class="op">=</span> np.isin(test_labels, ID_class_labels)</span>
-<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a>    </span>
-<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>    train_data <span class="op">=</span> train_images[train_filter]</span>
-<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>    train_labels <span class="op">=</span> train_labels[train_filter]</span>
-<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'train_data.shape=</span><span class="sc">{</span>train_data<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a>    </span>
-<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a>    test_data <span class="op">=</span> test_images[test_filter]</span>
-<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a>    test_labels <span class="op">=</span> test_labels[test_filter]</span>
-<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'test_data.shape=</span><span class="sc">{</span>test_data<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a></span>
-<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a>    <span class="cf">return</span> train_data, test_data, ood_data, train_labels, test_labels, ood_labels</span>
-<span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a></span>
-<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a></span>
-<span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a><span class="kw">def</span> plot_data_sample(train_data, ood_data):</span>
-<span id="cb2-33"><a href="#cb2-33" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="cb2-34"><a href="#cb2-34" tabindex="-1"></a><span class="co">    Plots a sample of in-distribution and OOD data.</span></span>
-<span id="cb2-35"><a href="#cb2-35" tabindex="-1"></a></span>
-<span id="cb2-36"><a href="#cb2-36" tabindex="-1"></a><span class="co">    Parameters:</span></span>
-<span id="cb2-37"><a href="#cb2-37" tabindex="-1"></a><span class="co">    - train_data: np.array, array of in-distribution data images</span></span>
-<span id="cb2-38"><a href="#cb2-38" tabindex="-1"></a><span class="co">    - ood_data: np.array, array of out-of-distribution data images</span></span>
-<span id="cb2-39"><a href="#cb2-39" tabindex="-1"></a></span>
-<span id="cb2-40"><a href="#cb2-40" tabindex="-1"></a><span class="co">    Returns:</span></span>
-<span id="cb2-41"><a href="#cb2-41" tabindex="-1"></a><span class="co">    - fig: matplotlib.figure.Figure, the figure object containing the plots</span></span>
-<span id="cb2-42"><a href="#cb2-42" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb2-43"><a href="#cb2-43" tabindex="-1"></a>    fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>))</span>
-<span id="cb2-44"><a href="#cb2-44" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
-<span id="cb2-45"><a href="#cb2-45" tabindex="-1"></a>        plt.subplot(<span class="dv">2</span>, <span class="dv">5</span>, i <span class="op">+</span> <span class="dv">1</span>)</span>
-<span id="cb2-46"><a href="#cb2-46" tabindex="-1"></a>        plt.imshow(train_data[i], cmap<span class="op">=</span><span class="st">'gray'</span>)</span>
-<span id="cb2-47"><a href="#cb2-47" tabindex="-1"></a>        plt.title(<span class="st">"In-Dist"</span>)</span>
-<span id="cb2-48"><a href="#cb2-48" tabindex="-1"></a>        plt.axis(<span class="st">'off'</span>)</span>
-<span id="cb2-49"><a href="#cb2-49" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
-<span id="cb2-50"><a href="#cb2-50" tabindex="-1"></a>        plt.subplot(<span class="dv">2</span>, <span class="dv">5</span>, i <span class="op">+</span> <span class="dv">6</span>)</span>
-<span id="cb2-51"><a href="#cb2-51" tabindex="-1"></a>        plt.imshow(ood_data[i], cmap<span class="op">=</span><span class="st">'gray'</span>)</span>
-<span id="cb2-52"><a href="#cb2-52" tabindex="-1"></a>        plt.title(<span class="st">"OOD"</span>)</span>
-<span id="cb2-53"><a href="#cb2-53" tabindex="-1"></a>        plt.axis(<span class="st">'off'</span>)</span>
-<span id="cb2-54"><a href="#cb2-54" tabindex="-1"></a>    </span>
-<span id="cb2-55"><a href="#cb2-55" tabindex="-1"></a>    <span class="cf">return</span> fig</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="im">from</span> keras.datasets <span class="im">import</span> fashion_mnist</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="kw">def</span> prep_ID_OOD_datasests(ID_class_labels, OOD_class_labels):</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="co">    Prepares in-distribution (ID) and out-of-distribution (OOD) datasets </span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="co">    from the Fashion MNIST dataset.</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="co">    Parameters:</span></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="co">    - ID_class_labels: list or array-like, labels for the in-distribution classes.</span></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="co">                       Example: [0, 1] for T-shirts (0) and Trousers (1).</span></span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="co">    - OOD_class_labels: list or array-like, labels for the out-of-distribution classes.</span></span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a><span class="co">                        Example: [5] for Sandals.</span></span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a><span class="co">    Returns:</span></span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a><span class="co">    - train_data: np.array, training images for in-distribution classes.</span></span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a><span class="co">    - test_data: np.array, test images for in-distribution classes.</span></span>
+<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a><span class="co">    - ood_data: np.array, test images for out-of-distribution classes.</span></span>
+<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a><span class="co">    - train_labels: np.array, labels corresponding to the training images.</span></span>
+<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a><span class="co">    - test_labels: np.array, labels corresponding to the test images.</span></span>
+<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a><span class="co">    - ood_labels: np.array, labels corresponding to the OOD test images.</span></span>
+<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a><span class="co">    Notes:</span></span>
+<span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a><span class="co">    - The function filters images based on provided class labels for ID and OOD.</span></span>
+<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a><span class="co">    - Outputs include images and their corresponding labels.</span></span>
+<span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a>    <span class="co"># Load Fashion MNIST dataset</span></span>
+<span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a>    (train_images, train_labels), (test_images, test_labels) <span class="op">=</span> fashion_mnist.load_data()</span>
+<span id="cb1-32"><a href="#cb1-32" tabindex="-1"></a>    </span>
+<span id="cb1-33"><a href="#cb1-33" tabindex="-1"></a>    <span class="co"># Prepare OOD data: Sandals = 5</span></span>
+<span id="cb1-34"><a href="#cb1-34" tabindex="-1"></a>    ood_filter <span class="op">=</span> np.isin(test_labels, OOD_class_labels)</span>
+<span id="cb1-35"><a href="#cb1-35" tabindex="-1"></a>    ood_data <span class="op">=</span> test_images[ood_filter]</span>
+<span id="cb1-36"><a href="#cb1-36" tabindex="-1"></a>    ood_labels <span class="op">=</span> test_labels[ood_filter]</span>
+<span id="cb1-37"><a href="#cb1-37" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'ood_data.shape=</span><span class="sc">{</span>ood_data<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb1-38"><a href="#cb1-38" tabindex="-1"></a>    </span>
+<span id="cb1-39"><a href="#cb1-39" tabindex="-1"></a>    <span class="co"># Filter data for T-shirts (0) and Trousers (1) as in-distribution</span></span>
+<span id="cb1-40"><a href="#cb1-40" tabindex="-1"></a>    train_filter <span class="op">=</span> np.isin(train_labels, ID_class_labels)</span>
+<span id="cb1-41"><a href="#cb1-41" tabindex="-1"></a>    test_filter <span class="op">=</span> np.isin(test_labels, ID_class_labels)</span>
+<span id="cb1-42"><a href="#cb1-42" tabindex="-1"></a>    </span>
+<span id="cb1-43"><a href="#cb1-43" tabindex="-1"></a>    train_data <span class="op">=</span> train_images[train_filter]</span>
+<span id="cb1-44"><a href="#cb1-44" tabindex="-1"></a>    train_labels <span class="op">=</span> train_labels[train_filter]</span>
+<span id="cb1-45"><a href="#cb1-45" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'train_data.shape=</span><span class="sc">{</span>train_data<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb1-46"><a href="#cb1-46" tabindex="-1"></a>    </span>
+<span id="cb1-47"><a href="#cb1-47" tabindex="-1"></a>    test_data <span class="op">=</span> test_images[test_filter]</span>
+<span id="cb1-48"><a href="#cb1-48" tabindex="-1"></a>    test_labels <span class="op">=</span> test_labels[test_filter]</span>
+<span id="cb1-49"><a href="#cb1-49" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'test_data.shape=</span><span class="sc">{</span>test_data<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb1-50"><a href="#cb1-50" tabindex="-1"></a></span>
+<span id="cb1-51"><a href="#cb1-51" tabindex="-1"></a>    <span class="cf">return</span> train_data, test_data, ood_data, train_labels, test_labels, ood_labels</span>
+<span id="cb1-52"><a href="#cb1-52" tabindex="-1"></a></span>
+<span id="cb1-53"><a href="#cb1-53" tabindex="-1"></a></span>
+<span id="cb1-54"><a href="#cb1-54" tabindex="-1"></a><span class="kw">def</span> plot_data_sample(train_data, ood_data):</span>
+<span id="cb1-55"><a href="#cb1-55" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb1-56"><a href="#cb1-56" tabindex="-1"></a><span class="co">    Plots a sample of in-distribution and OOD data.</span></span>
+<span id="cb1-57"><a href="#cb1-57" tabindex="-1"></a></span>
+<span id="cb1-58"><a href="#cb1-58" tabindex="-1"></a><span class="co">    Parameters:</span></span>
+<span id="cb1-59"><a href="#cb1-59" tabindex="-1"></a><span class="co">    - train_data: np.array, array of in-distribution data images</span></span>
+<span id="cb1-60"><a href="#cb1-60" tabindex="-1"></a><span class="co">    - ood_data: np.array, array of out-of-distribution data images</span></span>
+<span id="cb1-61"><a href="#cb1-61" tabindex="-1"></a></span>
+<span id="cb1-62"><a href="#cb1-62" tabindex="-1"></a><span class="co">    Returns:</span></span>
+<span id="cb1-63"><a href="#cb1-63" tabindex="-1"></a><span class="co">    - fig: matplotlib.figure.Figure, the figure object containing the plots</span></span>
+<span id="cb1-64"><a href="#cb1-64" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb1-65"><a href="#cb1-65" tabindex="-1"></a>    fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>))</span>
+<span id="cb1-66"><a href="#cb1-66" tabindex="-1"></a>    N_samples <span class="op">=</span> <span class="dv">7</span></span>
+<span id="cb1-67"><a href="#cb1-67" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(N_samples):</span>
+<span id="cb1-68"><a href="#cb1-68" tabindex="-1"></a>        plt.subplot(<span class="dv">2</span>, N_samples, i <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb1-69"><a href="#cb1-69" tabindex="-1"></a>        plt.imshow(train_data[i], cmap<span class="op">=</span><span class="st">'gray'</span>)</span>
+<span id="cb1-70"><a href="#cb1-70" tabindex="-1"></a>        plt.title(<span class="st">"In-Dist"</span>)</span>
+<span id="cb1-71"><a href="#cb1-71" tabindex="-1"></a>        plt.axis(<span class="st">'off'</span>)</span>
+<span id="cb1-72"><a href="#cb1-72" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(N_samples):</span>
+<span id="cb1-73"><a href="#cb1-73" tabindex="-1"></a>        plt.subplot(<span class="dv">2</span>, N_samples, i <span class="op">+</span> N_samples<span class="op">+</span><span class="dv">1</span>)</span>
+<span id="cb1-74"><a href="#cb1-74" tabindex="-1"></a>        plt.imshow(ood_data[i], cmap<span class="op">=</span><span class="st">'gray'</span>)</span>
+<span id="cb1-75"><a href="#cb1-75" tabindex="-1"></a>        plt.title(<span class="st">"OOD"</span>)</span>
+<span id="cb1-76"><a href="#cb1-76" tabindex="-1"></a>        plt.axis(<span class="st">'off'</span>)</span>
+<span id="cb1-77"><a href="#cb1-77" tabindex="-1"></a>    </span>
+<span id="cb1-78"><a href="#cb1-78" tabindex="-1"></a>    <span class="cf">return</span> fig</span></code></pre>
 </div>
+<p>Load and prepare the ID data (train+test containing shirts and pants)
+and OOD data (sandals)</p>
+<p><strong>Why not just add the OOD class to training dataset?</strong>
+OOD data is, by definition, not part of the training distribution. It
+could encompass anything outside the known classes, which means you’d
+need to collect a representative dataset for “everything else” to train
+the OOD class. This is practically impossible because OOD data is often
+diverse and unbounded (e.g., new species, novel medical conditions,
+adversarial examples).</p>
+<p>The key idea behind threshold-based methods is we want to vet our
+model against a small sample of potential risk-cases using known OOD
+data to determine an empirical threshold that <em>hopefully</em> extends
+to other OOD cases that may arise in real-world scenarios.</p>
+<p>That said, a common <em>next</em> step in OOD pipelines is to develop
+new models that handle the OOD data (e.g., adding new classes). The
+first step, however, is detecting the existence of such OOD data.</p>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># ID: T-shirts (0) and Trousers (1)</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="co"># OOD: Sandals (5)</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>train_data, test_data, ood_data, train_labels, test_labels, ood_labels <span class="op">=</span> prep_ID_OOD_datasests(ID_class_labels<span class="op">=</span>[<span class="dv">0</span>,<span class="dv">1</span>], OOD_class_labels<span class="op">=</span>[<span class="dv">5</span>])</span></code></pre>
+</div>
+<p>Plot sample</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>train_data, test_data, ood_data, train_labels, test_labels, ood_labels <span class="op">=</span> prep_ID_OOD_datasests([<span class="dv">0</span>,<span class="dv">1</span>], [<span class="dv">5</span>])</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>fig <span class="op">=</span> plot_data_sample(train_data, ood_data)</span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="co">#fig.savefig('../images/OOD-detection_image-data-preview.png', dpi=300, bbox_inches='tight')</span></span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>plt.show()</span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>fig <span class="op">=</span> plot_data_sample(train_data, ood_data)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>plt.show()</span></code></pre>
 </div>
-<figure><img src="https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/OOD-detection_image-data-preview.png" alt="Preview of image dataset" class="figure mx-auto d-block"><div class="figcaption">Preview of image dataset</div>
-</figure></div>
-<div class="section level2">
-<h2 id="visualizing-ood-and-id-data">Visualizing OOD and ID data<a class="anchor" aria-label="anchor" href="#visualizing-ood-and-id-data"></a></h2>
-<div class="section level3">
+<section><h2 class="section-heading" id="visualizing-ood-and-id-data">Visualizing OOD and ID data<a class="anchor" aria-label="anchor" href="#visualizing-ood-and-id-data"></a></h2>
+<hr class="half-width"><div class="section level3">
 <h3 id="pca">PCA<a class="anchor" aria-label="anchor" href="#pca"></a></h3>
 <p>PCA visualization can provide insights into how well a model is
 separating ID and OOD data. If the OOD data overlaps significantly with
@@ -592,8 +639,8 @@ from the ID data within those boundaries.</p>
 <span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a></span>
 <span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="co"># Plotting PCA components</span></span>
 <span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
-<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a>scatter1 <span class="op">=</span> plt.scatter(train_data_pca[train_labels <span class="op">==</span> <span class="dv">0</span>, <span class="dv">0</span>], train_data_pca[train_labels <span class="op">==</span> <span class="dv">0</span>, <span class="dv">1</span>], c<span class="op">=</span><span class="st">'blue'</span>, label<span class="op">=</span><span class="st">'T-shirt/top (ID)'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
-<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a>scatter2 <span class="op">=</span> plt.scatter(train_data_pca[train_labels <span class="op">==</span> <span class="dv">1</span>, <span class="dv">0</span>], train_data_pca[train_labels <span class="op">==</span> <span class="dv">1</span>, <span class="dv">1</span>], c<span class="op">=</span><span class="st">'red'</span>, label<span class="op">=</span><span class="st">'Pants (ID)'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a>scatter1 <span class="op">=</span> plt.scatter(train_data_pca[train_labels <span class="op">==</span> <span class="dv">0</span>, <span class="dv">0</span>], train_data_pca[train_labels <span class="op">==</span> <span class="dv">0</span>, <span class="dv">1</span>], c<span class="op">=</span><span class="st">'blue'</span>, label<span class="op">=</span><span class="st">'T-shirt/top (ID)'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a>scatter2 <span class="op">=</span> plt.scatter(train_data_pca[train_labels <span class="op">==</span> <span class="dv">1</span>, <span class="dv">0</span>], train_data_pca[train_labels <span class="op">==</span> <span class="dv">1</span>, <span class="dv">1</span>], c<span class="op">=</span><span class="st">'red'</span>, label<span class="op">=</span><span class="st">'Pants (ID)'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
 <span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a>scatter3 <span class="op">=</span> plt.scatter(ood_data_pca[:, <span class="dv">0</span>], ood_data_pca[:, <span class="dv">1</span>], c<span class="op">=</span><span class="st">'green'</span>, label<span class="op">=</span><span class="st">'Sandals (OOD)'</span>, edgecolor<span class="op">=</span><span class="st">'k'</span>)</span>
 <span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a></span>
 <span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="co"># Create a single legend for all classes</span></span>
@@ -601,13 +648,12 @@ from the ID data within those boundaries.</p>
 <span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a>plt.xlabel(<span class="st">'First Principal Component'</span>)</span>
 <span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a>plt.ylabel(<span class="st">'Second Principal Component'</span>)</span>
 <span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a>plt.title(<span class="st">'PCA of In-Distribution and OOD Data'</span>)</span>
-<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a><span class="co">#plt.savefig('../images/OOD-detection_PCA-image-dataset.png', dpi=300, bbox_inches='tight')</span></span>
-<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a>plt.show()</span></code></pre>
+<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a>plt.show()</span></code></pre>
 </div>
-<p><img src="https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/OOD-detection_PCA-image-dataset.png" alt="PCA visualization" class="figure"> From this plot, we see that sandals are more
-likely to be confused as T-shirts than pants. It also may be surprising
-to see that these data clouds overlap so much given their semantic
-differences. Why might this be?</p>
+<p>From this plot, we see that sandals are more likely to be confused as
+T-shirts than pants. It also may be surprising to see that these data
+clouds overlap so much given their semantic differences. Why might this
+be?</p>
 <ul><li>
 <strong>Over-reliance on linear relationships</strong>: Part of this
 has to do with the fact that we’re only looking at linear relationships
@@ -626,8 +672,7 @@ desired class labels. ## Train and evaluate model on ID data</li>
 </ul><div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="co"># Train a logistic regression classifier</span></span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>model <span class="op">=</span> LogisticRegression(max_iter<span class="op">=</span>max_iter, solver<span class="op">=</span><span class="st">'lbfgs'</span>, multi_class<span class="op">=</span><span class="st">'multinomial'</span>).fit(train_data_flat, train_labels)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>model <span class="op">=</span> LogisticRegression(max_iter<span class="op">=</span><span class="dv">10</span>, solver<span class="op">=</span><span class="st">'lbfgs'</span>, multi_class<span class="op">=</span><span class="st">'multinomial'</span>).fit(train_data_flat, train_labels) <span class="co"># 'lbfgs' is an efficient solver that works well for small to medium-sized datasets.</span></span></code></pre>
 </div>
 <p>Before we worry about the impact of OOD data, let’s first verify that
 we have a reasonably accurate model for the ID data.</p>
@@ -635,9 +680,9 @@ we have a reasonably accurate model for the ID data.</p>
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># Evaluate the model on in-distribution data</span></span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>in_dist_preds <span class="op">=</span> model.predict(test_data_flat)</span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>in_dist_accuracy <span class="op">=</span> accuracy_score(test_labels, in_dist_preds)</span>
-<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'In-Distribution Accuracy: </span><span class="sc">{</span>in_dist_accuracy<span class="sc">:.2f}</span><span class="ss">'</span>)</span></code></pre>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>ID_preds <span class="op">=</span> model.predict(test_data_flat)</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>ID_accuracy <span class="op">=</span> accuracy_score(test_labels, ID_preds)</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'In-Distribution Accuracy: </span><span class="sc">{</span>ID_accuracy<span class="sc">:.2f}</span><span class="ss">'</span>)</span></code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -645,18 +690,14 @@ we have a reasonably accurate model for the ID data.</p>
 <pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score, confusion_matrix, ConfusionMatrixDisplay</span>
 <span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="co"># Generate and display confusion matrix</span></span>
-<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>cm <span class="op">=</span> confusion_matrix(test_labels, in_dist_preds, labels<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">1</span>])</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>cm <span class="op">=</span> confusion_matrix(test_labels, ID_preds, labels<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">1</span>])</span>
 <span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>disp <span class="op">=</span> ConfusionMatrixDisplay(confusion_matrix<span class="op">=</span>cm, display_labels<span class="op">=</span>[<span class="st">'T-shirt/top'</span>, <span class="st">'Pants'</span>])</span>
 <span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>disp.plot(cmap<span class="op">=</span>plt.cm.Blues)</span>
-<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="co">#plt.savefig('../images/OOD-detection_ID-confusion-matrix.png', dpi=300, bbox_inches='tight')</span></span>
-<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>plt.show()</span></code></pre>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>plt.show()</span></code></pre>
 </div>
-<figure><img src="https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/OOD-detection_ID-confusion-matrix.png" alt="ID confusion matrix" class="figure mx-auto d-block"><div class="figcaption">ID confusion matrix</div>
-</figure></div>
 </div>
-<div class="section level2">
-<h2 id="how-does-our-model-view-ood-data">How does our model view OOD data?<a class="anchor" aria-label="anchor" href="#how-does-our-model-view-ood-data"></a></h2>
-<p>A basic question we can start with is to ask, on average, how are OOD
+</section><section><h2 class="section-heading" id="how-does-our-model-view-ood-data">How does our model view OOD data?<a class="anchor" aria-label="anchor" href="#how-does-our-model-view-ood-data"></a></h2>
+<hr class="half-width"><p>A basic question we can start with is to ask, on average, how are OOD
 samples classified? Are they more likely to be Tshirts or pants? For
 this kind of question, we can calculate the probability scores for the
 OOD data, and compare this to the ID data.</p>
@@ -666,18 +707,18 @@ OOD data, and compare this to the ID data.</p>
 <pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co"># Predict probabilities using the model on OOD data (Sandals)</span></span>
 <span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>ood_probs <span class="op">=</span> model.predict_proba(ood_data_flat)</span>
 <span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>avg_ood_prob <span class="op">=</span> np.mean(ood_probs, <span class="dv">0</span>)</span>
-<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Avg. probability of sandal being T-shirt: </span><span class="sc">{</span>avg_ood_prob[<span class="dv">0</span>]<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
-<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Avg. probability of sandal being pants: </span><span class="sc">{</span>avg_ood_prob[<span class="dv">1</span>]<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Avg. probability of sandal being T-shirt: </span><span class="sc">{</span>avg_ood_prob[<span class="dv">0</span>]<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Avg. probability of sandal being pants: </span><span class="sc">{</span>avg_ood_prob[<span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
 <span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>id_probs <span class="op">=</span> model.predict_proba(train_data_flat)</span>
-<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>id_probs_shirts <span class="op">=</span> id_probs[train_labels<span class="op">==</span><span class="dv">0</span>,:]</span>
-<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a>id_probs_pants <span class="op">=</span> id_probs[train_labels<span class="op">==</span><span class="dv">1</span>,:]</span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>id_probs <span class="op">=</span> model.predict_proba(test_data_flat) <span class="co"># a fairer comparison is to look at test set probabilities (just in case our model is overfitting)</span></span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>id_probs_shirts <span class="op">=</span> id_probs[test_labels<span class="op">==</span><span class="dv">0</span>,:]</span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a>id_probs_pants <span class="op">=</span> id_probs[test_labels<span class="op">==</span><span class="dv">1</span>,:]</span>
 <span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a>avg_tshirt_prob <span class="op">=</span> np.mean(id_probs_shirts, <span class="dv">0</span>)</span>
 <span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a>avg_pants_prob <span class="op">=</span> np.mean(id_probs_pants, <span class="dv">0</span>)</span>
 <span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a></span>
 <span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="bu">print</span>()</span>
-<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Avg. probability of T-shirt being T-shirt: </span><span class="sc">{</span>avg_tshirt_prob[<span class="dv">0</span>]<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
-<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Avg. probability of pants being pants: </span><span class="sc">{</span>avg_pants_prob[<span class="dv">1</span>]<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code></pre>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Avg. probability of T-shirt being T-shirt: </span><span class="sc">{</span>avg_tshirt_prob[<span class="dv">0</span>]<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Avg. probability of pants being pants: </span><span class="sc">{</span>avg_pants_prob[<span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre>
 </div>
 <p>Based on the difference in averages here, it looks like softmax may
 provide at least a somewhat useful signal in separating ID and OOD data.
@@ -711,15 +752,14 @@ OOD).</p>
 <span id="cb10-22"><a href="#cb10-22" tabindex="-1"></a></span>
 <span id="cb10-23"><a href="#cb10-23" tabindex="-1"></a><span class="co"># Adjusting layout</span></span>
 <span id="cb10-24"><a href="#cb10-24" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb10-25"><a href="#cb10-25" tabindex="-1"></a><span class="co">#plt.savefig('../images/OOD-detection_histograms.png', dpi=300, bbox_inches='tight')</span></span>
+<span id="cb10-25"><a href="#cb10-25" tabindex="-1"></a></span>
 <span id="cb10-26"><a href="#cb10-26" tabindex="-1"></a><span class="co"># Displaying the plot</span></span>
 <span id="cb10-27"><a href="#cb10-27" tabindex="-1"></a>plt.show()</span></code></pre>
 </div>
-<p><img src="https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/OOD-detection_histograms.png" alt="Histograms of ID oand OOD data" class="figure"> Alternatively, for a better
-comparison across all three classes, we can use a probability density
-plot. This will allow for an easier comparison when the counts across
-classes lie on vastly different sclaes (i.e., max of 35 vs max of
-5000).</p>
+<p>Alternatively, for a better comparison across all three classes, we
+can use a probability density plot. This will allow for an easier
+comparison when the counts across classes lie on vastly different scales
+(i.e., max of 35 vs max of 5000).</p>
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -750,19 +790,19 @@ classes lie on vastly different sclaes (i.e., max of 35 vs max of
 <span id="cb11-25"><a href="#cb11-25" tabindex="-1"></a>plt.xlabel(<span class="st">'Probability'</span>)</span>
 <span id="cb11-26"><a href="#cb11-26" tabindex="-1"></a>plt.ylabel(<span class="st">'Density'</span>)</span>
 <span id="cb11-27"><a href="#cb11-27" tabindex="-1"></a>plt.title(<span class="st">'Probability Density Distributions for OOD and ID Data'</span>)</span>
-<span id="cb11-28"><a href="#cb11-28" tabindex="-1"></a>plt.legend()</span>
-<span id="cb11-29"><a href="#cb11-29" tabindex="-1"></a></span>
-<span id="cb11-30"><a href="#cb11-30" tabindex="-1"></a><span class="co">#plt.savefig('../images/OOD-detection_PSDs.png', dpi=300, bbox_inches='tight')</span></span>
-<span id="cb11-31"><a href="#cb11-31" tabindex="-1"></a></span>
-<span id="cb11-32"><a href="#cb11-32" tabindex="-1"></a><span class="co"># Displaying the plot</span></span>
-<span id="cb11-33"><a href="#cb11-33" tabindex="-1"></a>plt.show()</span></code></pre>
+<span id="cb11-28"><a href="#cb11-28" tabindex="-1"></a>plt.ylim([<span class="dv">0</span>,<span class="dv">20</span>])</span>
+<span id="cb11-29"><a href="#cb11-29" tabindex="-1"></a>plt.legend()</span>
+<span id="cb11-30"><a href="#cb11-30" tabindex="-1"></a></span>
+<span id="cb11-31"><a href="#cb11-31" tabindex="-1"></a><span class="co">#plt.savefig('../images/OOD-detection_PSDs.png', dpi=300, bbox_inches='tight')</span></span>
+<span id="cb11-32"><a href="#cb11-32" tabindex="-1"></a></span>
+<span id="cb11-33"><a href="#cb11-33" tabindex="-1"></a><span class="co"># Displaying the plot</span></span>
+<span id="cb11-34"><a href="#cb11-34" tabindex="-1"></a>plt.show()</span></code></pre>
 </div>
-<p><img src="https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/OOD-detection_PSDs.png" alt="Probability densities" class="figure"> Unfortunately, we observe a significant
-amount of overlap between OOD data and high T-shirt probability.
-Furthermore, the blue line doesn’t seem to decrease much as you move
-from 0.9 to 1, suggesting that even a very high threshold is likely to
-lead to OOD contamination (while also tossing out a significant portion
-of ID data).</p>
+<p>Unfortunately, we observe a significant amount of overlap between OOD
+data and high T-shirt probability. Furthermore, the blue line doesn’t
+seem to decrease much as you move from 0.9 to 1, suggesting that even a
+very high threshold is likely to lead to OOD contamination (while also
+tossing out a significant portion of ID data).</p>
 <p>For pants, the problem is much less severe. It looks like a low
 threshold (on this T-shirt probability scale) can separate nearly all
 OOD samples from being pants.</p>
@@ -775,10 +815,35 @@ with a high threshold of 0.9 to see how that performs.</p>
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="kw">def</span> softmax_thresh_classifications(probs, threshold):</span>
-<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>    classifications <span class="op">=</span> np.where(probs[:, <span class="dv">1</span>] <span class="op">&gt;=</span> threshold, <span class="dv">1</span>,  <span class="co"># classified as pants</span></span>
-<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>                               np.where(probs[:, <span class="dv">0</span>] <span class="op">&gt;=</span> threshold, <span class="dv">0</span>,  <span class="co"># classified as shirts</span></span>
-<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>                                        <span class="op">-</span><span class="dv">1</span>))  <span class="co"># classified as OOD</span></span>
-<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>    <span class="cf">return</span> classifications</span></code></pre>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a><span class="co">    Classifies data points into categories based on softmax probabilities and a specified threshold.</span></span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a><span class="co">    Parameters:</span></span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a><span class="co">    - probs: np.array</span></span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a><span class="co">        A 2D array of shape (n_samples, n_classes) containing the softmax probabilities for each sample </span></span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a><span class="co">        across all classes. Each row corresponds to a single sample, and each column corresponds to </span></span>
+<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a><span class="co">        the probability of a specific class.</span></span>
+<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a><span class="co">    - threshold: float</span></span>
+<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a><span class="co">        A probability threshold for classification. Samples are classified into a specific class if </span></span>
+<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a><span class="co">        their corresponding probability exceeds the threshold.</span></span>
+<span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" tabindex="-1"></a><span class="co">    Returns:</span></span>
+<span id="cb12-15"><a href="#cb12-15" tabindex="-1"></a><span class="co">    - classifications: np.array</span></span>
+<span id="cb12-16"><a href="#cb12-16" tabindex="-1"></a><span class="co">        A 1D array of shape (n_samples,) where:</span></span>
+<span id="cb12-17"><a href="#cb12-17" tabindex="-1"></a><span class="co">        - 1 indicates the sample is classified as the second class (e.g., "pants").</span></span>
+<span id="cb12-18"><a href="#cb12-18" tabindex="-1"></a><span class="co">        - 0 indicates the sample is classified as the first class (e.g., "shirts").</span></span>
+<span id="cb12-19"><a href="#cb12-19" tabindex="-1"></a><span class="co">        - -1 indicates the sample is classified as out-of-distribution (OOD) because no class probability</span></span>
+<span id="cb12-20"><a href="#cb12-20" tabindex="-1"></a><span class="co">          exceeds the threshold.</span></span>
+<span id="cb12-21"><a href="#cb12-21" tabindex="-1"></a></span>
+<span id="cb12-22"><a href="#cb12-22" tabindex="-1"></a><span class="co">    Notes:</span></span>
+<span id="cb12-23"><a href="#cb12-23" tabindex="-1"></a><span class="co">    - The function assumes binary classification with probabilities for two classes provided in the `probs` array.</span></span>
+<span id="cb12-24"><a href="#cb12-24" tabindex="-1"></a><span class="co">    - If neither class probability exceeds the threshold, the sample is flagged as OOD with a classification of -1.</span></span>
+<span id="cb12-25"><a href="#cb12-25" tabindex="-1"></a><span class="co">    - This approach is suitable for threshold-based OOD detection tasks where probabilities can serve as confidence scores.</span></span>
+<span id="cb12-26"><a href="#cb12-26" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb12-27"><a href="#cb12-27" tabindex="-1"></a>    classifications <span class="op">=</span> np.where(probs[:, <span class="dv">1</span>] <span class="op">&gt;=</span> threshold, <span class="dv">1</span>,  <span class="co"># classified as pants</span></span>
+<span id="cb12-28"><a href="#cb12-28" tabindex="-1"></a>                               np.where(probs[:, <span class="dv">0</span>] <span class="op">&gt;=</span> threshold, <span class="dv">0</span>,  <span class="co"># classified as shirts</span></span>
+<span id="cb12-29"><a href="#cb12-29" tabindex="-1"></a>                                        <span class="op">-</span><span class="dv">1</span>))  <span class="co"># classified as OOD</span></span>
+<span id="cb12-30"><a href="#cb12-30" tabindex="-1"></a>    <span class="cf">return</span> classifications</span></code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -797,199 +862,255 @@ with a high threshold of 0.9 to see how that performs.</p>
 <span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a></span>
 <span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a><span class="co"># Combine OOD and ID classifications and true labels</span></span>
 <span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a>all_predictions <span class="op">=</span> np.concatenate([ood_classifications, id_classifications])</span>
-<span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a>all_true_labels <span class="op">=</span> np.concatenate([<span class="op">-</span><span class="dv">1</span> <span class="op">*</span> np.ones(ood_classifications.shape), train_labels])</span>
+<span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a>all_true_labels <span class="op">=</span> np.concatenate([<span class="op">-</span><span class="dv">1</span> <span class="op">*</span> np.ones(ood_classifications.shape), test_labels])</span>
 <span id="cb13-16"><a href="#cb13-16" tabindex="-1"></a></span>
-<span id="cb13-17"><a href="#cb13-17" tabindex="-1"></a><span class="co"># Confusion matrix</span></span>
-<span id="cb13-18"><a href="#cb13-18" tabindex="-1"></a>cm <span class="op">=</span> confusion_matrix(all_true_labels, all_predictions, labels<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>])</span>
-<span id="cb13-19"><a href="#cb13-19" tabindex="-1"></a></span>
-<span id="cb13-20"><a href="#cb13-20" tabindex="-1"></a><span class="co"># Plotting the confusion matrix</span></span>
-<span id="cb13-21"><a href="#cb13-21" tabindex="-1"></a>disp <span class="op">=</span> ConfusionMatrixDisplay(confusion_matrix<span class="op">=</span>cm, display_labels<span class="op">=</span>[<span class="st">"Shirt"</span>, <span class="st">"Pants"</span>, <span class="st">"OOD"</span>])</span>
-<span id="cb13-22"><a href="#cb13-22" tabindex="-1"></a>disp.plot(cmap<span class="op">=</span>plt.cm.Blues)</span>
-<span id="cb13-23"><a href="#cb13-23" tabindex="-1"></a>plt.title(<span class="st">'Confusion Matrix for OOD and ID Classification'</span>)</span>
-<span id="cb13-24"><a href="#cb13-24" tabindex="-1"></a></span>
-<span id="cb13-25"><a href="#cb13-25" tabindex="-1"></a><span class="co">#plt.savefig('../images/OOD-detection_ID-OOD-confusion-matrix1.png', dpi=300, bbox_inches='tight')</span></span>
-<span id="cb13-26"><a href="#cb13-26" tabindex="-1"></a></span>
-<span id="cb13-27"><a href="#cb13-27" tabindex="-1"></a>plt.show()</span>
-<span id="cb13-28"><a href="#cb13-28" tabindex="-1"></a></span>
-<span id="cb13-29"><a href="#cb13-29" tabindex="-1"></a><span class="co"># Looking at F1, precision, and recall</span></span>
-<span id="cb13-30"><a href="#cb13-30" tabindex="-1"></a>precision, recall, f1, _ <span class="op">=</span> precision_recall_fscore_support(all_true_labels, all_predictions, labels<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">1</span>], average<span class="op">=</span><span class="st">'macro'</span>) <span class="co"># discuss macro vs micro .</span></span>
-<span id="cb13-31"><a href="#cb13-31" tabindex="-1"></a></span>
-<span id="cb13-32"><a href="#cb13-32" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"F1: </span><span class="sc">{</span>f1<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb13-33"><a href="#cb13-33" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Precision: </span><span class="sc">{</span>precision<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb13-34"><a href="#cb13-34" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Recall: </span><span class="sc">{</span>recall<span class="sc">}</span><span class="ss">"</span>)</span></code></pre>
+<span id="cb13-17"><a href="#cb13-17" tabindex="-1"></a>all_true_labels <span class="co"># Sandals (-1), T-shirts (0), Trousers (1)</span></span></code></pre>
 </div>
-<p><img src="https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/OOD-detection_ID-OOD-confusion-matrix1.png" alt="Probability densities" class="figure"> Even with a high threshold of 0.9, we end
-up with nearly a couple hundred OOD samples classified as ID. In
-addition, over 800 ID samples had to be tossed out due to
-uncertainty.</p>
+<div class="codewrapper sourceCode" id="cb14">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="co"># Confusion matrix</span></span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>cm <span class="op">=</span> confusion_matrix(all_true_labels, all_predictions, labels<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>])</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a><span class="co"># Plotting the confusion matrix</span></span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>disp <span class="op">=</span> ConfusionMatrixDisplay(confusion_matrix<span class="op">=</span>cm, display_labels<span class="op">=</span>[<span class="st">"Shirt"</span>, <span class="st">"Pants"</span>, <span class="st">"OOD"</span>])</span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a>disp.plot(cmap<span class="op">=</span>plt.cm.Blues)</span>
+<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a>plt.title(<span class="st">'Confusion Matrix for OOD and ID Classification'</span>)</span>
+<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a>plt.show()</span>
+<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a><span class="co"># Looking at F1, precision, and recall</span></span>
+<span id="cb14-12"><a href="#cb14-12" tabindex="-1"></a>precision, recall, f1, _ <span class="op">=</span> precision_recall_fscore_support(all_true_labels, all_predictions, labels<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">1</span>], average<span class="op">=</span><span class="st">'macro'</span>) <span class="co"># macro = average scores across classes</span></span>
+<span id="cb14-13"><a href="#cb14-13" tabindex="-1"></a></span>
+<span id="cb14-14"><a href="#cb14-14" tabindex="-1"></a><span class="co"># ID: T-shirts (0) and Trousers (1)</span></span>
+<span id="cb14-15"><a href="#cb14-15" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"F1: </span><span class="sc">{</span>f1<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb14-16"><a href="#cb14-16" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Precision: </span><span class="sc">{</span>precision<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb14-17"><a href="#cb14-17" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Recall: </span><span class="sc">{</span>recall<span class="sc">}</span><span class="ss">"</span>)</span></code></pre>
+</div>
+<p>Even with a high threshold of 0.9, we end up with nearly a couple
+hundred OOD samples classified as ID. In addition, over 800 ID samples
+had to be tossed out due to uncertainty.</p>
 </div>
 <div class="section level3">
 <h3 id="quick-exercise">Quick exercise<a class="anchor" aria-label="anchor" href="#quick-exercise"></a></h3>
 <p>What threhsold is required to ensure that no OOD samples are
 incorrectly considered as IID? What percentage of ID samples are
-mistaken as OOD at this threshold? Answer: 0.9999,
-(3826+2414)/(3826+2414+2174+3586)=52%</p>
+mistaken as OOD at this threshold?</p>
 <p>With a very conservative threshold, we can make sure very few OOD
 samples are incorrectly classified as ID. However, the flip side is that
 conservative thresholds tend to incorrectly classify many ID samples as
 being OOD. In this case, we incorrectly assume almost 20% of shirts are
 OOD samples.</p>
 </div>
-</div>
-<div class="section level2">
-<h2 id="iterative-threshold-determination">Iterative Threshold Determination<a class="anchor" aria-label="anchor" href="#iterative-threshold-determination"></a></h2>
-<p>In practice, selecting an appropriate threshold is an iterative
+</section><section><h2 class="section-heading" id="iterative-threshold-determination">Iterative Threshold Determination<a class="anchor" aria-label="anchor" href="#iterative-threshold-determination"></a></h2>
+<hr class="half-width"><p>In practice, selecting an appropriate threshold is an iterative
 process that balances the trade-off between correctly identifying
 in-distribution (ID) data and accurately flagging out-of-distribution
 (OOD) data. Here’s how you can iteratively determine the threshold:</p>
-<ul><li><p><strong>Define Evaluation Metrics</strong>: While confusion
+<ul><li><p><strong>Define evaluation metrics</strong>: While confusion
 matrices are an excellent tool when you’re ready to more closely examine
 the data, we need a single metric that can summarize threshold
 performance so we can easily compare across threshold. Common metrics
 include accuracy, precision, recall, or the F1 score for both ID and OOD
 detection.</p></li>
-<li><p><strong>Evaluate Over a Range of Thresholds</strong>: Test
+<li><p><strong>Evaluate over a range of thresholds</strong>: Test
 different threshold values and evaluate the performance on a validation
 set containing both ID and OOD data.</p></li>
-<li><p><strong>Select the Optimal Threshold</strong>: Choose the
+<li><p><strong>Select the optimal threshold</strong>: Choose the
 threshold that provides the best balance according to your chosen
 metrics.</p></li>
 </ul><p>Use the below code to determine what threshold should be set to
 ensure precision = 100%. What threshold is required for recall to be
 100%? What threshold gives the highest F1 score?</p>
-<div class="section level3">
-<h3 id="callout-on-averaging-schemes">Callout on averaging schemes<a class="anchor" aria-label="anchor" href="#callout-on-averaging-schemes"></a></h3>
-<p>F1 scores can be calculated per class, and then averaged in different
-ways (macro, micro, or weighted) when dealing with multiclass or
-multilabel classification problems. Here are the key types of averaging
-methods:</p>
-<ul><li><p>Macro-Averaging: Calculates the F1 score for each class
-independently and then takes the average of these scores. This treats
-all classes equally, regardless of their support (number of true
-instances for each class).</p></li>
-<li><p>Micro-Averaging: Aggregates the contributions of all classes to
-compute the average F1 score. This is typically used for imbalanced
-datasets as it gives more weight to classes with more
-instances.</p></li>
-<li><p>Weighted-Averaging: Calculates the F1 score for each class
-independently and then takes the average, weighted by the number of true
-instances for each class. This accounts for class imbalance by giving
-more weight to classes with more instances.</p></li>
-</ul></div>
-<div class="section level3">
-<h3 id="callout-on-including-ood-data-in-f1-calculation">Callout on including OOD data in F1 calculation<a class="anchor" aria-label="anchor" href="#callout-on-including-ood-data-in-f1-calculation"></a></h3>
-<div class="codewrapper sourceCode" id="cb14">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="co"># from sklearn.metrics import precision_recall_fscore_support, accuracy_score</span></span>
-<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a><span class="kw">def</span> eval_softmax_thresholds(thresholds, ood_probs, id_probs):</span>
-<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>    <span class="co"># Store evaluation metrics for each threshold</span></span>
-<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>    precisions <span class="op">=</span> []</span>
-<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a>    recalls <span class="op">=</span> []</span>
-<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a>    f1_scores <span class="op">=</span> []</span>
-<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a>    </span>
-<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a>    <span class="cf">for</span> threshold <span class="kw">in</span> thresholds:</span>
-<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a>        <span class="co"># Classifying OOD examples (sandals)</span></span>
-<span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a>        ood_classifications <span class="op">=</span> softmax_thresh_classifications(ood_probs, threshold)</span>
-<span id="cb14-12"><a href="#cb14-12" tabindex="-1"></a>        </span>
-<span id="cb14-13"><a href="#cb14-13" tabindex="-1"></a>        <span class="co"># Classifying ID examples (T-shirts and pants)</span></span>
-<span id="cb14-14"><a href="#cb14-14" tabindex="-1"></a>        id_classifications <span class="op">=</span> softmax_thresh_classifications(id_probs, threshold)</span>
-<span id="cb14-15"><a href="#cb14-15" tabindex="-1"></a>        </span>
-<span id="cb14-16"><a href="#cb14-16" tabindex="-1"></a>        <span class="co"># Combine OOD and ID classifications and true labels</span></span>
-<span id="cb14-17"><a href="#cb14-17" tabindex="-1"></a>        all_predictions <span class="op">=</span> np.concatenate([ood_classifications, id_classifications])</span>
-<span id="cb14-18"><a href="#cb14-18" tabindex="-1"></a>        all_true_labels <span class="op">=</span> np.concatenate([<span class="op">-</span><span class="dv">1</span> <span class="op">*</span> np.ones(ood_classifications.shape), train_labels])</span>
-<span id="cb14-19"><a href="#cb14-19" tabindex="-1"></a>        </span>
-<span id="cb14-20"><a href="#cb14-20" tabindex="-1"></a>        <span class="co"># Evaluate metrics</span></span>
-<span id="cb14-21"><a href="#cb14-21" tabindex="-1"></a>        precision, recall, f1, _ <span class="op">=</span> precision_recall_fscore_support(all_true_labels, all_predictions, labels<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">1</span>], average<span class="op">=</span><span class="st">'macro'</span>) <span class="co"># discuss macro vs micro .</span></span>
-<span id="cb14-22"><a href="#cb14-22" tabindex="-1"></a>        precisions.append(precision)</span>
-<span id="cb14-23"><a href="#cb14-23" tabindex="-1"></a>        recalls.append(recall)</span>
-<span id="cb14-24"><a href="#cb14-24" tabindex="-1"></a>        f1_scores.append(f1)</span>
-<span id="cb14-25"><a href="#cb14-25" tabindex="-1"></a>        </span>
-<span id="cb14-26"><a href="#cb14-26" tabindex="-1"></a>    <span class="cf">return</span> precisions, recalls, f1_scores</span></code></pre>
-</div>
 <div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="co"># Define thresholds to evaluate</span></span>
-<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>thresholds <span class="op">=</span> np.linspace(<span class="fl">.5</span>, <span class="dv">1</span>, <span class="dv">50</span>)</span>
-<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a></span>
-<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a><span class="co"># Evaluate on all thresholds</span></span>
-<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a>precisions, recalls, f1_scores <span class="op">=</span> eval_softmax_thresholds(thresholds, ood_probs, id_probs)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="kw">def</span> eval_softmax_thresholds(thresholds, ood_probs, id_probs):</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a><span class="co">    Evaluates the performance of softmax-based classification at various thresholds by calculating precision, </span></span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a><span class="co">    recall, and F1 scores for in-distribution (ID) and out-of-distribution (OOD) data.</span></span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a><span class="co">    Parameters:</span></span>
+<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a><span class="co">    - thresholds: list or np.array</span></span>
+<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a><span class="co">        A list or array of threshold values to evaluate. Each threshold is applied to classify samples based </span></span>
+<span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a><span class="co">        on their softmax probabilities.</span></span>
+<span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a><span class="co">    - ood_probs: np.array</span></span>
+<span id="cb15-11"><a href="#cb15-11" tabindex="-1"></a><span class="co">        A 2D array of shape (n_ood_samples, n_classes) containing the softmax probabilities for OOD samples </span></span>
+<span id="cb15-12"><a href="#cb15-12" tabindex="-1"></a><span class="co">        across all classes.</span></span>
+<span id="cb15-13"><a href="#cb15-13" tabindex="-1"></a><span class="co">    - id_probs: np.array</span></span>
+<span id="cb15-14"><a href="#cb15-14" tabindex="-1"></a><span class="co">        A 2D array of shape (n_id_samples, n_classes) containing the softmax probabilities for ID samples </span></span>
+<span id="cb15-15"><a href="#cb15-15" tabindex="-1"></a><span class="co">        across all classes.</span></span>
+<span id="cb15-16"><a href="#cb15-16" tabindex="-1"></a></span>
+<span id="cb15-17"><a href="#cb15-17" tabindex="-1"></a><span class="co">    Returns:</span></span>
+<span id="cb15-18"><a href="#cb15-18" tabindex="-1"></a><span class="co">    - precisions: list</span></span>
+<span id="cb15-19"><a href="#cb15-19" tabindex="-1"></a><span class="co">        A list of precision values computed for each threshold.</span></span>
+<span id="cb15-20"><a href="#cb15-20" tabindex="-1"></a><span class="co">    - recalls: list</span></span>
+<span id="cb15-21"><a href="#cb15-21" tabindex="-1"></a><span class="co">        A list of recall values computed for each threshold.</span></span>
+<span id="cb15-22"><a href="#cb15-22" tabindex="-1"></a><span class="co">    - f1_scores: list</span></span>
+<span id="cb15-23"><a href="#cb15-23" tabindex="-1"></a><span class="co">        A list of F1 scores computed for each threshold.</span></span>
+<span id="cb15-24"><a href="#cb15-24" tabindex="-1"></a></span>
+<span id="cb15-25"><a href="#cb15-25" tabindex="-1"></a><span class="co">    Notes:</span></span>
+<span id="cb15-26"><a href="#cb15-26" tabindex="-1"></a><span class="co">    - The function assumes binary classification for ID classes (e.g., T-shirts and pants) and uses -1 to </span></span>
+<span id="cb15-27"><a href="#cb15-27" tabindex="-1"></a><span class="co">      represent OOD classifications.</span></span>
+<span id="cb15-28"><a href="#cb15-28" tabindex="-1"></a><span class="co">    - True labels for ID samples are taken from `test_labels` (defined externally).</span></span>
+<span id="cb15-29"><a href="#cb15-29" tabindex="-1"></a><span class="co">    - True labels for OOD samples are set to -1, indicating their OOD nature.</span></span>
+<span id="cb15-30"><a href="#cb15-30" tabindex="-1"></a><span class="co">    - Precision, recall, and F1 scores are calculated using macro-averaging, which treats each class equally </span></span>
+<span id="cb15-31"><a href="#cb15-31" tabindex="-1"></a><span class="co">      regardless of the number of samples.</span></span>
+<span id="cb15-32"><a href="#cb15-32" tabindex="-1"></a></span>
+<span id="cb15-33"><a href="#cb15-33" tabindex="-1"></a><span class="co">    Example Usage:</span></span>
+<span id="cb15-34"><a href="#cb15-34" tabindex="-1"></a><span class="co">    ```</span></span>
+<span id="cb15-35"><a href="#cb15-35" tabindex="-1"></a><span class="co">    thresholds = np.linspace(0.5, 1.0, 50)</span></span>
+<span id="cb15-36"><a href="#cb15-36" tabindex="-1"></a><span class="co">    precisions, recalls, f1_scores = eval_softmax_thresholds(thresholds, ood_probs, id_probs)</span></span>
+<span id="cb15-37"><a href="#cb15-37" tabindex="-1"></a><span class="co">    ```</span></span>
+<span id="cb15-38"><a href="#cb15-38" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb15-39"><a href="#cb15-39" tabindex="-1"></a>    <span class="co"># Store evaluation metrics for each threshold</span></span>
+<span id="cb15-40"><a href="#cb15-40" tabindex="-1"></a>    precisions <span class="op">=</span> []</span>
+<span id="cb15-41"><a href="#cb15-41" tabindex="-1"></a>    recalls <span class="op">=</span> []</span>
+<span id="cb15-42"><a href="#cb15-42" tabindex="-1"></a>    f1_scores <span class="op">=</span> []</span>
+<span id="cb15-43"><a href="#cb15-43" tabindex="-1"></a>    </span>
+<span id="cb15-44"><a href="#cb15-44" tabindex="-1"></a>    <span class="cf">for</span> threshold <span class="kw">in</span> thresholds:</span>
+<span id="cb15-45"><a href="#cb15-45" tabindex="-1"></a>        <span class="co"># Classifying OOD examples</span></span>
+<span id="cb15-46"><a href="#cb15-46" tabindex="-1"></a>        ood_classifications <span class="op">=</span> softmax_thresh_classifications(ood_probs, threshold)</span>
+<span id="cb15-47"><a href="#cb15-47" tabindex="-1"></a>        </span>
+<span id="cb15-48"><a href="#cb15-48" tabindex="-1"></a>        <span class="co"># Classifying ID examples</span></span>
+<span id="cb15-49"><a href="#cb15-49" tabindex="-1"></a>        id_classifications <span class="op">=</span> softmax_thresh_classifications(id_probs, threshold)</span>
+<span id="cb15-50"><a href="#cb15-50" tabindex="-1"></a>        </span>
+<span id="cb15-51"><a href="#cb15-51" tabindex="-1"></a>        <span class="co"># Combine OOD and ID classifications and true labels</span></span>
+<span id="cb15-52"><a href="#cb15-52" tabindex="-1"></a>        all_predictions <span class="op">=</span> np.concatenate([ood_classifications, id_classifications])</span>
+<span id="cb15-53"><a href="#cb15-53" tabindex="-1"></a>        all_true_labels <span class="op">=</span> np.concatenate([<span class="op">-</span><span class="dv">1</span> <span class="op">*</span> np.ones(ood_classifications.shape), test_labels])</span>
+<span id="cb15-54"><a href="#cb15-54" tabindex="-1"></a>        </span>
+<span id="cb15-55"><a href="#cb15-55" tabindex="-1"></a>        <span class="co"># Evaluate metrics</span></span>
+<span id="cb15-56"><a href="#cb15-56" tabindex="-1"></a>        precision, recall, f1, _ <span class="op">=</span> precision_recall_fscore_support(all_true_labels, all_predictions, labels<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">1</span>], average<span class="op">=</span><span class="st">'macro'</span>)</span>
+<span id="cb15-57"><a href="#cb15-57" tabindex="-1"></a>        precisions.append(precision)</span>
+<span id="cb15-58"><a href="#cb15-58" tabindex="-1"></a>        recalls.append(recall)</span>
+<span id="cb15-59"><a href="#cb15-59" tabindex="-1"></a>        f1_scores.append(f1)</span>
+<span id="cb15-60"><a href="#cb15-60" tabindex="-1"></a>        </span>
+<span id="cb15-61"><a href="#cb15-61" tabindex="-1"></a>    <span class="cf">return</span> precisions, recalls, f1_scores</span></code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="kw">def</span> plot_metrics_vs_thresholds(thresholds, f1_scores, precisions, recalls, OOD_signal):</span>
-<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>    <span class="co"># Find the best thresholds for each metric</span></span>
-<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>    best_f1_index <span class="op">=</span> np.argmax(f1_scores)</span>
-<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a>    best_f1_threshold <span class="op">=</span> thresholds[best_f1_index]</span>
-<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a>    </span>
-<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a>    best_precision_index <span class="op">=</span> np.argmax(precisions)</span>
-<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a>    best_precision_threshold <span class="op">=</span> thresholds[best_precision_index]</span>
-<span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a>    </span>
-<span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a>    best_recall_index <span class="op">=</span> np.argmax(recalls)</span>
-<span id="cb16-10"><a href="#cb16-10" tabindex="-1"></a>    best_recall_threshold <span class="op">=</span> thresholds[best_recall_index]</span>
-<span id="cb16-11"><a href="#cb16-11" tabindex="-1"></a>    </span>
-<span id="cb16-12"><a href="#cb16-12" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Best F1 threshold: </span><span class="sc">{</span>best_f1_threshold<span class="sc">}</span><span class="ss">, F1 Score: </span><span class="sc">{</span>f1_scores[best_f1_index]<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb16-13"><a href="#cb16-13" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Best Precision threshold: </span><span class="sc">{</span>best_precision_threshold<span class="sc">}</span><span class="ss">, Precision: </span><span class="sc">{</span>precisions[best_precision_index]<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb16-14"><a href="#cb16-14" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Best Recall threshold: </span><span class="sc">{</span>best_recall_threshold<span class="sc">}</span><span class="ss">, Recall: </span><span class="sc">{</span>recalls[best_recall_index]<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb16-15"><a href="#cb16-15" tabindex="-1"></a></span>
-<span id="cb16-16"><a href="#cb16-16" tabindex="-1"></a>    <span class="co"># Create a new figure</span></span>
-<span id="cb16-17"><a href="#cb16-17" tabindex="-1"></a>    fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">8</span>))</span>
-<span id="cb16-18"><a href="#cb16-18" tabindex="-1"></a></span>
-<span id="cb16-19"><a href="#cb16-19" tabindex="-1"></a>    <span class="co"># Plot metrics as functions of the threshold</span></span>
-<span id="cb16-20"><a href="#cb16-20" tabindex="-1"></a>    ax.plot(thresholds, precisions, label<span class="op">=</span><span class="st">'Precision'</span>, color<span class="op">=</span><span class="st">'g'</span>)</span>
-<span id="cb16-21"><a href="#cb16-21" tabindex="-1"></a>    ax.plot(thresholds, recalls, label<span class="op">=</span><span class="st">'Recall'</span>, color<span class="op">=</span><span class="st">'b'</span>)</span>
-<span id="cb16-22"><a href="#cb16-22" tabindex="-1"></a>    ax.plot(thresholds, f1_scores, label<span class="op">=</span><span class="st">'F1 Score'</span>, color<span class="op">=</span><span class="st">'r'</span>)</span>
-<span id="cb16-23"><a href="#cb16-23" tabindex="-1"></a>    </span>
-<span id="cb16-24"><a href="#cb16-24" tabindex="-1"></a>    <span class="co"># Add best threshold indicators</span></span>
-<span id="cb16-25"><a href="#cb16-25" tabindex="-1"></a>    ax.axvline(x<span class="op">=</span>best_f1_threshold, color<span class="op">=</span><span class="st">'r'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, label<span class="op">=</span><span class="ss">f'Best F1 Threshold: </span><span class="sc">{</span>best_f1_threshold<span class="sc">:.2f}</span><span class="ss">'</span>)</span>
-<span id="cb16-26"><a href="#cb16-26" tabindex="-1"></a>    ax.axvline(x<span class="op">=</span>best_precision_threshold, color<span class="op">=</span><span class="st">'g'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, label<span class="op">=</span><span class="ss">f'Best Precision Threshold: </span><span class="sc">{</span>best_precision_threshold<span class="sc">:.2f}</span><span class="ss">'</span>)</span>
-<span id="cb16-27"><a href="#cb16-27" tabindex="-1"></a>    ax.axvline(x<span class="op">=</span>best_recall_threshold, color<span class="op">=</span><span class="st">'b'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, label<span class="op">=</span><span class="ss">f'Best Recall Threshold: </span><span class="sc">{</span>best_recall_threshold<span class="sc">:.2f}</span><span class="ss">'</span>)</span>
-<span id="cb16-28"><a href="#cb16-28" tabindex="-1"></a>    ax.set_xlabel(<span class="ss">f'</span><span class="sc">{</span>OOD_signal<span class="sc">}</span><span class="ss"> Threshold'</span>)</span>
-<span id="cb16-29"><a href="#cb16-29" tabindex="-1"></a>    ax.set_ylabel(<span class="st">'Metric Value'</span>)</span>
-<span id="cb16-30"><a href="#cb16-30" tabindex="-1"></a>    ax.set_title(<span class="st">'Evaluation Metrics as Functions of Threshold'</span>)</span>
-<span id="cb16-31"><a href="#cb16-31" tabindex="-1"></a>    ax.legend()</span>
-<span id="cb16-32"><a href="#cb16-32" tabindex="-1"></a></span>
-<span id="cb16-33"><a href="#cb16-33" tabindex="-1"></a>    <span class="cf">return</span> fig, best_f1_threshold, best_precision_threshold, best_recall_threshold</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="co"># Define thresholds to evaluate</span></span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>thresholds <span class="op">=</span> np.linspace(<span class="fl">.5</span>, <span class="dv">1</span>, <span class="dv">50</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a><span class="co"># Evaluate on all thresholds</span></span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a>precisions, recalls, f1_scores <span class="op">=</span> eval_softmax_thresholds(thresholds, ood_probs, id_probs)</span></code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>fig, best_f1_threshold, best_precision_threshold, best_recall_threshold <span class="op">=</span> plot_metrics_vs_thresholds(thresholds, f1_scores, precisions, recalls, <span class="st">'Softmax'</span>)</span>
-<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="co">#fig.savefig('../images/OOD-detection_metrics_vs_softmax-thresholds.png', dpi=300, bbox_inches='tight')</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="kw">def</span> plot_metrics_vs_thresholds(thresholds, f1_scores, precisions, recalls, OOD_signal):</span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a><span class="co">    Plots evaluation metrics (Precision, Recall, and F1 Score) as functions of threshold values for </span></span>
+<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a><span class="co">    softmax-based or energy-based OOD detection, and identifies the best threshold for each metric.</span></span>
+<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" tabindex="-1"></a><span class="co">    Parameters:</span></span>
+<span id="cb17-7"><a href="#cb17-7" tabindex="-1"></a><span class="co">    - thresholds: list or np.array</span></span>
+<span id="cb17-8"><a href="#cb17-8" tabindex="-1"></a><span class="co">        A list or array of threshold values used for classification.</span></span>
+<span id="cb17-9"><a href="#cb17-9" tabindex="-1"></a><span class="co">    - f1_scores: list or np.array</span></span>
+<span id="cb17-10"><a href="#cb17-10" tabindex="-1"></a><span class="co">        A list or array of F1 scores computed at each threshold.</span></span>
+<span id="cb17-11"><a href="#cb17-11" tabindex="-1"></a><span class="co">    - precisions: list or np.array</span></span>
+<span id="cb17-12"><a href="#cb17-12" tabindex="-1"></a><span class="co">        A list or array of precision values computed at each threshold.</span></span>
+<span id="cb17-13"><a href="#cb17-13" tabindex="-1"></a><span class="co">    - recalls: list or np.array</span></span>
+<span id="cb17-14"><a href="#cb17-14" tabindex="-1"></a><span class="co">        A list or array of recall values computed at each threshold.</span></span>
+<span id="cb17-15"><a href="#cb17-15" tabindex="-1"></a><span class="co">    - OOD_signal: str</span></span>
+<span id="cb17-16"><a href="#cb17-16" tabindex="-1"></a><span class="co">        A descriptive label for the signal being used for OOD detection, such as "Softmax" or "Energy".</span></span>
+<span id="cb17-17"><a href="#cb17-17" tabindex="-1"></a></span>
+<span id="cb17-18"><a href="#cb17-18" tabindex="-1"></a><span class="co">    Returns:</span></span>
+<span id="cb17-19"><a href="#cb17-19" tabindex="-1"></a><span class="co">    - fig: matplotlib.figure.Figure</span></span>
+<span id="cb17-20"><a href="#cb17-20" tabindex="-1"></a><span class="co">        The figure object containing the plot.</span></span>
+<span id="cb17-21"><a href="#cb17-21" tabindex="-1"></a><span class="co">    - best_f1_threshold: float</span></span>
+<span id="cb17-22"><a href="#cb17-22" tabindex="-1"></a><span class="co">        The threshold value corresponding to the highest F1 score.</span></span>
+<span id="cb17-23"><a href="#cb17-23" tabindex="-1"></a><span class="co">    - best_precision_threshold: float</span></span>
+<span id="cb17-24"><a href="#cb17-24" tabindex="-1"></a><span class="co">        The threshold value corresponding to the highest precision.</span></span>
+<span id="cb17-25"><a href="#cb17-25" tabindex="-1"></a><span class="co">    - best_recall_threshold: float</span></span>
+<span id="cb17-26"><a href="#cb17-26" tabindex="-1"></a><span class="co">        The threshold value corresponding to the highest recall.</span></span>
+<span id="cb17-27"><a href="#cb17-27" tabindex="-1"></a></span>
+<span id="cb17-28"><a href="#cb17-28" tabindex="-1"></a><span class="co">    Notes:</span></span>
+<span id="cb17-29"><a href="#cb17-29" tabindex="-1"></a><span class="co">    - The function identifies and highlights the best threshold for each metric (F1 Score, Precision, Recall).</span></span>
+<span id="cb17-30"><a href="#cb17-30" tabindex="-1"></a><span class="co">    - It generates a line plot for each metric as a function of the threshold and marks the best thresholds </span></span>
+<span id="cb17-31"><a href="#cb17-31" tabindex="-1"></a><span class="co">      with vertical dashed lines.</span></span>
+<span id="cb17-32"><a href="#cb17-32" tabindex="-1"></a><span class="co">    - This visualization is particularly useful for assessing the trade-offs between precision, recall, </span></span>
+<span id="cb17-33"><a href="#cb17-33" tabindex="-1"></a><span class="co">      and F1 score when selecting a classification threshold.</span></span>
+<span id="cb17-34"><a href="#cb17-34" tabindex="-1"></a></span>
+<span id="cb17-35"><a href="#cb17-35" tabindex="-1"></a><span class="co">    Example Usage:</span></span>
+<span id="cb17-36"><a href="#cb17-36" tabindex="-1"></a><span class="co">    ```</span></span>
+<span id="cb17-37"><a href="#cb17-37" tabindex="-1"></a><span class="co">    fig, best_f1, best_precision, best_recall = plot_metrics_vs_thresholds(</span></span>
+<span id="cb17-38"><a href="#cb17-38" tabindex="-1"></a><span class="co">        thresholds, f1_scores, precisions, recalls, OOD_signal='Softmax'</span></span>
+<span id="cb17-39"><a href="#cb17-39" tabindex="-1"></a><span class="co">    )</span></span>
+<span id="cb17-40"><a href="#cb17-40" tabindex="-1"></a><span class="co">    plt.show()</span></span>
+<span id="cb17-41"><a href="#cb17-41" tabindex="-1"></a><span class="co">    ```</span></span>
+<span id="cb17-42"><a href="#cb17-42" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb17-43"><a href="#cb17-43" tabindex="-1"></a>    <span class="co"># Find the best thresholds for each metric</span></span>
+<span id="cb17-44"><a href="#cb17-44" tabindex="-1"></a>    best_f1_index <span class="op">=</span> np.argmax(f1_scores)</span>
+<span id="cb17-45"><a href="#cb17-45" tabindex="-1"></a>    best_f1_threshold <span class="op">=</span> thresholds[best_f1_index]</span>
+<span id="cb17-46"><a href="#cb17-46" tabindex="-1"></a>    </span>
+<span id="cb17-47"><a href="#cb17-47" tabindex="-1"></a>    best_precision_index <span class="op">=</span> np.argmax(precisions)</span>
+<span id="cb17-48"><a href="#cb17-48" tabindex="-1"></a>    best_precision_threshold <span class="op">=</span> thresholds[best_precision_index]</span>
+<span id="cb17-49"><a href="#cb17-49" tabindex="-1"></a>    </span>
+<span id="cb17-50"><a href="#cb17-50" tabindex="-1"></a>    best_recall_index <span class="op">=</span> np.argmax(recalls)</span>
+<span id="cb17-51"><a href="#cb17-51" tabindex="-1"></a>    best_recall_threshold <span class="op">=</span> thresholds[best_recall_index]</span>
+<span id="cb17-52"><a href="#cb17-52" tabindex="-1"></a>    </span>
+<span id="cb17-53"><a href="#cb17-53" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Best F1 threshold: </span><span class="sc">{</span>best_f1_threshold<span class="sc">}</span><span class="ss">, F1 Score: </span><span class="sc">{</span>f1_scores[best_f1_index]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb17-54"><a href="#cb17-54" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Best Precision threshold: </span><span class="sc">{</span>best_precision_threshold<span class="sc">}</span><span class="ss">, Precision: </span><span class="sc">{</span>precisions[best_precision_index]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb17-55"><a href="#cb17-55" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Best Recall threshold: </span><span class="sc">{</span>best_recall_threshold<span class="sc">}</span><span class="ss">, Recall: </span><span class="sc">{</span>recalls[best_recall_index]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb17-56"><a href="#cb17-56" tabindex="-1"></a></span>
+<span id="cb17-57"><a href="#cb17-57" tabindex="-1"></a>    <span class="co"># Create a new figure</span></span>
+<span id="cb17-58"><a href="#cb17-58" tabindex="-1"></a>    fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb17-59"><a href="#cb17-59" tabindex="-1"></a></span>
+<span id="cb17-60"><a href="#cb17-60" tabindex="-1"></a>    <span class="co"># Plot metrics as functions of the threshold</span></span>
+<span id="cb17-61"><a href="#cb17-61" tabindex="-1"></a>    ax.plot(thresholds, precisions, label<span class="op">=</span><span class="st">'Precision'</span>, color<span class="op">=</span><span class="st">'g'</span>)</span>
+<span id="cb17-62"><a href="#cb17-62" tabindex="-1"></a>    ax.plot(thresholds, recalls, label<span class="op">=</span><span class="st">'Recall'</span>, color<span class="op">=</span><span class="st">'b'</span>)</span>
+<span id="cb17-63"><a href="#cb17-63" tabindex="-1"></a>    ax.plot(thresholds, f1_scores, label<span class="op">=</span><span class="st">'F1 Score'</span>, color<span class="op">=</span><span class="st">'r'</span>)</span>
+<span id="cb17-64"><a href="#cb17-64" tabindex="-1"></a>    </span>
+<span id="cb17-65"><a href="#cb17-65" tabindex="-1"></a>    <span class="co"># Add best threshold indicators</span></span>
+<span id="cb17-66"><a href="#cb17-66" tabindex="-1"></a>    ax.axvline(x<span class="op">=</span>best_f1_threshold, color<span class="op">=</span><span class="st">'r'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, label<span class="op">=</span><span class="ss">f'Best F1 Threshold: </span><span class="sc">{</span>best_f1_threshold<span class="sc">:.2f}</span><span class="ss">'</span>)</span>
+<span id="cb17-67"><a href="#cb17-67" tabindex="-1"></a>    ax.axvline(x<span class="op">=</span>best_precision_threshold, color<span class="op">=</span><span class="st">'g'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, label<span class="op">=</span><span class="ss">f'Best Precision Threshold: </span><span class="sc">{</span>best_precision_threshold<span class="sc">:.2f}</span><span class="ss">'</span>)</span>
+<span id="cb17-68"><a href="#cb17-68" tabindex="-1"></a>    ax.axvline(x<span class="op">=</span>best_recall_threshold, color<span class="op">=</span><span class="st">'b'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, label<span class="op">=</span><span class="ss">f'Best Recall Threshold: </span><span class="sc">{</span>best_recall_threshold<span class="sc">:.2f}</span><span class="ss">'</span>)</span>
+<span id="cb17-69"><a href="#cb17-69" tabindex="-1"></a>    ax.set_xlabel(<span class="ss">f'</span><span class="sc">{</span>OOD_signal<span class="sc">}</span><span class="ss"> Threshold'</span>)</span>
+<span id="cb17-70"><a href="#cb17-70" tabindex="-1"></a>    ax.set_ylabel(<span class="st">'Metric Value'</span>)</span>
+<span id="cb17-71"><a href="#cb17-71" tabindex="-1"></a>    ax.set_title(<span class="st">'Evaluation Metrics as Functions of Threshold'</span>)</span>
+<span id="cb17-72"><a href="#cb17-72" tabindex="-1"></a>    ax.legend()</span>
+<span id="cb17-73"><a href="#cb17-73" tabindex="-1"></a></span>
+<span id="cb17-74"><a href="#cb17-74" tabindex="-1"></a>    <span class="cf">return</span> fig, best_f1_threshold, best_precision_threshold, best_recall_threshold</span></code></pre>
 </div>
-<figure><img src="https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/OOD-detection_metrics_vs_softmax-thresholds.png" alt="OOD-detection_metrics_vs_softmax-thresholds" class="figure mx-auto d-block"><div class="figcaption">OOD-detection_metrics_vs_softmax-thresholds</div>
-</figure><div class="codewrapper sourceCode" id="cb18">
+<div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="co"># Threshold values</span></span>
-<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>upper_threshold <span class="op">=</span> best_f1_threshold</span>
-<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a><span class="co"># upper_threshold = best_precision_threshold</span></span>
-<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a></span>
-<span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a><span class="co"># Classifying OOD examples (sandals)</span></span>
-<span id="cb18-6"><a href="#cb18-6" tabindex="-1"></a>ood_classifications <span class="op">=</span> softmax_thresh_classifications(ood_probs, upper_threshold)</span>
-<span id="cb18-7"><a href="#cb18-7" tabindex="-1"></a></span>
-<span id="cb18-8"><a href="#cb18-8" tabindex="-1"></a><span class="co"># Classifying ID examples (T-shirts and pants)</span></span>
-<span id="cb18-9"><a href="#cb18-9" tabindex="-1"></a>id_classifications <span class="op">=</span> softmax_thresh_classifications(id_probs, upper_threshold)</span>
-<span id="cb18-10"><a href="#cb18-10" tabindex="-1"></a></span>
-<span id="cb18-11"><a href="#cb18-11" tabindex="-1"></a><span class="co"># Combine OOD and ID classifications and true labels</span></span>
-<span id="cb18-12"><a href="#cb18-12" tabindex="-1"></a>all_predictions <span class="op">=</span> np.concatenate([ood_classifications, id_classifications])</span>
-<span id="cb18-13"><a href="#cb18-13" tabindex="-1"></a>all_true_labels <span class="op">=</span> np.concatenate([<span class="op">-</span><span class="dv">1</span> <span class="op">*</span> np.ones(ood_classifications.shape), train_labels])</span>
-<span id="cb18-14"><a href="#cb18-14" tabindex="-1"></a></span>
-<span id="cb18-15"><a href="#cb18-15" tabindex="-1"></a><span class="co"># Confusion matrix</span></span>
-<span id="cb18-16"><a href="#cb18-16" tabindex="-1"></a>cm <span class="op">=</span> confusion_matrix(all_true_labels, all_predictions, labels<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>])</span>
-<span id="cb18-17"><a href="#cb18-17" tabindex="-1"></a></span>
-<span id="cb18-18"><a href="#cb18-18" tabindex="-1"></a><span class="co"># Plotting the confusion matrix</span></span>
-<span id="cb18-19"><a href="#cb18-19" tabindex="-1"></a>disp <span class="op">=</span> ConfusionMatrixDisplay(confusion_matrix<span class="op">=</span>cm, display_labels<span class="op">=</span>[<span class="st">"Shirt"</span>, <span class="st">"Pants"</span>, <span class="st">"OOD"</span>])</span>
-<span id="cb18-20"><a href="#cb18-20" tabindex="-1"></a>disp.plot(cmap<span class="op">=</span>plt.cm.Blues)</span>
-<span id="cb18-21"><a href="#cb18-21" tabindex="-1"></a>plt.title(<span class="st">'Confusion Matrix for OOD and ID Classification'</span>)</span>
-<span id="cb18-22"><a href="#cb18-22" tabindex="-1"></a><span class="co">#plt.savefig('../images/OOD-detection_ID-OOD-confusion-matrix2.png', dpi=300, bbox_inches='tight')</span></span>
-<span id="cb18-23"><a href="#cb18-23" tabindex="-1"></a>plt.show()</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>fig, best_f1_threshold, best_precision_threshold, best_recall_threshold <span class="op">=</span> plot_metrics_vs_thresholds(thresholds, f1_scores, precisions, recalls, <span class="st">'Softmax'</span>)</span></code></pre>
 </div>
-<figure><img src="https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/OOD-detection_ID-OOD-confusion-matrix2.png" alt="Optimized threshold confusion matrix" class="figure mx-auto d-block"><div class="figcaption">Optimized threshold confusion matrix</div>
-</figure><div id="keypoints1" class="callout keypoints">
+<div class="codewrapper sourceCode" id="cb19">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="co"># Threshold values</span></span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>upper_threshold <span class="op">=</span> best_f1_threshold</span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a><span class="co"># upper_threshold = best_precision_threshold</span></span>
+<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a><span class="co"># Classifying OOD examples (sandals)</span></span>
+<span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a>ood_classifications <span class="op">=</span> softmax_thresh_classifications(ood_probs, upper_threshold)</span>
+<span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" tabindex="-1"></a><span class="co"># Classifying ID examples (T-shirts and pants)</span></span>
+<span id="cb19-9"><a href="#cb19-9" tabindex="-1"></a>id_classifications <span class="op">=</span> softmax_thresh_classifications(id_probs, upper_threshold)</span>
+<span id="cb19-10"><a href="#cb19-10" tabindex="-1"></a></span>
+<span id="cb19-11"><a href="#cb19-11" tabindex="-1"></a><span class="co"># Combine OOD and ID classifications and true labels</span></span>
+<span id="cb19-12"><a href="#cb19-12" tabindex="-1"></a>all_predictions <span class="op">=</span> np.concatenate([ood_classifications, id_classifications])</span>
+<span id="cb19-13"><a href="#cb19-13" tabindex="-1"></a>all_true_labels <span class="op">=</span> np.concatenate([<span class="op">-</span><span class="dv">1</span> <span class="op">*</span> np.ones(ood_classifications.shape), test_labels])</span>
+<span id="cb19-14"><a href="#cb19-14" tabindex="-1"></a></span>
+<span id="cb19-15"><a href="#cb19-15" tabindex="-1"></a><span class="co"># Confusion matrix</span></span>
+<span id="cb19-16"><a href="#cb19-16" tabindex="-1"></a>cm <span class="op">=</span> confusion_matrix(all_true_labels, all_predictions, labels<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>])</span>
+<span id="cb19-17"><a href="#cb19-17" tabindex="-1"></a></span>
+<span id="cb19-18"><a href="#cb19-18" tabindex="-1"></a><span class="co"># Plotting the confusion matrix</span></span>
+<span id="cb19-19"><a href="#cb19-19" tabindex="-1"></a>disp <span class="op">=</span> ConfusionMatrixDisplay(confusion_matrix<span class="op">=</span>cm, display_labels<span class="op">=</span>[<span class="st">"Shirt"</span>, <span class="st">"Pants"</span>, <span class="st">"OOD"</span>])</span>
+<span id="cb19-20"><a href="#cb19-20" tabindex="-1"></a>disp.plot(cmap<span class="op">=</span>plt.cm.Blues)</span>
+<span id="cb19-21"><a href="#cb19-21" tabindex="-1"></a>plt.title(<span class="st">'Confusion Matrix for OOD and ID Classification'</span>)</span>
+<span id="cb19-22"><a href="#cb19-22" tabindex="-1"></a>plt.show()</span></code></pre>
+</div>
+<div class="section level4">
+<h4 id="discuss">Discuss<a class="anchor" aria-label="anchor" href="#discuss"></a></h4>
+<p>How might you use these tools to ensure that a model trained on
+health data from hospital A will reliably predict new test data from
+hospital B?</p>
+<div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
 </div>
@@ -1016,12 +1137,7 @@ Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
 </div>
-</div>
-</div>
-
-
-
-      </div> <!-- / div.lesson-content -->
+</section></div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter"><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="7a-OOD-detection-overview.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
         <a class="chapter-link float-end" href="7c-OOD-detection-energy.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
@@ -1079,8 +1195,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/fair-explainable-ml/7b-OOD-detection-softmax.html",
   "identifier": "https://carpentries-incubator.github.io/fair-explainable-ml/7b-OOD-detection-softmax.html",
   "dateCreated": "2023-12-05",
-  "dateModified": "2024-11-26",
-  "datePublished": "2024-12-18"
+  "dateModified": "2024-12-19",
+  "datePublished": "2024-12-19"
 }
 
   </script><script>

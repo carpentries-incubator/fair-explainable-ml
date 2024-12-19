@@ -63,11 +63,11 @@ episodes:
 - 5a-explainable-AI-method-overview.md
 - 5c-probes.md
 - 5d-gradcam.md
-- 6-confidence-intervals.md
+- 6-uncertainty-overview.md
 - 7a-OOD-detection-overview.md
 - 7b-OOD-detection-softmax.md
 - 7c-OOD-detection-energy.md
-- 7d-OOD-detection-distance-based.md
+- 7d-OOD-detection-distance.md
 - 8-releasing-a-model.md
 
 # Information for Learners

@@ -58,6 +58,9 @@
     <loc>https://carpentries-incubator.github.io/fair-explainable-ml/6-releasing-a-model.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/fair-explainable-ml/6-uncertainty-overview.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/fair-explainable-ml/7-distribution-shift-OOD-detection.html</loc>
   </url>
   <url>
@@ -92,6 +95,9 @@
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/fair-explainable-ml/7d-OOD-detection-distance-based.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/fair-explainable-ml/7d-OOD-detection-distance.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/fair-explainable-ml/7e-OOD-detection-algo-design.html</loc>
@@ -178,6 +184,9 @@
     <loc>https://carpentries-incubator.github.io/fair-explainable-ml/instructor/6-releasing-a-model.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/fair-explainable-ml/instructor/6-uncertainty-overview.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/fair-explainable-ml/instructor/7-distribution-shift-OOD-detection.html</loc>
   </url>
   <url>
@@ -212,6 +221,9 @@
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/fair-explainable-ml/instructor/7d-OOD-detection-distance-based.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/fair-explainable-ml/instructor/7d-OOD-detection-distance.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/fair-explainable-ml/instructor/7e-OOD-detection-algo-design.html</loc>
