@@ -278,12 +278,20 @@
 <div class="accordion accordion-flush" id="accordionFlushcurrent">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-headingcurrent">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapsecurrent" aria-expanded="true" aria-controls="flush-collapsecurrent">
         <span class="visually-hidden">Current Chapter</span>
         <span class="current-chapter">
         9. Estimating model uncertainty
         </span>
-      
+      </button>
     </div><!--/div.accordion-header-->
+
+    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
+      <div class="accordion-body">
+        <ul><li><a href="#how-confident-is-my-model-will-it-generalize-to-new-data">How confident is my model? Will it generalize to new data?</a></li>
+<li><a href="#sources-of-uncertainty">Sources of uncertainty</a></li>
+        </ul></div><!--/div.accordion-body-->
+    </div><!--/div.accordion-collapse-->
 
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
@@ -443,19 +451,15 @@ are most useful.</li>
 </div>
 </div>
 </div>
-<div class="section level3">
-<h3 id="how-confident-is-my-model-will-it-generalize-to-new-data-or-subpopulations">How confident is my model? Will it generalize to new data or
-subpopulations?<a class="anchor" aria-label="anchor" href="#how-confident-is-my-model-will-it-generalize-to-new-data-or-subpopulations"></a></h3>
-<p>Understanding how confident a model is in its predictions is a
+<section><h2 class="section-heading" id="how-confident-is-my-model-will-it-generalize-to-new-data">How confident is my model? Will it generalize to new data?<a class="anchor" aria-label="anchor" href="#how-confident-is-my-model-will-it-generalize-to-new-data"></a></h2>
+<hr class="half-width"><p>Understanding how confident a model is in its predictions is a
 valuable tool for building trustworthy AI systems, especially in
 high-stakes settings like healthcare or autonomous vehicles. Model
 uncertainty estimation focuses on quantifying the model’s confidence and
 is often used to identify predictions that require further review or
 caution.</p>
-</div>
-<div class="section level3">
-<h3 id="sources-of-uncertainty">Sources of uncertainty<a class="anchor" aria-label="anchor" href="#sources-of-uncertainty"></a></h3>
-<p>At its core, model uncertainty starts with the <strong>data</strong>
+</section><section><h2 class="section-heading" id="sources-of-uncertainty">Sources of uncertainty<a class="anchor" aria-label="anchor" href="#sources-of-uncertainty"></a></h2>
+<hr class="half-width"><p>At its core, model uncertainty starts with the <strong>data</strong>
 itself, as all models learn to form embeddings (feature representations)
 of the data. Uncertainty in the data—whether from inherent randomness or
 insufficient coverage—propagates through the model’s embeddings, leading
@@ -750,53 +754,12 @@ dynamic environments. By combining these approaches strategically,
 practitioners can ensure that their systems are not only accurate but
 also robust, interpretable, and adaptable to the challenges of
 real-world data.</p>
-</div>
-<div class="section level4">
-<h4 id="references-and-methods">References and methods<a class="anchor" aria-label="anchor" href="#references-and-methods"></a></h4>
-</div>
-<div class="section level4">
-<h4 id="methods-for-addressing-aleatoric-uncertainty-1">Methods for addressing aleatoric uncertainty<a class="anchor" aria-label="anchor" href="#methods-for-addressing-aleatoric-uncertainty-1"></a></h4>
-<ol style="list-style-type: decimal"><li><p><strong>Heteroscedastic models</strong>: Predict noise levels
-directly using specialized loss functions.</p></li>
-<li><p><strong>Data augmentation</strong>: Add noise to inputs to
-improve robustness to imaging artifacts.</p></li>
-</ol></div>
-<div class="section level4">
-<h4 id="methods-for-addressing-epistemic-uncertainty-1">Methods for addressing epistemic uncertainty<a class="anchor" aria-label="anchor" href="#methods-for-addressing-epistemic-uncertainty-1"></a></h4>
-<ol style="list-style-type: decimal"><li>
-<strong>Ensemble models</strong>: Aggregate predictions to capture
-model disagreement.
-<ul><li>Example application: Predicting rare pandemic impacts on hospital
-demand.<br></li>
-<li>Reference: Leibig, C., et al. (2017). “Leveraging uncertainty
-information from deep neural networks for disease detection.”<br><a href="https://www.nature.com/articles/s41598-017-17876-z" class="external-link">Scientific
-Reports</a>.</li>
-</ul></li>
-<li>
-<strong>Bayesian neural networks</strong>: Model uncertainty in
-parameters for underrepresented scenarios.
-<ul><li>Example application: Detecting rare tumor types in radiology.<br></li>
-<li>Reference: Blundell, C., et al. (2015). “Weight uncertainty in
-neural networks.”<br><a href="https://arxiv.org/abs/1505.05424" class="external-link">ArXiv</a>.</li>
-</ul></li>
-<li>
-<strong>Out-of-distribution detection</strong>: Identify inputs
-outside the training distribution.
-<ul><li>Example application: Flagging out-of-scope queries in chatbot
-systems.<br></li>
-<li>Reference: Hendrycks, D., &amp; Gimpel, K. (2017). “A baseline for
-detecting misclassified and out-of-distribution examples in neural
-networks.”<br><a href="https://arxiv.org/abs/1610.02136" class="external-link">ArXiv</a>.</li>
-</ul></li>
-</ol><!--
+<!--
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
- --></div>
+ -->
 </div>
-
-
-
-      </div> <!-- / div.lesson-content -->
+</section></div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter"><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="../instructor/5d-gradcam.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
         <a class="chapter-link float-end" href="../instructor/7a-OOD-detection-overview.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
