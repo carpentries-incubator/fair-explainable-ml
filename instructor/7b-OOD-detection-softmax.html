@@ -306,9 +306,14 @@
 
     <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
       <div class="accordion-body">
-        <ul><li><a href="#visualizing-ood-and-id-data">Visualizing OOD and ID data</a></li>
+        <ul><li><a href="#leveraging-softmax-model-outputs">Leveraging softmax model outputs</a></li>
+<li><a href="#prepare-the-id-train-and-test-and-ood-data">Prepare the ID (train and test) and OOD data</a></li>
+<li><a href="#why-not-just-add-the-ood-class-to-training-dataset">Why not just add the OOD class to training dataset?</a></li>
+<li><a href="#visualizing-ood-and-id-data-with-pca">Visualizing OOD and ID data with PCA</a></li>
+<li><a href="#train-and-evaluate-model-on-id-data">Train and evaluate model on ID data</a></li>
 <li><a href="#how-does-our-model-view-ood-data">How does our model view OOD data?</a></li>
-<li><a href="#iterative-threshold-determination">Iterative Threshold Determination</a></li>
+<li><a href="#setting-a-threshold">Setting a threshold</a></li>
+<li><a href="#iterative-threshold-determination">Iterative threshold determination</a></li>
         </ul></div><!--/div.accordion-body-->
     </div><!--/div.accordion-collapse-->
 
@@ -451,7 +456,8 @@ detection methods, such as energy-based detection.</li>
 </div>
 </div>
 </div>
-<p>Softmax-based methods are among the most widely used techniques for
+<section><h2 class="section-heading" id="leveraging-softmax-model-outputs">Leveraging softmax model outputs<a class="anchor" aria-label="anchor" href="#leveraging-softmax-model-outputs"></a></h2>
+<hr class="half-width"><p>Softmax-based methods are among the most widely used techniques for
 out-of-distribution (OOD) detection, leveraging the probabilistic
 outputs of a model to differentiate between in-distribution (ID) and OOD
 data. These methods are inherently tied to models employing a softmax
@@ -475,13 +481,13 @@ with different architectures, are occasionally used. However, these
 alternatives are less common and may require additional considerations.
 By focusing on logistic regression, we aim to illustrate the fundamental
 principles of softmax-based OOD detection in a simple and interpretable
-context before extending these ideas to more complex architectures. ###
-Prepare the ID (train and test) and OOD data In order to determine a
-threshold that can separate ID data from OOD data (or ensure new test
-data as ID), we need to sample data from both distributions. OOD data
-used should be representative of potential new classes (i.e., semanitic
-shift) that may be seen by your model, or distribution/covariate shifts
-observed in your application area.</p>
+context before extending these ideas to more complex architectures.</p>
+</section><section><h2 class="section-heading" id="prepare-the-id-train-and-test-and-ood-data">Prepare the ID (train and test) and OOD data<a class="anchor" aria-label="anchor" href="#prepare-the-id-train-and-test-and-ood-data"></a></h2>
+<hr class="half-width"><p>In order to determine a threshold that can separate ID data from OOD
+data (or ensure new test data as ID), we need to sample data from both
+distributions. OOD data used should be representative of potential new
+classes (i.e., semanitic shift) that may be seen by your model, or
+distribution/covariate shifts observed in your application area.</p>
 <ul><li>ID = T-shirts/Blouses, Pants</li>
 <li>OOD = any other class. For Illustrative purposes, we’ll focus on
 images of sandals as the OOD class.</li>
@@ -569,8 +575,8 @@ images of sandals as the OOD class.</li>
 </div>
 <p>Load and prepare the ID data (train+test containing shirts and pants)
 and OOD data (sandals)</p>
-<p><strong>Why not just add the OOD class to training dataset?</strong>
-OOD data is, by definition, not part of the training distribution. It
+</section><section><h2 class="section-heading" id="why-not-just-add-the-ood-class-to-training-dataset">Why not just add the OOD class to training dataset?<a class="anchor" aria-label="anchor" href="#why-not-just-add-the-ood-class-to-training-dataset"></a></h2>
+<hr class="half-width"><p>OOD data is, by definition, not part of the training distribution. It
 could encompass anything outside the known classes, which means you’d
 need to collect a representative dataset for “everything else” to train
 the OOD class. This is practically impossible because OOD data is often
@@ -597,7 +603,7 @@ first step, however, is detecting the existence of such OOD data.</p>
 <pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>fig <span class="op">=</span> plot_data_sample(train_data, ood_data)</span>
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>plt.show()</span></code></pre>
 </div>
-<section><h2 class="section-heading" id="visualizing-ood-and-id-data">Visualizing OOD and ID data<a class="anchor" aria-label="anchor" href="#visualizing-ood-and-id-data"></a></h2>
+</section><section><h2 class="section-heading" id="visualizing-ood-and-id-data-with-pca">Visualizing OOD and ID data with PCA<a class="anchor" aria-label="anchor" href="#visualizing-ood-and-id-data-with-pca"></a></h2>
 <hr class="half-width"><div class="section level3">
 <h3 id="pca">PCA<a class="anchor" aria-label="anchor" href="#pca"></a></h3>
 <p>PCA visualization can provide insights into how well a model is
@@ -670,8 +676,10 @@ ankle boots and bags might both be small, have leather, and have
 zippers). Part of an effective OOD detection scheme involves thinking
 carefully about what sorts of data contanimations may be observed by the
 model, and assessing how similar these contaminations may be to your
-desired class labels. ## Train and evaluate model on ID data</li>
-</ul><div class="codewrapper sourceCode" id="cb6">
+desired class labels.</li>
+</ul></div>
+</section><section><h2 class="section-heading" id="train-and-evaluate-model-on-id-data">Train and evaluate model on ID data<a class="anchor" aria-label="anchor" href="#train-and-evaluate-model-on-id-data"></a></h2>
+<hr class="half-width"><div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>model <span class="op">=</span> LogisticRegression(max_iter<span class="op">=</span><span class="dv">10</span>, solver<span class="op">=</span><span class="st">'lbfgs'</span>, multi_class<span class="op">=</span><span class="st">'multinomial'</span>).fit(train_data_flat, train_labels) <span class="co"># 'lbfgs' is an efficient solver that works well for small to medium-sized datasets.</span></span></code></pre>
@@ -696,7 +704,6 @@ we have a reasonably accurate model for the ID data.</p>
 <span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>disp <span class="op">=</span> ConfusionMatrixDisplay(confusion_matrix<span class="op">=</span>cm, display_labels<span class="op">=</span>[<span class="st">'T-shirt/top'</span>, <span class="st">'Pants'</span>])</span>
 <span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>disp.plot(cmap<span class="op">=</span>plt.cm.Blues)</span>
 <span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>plt.show()</span></code></pre>
-</div>
 </div>
 </section><section><h2 class="section-heading" id="how-does-our-model-view-ood-data">How does our model view OOD data?<a class="anchor" aria-label="anchor" href="#how-does-our-model-view-ood-data"></a></h2>
 <hr class="half-width"><p>A basic question we can start with is to ask, on average, how are OOD
@@ -808,9 +815,8 @@ tossing out a significant portion of ID data).</p>
 <p>For pants, the problem is much less severe. It looks like a low
 threshold (on this T-shirt probability scale) can separate nearly all
 OOD samples from being pants.</p>
-<div class="section level3">
-<h3 id="setting-a-threshold">Setting a threshold<a class="anchor" aria-label="anchor" href="#setting-a-threshold"></a></h3>
-<p>Let’s put our observations to the test and produce a confusion matrix
+</section><section><h2 class="section-heading" id="setting-a-threshold">Setting a threshold<a class="anchor" aria-label="anchor" href="#setting-a-threshold"></a></h2>
+<hr class="half-width"><p>Let’s put our observations to the test and produce a confusion matrix
 that includes ID-pants, ID-Tshirts, and OOD class labels. We’ll start
 with a high threshold of 0.9 to see how that performs.</p>
 <div class="codewrapper sourceCode" id="cb12">
@@ -892,7 +898,6 @@ with a high threshold of 0.9 to see how that performs.</p>
 <p>Even with a high threshold of 0.9, we end up with nearly a couple
 hundred OOD samples classified as ID. In addition, over 800 ID samples
 had to be tossed out due to uncertainty.</p>
-</div>
 <div class="section level3">
 <h3 id="quick-exercise">Quick exercise<a class="anchor" aria-label="anchor" href="#quick-exercise"></a></h3>
 <p>What threhsold is required to ensure that no OOD samples are
@@ -904,7 +909,7 @@ conservative thresholds tend to incorrectly classify many ID samples as
 being OOD. In this case, we incorrectly assume almost 20% of shirts are
 OOD samples.</p>
 </div>
-</section><section><h2 class="section-heading" id="iterative-threshold-determination">Iterative Threshold Determination<a class="anchor" aria-label="anchor" href="#iterative-threshold-determination"></a></h2>
+</section><section><h2 class="section-heading" id="iterative-threshold-determination">Iterative threshold determination<a class="anchor" aria-label="anchor" href="#iterative-threshold-determination"></a></h2>
 <hr class="half-width"><p>In practice, selecting an appropriate threshold is an iterative
 process that balances the trade-off between correctly identifying
 in-distribution (ID) data and accurately flagging out-of-distribution
