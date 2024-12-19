@@ -3,7 +3,6 @@ title: "OOD detection: energy"
 teaching: 0
 exercises: 0
 ---
-
 :::::::::::::::::::::::::::::::::::::::: questions
 
 - What are energy-based methods for out-of-distribution (OOD) detection, and how do they compare to softmax-based approaches?
@@ -26,52 +25,161 @@ exercises: 0
 
 Traditional approaches, such as softmax-based methods, rely on output probabilities to flag OOD data. While simple and intuitive, these methods often struggle to distinguish OOD data effectively in complex scenarios, especially in high-dimensional spaces.
 
-Energy-based OOD detection offers a modern and robust alternative. This "output-based" approach leverages the **energy score**, a scalar value derived from a model's output logits, to measure the compatibility between input data and the model's learned distribution. The energy score directly ties to the Gibbs distribution, which allows for a nuanced interpretation of data compatibility. By computing energy scores and interpreting them probabilistically, energy-based methods enhance separability between in-distribution (ID) and OOD data. These techniques, particularly effective with neural networks, address some of the key limitations of softmax-based approaches.
+Energy-based OOD detection offers a modern and robust alternative. This "output-based" approach leverages the **energy score**, a scalar value derived from a model's output logits, to measure the compatibility between input data and the model's learned distribution. 
 
-In this episode, we will explore the theoretical foundations of energy-based OOD detection, implement it using the PyTorch-OOD library, and compare its performance to softmax-based methods. Along the way, we will provide intuitive explanations of key concepts like the Gibbs distribution to ensure accessibility for ML practitioners. We will also discuss the challenges of energy-based methods, including threshold tuning and generalization to diverse OOD scenarios. This understanding will set the stage for hybrid and training-time regularization methods discussed in future episodes.
+### Understanding energy scores
 
-:::::::::::::::::::::::::::::::::::::::: callout
+To understand energy-based OOD detection, we start by defining the **energy function E(x)**, which measures how "compatible" an input x is with a model's learned distribution.
 
-### intuition behind the Gibbs distribution and energy scores
+### 1. Energy function
+For a given input x and output logits f(x) — the raw outputs of a neural network — the energy of x is defined as:  
 
-The Gibbs distribution is a probability distribution used to model systems in equilibrium, and it connects naturally to the concept of energy. In the context of machine learning:
+$$
+E(x) = -\log \left( \sum_{k} \exp(f_k(x)) \right)
+$$
 
-- **Energy as a compatibility measure**: Think of energy as a score that measures how "compatible" a data point is with the model's learned distribution. A **lower energy score** indicates higher compatibility (i.e., the model sees the input as likely to belong to the training distribution).
-  
-- **From energy to probability**: The Gibbs distribution converts energy into probabilities. For an input \(x\), the probability of observing \(x\) is proportional to \(e^{-\text{Energy}(x)}\). This exponential relationship means that even small differences in energy can lead to significant changes in probability, making energy scores sensitive and effective for OOD detection.
+where:  
+- f_k(x) is the logit corresponding to class k,  
+- The sum is taken over all classes k.  
 
-- **Why energy works for OOD detection**: OOD data often results in higher energy scores because the model's output logits are less aligned with any known class. By setting a threshold on energy scores, we can distinguish OOD data from ID data more effectively than with softmax probabilities alone.
+This equation compresses the logits into a single scalar value: the energy score.  
 
-For practitioners, the Gibbs distribution provides a bridge between abstract "energy" values and interpretable probabilities, helping us reason about uncertainty and compatibility in a model's predictions.
-   * E(x, y) = energy value
-   
-   * if x and y are "compatitble", lower energy
-   
-   * Energy can be turned into probability through Gibbs distribution
-       * looks at integral over all possible y's
-   
-   * With energy scores, ID and OOD distributions become much more separable
+- Lower energy E(x) reflects **higher compatitibility**,  
+- Higher energy E(x) reflects **lower compatitibility**.
 
-**Learn more**: Liu et al., Energy-based Out-of-distribution Detection, NeurIPS 2020; https://arxiv.org/pdf/2010.03759
+### 2. Energy to probability
+Using the Gibbs distribution, the energy can be converted into a probability that reflects how likely x is under the model's learned distribution. The relationship is:  
 
-::::::::::::::::::::::::::::::::::::::::::::::::::
+$$
+P(x) \propto \exp(-E(x))
+$$
 
+Here:  
+- Lower energy \( E(x) \) leads to a **higher probability**,  
+- Higher energy \( E(x) \) leads to a **lower probability**.  
 
-## Introducing PyTorch OOD
-The PyTorch-OOD library provides methods for OOD detection and other closely related fields, such as anomoly detection or novelty detection. Visit the docs to learn more: [pytorch-ood.readthedocs.io/en/latest/info.html](https://pytorch-ood.readthedocs.io/en/latest/info.html)
+The exponential relationship ensures that even small differences in energy values translate to significant changes in probability. 
 
-This library will provide a streamlined way to calculate both energy and softmax scores from a trained model. 
-### Setup example
-In this example, we will train a CNN model on the FashionMNIST dataset. We will then repeat a similar process as we did with softmax scores to evaluate how well the energy metric can separate ID and OOD data. 
+If your stakeholders or downstream tasks require interpretable confidence scores, a Gibbs-based probability might make the thresholding process more understandable and adaptable. However, the raw energy scores can be more sensitive to OOD data since they do not compress their values between 0 and 1.
+### 3. Why energy works better than softmax
 
-We'll start by fresh by loading our data again. This time, let's treat all remaining classes in the MNIST fashion dataset as OOD. This should yield a more robust model that is more reliable when presented with all kinds of data. 
+Softmax probabilities are computed as:  
+
+$$
+P(y = k \mid x) = \frac{\exp(f_k(x))}{ \sum_{j} \exp(f_j(x))}
+$$
+
+The softmax function normalizes the logits \( f(x) \), squeezing the output into a range between 0 and 1. While this is useful for interpreting the model’s predictions as probabilities, it introduces **overconfidence** for OOD inputs. Specifically:
+- Even when none of the logits \( f_k(x) \) are strongly aligned with any class (e.g., low magnitudes for all logits), softmax still distributes the probabilities across the known classes.
+- The normalization ensures the total probability sums to 1, which can mask the uncertainty by making the scores appear confident for OOD inputs.
+
+Energy-based methods, on the other hand, do not normalize the logits into probabilities by default. Instead, the **energy score** summarizes the raw logits as:  
+
+$$
+E(x) = -\log \sum_{j} \exp(f_j(x))
+$$
+
+#### Key difference: sensitivity to logits / no normalization
+
+- **Softmax**: The output probabilities are dominated by the largest logit relative to the others, even if all logits are small. This can produce overconfident predictions for OOD data because the softmax function distributes probabilities across known classes.
+- **Energy**: By summarizing the raw logits directly, energy scores provide a more nuanced view of the model’s uncertainty, without forcing outputs into an overconfident probability distribution.
+
+### Summary
+- Energy E(x) directly measures compatibility with the model.  
+- Lower energy → Higher compatibility (in-distribution),  
+- Higher energy → Lower compatibility (OOD data).  
+- The exponential relationship ensures sensitivity to even small deviations, making energy-based detection more robust than softmax-based methods.
+
+## Worked example: comparing softmax and energy
+In this hands-on example, we'll repeat the same investigation as before with a couple of adjustments:
+
+- Use CNN to train model
+- Compare both softmax and energy scores with respect to ID and OOD data. We can do this easily using the PyTorch-OOD library.
 ```python
-train_data, test_data, ood_data, train_labels, test_labels, ood_labels = prep_ID_OOD_datasests([0,1], list(range(2,10))) # use remaining 8 classes in dataset as OOD
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+from keras.datasets import fashion_mnist
+
+def prep_ID_OOD_datasests(ID_class_labels, OOD_class_labels):
+    """
+    Prepares in-distribution (ID) and out-of-distribution (OOD) datasets 
+    from the Fashion MNIST dataset.
+
+    Parameters:
+    - ID_class_labels: list or array-like, labels for the in-distribution classes.
+                       Example: [0, 1] for T-shirts (0) and Trousers (1).
+    - OOD_class_labels: list or array-like, labels for the out-of-distribution classes.
+                        Example: [5] for Sandals.
+
+    Returns:
+    - train_data: np.array, training images for in-distribution classes.
+    - test_data: np.array, test images for in-distribution classes.
+    - ood_data: np.array, test images for out-of-distribution classes.
+    - train_labels: np.array, labels corresponding to the training images.
+    - test_labels: np.array, labels corresponding to the test images.
+    - ood_labels: np.array, labels corresponding to the OOD test images.
+
+    Notes:
+    - The function filters images based on provided class labels for ID and OOD.
+    - Outputs include images and their corresponding labels.
+    """
+    # Load Fashion MNIST dataset
+    (train_images, train_labels), (test_images, test_labels) = fashion_mnist.load_data()
+    
+    # Prepare OOD data: Sandals = 5
+    ood_filter = np.isin(test_labels, OOD_class_labels)
+    ood_data = test_images[ood_filter]
+    ood_labels = test_labels[ood_filter]
+    print(f'ood_data.shape={ood_data.shape}')
+    
+    # Filter data for T-shirts (0) and Trousers (1) as in-distribution
+    train_filter = np.isin(train_labels, ID_class_labels)
+    test_filter = np.isin(test_labels, ID_class_labels)
+    
+    train_data = train_images[train_filter]
+    train_labels = train_labels[train_filter]
+    print(f'train_data.shape={train_data.shape}')
+    
+    test_data = test_images[test_filter]
+    test_labels = test_labels[test_filter]
+    print(f'test_data.shape={test_data.shape}')
+
+    return train_data, test_data, ood_data, train_labels, test_labels, ood_labels
+
+
+def plot_data_sample(train_data, ood_data):
+    """
+    Plots a sample of in-distribution and OOD data.
+
+    Parameters:
+    - train_data: np.array, array of in-distribution data images
+    - ood_data: np.array, array of out-of-distribution data images
+
+    Returns:
+    - fig: matplotlib.figure.Figure, the figure object containing the plots
+    """
+    fig = plt.figure(figsize=(10, 4))
+    N_samples = 7
+    for i in range(N_samples):
+        plt.subplot(2, N_samples, i + 1)
+        plt.imshow(train_data[i], cmap='gray')
+        plt.title("In-Dist")
+        plt.axis('off')
+    for i in range(N_samples):
+        plt.subplot(2, N_samples, i + N_samples+1)
+        plt.imshow(ood_data[i], cmap='gray')
+        plt.title("OOD")
+        plt.axis('off')
+    
+    return fig
+```
+```python
+train_data, test_data, ood_data, train_labels, test_labels, ood_labels = prep_ID_OOD_datasests([0,1], [5]) #list(range(2,10)) use remaining 8 classes in dataset as OOD
 fig = plot_data_sample(train_data, ood_data)
-fig.savefig('../images/OOD-detection_image-data-preview.png', dpi=300, bbox_inches='tight')
 plt.show()
 ```
-
 ## Visualizing OOD and ID data
 
 
@@ -81,7 +189,7 @@ Recall in our previous example, we used PCA to visualize the ID and OOD data dis
 
 UMAP  is a non-linear dimensionality reduction technique that preserves both the global structure and the local neighborhood relationships in the data. UMAP is often better at maintaining the continuity of data points that lie on non-linear manifolds. It can reveal nonlinear patterns and structures that PCA might miss, making it a valuable tool for analyzing ID and OOD distributions.
 ```python
-plot_umap = True # leave off for now to save time testing downstream materials
+plot_umap = True 
 if plot_umap:
     import umap
     # Flatten images for PCA and logistic regression
@@ -103,12 +211,11 @@ if plot_umap:
     # Split the results back into in-distribution and OOD data
     umap_in_dist = umap_results[:len(train_data_flat)]
     umap_ood = umap_results[len(train_data_flat):]
-
 ```
 The warning message indicates that UMAP has overridden the n_jobs parameter to 1 due to the random_state being set. This behavior ensures reproducibility by using a single job. If you want to avoid the warning and still use parallelism, you can remove the random_state parameter. However, removing random_state will mean that the results might not be reproducible.
 ```python
 if plot_umap:
-    umap_alpha = .02
+    umap_alpha = .1
 
     # Plotting UMAP components
     plt.figure(figsize=(10, 6))
@@ -118,7 +225,7 @@ if plot_umap:
     scatter2 = plt.scatter(umap_in_dist[train_labels == 1, 0], umap_in_dist[train_labels == 1, 1], c='red', label='Trousers (ID)', alpha=umap_alpha)
     
     # Plot OOD data
-    scatter3 = plt.scatter(umap_ood[:, 0], umap_ood[:, 1], c='green', label='OOD', edgecolor='k', alpha=alpha)
+    scatter3 = plt.scatter(umap_ood[:, 0], umap_ood[:, 1], c='green', label='OOD', edgecolor='k', alpha=umap_alpha)
     
     # Create a single legend for all classes
     plt.legend(handles=[scatter1, scatter2, scatter3], loc="upper right")
@@ -127,29 +234,37 @@ if plot_umap:
     plt.title('UMAP of In-Distribution and OOD Data')
     plt.show()
 ```
-## Train CNN
+With UMAP, we see our data clusters into more meaningful groups (compared to PCA). Our nonlinear model should hopefully have no problem separating these three clusters.
+### Preparing data for CNN
+Next, we'll prepare our data for a pytorch (torch) CNN. 
 ```python
 import torch
-import torch.nn as nn
-import torch.optim as optim
-import torchvision.transforms as transforms
-import torch.nn.functional as F
 
 # Convert to PyTorch tensors and normalize
 train_data_tensor = torch.tensor(train_data, dtype=torch.float32).unsqueeze(1) / 255.0
 test_data_tensor = torch.tensor(test_data, dtype=torch.float32).unsqueeze(1) / 255.0
 ood_data_tensor = torch.tensor(ood_data, dtype=torch.float32).unsqueeze(1) / 255.0
-
 train_labels_tensor = torch.tensor(train_labels, dtype=torch.long)
 test_labels_tensor = torch.tensor(test_labels, dtype=torch.long)
 
+# TensorDataset provides a convenient way to couple input data with their corresponding labels, making it easier to pass them into a DataLoader.
 train_dataset = torch.utils.data.TensorDataset(train_data_tensor, train_labels_tensor)
 test_dataset = torch.utils.data.TensorDataset(test_data_tensor, test_labels_tensor)
 ood_dataset = torch.utils.data.TensorDataset(ood_data_tensor, torch.zeros(ood_data_tensor.shape[0], dtype=torch.long))
 
-train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=64, shuffle=True)
+# DataLoader is used to efficiently load and manage batches of data
+# - It provides iterators over the data for training/testing.
+# - Supports options like batch size, shuffling, and parallel data loading
+train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=64, shuffle=False)
 test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=64, shuffle=False)
 ood_loader = torch.utils.data.DataLoader(ood_dataset, batch_size=64, shuffle=False)
+```
+### Define CNN class
+Next, we'll define a simple Convolutional Neural Network (CNN) to classify in-distribution (ID) data. This CNN will serve as the backbone for our experiments, enabling us to analyze its predictions on both ID and OOD data. The model will include convolutional layers for feature extraction and fully connected layers for classification.
+```python
+import torch.nn as nn
+import torch.optim as optim
+import torch.nn.functional as F
 
 # Define a simple CNN model
 class SimpleCNN(nn.Module):
@@ -168,105 +283,199 @@ class SimpleCNN(nn.Module):
         x = self.fc2(x)
         return x
 
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+```
+```python
+device = torch.device('cpu')
 model = SimpleCNN().to(device)
-criterion = nn.CrossEntropyLoss()
-optimizer = optim.Adam(model.parameters(), lr=0.001)
 
+```
+### Train model
+```python
 def train_model(model, train_loader, criterion, optimizer, epochs=5):
-    model.train()
+    """
+    Trains a given PyTorch model using a specified dataset, loss function, and optimizer.
+
+    Parameters:
+    - model (nn.Module): The neural network model to train.
+    - train_loader (DataLoader): DataLoader object providing the training dataset in batches.
+    - criterion (nn.Module): Loss function used for optimization (e.g., CrossEntropyLoss).
+    - optimizer (torch.optim.Optimizer): Optimizer for adjusting model weights (e.g., Adam, SGD).
+    - epochs (int): Number of training iterations over the entire dataset.
+
+    Returns:
+    - None: Prints the loss for each epoch during training.
+
+    Workflow:
+    1. Iterate over the dataset for the given number of epochs.
+    2. For each batch, forward propagate inputs, compute the loss, and backpropagate gradients.
+    3. Update model weights using the optimizer and reset gradients after each step.
+    """
+    model.train()  # Set the model to training mode
     for epoch in range(epochs):
         running_loss = 0.0
         for inputs, labels in train_loader:
+            # Move inputs and labels to the appropriate device (CPU or GPU)
             inputs, labels = inputs.to(device), labels.to(device)
+            
+            # Reset gradients from the previous step to avoid accumulation
             optimizer.zero_grad()
+            
+            # Forward pass: Compute model predictions
             outputs = model(inputs)
+            
+            # Compute the loss between predictions and true labels
             loss = criterion(outputs, labels)
+            
+            # Backward pass: Compute gradients of the loss w.r.t. model parameters
             loss.backward()
+            
+            # Update model weights using gradients and optimizer rules
             optimizer.step()
+            
+            # Accumulate the batch loss for reporting
             running_loss += loss.item()
+        
+        # Print the average loss for the current epoch
         print(f'Epoch {epoch+1}, Loss: {running_loss/len(train_loader)}')
-
-train_model(model, train_loader, criterion, optimizer)
 
 ```
 ```python
+criterion = nn.CrossEntropyLoss()
+optimizer = optim.Adam(model.parameters(), lr=0.001)
+
+train_model(model, train_loader, criterion, optimizer)
+```
+### Evaluate the model
+```python
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+import matplotlib.pyplot as plt
+import torch
+import numpy as np
 
 # Function to plot confusion matrix
 def plot_confusion_matrix(labels, predictions, title):
+    """
+    Plots a confusion matrix for a classification task.
+
+    Parameters:
+    - labels (array-like): True labels for the dataset.
+    - predictions (array-like): Model-predicted labels.
+    - title (str): Title for the confusion matrix plot.
+
+    Returns:
+    - None: Displays the confusion matrix plot.
+    """
+    # Compute the confusion matrix
     cm = confusion_matrix(labels, predictions, labels=[0, 1])
+    
+    # Create a display object for the confusion matrix
     disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["T-shirt/top", "Trouser"])
+    
+    # Plot the confusion matrix with a color map
     disp.plot(cmap=plt.cm.Blues)
     plt.title(title)
     plt.show()
 
-# Function to evaluate model on a dataset
+```
+```python
+# Function to evaluate the model on a given dataset
 def evaluate_model(model, dataloader, device):
-    model.eval()
-    all_labels = []
-    all_predictions = []
+    """
+    Evaluates a PyTorch model on a given dataset.
+
+    Parameters:
+    - model (torch.nn.Module): The trained PyTorch model to evaluate.
+    - dataloader (torch.utils.data.DataLoader): DataLoader object providing the dataset in batches.
+    - device (torch.device): Device on which to perform the evaluation (CPU or GPU).
+
+    Returns:
+    - all_labels (np.array): True labels for the entire dataset.
+    - all_predictions (np.array): Model predictions for the entire dataset.
+    """
+    model.eval()  # Set the model to evaluation mode
+    all_labels = []  # To store true labels
+    all_predictions = []  # To store model predictions
+    
+    # Disable gradient computation during evaluation
     with torch.no_grad():
         for inputs, labels in dataloader:
+            # Move inputs and labels to the specified device
             inputs, labels = inputs.to(device), labels.to(device)
+            
+            # Forward pass to get model outputs
             outputs = model(inputs)
+            
+            # Get predicted class labels (index with the highest probability)
             _, preds = torch.max(outputs, 1)
+            
+            # Append true labels and predictions to the lists
             all_labels.extend(labels.cpu().numpy())
             all_predictions.extend(preds.cpu().numpy())
+    
+    # Convert lists to NumPy arrays for easier processing
     return np.array(all_labels), np.array(all_predictions)
-
-# Evaluate on train data
-train_labels, train_predictions = evaluate_model(model, train_loader, device)
-plot_confusion_matrix(train_labels, train_predictions, "Confusion Matrix for Train Data")
-
-# Evaluate on test data
-test_labels, test_predictions = evaluate_model(model, test_loader, device)
-plot_confusion_matrix(test_labels, test_predictions, "Confusion Matrix for Test Data")
-
-# Evaluate on OOD data
-ood_labels, ood_predictions = evaluate_model(model, ood_loader, device)
-plot_confusion_matrix(ood_labels, ood_predictions, "Confusion Matrix for OOD Data")
 
 ```
 ```python
-from scipy.stats import gaussian_kde
-from pytorch_ood.detector import EnergyBased
-from sklearn.metrics import precision_recall_fscore_support, accuracy_score
+# Evaluate the model on the test dataset
+test_labels, test_predictions = evaluate_model(model, test_loader, device)
+
+# Plot confusion matrix for test dataset
+plot_confusion_matrix(test_labels, test_predictions, "Confusion Matrix for Test Data")
+```
+#### Comparing softmax vs energy scores
+Let's take a look at both the softmax and energy scores generated by both the ID test set and the OOD data we extracted earlier.
+
+With PyTorch-OOD, we can easily calculate both measures.
+```python
+# 1. Computing softmax scores
+from pytorch_ood.detector import MaxSoftmax
+
+# Initialize the softmax-based OOD detector
+softmax_detector = MaxSoftmax(model)
 
 # Compute softmax scores
-def get_softmax_scores(model, dataloader):
-    model.eval()
-    softmax_scores = []
-    with torch.no_grad():
-        for inputs, _ in dataloader:
-            inputs = inputs.to(device)
-            outputs = model(inputs)
-            softmax = torch.nn.functional.softmax(outputs, dim=1)
-            softmax_scores.extend(softmax.cpu().numpy())
-    return np.array(softmax_scores)
+def get_OOD_scores(detector, dataloader):
+    """
+    Computes softmax-based scores for a given OOD detector and dataset.
 
-id_softmax_scores = get_softmax_scores(model, test_loader)
-ood_softmax_scores = get_softmax_scores(model, ood_loader)
+    Parameters:
+    - detector: An initialized OOD detector (e.g., MaxSoftmax).
+    - dataloader: DataLoader providing the dataset for which scores are to be computed.
 
-# Initialize the energy-based OOD detector
-energy_detector = EnergyBased(model, t=1.0)
-
-# Compute energy scores
-def get_energy_scores(detector, dataloader):
+    Returns:
+    - scores: A NumPy array of softmax scores for all data points.
+    """
     scores = []
-    detector.model.eval()
-    with torch.no_grad():
+    detector.model.eval()  # Ensure the model is in evaluation mode
+    with torch.no_grad():  # Disable gradient computation for efficiency
         for inputs, _ in dataloader:
-            inputs = inputs.to(device)
-            score = detector.predict(inputs)
-            scores.extend(score.cpu().numpy())
+            inputs = inputs.to(device)  # Move inputs to the correct device
+            score = detector.predict(inputs)  # Get the max softmax score
+            scores.extend(score.cpu().numpy())  # Move scores to CPU and convert to NumPy array
     return np.array(scores)
 
-id_energy_scores = get_energy_scores(energy_detector, test_loader)
-ood_energy_scores = get_energy_scores(energy_detector, ood_loader)
+# Compute softmax scores for ID and OOD data
+id_softmax_scores = get_OOD_scores(softmax_detector, test_loader)
+ood_softmax_scores = get_OOD_scores(softmax_detector, ood_loader)
 
+id_softmax_scores # values are negative to align with other OOD measures, such as energy (more negative is better)
+```
+```python
+# 2. Computing energy
+from pytorch_ood.detector import EnergyBased
+
+# Initialize the energy-based OOD detector
+energy_detector = EnergyBased(model)
+
+id_energy_scores = get_OOD_scores(energy_detector, test_loader)
+ood_energy_scores = get_OOD_scores(energy_detector, ood_loader)
+id_energy_scores
+```
+### Plot probability densities
+```python
+from scipy.stats import gaussian_kde
 import matplotlib.pyplot as plt
-
 
 # Plot PSDs
 
@@ -292,226 +501,16 @@ def plot_psd(id_scores, ood_scores, method_name):
     plt.show()
 
 # Plot PSD for softmax scores
-plot_psd(id_softmax_scores[:, 1], ood_softmax_scores[:, 1], 'Softmax')
+plot_psd(id_softmax_scores, ood_softmax_scores, 'Softmax')
 
 # Plot PSD for energy scores
 plot_psd(id_energy_scores, ood_energy_scores, 'Energy')
-
-
 ```
-```python
-import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.metrics import precision_recall_fscore_support, accuracy_score, confusion_matrix, ConfusionMatrixDisplay
+## Recap and limitations
+The energy-based approach for out-of-distribution (OOD) detection has several strengths, particularly its ability to effectively separate in-distribution (ID) and OOD data by leveraging the raw logits of a model. However, it is not without limitations. Here are the key drawbacks:
 
-# Define thresholds to evaluate
-thresholds = np.linspace(id_energy_scores.min(), id_energy_scores.max(), 50)
-
-# Store evaluation metrics for each threshold
-accuracies = []
-precisions = []
-recalls = []
-f1_scores = []
-
-# True labels for OOD data (since they are not part of the original labels)
-ood_true_labels = np.full(len(ood_energy_scores), -1)
-
-# We need the test_labels to be aligned with the ID data
-id_true_labels = test_labels[:len(id_energy_scores)]
-
-for threshold in thresholds:
-    # Classify OOD examples based on energy scores
-    ood_classifications = np.where(ood_energy_scores >= threshold, -1,  # classified as OOD
-                                   np.where(ood_energy_scores < threshold, 0, -1))  # classified as ID
-
-    # Classify ID examples based on energy scores
-    id_classifications = np.where(id_energy_scores >= threshold, -1,  # classified as OOD
-                                  np.where(id_energy_scores < threshold, id_true_labels, -1))  # classified as ID
-
-    # Combine OOD and ID classifications and true labels
-    all_predictions = np.concatenate([ood_classifications, id_classifications])
-    all_true_labels = np.concatenate([ood_true_labels, id_true_labels])
-
-    # Evaluate metrics
-    precision, recall, f1, _ = precision_recall_fscore_support(all_true_labels, all_predictions, labels=[0, 1], average='macro')#, zero_division=0)
-    accuracy = accuracy_score(all_true_labels, all_predictions)
-
-    accuracies.append(accuracy)
-    precisions.append(precision)
-    recalls.append(recall)
-    f1_scores.append(f1)
-
-# Find the best thresholds for each metric
-best_f1_index = np.argmax(f1_scores)
-best_f1_threshold = thresholds[best_f1_index]
-
-best_precision_index = np.argmax(precisions)
-best_precision_threshold = thresholds[best_precision_index]
-
-best_recall_index = np.argmax(recalls)
-best_recall_threshold = thresholds[best_recall_index]
-
-print(f"Best F1 threshold: {best_f1_threshold}, F1 Score: {f1_scores[best_f1_index]}")
-print(f"Best Precision threshold: {best_precision_threshold}, Precision: {precisions[best_precision_index]}")
-print(f"Best Recall threshold: {best_recall_threshold}, Recall: {recalls[best_recall_index]}")
-
-# Plot metrics as functions of the threshold
-plt.figure(figsize=(12, 8))
-plt.plot(thresholds, precisions, label='Precision', color='g')
-plt.plot(thresholds, recalls, label='Recall', color='b')
-plt.plot(thresholds, f1_scores, label='F1 Score', color='r')
-
-# Add best threshold indicators
-plt.axvline(x=best_f1_threshold, color='r', linestyle='--', label=f'Best F1 Threshold: {best_f1_threshold:.2f}')
-plt.axvline(x=best_precision_threshold, color='g', linestyle='--', label=f'Best Precision Threshold: {best_precision_threshold:.2f}')
-plt.axvline(x=best_recall_threshold, color='b', linestyle='--', label=f'Best Recall Threshold: {best_recall_threshold:.2f}')
-
-plt.xlabel('Threshold')
-plt.ylabel('Metric Value')
-plt.title('Evaluation Metrics as Functions of Threshold (Energy-Based OOD Detection)')
-plt.legend()
-plt.show()
-
-```
-```python
-
-import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.metrics import precision_recall_fscore_support, accuracy_score, confusion_matrix, ConfusionMatrixDisplay
-
-import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.metrics import precision_recall_fscore_support, accuracy_score
-
-def evaluate_ood_detection(id_scores, ood_scores, id_true_labels, id_predictions, ood_predictions, score_type='energy'):
-    """
-    Evaluate OOD detection based on either energy scores or softmax scores.
-
-    Parameters:
-    - id_scores: np.array, scores for in-distribution (ID) data
-    - ood_scores: np.array, scores for out-of-distribution (OOD) data
-    - id_true_labels: np.array, true labels for ID data
-    - id_predictions: np.array, predicted labels for ID data
-    - ood_predictions: np.array, predicted labels for OOD data
-    - score_type: str, type of score used ('energy' or 'softmax')
-
-    Returns:
-    - Best thresholds for F1, Precision, and Recall
-    - Plots of Precision, Recall, and F1 Score as functions of the threshold
-    """
-    # Define thresholds to evaluate
-    if score_type == 'softmax':
-        thresholds = np.linspace(0.5, 1.0, 200)
-    else:
-        thresholds = np.linspace(id_scores.min(), id_scores.max(), 50)
-
-    # Store evaluation metrics for each threshold
-    accuracies = []
-    precisions = []
-    recalls = []
-    f1_scores = []
-
-    # True labels for OOD data (since they are not part of the original labels)
-    if score_type == "energy":
-        ood_true_labels = np.full(len(ood_scores), -1)
-    else:
-        ood_true_labels = np.full(len(ood_scores[:,0]), -1)
-
-    for threshold in thresholds:
-        # Classify OOD examples based on scores
-        if score_type == 'energy':
-            ood_classifications = np.where(ood_scores >= threshold, -1, ood_predictions)
-            id_classifications = np.where(id_scores >= threshold, -1, id_predictions)
-        elif score_type == 'softmax':
-            ood_classifications = np.where(ood_scores[:,0] <= threshold, -1, ood_predictions)
-            id_classifications = np.where(id_scores[:,0] <= threshold, -1, id_predictions)
-        else:
-            raise ValueError("Invalid score_type. Use 'energy' or 'softmax'.")
-
-        # Combine OOD and ID classifications and true labels
-        all_predictions = np.concatenate([ood_classifications, id_classifications])
-        all_true_labels = np.concatenate([ood_true_labels, id_true_labels])
-
-        # Evaluate metrics
-        precision, recall, f1, _ = precision_recall_fscore_support(all_true_labels, all_predictions, labels=[-1, 0], average='macro', zero_division=0)
-        accuracy = accuracy_score(all_true_labels, all_predictions)
-
-        accuracies.append(accuracy)
-        precisions.append(precision)
-        recalls.append(recall)
-        f1_scores.append(f1)
-
-    # Find the best thresholds for each metric
-    best_f1_index = np.argmax(f1_scores)
-    best_f1_threshold = thresholds[best_f1_index]
-
-    best_precision_index = np.argmax(precisions)
-    best_precision_threshold = thresholds[best_precision_index]
-
-    best_recall_index = np.argmax(recalls)
-    best_recall_threshold = thresholds[best_recall_index]
-
-    print(f"Best F1 threshold: {best_f1_threshold}, F1 Score: {f1_scores[best_f1_index]}")
-    print(f"Best Precision threshold: {best_precision_threshold}, Precision: {precisions[best_precision_index]}")
-    print(f"Best Recall threshold: {best_recall_threshold}, Recall: {recalls[best_recall_index]}")
-
-    # Plot metrics as functions of the threshold
-    plt.figure(figsize=(12, 8))
-    plt.plot(thresholds, precisions, label='Precision', color='g')
-    plt.plot(thresholds, recalls, label='Recall', color='b')
-    plt.plot(thresholds, f1_scores, label='F1 Score', color='r')
-
-    # Add best threshold indicators
-    plt.axvline(x=best_f1_threshold, color='r', linestyle='--', label=f'Best F1 Threshold: {best_f1_threshold:.2f}')
-    plt.axvline(x=best_precision_threshold, color='g', linestyle='--', label=f'Best Precision Threshold: {best_precision_threshold:.2f}')
-    plt.axvline(x=best_recall_threshold, color='b', linestyle='--', label=f'Best Recall Threshold: {best_recall_threshold:.2f}')
-
-    plt.xlabel('Threshold')
-    plt.ylabel('Metric Value')
-    plt.title(f'Evaluation Metrics as Functions of Threshold ({score_type.capitalize()}-Based OOD Detection)')
-    plt.legend()
-    plt.show()
-
-    # plot confusion matrix
-    # Threshold value for the energy score
-    upper_threshold = best_f1_threshold  # Using the best F1 threshold from the previous calculation
-    if score_type == 'energy':
-        # Classifying OOD examples based on energy scores
-        ood_classifications = np.where(ood_energy_scores >= upper_threshold, -1,  # classified as OOD
-                                  np.where(ood_energy_scores < upper_threshold, 0, -1))  # classified as ID
-        # Classifying ID examples based on energy scores
-        id_classifications = np.where(id_energy_scores >= upper_threshold, -1,  # classified as OOD
-                                  np.where(id_energy_scores < upper_threshold, id_true_labels, -1))  # classified as ID
-    elif score_type == 'softmax':
-        # Classifying OOD examples based on softmax scores
-        ood_classifications = softmax_thresh_classifications(ood_scores, upper_threshold)
-
-        # Classifying ID examples based on softmax scores
-        id_classifications = softmax_thresh_classifications(id_scores, upper_threshold)
-    # Combine OOD and ID classifications and true labels
-    all_predictions = np.concatenate([ood_classifications, id_classifications])
-    all_true_labels = np.concatenate([ood_true_labels, id_true_labels])
-    # Confusion matrix
-    cm = confusion_matrix(all_true_labels, all_predictions, labels=[0, 1, -1])
-
-    # Plotting the confusion matrix
-    disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["Shirt", "Pants", "OOD"])
-    disp.plot(cmap=plt.cm.Blues)
-    plt.title(f'Confusion Matrix for OOD and ID Classification ({score_type.capitalize()}-Based)')
-    plt.show()
-
-
-    return best_f1_threshold, best_precision_threshold, best_recall_threshold
-
-# Example usage
-# Assuming id_energy_scores, ood_energy_scores, id_true_labels, and test_labels are already defined
-best_f1_threshold, best_precision_threshold, best_recall_threshold = evaluate_ood_detection(id_energy_scores, ood_energy_scores, test_labels, test_predictions, ood_predictions, score_type='energy')
-best_f1_threshold, best_precision_threshold, best_recall_threshold = evaluate_ood_detection(id_softmax_scores, ood_softmax_scores, test_labels, test_predictions, ood_predictions, score_type='softmax')
-
-```
-## Limitations of our approach thus far
-
-* Focus on single OOD class: More reliable/accurate thresholds can/should be obtained using a wider variety (more classes) and larger sample of OOD data. This is part of the challenge of OOD detection which is that space of OOD data is vast. **Possible exercise**: Redo thresholding using all remaining classes in dataset.
+1. Dependence on well-defined classes: Energy scores rely on logits that correspond to clearly defined classes in the model. If the model's logits are not well-calibrated or if the task involves ambiguous or overlapping classes, the energy scores may not provide reliable OOD separation.
+2. Energy thresholds tuned on one dataset may not generalize well to other datasets or domains (depending on how expansive/variable your OOD calibration set is)
 
 ## References and supplemental resources
 

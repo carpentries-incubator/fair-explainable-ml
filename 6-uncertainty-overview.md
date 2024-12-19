@@ -24,11 +24,11 @@ exercises: 0
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-## Estimating model uncertainty
+## How confident is my model? Will it generalize to new data or subpopulations?
 Understanding how confident a model is in its predictions is a valuable tool for building trustworthy AI systems, especially in high-stakes settings like healthcare or autonomous vehicles. Model uncertainty estimation focuses on quantifying the model's confidence and is often used to identify predictions that require further review or caution.
 
 ### Sources of uncertainty 
-At its core, uncertainty starts with the **data** itself, as all models learn to form embeddings (feature representations) of the data. Uncertainty in the data—whether from inherent randomness or insufficient coverage—propagates through the model's embeddings, leading to uncertainty in the outputs. 
+At its core, model uncertainty starts with the **data** itself, as all models learn to form embeddings (feature representations) of the data. Uncertainty in the data—whether from inherent randomness or insufficient coverage—propagates through the model's embeddings, leading to uncertainty in the outputs. 
 
 #### 1) Aleatoric (Random) uncertainty
 Aleotoric or random uncertainty is the inherent noise in the data that cannot be reduced, even with more data (observations OR missing features). 
@@ -44,7 +44,11 @@ Since aleatoric/random uncertainty is generally considered inherent (unless you 
 - **Predictive variance in linear regression**: The ability to derive error bars or prediction intervals in traditional regression comes from the assumption that the errors (residuals) follow a normal distribution and are homoskedastic (errors stay relatively constant across different values of predictors).
   - In contrast, deep learning models are highly non-linear and have millions (or billions) of parameters. The mapping between inputs and outputs is not a simple linear equation but rather a complex, multi-layer function. In addition, deep learning can overfit common classes and underfit rarer clases. Because of these factors, errors are rarely normally distributed and homoskedastic in deep learning applications.
 - **Heteroskedastic models**: Use specialized loss functions that allow the model to predict the noise level in the data directly. These models are particularly critical in fields like *robotics*, where sensor noise varies significantly depending on environmental conditions. It is possible to build this functionality into both linear models and modern deep learning models. However, these methods may require some calibration, as ground truth measurements of noise usually aren't available.
+  - Example application: Managing hospital reporting inconsistencies.  
+  - Reference: Kendall, A., & Gal, Y. (2017). "[What uncertainties do we need in Bayesian deep learning for computer vision?](https://arxiv.org/abs/1703.04977)".
 - **Data augmentation and perturbation analysis**: Assess variability in predictions by adding noise to the input data and observing how much the model’s outputs change. A highly sensitive change in predictions may indicate underlying noise or instability in the data. For instance, in image classification, augmenting training data with synthetic noise can help the model better handle real-world imperfections stemming from sensor artifacts. 
+  - Example application: Handling motion blur in tumor detection.  
+  - Reference: Shorten, C., & Khoshgoftaar, T. M. (2019). "[A survey on image data augmentation for deep learning.](https://journalofbigdata.springeropen.com/articles/10.1186/s40537-019-0197-0)"  
 
 #### 2) Subjectivity and ill-defined problems 
 
@@ -57,7 +61,7 @@ Since aleatoric/random uncertainty is generally considered inherent (unless you 
 - **Probabilistic labeling or soft targets**: Instead of using hard labels (e.g., 0 or 1), assign probabilistic labels to account for ambiguity in the data. Example: If 70% of annotators labeled an image as "happy" and 30% as "neutral," you can label it as [0.7, 0.3] instead of forcing a binary decision.
 
     
-### 3. Epistemic uncertainty 
+#### 3. Epistemic uncertainty 
 **Epistemic** (ep·i·ste·mic) is an adjective that means, "*relating to knowledge or to the degree of its validation.*" 
 
 Epistemic uncertainty refers to gaps in the model's knowledge about the data distribution, which can be reduced by using more data or improved models. Aleatoric uncertainy can arise due to:
@@ -80,7 +84,11 @@ Epistemic uncertainty arises from the model's lack of knowledge about certain re
   - **Active learning**: Use model uncertainty estimates to prioritize uncertain or ambiguous samples for annotation, enabling more targeted data collection.
 - **Ensemble models**: These involve training multiple models on the same data, each starting with different initializations or random seeds. The ensemble's predictions are aggregated, and the variance in their outputs reflects uncertainty. This approach works well because different models often capture different aspects of the data. For example, if all models agree, the prediction is confident; if they disagree, there is uncertainty. Ensembles are effective but computationally expensive, as they require training and evaluating multiple models.
 - **Bayesian neural networks**: These networks incorporate probabilistic layers to model uncertainty directly in the weights of the network. Instead of assigning a single deterministic weight to each connection, Bayesian neural networks assign distributions to these weights, reflecting the uncertainty about their true values. During inference, these distributions are sampled multiple times to generate predictions, which naturally include uncertainty estimates. While Bayesian neural networks are theoretically rigorous and align well with the goal of epistemic uncertainty estimation, they are computationally expensive and challenging to scale for large datasets or deep architectures. This is because calculating or approximating posterior distributions over all parameters becomes intractable as model size grows. To address this, methods like variational inference or Monte Carlo sampling are often used, but these approximations can introduce inaccuracies, making Bayesian approaches less practical for many modern applications. Despite these challenges, Bayesian neural networks remain valuable for research contexts where precise uncertainty quantification is needed or in domains where computational resources are less of a concern.
+  - Example application: Detecting rare tumor types in radiology.  
+  - Reference: Blundell, C., et al. (2015). "[Weight uncertainty in neural networks.](https://arxiv.org/abs/1505.05424)"
 - **Out-of-distribution detection**: Identifies inputs that fall significantly outside the training distribution, flagging areas where the model's predictions are unreliable. Many OOD methods produce continuous scores, such as Mahalanobis distance or energy-based scores, which measure how novel or dissimilar an input is from the training data. These scores can be interpreted as a form of epistemic uncertainty, providing insight into how unfamiliar an input is. However, OOD detection focuses on distinguishing ID from OOD inputs rather than offering confidence estimates for predictions on ID inputs.
+  - Example application: Flagging out-of-scope queries in chatbot systems.  
+  - Reference: Hendrycks, D., & Gimpel, K. (2017). "[A baseline for detecting misclassified and out-of-distribution examples in neural networks.](https://arxiv.org/abs/1610.02136)"  
 
 
 #### Why is OOD detection widely adopted?
@@ -89,123 +97,34 @@ Among epistemic uncertainty methods, OOD detection has become a widely adopted a
 
 For example, in autonomous vehicles, OOD detection can help flag unexpected scenarios (e.g., unusual objects on the road) in near real-time, enabling safer decision-making. Similarly, in NLP, OOD methods are used to identify queries or statements that deviate from a model's training corpus, such as out-of-context questions in a chatbot system. In the next couple of episodes, we'll see how to implement various OOD strategies.
 
-### Exercises: Analyzing uncertainty in real-world applications
-
 :::: challenge
 
-#### Tabular Data Example: Hospital Resource Allocation
+#### Identify aleatoric and epistemic uncertainty
 
-You are tasked with designing a machine learning system to predict hospital resource demands during seasonal flu outbreaks and rare pandemics. Discuss:
+For each scenario below, identify the sources of **aleatoric** and **epistemic** uncertainty. Provide specific examples based on the context of the application.
 
-1. Types of uncertainty (aleatoric vs. epistemic) present in this application.
-2. Methods to estimate and address each type of uncertainty.
-3. Trade-offs between methods in terms of complexity and applicability.
+1. **Tabular data example:** Hospital resource allocation during seasonal flu outbreaks and pandemics.  
+2. **Image data example:** Tumor detection in radiology images.  
+3. **Text data example:** Chatbot intent recognition.  
 
 ::::
 
 ::::: solution
 
-For hospital resource allocation, both aleatoric and epistemic uncertainties play a critical role. Aleatoric uncertainty arises from inherent variability in hospital resource demand, such as seasonal flu spikes or local reporting inconsistencies. Epistemic uncertainty stems from limited or incomplete data, particularly for rare events like pandemics.
+1. **Hospital resource allocation**
 
-#### General Approaches:
-- **Aleatoric Uncertainty**:
-  - Use models that capture the variability in the data through predictive variance or heteroscedastic loss.
-  - Employ robust models or data augmentation to handle noise in the data.
-- **Epistemic Uncertainty**:
-  - Use ensemble methods or Bayesian neural networks to estimate uncertainty in underrepresented scenarios.
-  - Apply OOD detection methods to identify anomalies or novel data points outside the training distribution.
+- **Aleatoric uncertainty**: Variability in seasonal flu demand; inconsistent local reporting.  
+- **Epistemic uncertainty**: Limited data for rare pandemics; incomplete understanding of emerging health crises.
 
-#### Specific Examples:
-- **Aleatoric Uncertainty**:
-  - Predictive variance in regression models can highlight inherent randomness in hospital bed demand due to unpredictable events.  
-    - Reference: [Taylor et al., 2021](https://bmcmedinformdecismak.biomedcentral.com/articles/10.1186/s12911-022-01787-9).
-  - Heteroscedastic models can account for variability in reporting systems or fluctuating patient arrival rates.  
-    - Reference: [Rajkomar et al., 2018](https://www.nature.com/articles/s41746-018-0029-1.pdf).
+2. **Tumor detection in radiology images**
 
-- **Epistemic Uncertainty**:
-  - Tree ensembles can capture uncertainty in rare conditions, such as during pandemics.  
-    - Reference: [Shahid et al., 2020](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010602).
-  - OOD detection methods identify unexpected spikes in demand or errors in occupancy reporting.  
-    - Reference: [Pang et al., 2021](https://arxiv.org/abs/2110.11334).
+- **Aleatoric uncertainty**: Imaging artifacts such as noise or motion blur.  
+- **Epistemic uncertainty**: Limited labeled data for rare tumor types; novel imaging modalities.
 
-:::::
+3. **Chatbot intent recognition**
 
-
-:::: challenge
-
-#### Image Data Example: Tumor Detection in Radiology Images
-
-Design a system to detect tumors in radiology images. Discuss:
-
-1. Sources of aleatoric and epistemic uncertainty in this application.
-2. Potential methods to estimate and address these uncertainties.
-3. Evaluate how well these methods scale for large datasets and real-world deployment.
-
-::::
-
-::::: solution
-
-For tumor detection, aleatoric uncertainty arises from variability in image quality, such as noise, motion blur, or resolution artifacts. Epistemic uncertainty comes from limited labeled data for rare tumor types or novel imaging modalities.
-
-#### General Approaches:
-- **Aleatoric Uncertainty**:
-  - Use heteroscedastic loss to model data-dependent noise.
-  - Apply data augmentation to improve robustness to imaging artifacts.
-- **Epistemic Uncertainty**:
-  - Use Monte Carlo dropout or Bayesian models to estimate uncertainty in rare cases.
-  - Apply OOD detection to flag previously unseen tumor types or conditions.
-
-#### Specific Examples:
-- **Aleatoric Uncertainty**:
-  - CNNs with heteroscedastic loss can account for imaging artifacts like low resolution or motion blur.  
-    - Reference: [Kendall & Gal, 2017](https://arxiv.org/abs/1703.04977).
-  - Data augmentation strategies, such as adding synthetic noise, improve robustness.  
-    - Reference: [Shorten & Khoshgoftaar, 2019](https://journalofbigdata.springeropen.com/articles/10.1186/s40537-019-0197-0).
-
-- **Epistemic Uncertainty**:
-  - Monte Carlo dropout generates uncertainty maps for tumor boundaries.  
-    - Reference: [Leibig et al., 2017](https://www.nature.com/articles/s41598-017-17876-z.pdf).
-  - OOD detection flags anomalous imaging data, such as unseen tumor types.  
-    - Reference: [Hendrycks & Gimpel, 2017](https://arxiv.org/abs/1610.02136).
-
-:::::
-
-:::: challenge
-
-#### Text Data Example: Chatbot Intent Recognition
-
-Develop a system for chatbot intent recognition. Discuss:
-
-1. Aleatoric and epistemic uncertainties in the application.
-2. Methods to mitigate these uncertainties.
-3. Trade-offs between implementing simple uncertainty measures versus advanced techniques.
-
-::::
-
-::::: solution
-
-For chatbot intent recognition, aleatoric uncertainty comes from ambiguous or noisy user queries, while epistemic uncertainty arises from queries in domains not represented in the training data.
-
-#### General Approaches:
-- **Aleatoric Uncertainty**:
-  - Use predictive variance in simpler models like logistic regression to detect ambiguities.
-  - Heteroscedastic models, particularly in transformers, can handle token-level noise.
-- **Epistemic Uncertainty**:
-  - Bayesian methods or Monte Carlo dropout can quantify uncertainty for rare or unseen topics.
-  - OOD detection can identify out-of-scope queries.
-
-#### Specific Examples:
-- **Aleatoric Uncertainty**:
-  - Logistic regression captures variance in mixed-intent queries.  
-    - Reference: [Hazra et al., 2020](https://direct.mit.edu/tacl/article/doi/10.1162/tacl_a_00483/111592/Uncertainty-Estimation-and-Reduction-of-Pre).
-  - Transformers with heteroscedastic models capture token-level uncertainty in noisy inputs.  
-    - Reference: [Malinin & Gales, 2018](https://arxiv.org/pdf/1802.10501v3).
-
-- **Epistemic Uncertainty**:
-  - Bayesian transformers quantify uncertainty in rare topics.  
-    - Reference: [Fort et al., 2020](https://openreview.net/pdf?id=CSXa8LJMttt).
-  - OOD detection identifies out-of-scope or idiomatic queries.  
-    - Reference: [Lin & Xu, 2019](https://aclanthology.org/2020.coling-main.125.pdf).
+- **Aleatoric uncertainty**: Noise in user queries such as typos or speech-to-text errors.  
+- **Epistemic uncertainty**: Lack of training data for queries from out-of-scope domains; ambiguity due to unclear or multi-intent queries.
 
 :::::
 
@@ -219,3 +138,28 @@ Uncertainty estimation is a critical component of building reliable and trustwor
   - In many cases, collecting more data and employing active learning can directly address the root causes of epistemic uncertainty.
 
 When choosing a method, it’s important to consider the trade-offs in computational cost, model complexity, and the type of uncertainty being addressed. Together, these techniques form a powerful toolbox, enabling models to better navigate uncertainty and maintain trustworthiness in dynamic environments. By combining these approaches strategically, practitioners can ensure that their systems are not only accurate but also robust, interpretable, and adaptable to the challenges of real-world data.
+
+#### References and methods
+
+#### Methods for addressing aleatoric uncertainty
+1. **Heteroscedastic models**: Predict noise levels directly using specialized loss functions.  
+
+
+2. **Data augmentation**: Add noise to inputs to improve robustness to imaging artifacts.  
+
+
+#### Methods for addressing epistemic uncertainty
+1. **Ensemble models**: Aggregate predictions to capture model disagreement.  
+   - Example application: Predicting rare pandemic impacts on hospital demand.  
+   - Reference: Leibig, C., et al. (2017). "Leveraging uncertainty information from deep neural networks for disease detection."  
+     [Scientific Reports](https://www.nature.com/articles/s41598-017-17876-z).
+
+2. **Bayesian neural networks**: Model uncertainty in parameters for underrepresented scenarios.  
+   - Example application: Detecting rare tumor types in radiology.  
+   - Reference: Blundell, C., et al. (2015). "Weight uncertainty in neural networks."  
+     [ArXiv](https://arxiv.org/abs/1505.05424).
+
+3. **Out-of-distribution detection**: Identify inputs outside the training distribution.  
+   - Example application: Flagging out-of-scope queries in chatbot systems.  
+   - Reference: Hendrycks, D., & Gimpel, K. (2017). "A baseline for detecting misclassified and out-of-distribution examples in neural networks."  
+     [ArXiv](https://arxiv.org/abs/1610.02136).
