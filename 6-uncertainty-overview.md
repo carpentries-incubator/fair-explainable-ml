@@ -23,10 +23,10 @@ exercises: 0
 - Summarize when and where different uncertainty estimation methods are most useful.  
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
-### How confident is my model? Will it generalize to new data or subpopulations?
+## How confident is my model? Will it generalize to new data?
 Understanding how confident a model is in its predictions is a valuable tool for building trustworthy AI systems, especially in high-stakes settings like healthcare or autonomous vehicles. Model uncertainty estimation focuses on quantifying the model's confidence and is often used to identify predictions that require further review or caution.
 
-### Sources of uncertainty 
+## Sources of uncertainty 
 At its core, model uncertainty starts with the **data** itself, as all models learn to form embeddings (feature representations) of the data. Uncertainty in the data—whether from inherent randomness or insufficient coverage—propagates through the model's embeddings, leading to uncertainty in the outputs. 
 
 #### 1) Aleatoric (Random) uncertainty
@@ -98,7 +98,7 @@ For example, in autonomous vehicles, OOD detection can help flag unexpected scen
 
 :::: challenge
 
-#### Identify aleatoric and epistemic uncertainty
+## Identify aleatoric and epistemic uncertainty
 
 For each scenario below, identify the sources of **aleatoric** and **epistemic** uncertainty. Provide specific examples based on the context of the application.
 
@@ -129,7 +129,6 @@ For each scenario below, identify the sources of **aleatoric** and **epistemic**
 
 
 #### Summary
-
 Uncertainty estimation is a critical component of building reliable and trustworthy machine learning models, especially in high-stakes applications. By understanding the distinction between aleatoric uncertainty (inherent data noise) and epistemic uncertainty (gaps in the model's knowledge), practitioners can adopt tailored strategies to improve model robustness and interpretability.
 
 - Aleatoric uncertainty is irreducible noise in the data itself. Addressing this requires models that can predict variability, such as heteroscedastic loss functions, or strategies like data augmentation to make models more resilient to imperfections.
@@ -137,28 +136,3 @@ Uncertainty estimation is a critical component of building reliable and trustwor
   - In many cases, collecting more data and employing active learning can directly address the root causes of epistemic uncertainty.
 
 When choosing a method, it’s important to consider the trade-offs in computational cost, model complexity, and the type of uncertainty being addressed. Together, these techniques form a powerful toolbox, enabling models to better navigate uncertainty and maintain trustworthiness in dynamic environments. By combining these approaches strategically, practitioners can ensure that their systems are not only accurate but also robust, interpretable, and adaptable to the challenges of real-world data.
-
-#### References and methods
-
-#### Methods for addressing aleatoric uncertainty
-1. **Heteroscedastic models**: Predict noise levels directly using specialized loss functions.  
-
-
-2. **Data augmentation**: Add noise to inputs to improve robustness to imaging artifacts.  
-
-
-#### Methods for addressing epistemic uncertainty
-1. **Ensemble models**: Aggregate predictions to capture model disagreement.  
-   - Example application: Predicting rare pandemic impacts on hospital demand.  
-   - Reference: Leibig, C., et al. (2017). "Leveraging uncertainty information from deep neural networks for disease detection."  
-     [Scientific Reports](https://www.nature.com/articles/s41598-017-17876-z).
-
-2. **Bayesian neural networks**: Model uncertainty in parameters for underrepresented scenarios.  
-   - Example application: Detecting rare tumor types in radiology.  
-   - Reference: Blundell, C., et al. (2015). "Weight uncertainty in neural networks."  
-     [ArXiv](https://arxiv.org/abs/1505.05424).
-
-3. **Out-of-distribution detection**: Identify inputs outside the training distribution.  
-   - Example application: Flagging out-of-scope queries in chatbot systems.  
-   - Reference: Hendrycks, D., & Gimpel, K. (2017). "A baseline for detecting misclassified and out-of-distribution examples in neural networks."  
-     [ArXiv](https://arxiv.org/abs/1610.02136).
