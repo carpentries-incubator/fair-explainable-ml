@@ -18,8 +18,7 @@ exercises: 0
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-# Introduction to Out-of-Distribution (OOD) Data
-## What is OOD data?
+## What is out-of-distribution (OOD) data
 Out-of-distribution (OOD) data refers to data that significantly differs from the training data on which a machine learning model was built, i.e., the in-distribution (ID). For example, the image below compares the training data distribution of CIFAR-10, a popular dataset used for image classification, with the vastly broader and more diverse distribution of images found on the internet:
 
 ![OpenAI: CIFAR-10 training distribution vs. internet](https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/OOD-internet-vs-CIFAR10.jpg)
@@ -36,7 +35,7 @@ Semantic shift often co-occurs with covariate shift.
 
 :::::::::::::::::::::::::::::::::::::: challenge
 
-###  Distinguishing Semantic Shift vs. Covariate Shift
+###  Distinguishing semantic shift vs. covariate shift
 
 You trained a model using the CIFAR-10 dataset to classify images into 10 classes (e.g., airplanes, dogs, trucks). Now, you deploy the model to classify images found on the internet. Consider the following scenarios and classify each as **Semantic Shift**, **Covariate Shift**, or **Both**. Provide reasoning for your choice.
 
