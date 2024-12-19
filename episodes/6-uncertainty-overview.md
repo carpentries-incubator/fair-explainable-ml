@@ -23,8 +23,7 @@ exercises: 0
 - Summarize when and where different uncertainty estimation methods are most useful.  
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
-
-## How confident is my model? Will it generalize to new data or subpopulations?
+### How confident is my model? Will it generalize to new data or subpopulations?
 Understanding how confident a model is in its predictions is a valuable tool for building trustworthy AI systems, especially in high-stakes settings like healthcare or autonomous vehicles. Model uncertainty estimation focuses on quantifying the model's confidence and is often used to identify predictions that require further review or caution.
 
 ### Sources of uncertainty 
