@@ -467,15 +467,19 @@ distance of a point from a distribution, accounting for the variance and
 correlations of the data:</p>
 <p><span class="math display">\[
 D_M(x) = \sqrt{(x - \mu)^T \Sigma^{-1} (x - \mu)}
-\]</span> where: - x: The input data point. - <span class="math inline">\(mu\)</span>: The mean vector of the distribution.
-- Sigma: The covariance matrix of the distribution. The inverse of the
+\]</span> where:</p>
+<ul><li>x: The input data point.</li>
+<li>
+<span class="math inline">\(mu\)</span>: The mean vector of the
+distribution.</li>
+<li>Sigma: The covariance matrix of the distribution. The inverse of the
 covariance matrix is used to “whiten” the feature space, ensuring that
 features with larger variances do not dominate the distance computation.
 This adjustment also accounts for correlations between features,
 transforming the data into a space where all features are uncorrelated
 and standardized. This approach is robust for high-dimensional data as
-it accounts for correlations between features.</p>
-<div class="codewrapper sourceCode" id="cb1">
+it accounts for correlations between features.</li>
+</ul><div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -912,10 +916,11 @@ challenges posed by overlapping Mahalanobis distance distributions.</p>
 <p>If you’re interested, we can explore specific contrastive learning
 methods like <strong>SimCLR</strong> or <strong>MoCo</strong> in future
 sessions, diving into how their objectives help create robust feature
-spaces! <!--
+spaces!</p>
+<!--
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
- --></p>
+ -->
 </div>
 
 
