@@ -1,3 +1,9 @@
+---
+title: "OOD detection: distance-based"
+teaching: 40
+exercises: 0
+---
+
 :::::::::::::::::::::::::::::::::::::::: questions
 - How do distance-based methods like Mahalanobis distance and KNN work for OOD detection?
 - What is contrastive learning and how does it improve feature representations?
