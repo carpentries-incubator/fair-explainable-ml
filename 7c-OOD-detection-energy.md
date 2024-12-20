@@ -61,6 +61,7 @@ Here:
 The exponential relationship ensures that even small differences in energy values translate to significant changes in probability. 
 
 If your stakeholders or downstream tasks require interpretable confidence scores, a Gibbs-based probability might make the thresholding process more understandable and adaptable. However, the raw energy scores can be more sensitive to OOD data since they do not compress their values between 0 and 1.
+
 ### 3. Why energy works better than softmax
 
 Softmax probabilities are computed as:  
