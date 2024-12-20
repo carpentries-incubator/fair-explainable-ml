@@ -237,6 +237,7 @@ if plot_umap:
     plt.show()
 ```
 With UMAP, we see our data clusters into more meaningful groups (compared to PCA). Our nonlinear model should hopefully have no problem separating these three clusters.
+
 ### Preparing data for CNN
 Next, we'll prepare our data for a pytorch (torch) CNN. 
 ```python
