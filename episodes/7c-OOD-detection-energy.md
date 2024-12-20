@@ -265,26 +265,59 @@ ood_loader = torch.utils.data.DataLoader(ood_dataset, batch_size=64, shuffle=Fal
 ### Define CNN class
 Next, we'll define a simple Convolutional Neural Network (CNN) to classify in-distribution (ID) data. This CNN will serve as the backbone for our experiments, enabling us to analyze its predictions on both ID and OOD data. The model will include convolutional layers for feature extraction and fully connected layers for classification.
 ```python
-import torch.nn as nn
-import torch.optim as optim
-import torch.nn.functional as F
+import torch.nn as nn  # Import the PyTorch module for building neural networks
+import torch.nn.functional as F  # Import functional API for activation and pooling
+import torch.optim as optim  # Import optimizers for training the model
 
 # Define a simple CNN model
 class SimpleCNN(nn.Module):
     def __init__(self):
         super(SimpleCNN, self).__init__()
-        self.conv1 = nn.Conv2d(1, 32, kernel_size=3)
+        # First convolutional layer
+        # Input: 1 channel (e.g., grayscale image), Output: 32 feature maps
+        # Kernel size: 3x3 (sliding window over the image)
+        self.conv1 = nn.Conv2d(1, 32, kernel_size=3) 
+        
+        # Second convolutional layer
+        # Input: 32 feature maps from conv1, Output: 64 feature maps
+        # Kernel size: 3x3
         self.conv2 = nn.Conv2d(32, 64, kernel_size=3)
-        self.fc1 = nn.Linear(64*5*5, 128)  # Updated this line
+
+        # Fully connected layer 1 (fc1)
+        # Input: Flattened feature maps after two conv+pool layers
+        # Output: 128 features
+        # Dimensions explained:
+        #   After two Conv2d layers with kernel_size=3 and MaxPool2d (2x2):
+        #   Input image size: (28x28) -> After conv1: (26x26) -> After pool1: (13x13)
+        #   -> After conv2: (11x11) -> After pool2: (5x5)
+        #   Total features to flatten: 64 (feature maps) * 5 * 5 (spatial size)
+        self.fc1 = nn.Linear(64 * 5 * 5, 128) 
+        
+        # Fully connected layer 2 (fc2)
+        # Input: 128 features from fc1
+        # Output: 2 classes (binary classification)
         self.fc2 = nn.Linear(128, 2)
 
     def forward(self, x):
-        x = F.relu(F.max_pool2d(self.conv1(x), 2))
-        x = F.relu(F.max_pool2d(self.conv2(x), 2))
-        x = x.view(-1, 64*5*5)  # Updated this line
-        x = F.relu(self.fc1(x))
-        x = self.fc2(x)
+        # Pass input through first convolutional layer
+        # Activation: ReLU (introduces non-linearity)
+        # Pooling: MaxPool2d with kernel size 2x2 (reduces spatial dimensions by half)
+        x = F.relu(F.max_pool2d(self.conv1(x), 2))  # Output size: (N, 32, 13, 13)
+        
+        # Pass through second convolutional layer
+        x = F.relu(F.max_pool2d(self.conv2(x), 2))  # Output size: (N, 64, 5, 5)
+        
+        # Flatten the feature maps for the fully connected layer
+        # x.view reshapes the tensor to (batch_size, flattened_size)
+        x = x.view(-1, 64 * 5 * 5)  # Output size: (N, 1600)
+        
+        # Pass through first fully connected layer with ReLU activation
+        x = F.relu(self.fc1(x))  # Output size: (N, 128)
+        
+        # Final fully connected layer for classification
+        x = self.fc2(x)  # Output size: (N, 2)
         return x
+
 
 ```
 ```python
@@ -380,6 +413,7 @@ def plot_confusion_matrix(labels, predictions, title):
     plt.show()
 
 ```
+
 ```python
 # Function to evaluate the model on a given dataset
 def evaluate_model(model, dataloader, device):
