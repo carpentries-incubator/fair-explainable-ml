@@ -71,6 +71,7 @@ P(y = k \mid x) = \frac{\exp(f_k(x))}{ \sum_{j} \exp(f_j(x))}
 $$
 
 The softmax function normalizes the logits \( f(x) \), squeezing the output into a range between 0 and 1. While this is useful for interpreting the model’s predictions as probabilities, it introduces **overconfidence** for OOD inputs. Specifically:
+
 - Even when none of the logits \( f_k(x) \) are strongly aligned with any class (e.g., low magnitudes for all logits), softmax still distributes the probabilities across the known classes.
 - The normalization ensures the total probability sums to 1, which can mask the uncertainty by making the scores appear confident for OOD inputs.
 
