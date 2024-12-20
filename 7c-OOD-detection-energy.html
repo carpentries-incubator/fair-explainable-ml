@@ -500,14 +500,14 @@ P(y = k \mid x) = \frac{\exp(f_k(x))}{ \sum_{j} \exp(f_j(x))}
 <p>The softmax function normalizes the logits <span class="math inline">\(f(x)\)</span>, squeezing the output into a range
 between 0 and 1. While this is useful for interpreting the model’s
 predictions as probabilities, it introduces
-<strong>overconfidence</strong> for OOD inputs. Specifically: - Even
-when none of the logits <span class="math inline">\(f_k(x)\)</span> are
-strongly aligned with any class (e.g., low magnitudes for all logits),
-softmax still distributes the probabilities across the known classes. -
-The normalization ensures the total probability sums to 1, which can
+<strong>overconfidence</strong> for OOD inputs. Specifically:</p>
+<ul><li>Even when none of the logits <span class="math inline">\(f_k(x)\)</span> are strongly aligned with any
+class (e.g., low magnitudes for all logits), softmax still distributes
+the probabilities across the known classes.</li>
+<li>The normalization ensures the total probability sums to 1, which can
 mask the uncertainty by making the scores appear confident for OOD
-inputs.</p>
-<p>Energy-based methods, on the other hand, do not normalize the logits
+inputs.</li>
+</ul><p>Energy-based methods, on the other hand, do not normalize the logits
 into probabilities by default. Instead, the <strong>energy
 score</strong> summarizes the raw logits as:</p>
 <p><span class="math display">\[
