@@ -1461,7 +1461,7 @@ and can have unpleasant side effects.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li><p>It is best if all patients who need the screening get it, and
@@ -1604,7 +1604,7 @@ same rate.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>A - 3, B - 2, C - 4, D - 1</p>
 </div>
@@ -1690,7 +1690,7 @@ uses of the LLM’s output.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <p>Most publicly-available LLM providers set up guardrails to avoid
 propagating biases present in their training data. For instance, as of
@@ -1742,7 +1742,7 @@ via social media</a>.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
 <p>While the picture is of Barack Obama, the upsampled image shows a
 white face. <img src="https://raw.githubusercontent.com/carpentries-incubator/fair-explainable-ml/main/images/e4-obama-upsampled.png" alt="Unblurred version of the pixelated picture of Obama. Instead of showing Obama, it shows a white man." class="figure"></p>
@@ -1847,7 +1847,7 @@ different settings?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution5" aria-expanded="false" aria-controls="collapseSolution5">
   <h4 class="accordion-header" id="headingSolution5"> Show me the solution </h4>
 </button>
-<div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
+<div id="collapseSolution5" class="accordion-collapse collapse" data-bs-parent="#accordionSolution5" aria-labelledby="headingSolution5">
 <div class="accordion-body">
 <p>A downside of oversampling is that it may violate statistical
 assumptions about independence of samples. A downside of undersampling
@@ -3491,7 +3491,7 @@ interpretability of the model?</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <table class="table">
 <colgroup>
@@ -4807,48 +4807,13 @@ survey on image data augmentation for deep learning.</a>”</li>
 </ul>
 </div>
 <div class="section level4">
-<h4 id="subjectivity-and-ill-defined-problems">2) Subjectivity and ill-defined problems<a class="anchor" aria-label="anchor" href="#subjectivity-and-ill-defined-problems"></a>
-</h4>
-<ul>
-<li>Overlapping classes, ambiguous labels due to subjective
-interpretations</li>
-<li>Ambiguous or conflicting text inputs.</li>
-</ul>
-</div>
-<div class="section level4">
-<h4 id="methods-for-addressing-subjectivity-and-ill-defined-problems">Methods for addressing subjectivity and ill-defined problems<a class="anchor" aria-label="anchor" href="#methods-for-addressing-subjectivity-and-ill-defined-problems"></a>
-</h4>
-<ul>
-<li>
-<strong>Reframe problme</strong>: If the overlap or subjectivity
-stems from an ill-posed problem, reframing the task can help. Example:
-Instead of classifying “happy” vs. “neutral” expressions (which
-overlap), predict the intensity of happiness on a scale of 0–1. For
-medical images, shift from hard “benign vs. malignant” classifications
-to predicting risk scores.</li>
-<li>
-<strong>Consensus-based labeling (inter-annotator
-agreement)</strong>: Aggregate labels from multiple annotators to reduce
-subjectivity and quantify ambiguity. Use metrics like Cohen’s kappa or
-Fleiss’ kappa to measure agreement between annotators. Example: In
-medical imaging (e.g., tumor detection), combining expert radiologists’
-opinions can reduce subjective bias in labeling.</li>
-<li>
-<strong>Probabilistic labeling or soft targets</strong>: Instead of
-using hard labels (e.g., 0 or 1), assign probabilistic labels to account
-for ambiguity in the data. Example: If 70% of annotators labeled an
-image as “happy” and 30% as “neutral,” you can label it as [0.7, 0.3]
-instead of forcing a binary decision.</li>
-</ul>
-</div>
-<div class="section level4">
-<h4 id="epistemic-uncertainty">3. Epistemic uncertainty<a class="anchor" aria-label="anchor" href="#epistemic-uncertainty"></a>
+<h4 id="epistemic-uncertainty">2. Epistemic uncertainty<a class="anchor" aria-label="anchor" href="#epistemic-uncertainty"></a>
 </h4>
 <p><strong>Epistemic</strong> (ep·i·ste·mic) is an adjective that means,
 “<em>relating to knowledge or to the degree of its validation.</em>”</p>
 <p>Epistemic uncertainty refers to gaps in the model’s knowledge about
 the data distribution, which can be reduced by using more data or
-improved models. Aleatoric uncertainy can arise due to:</p>
+improved models. Epistemic uncertainy can arise due to:</p>
 <ul>
 <li>
 <strong>Out-of-distribution (OOD) data</strong>:
@@ -4975,6 +4940,58 @@ methods are used to identify queries or statements that deviate from a
 model’s training corpus, such as out-of-context questions in a chatbot
 system. In the next couple of episodes, we’ll see how to implement
 various OOD strategies.</p>
+</div>
+<div class="section level4">
+<h4 id="subjectivity-and-ill-defined-problems">3) Subjectivity and ill-defined problems<a class="anchor" aria-label="anchor" href="#subjectivity-and-ill-defined-problems"></a>
+</h4>
+<p>A final source of model uncertainty, which sometimes receives less
+attention than aleatoric or epistemic uncertainty, arises from human
+subjectivity and ill-defined problems. These two sources are often
+intertwined: subjectivity reflects variability in how humans interpret
+data, while ill-defined problems arise when tasks or categories lack
+clear, objective boundaries. Together, they create challenges in
+labeling, data consistency, and model performance.</p>
+</div>
+<div class="section level4">
+<h4 id="methods-for-addressing-subjectivity-and-ill-defined-problems">Methods for addressing subjectivity and ill-defined problems<a class="anchor" aria-label="anchor" href="#methods-for-addressing-subjectivity-and-ill-defined-problems"></a>
+</h4>
+<ul>
+<li>
+<strong>Reframe problem</strong>: If the overlap or subjectivity
+stems from an ill-posed problem, reframing the task can significantly
+reduce ambiguity.
+<ul>
+<li>
+<strong>Avoid arbitrary discretization</strong>: For naturally
+continuous problems, use continuous models instead of forcing discrete
+classifications. Example: Instead of categorizing facial expressions as
+“happy” vs. “neutral” (which overlap), predict the intensity of
+happiness on a scale of 0–10. For medical images, shift from binary
+classifications like “benign vs. malignant” to predicting risk scores or
+probabilities, which better reflect the underlying uncertainty.
+Continuous outputs preserve more information about the underlying data,
+reduce the cognitive burden of defining strict boundaries, and allow for
+more nuanced predictions.</li>
+</ul>
+</li>
+<li>
+<strong>Consensus-based labeling (inter-annotator
+agreement)</strong>: Aggregate labels from multiple annotators to reduce
+subjectivity and quantify ambiguity. Use metrics like Cohen’s kappa or
+Fleiss’ kappa to measure agreement between annotators. Example: In
+sentiment analysis, annotators may disagree on whether a review is
+“positive” or “neutral.” By combining their opinions, you can capture
+the degree of subjectivity in the data, reduce labeling bias, and create
+a more reliable dataset.</li>
+<li>
+<strong>Probabilistic labeling or soft targets</strong>: Instead of
+assigning hard labels (e.g., 0 or 1), use probabilistic labels to
+represent ambiguity. Example: If 70% of annotators labeled an image as
+“happy” and 30% as “neutral,” assign a soft label of [0.7, 0.3] rather
+than forcing a binary decision. This approach helps the model reflect
+the inherent uncertainty in the data and encourages more flexible
+decision-making in downstream applications.</li>
+</ul>
 <div id="identify-aleatoric-and-epistemic-uncertainty" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
@@ -5006,7 +5023,7 @@ images.<br>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li><strong>Hospital resource allocation</strong></li>
