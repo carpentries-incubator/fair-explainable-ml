@@ -43,11 +43,9 @@ Since aleatoric/random uncertainty is generally considered inherent (unless you 
 - **Predictive variance in linear regression**: The ability to derive error bars or prediction intervals in traditional regression comes from the assumption that the errors (residuals) follow a normal distribution and are homoskedastic (errors stay relatively constant across different values of predictors).
   - In contrast, deep learning models are highly non-linear and have millions (or billions) of parameters. The mapping between inputs and outputs is not a simple linear equation but rather a complex, multi-layer function. In addition, deep learning can overfit common classes and underfit rarer clases. Because of these factors, errors are rarely normally distributed and homoskedastic in deep learning applications.
 - **Heteroskedastic models**: Use specialized loss functions that allow the model to predict the noise level in the data directly. These models are particularly critical in fields like *robotics*, where sensor noise varies significantly depending on environmental conditions. It is possible to build this functionality into both linear models and modern deep learning models. However, these methods may require some calibration, as ground truth measurements of noise usually aren't available.
-  - Example application: Managing hospital reporting inconsistencies.  
-  - Reference: Kendall, A., & Gal, Y. (2017). "[What uncertainties do we need in Bayesian deep learning for computer vision?](https://arxiv.org/abs/1703.04977)".
+  - Example application: Kendall, A., & Gal, Y. (2017). "[What uncertainties do we need in Bayesian deep learning for computer vision?](https://arxiv.org/abs/1703.04977)".
 - **Data augmentation and perturbation analysis**: Assess variability in predictions by adding noise to the input data and observing how much the model’s outputs change. A highly sensitive change in predictions may indicate underlying noise or instability in the data. For instance, in image classification, augmenting training data with synthetic noise can help the model better handle real-world imperfections stemming from sensor artifacts. 
-  - Example application: Handling motion blur in tumor detection.  
-  - Reference: Shorten, C., & Khoshgoftaar, T. M. (2019). "[A survey on image data augmentation for deep learning.](https://journalofbigdata.springeropen.com/articles/10.1186/s40537-019-0197-0)"  
+  - Example application: Shorten, C., & Khoshgoftaar, T. M. (2019). "[A survey on image data augmentation for deep learning.](https://journalofbigdata.springeropen.com/articles/10.1186/s40537-019-0197-0)"  
 
 #### 2) Subjectivity and ill-defined problems 
 
