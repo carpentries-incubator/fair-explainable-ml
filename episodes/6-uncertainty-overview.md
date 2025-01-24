@@ -46,22 +46,11 @@ Since aleatoric/random uncertainty is generally considered inherent (unless you 
   - Example application: Kendall, A., & Gal, Y. (2017). "[What uncertainties do we need in Bayesian deep learning for computer vision?](https://arxiv.org/abs/1703.04977)".
 - **Data augmentation and perturbation analysis**: Assess variability in predictions by adding noise to the input data and observing how much the model’s outputs change. A highly sensitive change in predictions may indicate underlying noise or instability in the data. For instance, in image classification, augmenting training data with synthetic noise can help the model better handle real-world imperfections stemming from sensor artifacts. 
   - Example application: Shorten, C., & Khoshgoftaar, T. M. (2019). "[A survey on image data augmentation for deep learning.](https://journalofbigdata.springeropen.com/articles/10.1186/s40537-019-0197-0)"  
-
-#### 2) Subjectivity and ill-defined problems 
-
-- Overlapping classes, ambiguous labels due to subjective interpretations
-- Ambiguous or conflicting text inputs.
-
-#### Methods for addressing subjectivity and ill-defined problems 
-- **Reframe problme**: If the overlap or subjectivity stems from an ill-posed problem, reframing the task can help. Example: Instead of classifying "happy" vs. "neutral" expressions (which overlap), predict the intensity of happiness on a scale of 0–1. For medical images, shift from hard "benign vs. malignant" classifications to predicting risk scores.
-- **Consensus-based labeling (inter-annotator agreement)**: Aggregate labels from multiple annotators to reduce subjectivity and quantify ambiguity. Use metrics like Cohen's kappa or Fleiss' kappa to measure agreement between annotators. Example: In medical imaging (e.g., tumor detection), combining expert radiologists’ opinions can reduce subjective bias in labeling.
-- **Probabilistic labeling or soft targets**: Instead of using hard labels (e.g., 0 or 1), assign probabilistic labels to account for ambiguity in the data. Example: If 70% of annotators labeled an image as "happy" and 30% as "neutral," you can label it as [0.7, 0.3] instead of forcing a binary decision.
-
     
-#### 3. Epistemic uncertainty 
+#### 2. Epistemic uncertainty 
 **Epistemic** (ep·i·ste·mic) is an adjective that means, "*relating to knowledge or to the degree of its validation.*" 
 
-Epistemic uncertainty refers to gaps in the model's knowledge about the data distribution, which can be reduced by using more data or improved models. Aleatoric uncertainy can arise due to:
+Epistemic uncertainty refers to gaps in the model's knowledge about the data distribution, which can be reduced by using more data or improved models. Epistemic uncertainy can arise due to:
 
 - **Out-of-distribution (OOD) data**:
   - Tabular: Classifying user behavior from a new region not included in training data. Predicting hospital demand during a rare pandemic with limited historical data. Applying model trained on one location to another.
@@ -94,6 +83,15 @@ Among epistemic uncertainty methods, OOD detection has become a widely adopted a
 
 For example, in autonomous vehicles, OOD detection can help flag unexpected scenarios (e.g., unusual objects on the road) in near real-time, enabling safer decision-making. Similarly, in NLP, OOD methods are used to identify queries or statements that deviate from a model's training corpus, such as out-of-context questions in a chatbot system. In the next couple of episodes, we'll see how to implement various OOD strategies.
 
+#### 3) Subjectivity and ill-defined problems 
+A final source of model uncertainty, which sometimes receives less attention than aleatoric or epistemic uncertainty, arises from human subjectivity and ill-defined problems. These two sources are often intertwined: subjectivity reflects variability in how humans interpret data, while ill-defined problems arise when tasks or categories lack clear, objective boundaries. Together, they create challenges in labeling, data consistency, and model performance.
+
+#### Methods for addressing subjectivity and ill-defined problems 
+- **Reframe problem**: If the overlap or subjectivity stems from an ill-posed problem, reframing the task can significantly reduce ambiguity.
+  - **Avoid arbitrary discretization**: For naturally continuous problems, use continuous models instead of forcing discrete classifications. Example: Instead of categorizing facial expressions as "happy" vs. "neutral" (which overlap), predict the intensity of happiness on a scale of 0–10. For medical images, shift from binary classifications like "benign vs. malignant" to predicting risk scores or probabilities, which better reflect the underlying uncertainty. Continuous outputs preserve more information about the underlying data, reduce the cognitive burden of defining strict boundaries, and allow for more nuanced predictions.
+- **Consensus-based labeling (inter-annotator agreement)**: Aggregate labels from multiple annotators to reduce subjectivity and quantify ambiguity. Use metrics like Cohen's kappa or Fleiss' kappa to measure agreement between annotators. Example: In sentiment analysis, annotators may disagree on whether a review is "positive" or "neutral." By combining their opinions, you can capture the degree of subjectivity in the data, reduce labeling bias, and create a more reliable dataset.
+- **Probabilistic labeling or soft targets**: Instead of assigning hard labels (e.g., 0 or 1), use probabilistic labels to represent ambiguity. Example: If 70% of annotators labeled an image as "happy" and 30% as "neutral," assign a soft label of [0.7, 0.3] rather than forcing a binary decision. This approach helps the model reflect the inherent uncertainty in the data and encourages more flexible decision-making in downstream applications.
+  
 :::: challenge
 
 ## Identify aleatoric and epistemic uncertainty
@@ -124,7 +122,6 @@ For each scenario below, identify the sources of **aleatoric** and **epistemic**
 - **Epistemic uncertainty**: Lack of training data for queries from out-of-scope domains; ambiguity due to unclear or multi-intent queries.
 
 :::::
-
 
 #### Summary
 Uncertainty estimation is a critical component of building reliable and trustworthy machine learning models, especially in high-stakes applications. By understanding the distinction between aleatoric uncertainty (inherent data noise) and epistemic uncertainty (gaps in the model's knowledge), practitioners can adopt tailored strategies to improve model robustness and interpretability.
