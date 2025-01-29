@@ -400,7 +400,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Overview</h1>
-        <p>Last updated on 2024-10-17 |
+        <p>Last updated on 2025-01-29 |
 
         <a href="https://github.com/carpentries-incubator/fair-explainable-ml/edit/main/episodes/0-introduction.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -498,9 +498,6 @@ scientific validity:</p>
 <li>Training and evaluating a model, especially selecting an accuracy
 metric, avoiding over/underfitting, and preventing data leakage (Model
 Evaluation and Fairness episode)</li>
-<li>Estimating model uncertainty (Estimating Model Uncertainty
-episode)</li>
-<li>Out-of-distribution detection (OOD Detection episodes)</li>
 </ul></div>
 <div class="section level3">
 <h3 id="fairness">Fairness<a class="anchor" aria-label="anchor" href="#fairness"></a></h3>
@@ -523,6 +520,31 @@ episodes:</p>
 <li>Explainability Methods: Deep Dive, Linear Probe, and GradCAM
 episodes</li>
 </ul></div>
+<div class="section level3">
+<h3 id="safety-uncertainty-awareness">Safety &amp; uncertainty awareness<a class="anchor" aria-label="anchor" href="#safety-uncertainty-awareness"></a></h3>
+<p>AI models should be able to quantify their uncertainty and recognize
+when they encounter novel or unreliable inputs. If a model makes
+confident predictions on data that it has never seen before (e.g.,
+out-of-distribution data), it can lead to critical failures in
+high-stakes applications like healthcare or autonomous systems.</p>
+<p>In this workshop, we cover the following topics relating to safety
+and uncertainty awareness:</p>
+<ul><li>Estimating model uncertainty—understanding when models should be
+uncertain and how to measure it (Estimating Model Uncertainty
+episode)</li>
+<li>Out-of-distribution detection—distinguishing between known and
+unknown data distributions to improve reliability (OOD Detection
+episodes)</li>
+<li>Comparing uncertainty estimation and OOD detection approaches,
+including:
+<ul><li>Output-based methods (softmax confidence, energy-based models)</li>
+<li>Distance-based methods (Mahalanobis distance, k-NN)</li>
+<li>Contrastive learning for improving generalization</li>
+</ul></li>
+</ul><p>By incorporating uncertainty estimation and OOD detection, we
+emphasize the importance of AI models <em>knowing what they don’t
+know</em> and making safer decisions.</p>
+</div>
 <div class="section level3">
 <h3 id="accountability">Accountability<a class="anchor" aria-label="anchor" href="#accountability"></a></h3>
 <p>Accountability is important for trustworthy AI because, inevitably,
@@ -625,7 +647,7 @@ real).</li>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p>Inline instructor notes can help inform instructors of timing
 challenges associated with the lessons. They appear in the “Instructor
@@ -698,8 +720,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/fair-explainable-ml/instructor/0-introduction.html",
   "identifier": "https://carpentries-incubator.github.io/fair-explainable-ml/instructor/0-introduction.html",
   "dateCreated": "2023-12-05",
-  "dateModified": "2024-10-17",
-  "datePublished": "2025-01-28"
+  "dateModified": "2025-01-29",
+  "datePublished": "2025-01-29"
 }
 
   </script><script>
