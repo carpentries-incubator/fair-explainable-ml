@@ -57,8 +57,6 @@ In this workshop, we cover the following topics relating to scientific validity:
 
 * Defining the problem (Preparing to Train a Model episode)
 * Training and evaluating a model, especially selecting an accuracy metric, avoiding over/underfitting, and preventing data leakage (Model Evaluation and Fairness episode)
-* Estimating model uncertainty (Estimating Model Uncertainty episode)
-* Out-of-distribution detection (OOD Detection episodes)
 
 ### Fairness
 As stated in the AI Bill of Rights, AI systems should not be discriminatory or produce inequitable outcomes. In the Model Evaluation and Fairness episode we discuss various definitions of fairness in the context of AI, and overview how model developers try to make their models more fair. 
@@ -69,6 +67,20 @@ Transparency -- i.e., insight into *how* a model makes its decisions -- is impor
 * Interpretability vs Explainability
 * Explainability Methods Overview
 * Explainability Methods: Deep Dive, Linear Probe, and GradCAM episodes
+  
+### Safety & uncertainty awareness
+AI models should be able to quantify their uncertainty and recognize when they encounter novel or unreliable inputs. If a model makes confident predictions on data that it has never seen before (e.g., out-of-distribution data), it can lead to critical failures in high-stakes applications like healthcare or autonomous systems.
+
+In this workshop, we cover the following topics relating to safety and uncertainty awareness:
+
+* Estimating model uncertainty—understanding when models should be uncertain and how to measure it (Estimating Model Uncertainty episode)
+* Out-of-distribution detection—distinguishing between known and unknown data distributions to improve reliability (OOD Detection episodes)
+* Comparing uncertainty estimation and OOD detection approaches, including:
+  * Output-based methods (softmax confidence, energy-based models)
+  * Distance-based methods (Mahalanobis distance, k-NN)
+  * Contrastive learning for improving generalization
+
+By incorporating uncertainty estimation and OOD detection, we emphasize the importance of AI models *knowing what they don’t know* and making safer decisions.
 
 ### Accountability
 Accountability is important for trustworthy AI because, inevitably, models will make mistakes or cause harm. Accountability is multi-faceted and largely non-technical, which is not to say unimportant, but just that it falls partially out of scope of this technical workshop.
