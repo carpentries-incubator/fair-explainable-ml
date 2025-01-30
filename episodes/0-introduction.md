@@ -48,7 +48,7 @@ The blueprint is centered around five principles:
 
 ## This workshop
 
-This workshop centers around four principles that are important to trustworthy AI: *scientific validity*, *fairness*, *transparency*, and *accountability*. We summarize each principle here.
+This workshop centers around four principles that are important to trustworthy AI: *scientific validity*, *fairness*, *transparency*, *safety & uncertainty*, and *accountability*. We summarize each principle here.
 
 ### Scientific validity
 In order to be trustworthy, a model and its predictions need to be founded on good science. A model is not going to perform well if is not trained on the correct data, if it fits the underlying data poorly, or if it cannot recognize its own limitations. Scientific validity is closely linked to the AI Bill of Rights principle of "safe and effective systems". 
