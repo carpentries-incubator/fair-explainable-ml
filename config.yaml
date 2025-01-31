@@ -11,7 +11,7 @@
 carpentry: 'incubator'
 
 # Overall title for pages.
-title: 'Trustworthy AI: Validity, Explainability, Fairness, and Uncertainty Assessments' 
+title: 'Trustworthy AI: Validity, Fairness, Explainability, and Uncertainty Assessments' 
 
 # Date the lesson was created (YYYY-MM-DD, this is empty by default)
 created: 2023-12-05
