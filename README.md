@@ -1,42 +1,7 @@
-# Fair and Explainable Machine Learning
+# Trustworthy AI: Validity, Fairness, Explainability, and Uncertainty Assessments
 
-This lesson plan aims to introduce machine learning practitioners about responsible machine learning, with a focus on fairness, explanability, and reproducibilities concerns. This lesson is developed through [The Carpentries Workbench][workbench] framework and is designed to be taught as a Carpentries workshop. 
+This lesson plan aims to introduce machine learning practitioners about responsible machine learning, with a focus on fairness, explanability, and reproducibility concerns. This lesson is developed through [The Carpentries Workbench][workbench] framework and is designed to be taught as a Carpentries workshop. 
 
-
-The remainder of the README below is general guidelines for creating a Carpentries lesson plan and will be updated as this lesson plan is completed.
-
-## Configure a new lesson
-
-Follow the steps below to
-complete the initial configuration of a new lesson repository built from this template:
-
-1. **Make sure GitHub Pages is activated:**
-   navigate to _Settings_,
-   select _Pages_ from the left sidebar,
-   and make sure that `gh-pages` is selected as the branch to build from.
-   If no `gh-pages` branch is available, check _Actions_ to see if the first
-   website build workflows are still running.
-   The branch should become available when those have completed.
-1. **Adjust the `config.yaml` file:**
-   this file contains global parameters for your lesson site.
-   Individual fields within the file are documented with comments (beginning with `#`)
-   At minimum, you should adjust all the fields marked 'FIXME':
-   - `title`
-   - `created`
-   - `keywords`
-   - `life_cycle` (the default, _pre-alpha_, is the appropriate for brand new lessons)
-   - `contact`
-1. **Annotate the repository** with site URL and topic tags:
-   navigate back to the repository landing page and
-   click on the gear wheel/cog icon (similar to ⚙️) 
-   at the top-right of the _About_ box.
-   Check the "Use your GitHub Pages website" option,
-   and [add some keywords and other annotations to describe your lesson](https://cdh.carpentries.org/the-carpentries-incubator.html#topic-tags)
-   in the _Topics_ field.
-   At minimum, these should include:
-   - `lesson`
-   - the life cycle of the lesson (e.g. `pre-alpha`)
-   - the human language the lesson is written in (e.g. `deutsch`)
 1. **Adjust the 
    `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`, and `LICENSE.md` files**
    as appropriate for your project.
