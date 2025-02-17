@@ -33,7 +33,7 @@ source: 'https://github.com/carpentries-incubator/fair-explainable-ml'
 branch: 'main'
 
 # Who to contact if there are any issues
-contact: 'apmeyer4@wisc.edu' 
+contact: 'endemann@wisc.edu' 
 
 # Navigation ------------------------------------------------
 #
